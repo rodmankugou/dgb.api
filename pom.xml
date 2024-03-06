@@ -42,6 +42,7 @@
 
     <mongo.java.driver.version>3.12.7</mongo.java.driver.version>
     <mongo.spring.data.version>2.1.2.RELEASE</mongo.spring.data.version>
+    <spring.boot.maven.plugin>2.7.5</spring.boot.maven.plugin>
     <xxl.job.version>1.9.2</xxl.job.version>
     <!--jar包输出目录-->
     <jar.output.dir>/Users/liujinhua/dev/ex-jar-output</jar.output.dir>

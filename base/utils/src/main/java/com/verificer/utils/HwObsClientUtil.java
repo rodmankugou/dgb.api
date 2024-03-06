@@ -22,7 +22,7 @@ public class HwObsClientUtil {
     /**
      * End Point
      */
-    public static String endPoint = "obs.ap-southeast-3.myhuaweicloud.com";
+    public static String endPoint = "obs.cn-south-1.myhuaweicloud.com";
     /**
      * Access Kye
      */

@@ -32,54 +32,46 @@ public class SwaggerConfig {
                 .build().groupName("common");
     }
 
+
+
     @Bean
-    public Docket createUserApi(){
+    public Docket createGoodsApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.user"))
-                .build().groupName("user");
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.goods"))
+                .build().groupName("goods");
     }
 
 
     @Bean
-    public Docket createProjectApi(){
+    public Docket createCodeApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.project"))
-                .build().groupName("project");
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.code"))
+                .build().groupName("code");
     }
 
     @Bean
-    public Docket createBankApi(){
+    public Docket createShopApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.bank"))
-                .build().groupName("bank");
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.shop"))
+                .build().groupName("shop");
     }
 
     @Bean
-    public Docket createCompanyApi(){
+    public Docket createSystemApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.company"))
-                .build().groupName("company");
-    }
-
-    @Bean
-    public Docket createTokenApi(){
-
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-                .enable(enable)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.token"))
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.system"))
                 .build().groupName("token");
     }
 
@@ -90,7 +82,7 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder()
                 .title("NFT ADMIN API Doc")
-                .description("目前共有common-通用接口、user-用户、bank-银行、project-项目、company-企业、token-账户，共6组api，\n请点击上方的选择框选择不同分组的api进行查阅。")
+                .description("目前共有common-通用接口、system-系统（登录等）、goods-商品、shop-店铺、code-图片验证码，共5组api，\n请点击上方的选择框选择不同分组的api进行查阅。")
                 .version("1.0")
                 .build();
     }
