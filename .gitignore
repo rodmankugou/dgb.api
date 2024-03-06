@@ -1,0 +1,9 @@
+.idea
+.idea/
+*.iml
+target
+target/
+work_note/
+work_note
+
+dump.rdb
