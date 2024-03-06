@@ -1,4 +1,0 @@
-ALTER TABLE `chain_tx` ADD COLUMN `validate_status` tinyint(4) COMMENT '0-待验证 1-无须验证 2-验证通过 3-验证不通过' AFTER `id`;
-
-update chain_tx set validate_status = 1 where type not in (1,2);
-update chain_tx set validate_status = 0 where type  in (1,2);

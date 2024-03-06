@@ -1,5 +1,0 @@
-9958,8489,6093,714,922
-
-
-| 391140 |    2 | 0x0395f526732a596bd1f204b9389427487a2f39d6 | 14466          | NULL         | 388020335150109824 | {"bidId":"128945","blockHeight":1682274,"fromAddress":"0x97a2407e5b4afc21efe0cbbf00bb24713b5b83cb","orderId":"14466","price":93162,"status":"CONFIRM","toAddress":"0x0395f526732a596bd1f204b9389427487a2f39d6","txHash":"0xfd5320f652dffc104d71bf23977b3eb52958c692dec3afa78ab2ee6a1070e42f"} |      1682274 | 0xfd5320f652dffc104d71bf23977b3eb52958c692dec3afa78ab2ee6a1070e42f |       NULL |
-| 391139 |    2 | 0x0395f526732a596bd1f204b9389427487a2f39d6 | 17958          | NULL         | 388092190183659301 | {"bidId":"128944","blockHeight":1682267,"fromAddress":"0xead702f1f55c93f1e753bed63870e7855159b1c4","orderId":"17958","price":3207,"status":"CONFIRM","toAddress":"0x0395f526732a596bd1f204b9389427487a2f39d6","txHash":"0x8ed890cf6d86949efc5c84bfb65e29bef3d40df832dd59099aa4b88f5a87818d"}  |      1682267 | 0x8ed890cf6d86949efc5c84bfb65e29bef3d40df832dd59099aa4b88f5a87818d |       NULL |
