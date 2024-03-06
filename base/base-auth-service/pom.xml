@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>base</artifactId>
+        <groupId>com.verificer</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>base-auth-service</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>base-auth-service</name>
+    <modules>
+        <module>base-auth-interface</module>
+        <module>base-auth-provider</module>
+    </modules>
+
+</project>

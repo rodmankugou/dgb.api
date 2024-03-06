@@ -1,0 +1,24 @@
+ALTER TABLE `chain_tx` ADD COLUMN `from_address` varchar(255) AFTER `token_id`, CHANGE COLUMN `json_notify_vo` `json_notify_vo` varchar(5000) DEFAULT NULL COMMENT 'json' AFTER `from_address`, CHANGE COLUMN `block_height` `block_height` bigint DEFAULT NULL COMMENT '区块高度' AFTER `json_notify_vo`, CHANGE COLUMN `tx_hash` `tx_hash` varchar(200) DEFAULT NULL COMMENT '交易hash' AFTER `block_height`, CHANGE COLUMN `block_time` `block_time` bigint DEFAULT NULL COMMENT '区块时间' AFTER `tx_hash`;
+
+CREATE TABLE `full_chain_tx` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `type` tinyint DEFAULT NULL COMMENT '1- 创建订单 2-bid 3-confirm 4-rebate',
+  `ex_contract_address` varchar(255) DEFAULT NULL COMMENT '交易合约地址',
+  `chain_order_id` varchar(255) DEFAULT NULL COMMENT '链上拍卖订单id',
+  `chain_bid_id` varchar(255) DEFAULT NULL,
+  `token_id` varchar(255) DEFAULT NULL,
+  `from_address` varchar(255) DEFAULT NULL,
+  `is_existed` tinyint(1) DEFAULT NULL COMMENT '是否已在chain_tx表中存在',
+  `json_notify_vo` varchar(5000) DEFAULT NULL COMMENT 'json',
+  `block_height` bigint DEFAULT NULL COMMENT '区块高度',
+  `tx_hash` varchar(200) DEFAULT NULL COMMENT '交易hash',
+  `block_time` bigint DEFAULT NULL COMMENT '区块时间',
+  PRIMARY KEY (`id`),
+  KEY `ex_contract_address_and_chain_order_id` (`ex_contract_address`,`chain_order_id`) USING BTREE,
+  KEY `block_height` (`block_height`) USING BTREE,
+  KEY `token_id` (`token_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `asset_record` CHANGE COLUMN `chain_tx_id` `chain_tx_id` bigint;
+
+ALTER TABLE `full_chain_tx` ADD INDEX `is_existed_token_id` USING BTREE (`is_existed`, `token_id`) comment '';

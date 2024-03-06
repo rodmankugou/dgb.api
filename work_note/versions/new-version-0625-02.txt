@@ -1,0 +1,5 @@
+1、上线前
+
+
+ALTER TABLE `chain_tx` ADD INDEX `tx_hash` USING BTREE (`tx_hash`) comment '';
+ALTER TABLE `chain_tx` ADD INDEX `ex_contract_address_and_chain_order_id` USING BTREE (`ex_contract_address`, `chain_order_id`) comment '';

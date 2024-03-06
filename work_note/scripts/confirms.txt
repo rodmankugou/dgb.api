@@ -1,0 +1,15 @@
+
+
+select br.id, br.price, br.status,br.chain_order_id, br.auction_record_id,
+    ar.chain_order_id as auction_chain_order_id, ar.auction_end_time, ar.status as auction_status
+    from bid_record br
+    join  auction_record ar on (br.auction_record_id = ar.id)
+    where br.bidder_id in (select id from customer where wallet_address = '0xDc4CfA0564d154694b83a9C55190F9d999248769')
+    and br.status = 1  ;
+
+
+select br.*
+    from bid_record br
+    join  auction_record ar on (br.auction_record_id = ar.id)
+    where br.bidder_id in (select id from customer where wallet_address = '0xDc4CfA0564d154694b83a9C55190F9d999248769')
+    and br.status = 1  ;

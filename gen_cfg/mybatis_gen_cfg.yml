@@ -1,0 +1,28 @@
+biz:
+  gen:
+    entityDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/biz/biz/entity
+    mapperDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/biz/biz/mapper
+  code:
+    entityDir: /Users/liujinhua/dev/workspace/dbg.api/biz/biz-service-provider/src/main/java/com/verificer/biz/biz/entity
+    mapperDir: /Users/liujinhua/dev/workspace/dbg.api/biz/biz-service-provider/src/main/java/com/verificer/biz/biz/mapper
+sup:
+  gen:
+    entityDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/base/sup/pvd/entity
+    mapperDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/base/sup/pvd/mapper
+  code:
+    entityDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-sup-service/src/main/java/com/verificer/base/sup/pvd/entity
+    mapperDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-sup-service/src/main/java/com/verificer/base/sup/pvd/mapper
+account:
+  gen:
+    entityDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/account/provider/entity
+    mapperDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/account/provider/mapper
+  code:
+    entityDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-account-service/baccount-service-provider/src/main/java/com/verificer/account/provider/entity
+    mapperDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-account-service/baccount-service-provider/src/main/java/com/verificer/account/provider/mapper
+user:
+  gen:
+    entityDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/base_user/entity
+    mapperDir: /Users/liujinhua/dev/mybaits_generator_dir/com/verificer/base_user/mapper
+  code:
+    entityDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-user-service/src/main/java/com/verificer/base_user/entity
+    mapperDir: /Users/liujinhua/dev/workspace/dbg.api/base/base-user-service/src/main/java/com/verificer/base_user/mapper

@@ -1,0 +1,33 @@
+
+select count(*) from cancel_task;
+select count(distinct auction_record_id) from cancel_task;
+
+select from_unixtime(auction_end_time/1000) from auction_record where status = 10;
+
+#查重复的cancelTask
+delete from cancel_task where id in(
+select id from (
+    select t2.id
+    from cancel_task t1 join cancel_task t2
+    on (t1.auction_record_id = t2.auction_record_id and t1.id < t2.id )
+) as temp
+);
+
+select group_concat(artwork_id) from (select artwork_id from auction_record where status = 10) as temp;
+
+
+#重新触发cancel
+select * from cancel_task
+where auction_record_id in (select id from auction_record where status = 10)
+    and tx_hash not in (select tx_hash from chain_tx );
+
+delete from cancel_task
+where auction_record_id in (select id from auction_record where status = 10)
+    and tx_hash not in (select tx_hash from chain_tx );
+
+update auction_record set status = 4  where status = 10;
+#END
+
+select tx_hash from chain_tx where tx_hash  = '0xc60014d7c0274685d527a80ff99a2259d5a8031260d9445d81a00453a1bcc5c4';
+
+1957,7134,4581,11582,2027,5817,13729,5747,3488,7759,6724,12498,4369,8417,7087,11895,3096,13131,3849,4888,3932,4316,2554,1711,13452,6788,3140,6874,14335,2920,14351,11986,13334,1987,8521,1800,9108,1208,3387,1101,1706,13148,13737,6911,12453,12246,14362,4349,8210,1853,1363,14342,4170,14405,7528,8203,6795,4406,4707,13133,7708,7470,9661,11938,11573,14380,13927,9463,4614,12574,6901,1843,4275,13553,7440,9633,4081,7455,7431,7421,7406,4918,13108,13901,2607,8126,12777,13924,3566,8121,7371,8110,7355,5528,4568,11800,12684,12315

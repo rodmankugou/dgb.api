@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+
+
+
+
+
+    <!--在此定义短信和验证码相关的bean，免得初始化时扫描过多的包-->
+    <bean id="emailService" class="com.verificer.message.service.impl.EmailServiceImpl">
+    </bean>
+
+    <bean id="smsService" class="com.verificer.message.service.impl.SmsServiceImpl">
+    </bean>
+
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="fileEncoding" value="UTF-8" />
+        <property name="locations">
+            <list>
+                <value>classpath:properties/systemSetting.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--登录状态管理器使用的缓存，该缓存基于redis-->
+    <bean id="redisLoginCache" class="com.verificer.security.login.impl.RedisLoginCache">
+        <property name="redisUtil" ref="redisUtil"></property>
+    </bean>
+
+    <!--登录状态管理器-->
+    <bean id="loginMonitor" class="com.verificer.security.login.impl.NoLimitLoginMonitor">
+        <property name="cache" ref="redisLoginCache"></property>
+        <property name="keepTime" value="${LOGIN_ALIVE_TIME}"></property>
+        <property name="tokenAliveTime" value="${TOKEN_ALIVE_TIME}"></property>
+        <property name="appName" value="NFT_admin"></property>
+
+        <!--如果项目中不需要用到forceLogout功能，则关闭功能会减少对缓存的访问次数-->
+        <property name="enableForceLogOut" value="true"></property>
+    </bean>
+
+    <!--登录验证器，对于controller方法中包含@NeedLogin注解的接口进行访问登录状态检查-->
+    <bean id="needLoginInterceptor" class="com.verificer.exchange.admin.security.interceptor.NeedLoginInterceptor">
+        <property name="redisUtil" ref="redisUtil"></property>
+        <property name="loginMonitor" ref="loginMonitor"></property>
+    </bean>
+
+    <!--检查http请求的请求头的拦截器-->
+    <bean id="headerCheckInterceptor" class="com.verificer.exchange.admin.security.interceptor.HeaderCheckInterceptor">
+    </bean>
+
+    <bean id="activeCodeUtil" class="com.verificer.message.utils.ActiveCodeUtil">
+        <property name="smsService" ref="smsService"></property>
+        <property name="emailService" ref="emailService"></property>
+        <property name="redisUtil" ref="redisUtil"></property>
+        <!--是否debug模式，deubg模式下不限制验证码的发送频率-->
+        <property name="debug" value="${IS_DEBUG}"></property>
+    </bean>
+
+</beans>

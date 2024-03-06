@@ -1,0 +1,21 @@
+select * from auction_record where status = 11;
+
+
+
+update bid_record set status = 3 where id in (
+    select id from
+    (select br.id from bid_record br
+       join auction_record ar on (ar.id = br.auction_record_id)
+       join artwork a on (ar.artwork_id = a.id)
+       where ar.status = 3 and a.status !=-1 and br.status = 1) as temp
+) and status = 1;
+
+
+select cus.wallet_address from bid_record br
+       join auction_record ar on (ar.id = br.auction_record_id)
+       join artwork a on (ar.artwork_id = a.id)
+       join customer cus on (br.bidder_id = cus.id)
+       where ar.status = 3 and a.status !=-1 and br.status = 3
+
+select * from bid_record where auction_record_id = 1754 and status < 100 exOrder by price desc limit 3 ;
+  select * from auction_record where status = 3 and artwork_id  in (select id from artwork where status = -1)

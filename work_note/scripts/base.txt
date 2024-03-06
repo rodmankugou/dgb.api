@@ -1,0 +1,1 @@
+select * from customer where wallet_address = '0xDc4CfA0564d154694b83a9C55190F9d999248769'

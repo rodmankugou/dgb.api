@@ -1,0 +1,29 @@
+select * from retry_task where type = 2 and auction_record_id  in (select id from auction_record where status = 11);
+
+#confirm
+select * from retry_task where type = 1 and auction_record_id  in (select id from auction_record where status = 11);
+update retry_task set status = 0,retry_count = 0 where id in (
+    select id from (
+        select id from retry_task where type = 1 and auction_record_id  in (select id from auction_record where status = 11)
+    )as temp
+);
+
+#cancel
+select * from retry_task where type = 3 and auction_record_id  in (select id from auction_record where status = 10);
+update retry_task set status = 0,retry_count = 0 where id in (
+    select id from (
+        select * from retry_task where type = 3 and auction_record_id  in (select id from auction_record where status = 10)
+    )as temp
+);
+
+select * from retry_task where type = 2 and auction_record_id  in (select id from auction_record where status = 6 and chain_order_id != 2403);
+update retry_task set status = 0,retry_count = 0 where id in (
+    select id from (
+        select * from retry_task where type = 2 and auction_record_id  in (select id from auction_record where status = 6 and chain_order_id != 2403)
+    )as temp
+);
+
+select * from confirm_record  where auction_id in (select id from auction_record where status = 11);
+update confirm_record set status= 1 where auction_id in (select id from auction_record where status = 11);
+
+

@@ -1,0 +1,44 @@
+CREATE TABLE `sim_address` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `real_address` varchar(255) DEFAULT NULL,
+  `sim_address` varchar(255) DEFAULT NULL COMMENT '模拟地址',
+  `sim_private_key` varchar(255) DEFAULT NULL,
+  `gas_balance` decimal(38,18) DEFAULT NULL COMMENT '燃料币余额',
+  `qut_balance` decimal(10,0) DEFAULT NULL COMMENT '法币余额',
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `chain_tx` ADD COLUMN `token_id` varchar(255) AFTER `chain_bid_id`;
+
+ALTER TABLE `chain_tx` ADD INDEX `token_id` USING BTREE (`token_id`) comment '';
+
+
+drop table if exists sim_tx;
+CREATE TABLE `sim_tx` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `chain_tx_id` bigint NOT NULL,
+  `type` tinyint DEFAULT NULL,
+  `batch_id` varchar(255) DEFAULT NULL,
+  `success_flag` tinyint(1) DEFAULT NULL COMMENT '0-不成功 1-成功',
+  `tx_hash` varchar(255) DEFAULT NULL,
+  `token_id` varchar(255) DEFAULT NULL COMMENT 'token_id',
+  `from_address` varchar(255) DEFAULT NULL,
+  `contract_address` varchar(255) DEFAULT NULL COMMENT '合约地址',
+  `block_height` bigint DEFAULT NULL COMMENT '区块高度',
+  `body` varchar(255) DEFAULT NULL,
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `sim_address` ADD UNIQUE `sim_address` USING BTREE (`sim_address`) comment '';
+
+CREATE TABLE `repeat_process` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `token_id` varchar(255) DEFAULT NULL,
+  `artwork_id` bigint DEFAULT NULL,
+  `auction_record_Id` bigint DEFAULT NULL,
+  `type` tinyint DEFAULT NULL COMMENT '1-取消 2-交割 ',
+  `owner_address` varchar(255) DEFAULT NULL,
+  `create_time` bigint DEFAULT NULL COMMENT '重复拍卖处理记录',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

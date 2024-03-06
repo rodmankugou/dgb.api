@@ -1,0 +1,12 @@
+CREATE TABLE `err_artwork_owner` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `artwork_id` bigint DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `token_id` varchar(255) DEFAULT NULL,
+  `real_owner_addr` varchar(255) DEFAULT NULL,
+  `db_owner_addr` varchar(255) DEFAULT NULL,
+  `create_time` bigint DEFAULT NULL,
+  `batch_remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `batch_remark` (`batch_remark`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

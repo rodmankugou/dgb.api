@@ -1,0 +1,26 @@
+1、上线前
+
+2、修改ScanEngine类，根据配置文件来执行是否扫链(已完成)
+3、修改dubbo-端口，两个配置文件，三个配置项(已完成)
+
+4、停掉auto_scan服务（7服务器上）
+5、停掉原服务(biz user web)
+
+6、备份数据库
+mysqldump -hsevensea-prod.czeleq40nwlm.ap-southeast-1.rds.amazonaws.com -uadmin -p sevenseas > /home/ubuntu/dbbackup/sevenseas-lasted.sql
+VAfeqJ8MxgQ89iQ
+ls -lht /home/ubuntu/dbbackup/sevenseas-lasted.sql
+
+7、启动新服务
+
+
+上线后
+
+执行sql
+update auction_record ar set status = 3 where status = 4 and id in
+(
+	select auction_record_id from bid_record br  where br.auction_record_id = ar.id and br.status = 1
+)
+
+
+

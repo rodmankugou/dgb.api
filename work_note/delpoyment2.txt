@@ -1,0 +1,131 @@
+以下操作使用root命令执行
+
+1、上传部署以来文件压缩包到服务器
+1.1 将压缩文件复制到root目录下
+    mv /home/ubuntu/deployment-dir.zip /root/
+1.2 进入root目录并解压
+    cd /root
+    unzip deployment-dir.zip
+
+1、安装nginx
+apt-get install nginx
+service nginx start
+
+2、配置并启动nginx
+2.1 复制配置文件到conf.d
+    cp /root/deployment-dir/nginx-conf-dir/* /etc/nginx/conf.d
+2.2 复制ssh公私钥到/etc/ssl/
+    mkdir /etc/nginx/ssl
+    cp /root/deployment-dir/nginx-ssl-dir/* /etc/nginx/ssl
+
+2.3 检查和重新加载配置文件
+    nginx -t (如有不要执行下一步)
+    nginx -s reload
+
+3、安装java
+3.1 进入/usr/local目录，并解压安装
+    cd /usr/local
+    mv /root/deployment-dir/jdk-8u291-linux-x64.tar.gz ./
+    tar -zxvf jdk-8u291-linux-x64.tar.gz
+    mkdir jdk
+    mv jdk1.8.0_291 ./jdk
+
+3.2、配置环境,打开/etc/profile文件，并添加内容
+    a1、
+        vi /etc/profile
+
+    a2、在尾部追加以下内容
+#set java env
+export JAVA_HOME=/usr/local/jdk/jdk1.8.0_291
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+    a3、执行命令
+        source /etc/profile
+    a4、在 ～/.bashrc的底部追加一行配置，使配置在新连接中生效
+        sudo vi ~/.bashrc
+        ##在底部添加内容： source /etc/profile
+    a5、切换ubunut用户，并～/.bashrc的底部追加一行配置，使配置在新连接中生效
+        su ubuntu
+        vi ~/.bashrc
+        ##在底部添加内容： source /etc/profile
+        sudo su
+
+4、安装maven（确保是maven3.*版本就可以）
+执行 mvn -v，如果提示未安装，则按照提示安装
+
+5、安装 npm 6.*
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash  -
+sudo apt-get install -y nodejs
+
+6、创建目录供后续使用
+mkdir /mnt/cn-sevensea
+mkdir /mnt/sevensea
+chown -R ubuntu /mnt/cn-sevensea
+chown -R ubuntu /mnt/sevensea
+
+7、修改部署以来文件中某些文件夹的owner以用于后续部署
+chown -R ubuntu /root/deployment-dir/gitee_keys
+chown -R ubuntu /root/deployment-dir/run-sh/
+
+*********************************************
+以下命令用ubuntu用户操作
+1、配置git
+mv /root/deployment-dir/gitee_keys/* /home/ubuntu/.ssh/
+
+2、～/.bashrc的底部追加两行配置
+     vi ~/.bashrc
+     ##在底部添加内容：
+ssh-agent bash
+ssh-add /home/ubuntu/.ssh/gitee_key
+source ~/.bashrc
+
+ssh -T git@gitee.com
+
+
+3、从git仓库拉代码到本地，用于后续打包
+mkdir /home/ubuntu/projects/
+cd /home/ubuntu/projects/
+git init
+git clone -b online git@gitee.com:verificer/sevenseas-web-mandarin.git
+git clone -b online git@gitee.com:verificer/sevensea.api.git
+git clone -b online git@gitee.com:verificer/sevensea.bo.git
+
+
+4、部署web静态页面
+mkdir /mnt/cn-sevensea/static
+cd /mnt/cn-sevensea/static
+mv /root/deployment-dir/run-sh/run-web.sh ./
+bash run run-web.sh
+
+5、部署bo静态页面
+mkdir /mnt/sevensea/static
+cd /mnt/sevensea/static
+mv /root/deployment-dir/run-sh/run-bo.sh ./
+bash run run-admin.sh
+
+6、部署默认头像
+cd /mnt/sevensea/static
+mkdir /mnt/sevensea/static/_avatar
+mv /root/deployment-dir/avatars.zip ./
+unzip avatars.zip
+mv avatars ./_avatar
+
+7、部署java服务
+cd /mnt/sevensea/
+mkdir /mnt/sevensea/apis
+cd /mnt/sevensea/apis
+mv /root/deployment-dir/run-sh/run-java-no-task.sh ./
+bash run-java-no-task.sh run biz web admin user
+
+
+
+
+
+
+
+
+
+
+
+

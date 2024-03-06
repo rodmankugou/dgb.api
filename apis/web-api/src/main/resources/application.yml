@@ -1,0 +1,67 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB
+  application:
+    name: web-api
+
+  #TAG:c3p0数据库两届吃配置，BEGIN#
+  datasource:
+    ##以下配置从properties/mysql.properties文件中读取
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    jdbcUrl: ${mysql.jdbcUrl}
+    driverClass: ${mysql.driverClass}
+    user: ${mysql.user}
+    password: ${mysql.password}
+    #连接池中保留的最小连接数，默认为：3
+    minPoolSize: ${mysql.minPoolSize}
+    #连接池中保留的最大连接数。默认值: 15
+    maxPoolSize: ${mysql.maxPoolSize}
+    #初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3
+    initialPoolSize: ${mysql.initialPoolSize}
+    #数据库连接重试次数
+    acquireRetryAttempts: ${mysql.acquireRetryAttempts}
+    #重试间隔（毫秒）
+    acquireRetryDelay: ${mysql.acquireRetryDelay}
+    #连接断开的时候，自动提交事务
+    autoCommitOnClose: ${mysql.autoCommitOnClose}
+    #当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException,如设为0则无限期等待。单位毫秒。Default: 0
+    checkoutTimeout: ${mysql.checkoutTimeout}
+    #最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0
+    maxIdleTime: ${mysql.maxIdleTime}
+    #maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0
+    maxStatementsPerConnection: 0
+    maxStatements: 0
+    #c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能通过多线程实现多个操作同时被执行。Default: 3
+    numHelperThreads: ${mysql.numHelperThreads}
+    #如果设为true那么在取得连接的同时将校验连接的有效性。Default: false
+    testConnectionOnCheckin: ${mysql.testConnectionOnCheckin}
+    #连接测试
+    preferredTestQuery: ${mysql.preferredTestQuery}
+    #每隔多少秒检查连接池中连接的有效性。Default：0
+    idleConnectionTestPeriod: ${mysql.idleConnectionTestPeriod}
+  #TAG:c3p0数据库两届吃配置，END#
+
+  #TAG:mybatis配置，BEGIN#
+  mybatis:
+    configuration:
+      cacheEnabled: false
+      lazyLoadingEnabled: false
+      aggressiveLazyLoading: false
+      multipleResultSetsEnabled: true
+      useColumnLabel: true
+      useGeneratedKeys: true
+      autoMappingBehavior: FULL
+      defaultStatementTimeout: 15000
+  #TAG:mybatis配置，END#
+server:
+  port: ${SERVER_PORT}
+  servlet:
+    context-path: ${CONTEXT_PATH}
+  tomcat:
+    max-threads: ${MAX_THREADS}
+    min-spare-threads: ${MIN_SPARE_THREADS}
+
+

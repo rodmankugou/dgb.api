@@ -1,0 +1,8 @@
+update rebate_task set status = 0 where status = 2 and tx_hash = '';
+
+
+select * from rebate_task where auction_record_id  in (select id from auction_record where status = 11);
+
+select * from rebate_task where auction_record_id =93043;
+
+select * from confirm_record where auction_id =93043;

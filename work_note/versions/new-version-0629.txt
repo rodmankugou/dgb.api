@@ -1,0 +1,23 @@
+1、上线前
+ALTER TABLE `chain_tx` ADD COLUMN `block_time` bigint COMMENT '区块时间' AFTER `tx_hash`;
+
+上线后
+1、调用同步ChainTx接口
+
+
+同步成功后
+0、修改ScanEngine，开发ScanDbListener，并提交代码
+1、执行 run.sh命令，但重启服务  如bash run.sh none
+2、杀死biz服务
+3、检查最新区块的高度是否增加，验证三秒
+    select cur_height from block_pointer;
+3.1、修改区块高度
+    update block_pointer set cur_height = (select max(block_height) from chain_tx);
+    //以下两行为验证
+    select max(block_height) from chain_tx;
+    select cur_height from block_pointer;
+
+4、重启biz服务
+5、检查最新区块的高度是否增加，验证三秒
+    select cur_height from block_pointer;
+

@@ -1,0 +1,39 @@
+
+#根据NFT的token_id查询历史拍卖纪录的sql
+select
+    ar.id,
+    (CASE ar.status
+        WHEN 1 THEN '未开始'
+        WHEN 2 THEN '拍卖中'
+        WHEN 3 THEN '拍卖成功，但未交割'
+        WHEN 4 THEN '流派'
+        WHEN 6 THEN '拍卖成功，并已交割'
+        ELSE ''
+    END) status,
+    ar.ex_contract_address,
+    ar.starting_price,
+    ar.tran_price,
+    from_unixtime(ar.auction_start_time/1000) as UTC_start_time,
+    from_unixtime(ar.auction_end_time/1000) as UTC_end_time,
+    from_unixtime(ar.confirm_time/1000) as UTC_confirm_time
+
+ from auction_record ar
+ join artwork aw on (ar.artwork_id = aw.id)
+ where ar.status < 100
+    and aw.token_id = '390566840767615169'
+ exOrder by ar.id desc;
+
+
+
+#根据拍卖id查找该次拍卖的所有叫价的sql：
+ select
+     br.auction_record_id,
+     br.price,
+     cus.wallet_address as bidder_wallet_address
+ from bid_record br
+ join customer cus on ( br.bidder_id = cus.id)
+ where br.status < 100
+     and br.auction_record_id = 132;
+
+
+select status,count(status) from auction_record where ex_contract_address = '0x0395f526732A596bd1f204b9389427487a2f39d6' group by status;

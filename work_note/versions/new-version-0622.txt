@@ -1,0 +1,31 @@
+上线前
+ALTER TABLE `auction_record` ADD INDEX `chain_order_id` USING BTREE (`chain_order_id`) comment '';
+ALTER TABLE `confirm_record` ADD INDEX `tx_hash` USING BTREE (`tx_hash`) comment '';
+ALTER TABLE `rebate_task` ADD INDEX `idx_tx_hash` USING BTREE (`tx_hash`) comment '';
+ALTER TABLE `activity` ADD INDEX `idx_relate_id_ans_types` USING BTREE (`related_id`, `type`, `type_two`, `type_three`) comment '';
+CREATE TABLE `repair_record` (
+  `id` bigint NOT NULL,
+  `auction_record_id` bigint DEFAULT NULL,
+  `bid_record_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `repair_record` ADD INDEX `auction_record_id` USING BTREE (`auction_record_id`) comment '';
+
+ALTER TABLE `customer` ADD INDEX `wallet_address` (`wallet_address`) comment '';
+ALTER TABLE `bid_record` ADD INDEX `tx_hash` USING BTREE (`tx_hash`) comment '';
+ALTER TABLE `repair_record` CHANGE COLUMN `id` `id` bigint NOT NULL AUTO_INCREMENT;
+ALTER TABLE `auction_record` ADD INDEX `status` USING BTREE (`status`) comment '';
+ALTER TABLE `auction_record` ADD INDEX `tx_hash` USING BTREE (`tx_hash`) comment '';
+
+CREATE TABLE `chain_tx` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `type` tinyint DEFAULT NULL COMMENT '1- 创建订单 2-bid 3-confirm 4-rebate',
+  `ex_contract_address` varchar(255) DEFAULT NULL COMMENT '交易合约地址',
+  `chain_order_id` varchar(255) DEFAULT NULL COMMENT '链上拍卖订单id',
+  `chain_bid_id` varchar(255) DEFAULT NULL,
+  `json_notify_vo` varchar(5000) DEFAULT NULL COMMENT 'json',
+  `block_height` bigint DEFAULT NULL COMMENT '区块高度',
+  `tx_hash` varchar(200) DEFAULT NULL COMMENT '交易hash',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=177614 DEFAULT CHARSET=utf8
+上线后
