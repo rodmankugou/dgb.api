@@ -2,6 +2,7 @@ package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.biz.entity.Shop;
 
 import java.util.List;
 
@@ -51,4 +52,6 @@ public interface ShopService {
      * @param reqVo
      */
     void shopUpdFrozenSta(ShopFrozenVo reqVo);
+
+    Shop getById(String relId);
 }

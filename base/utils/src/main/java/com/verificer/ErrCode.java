@@ -249,5 +249,6 @@ public class ErrCode {
     public static final String OP_GOODS_DEL_STATUS_ERR = "OP_GOODS_DEL_STATUS_ERR";
     public static final String OP_GOODS_RECOVER_STATUS_ERR = "OP_GOODS_RECOVER_STATUS_ERR";
     public static final String OP_GOODS_RUBBISH_STATUS_ERR = "OP_GOODS_RUBBISH_STATUS_ERR";
+    public static final String OP_ADJUST_STAGE_STOCK_NOT_ENOUGH = "OP_ADJUST_STAGE_STOCK_NOT_ENOUGH";
 
 }

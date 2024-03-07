@@ -1,9 +1,9 @@
 package com.verificer.exchange.admin.controller.goods;
 
-import com.verificer.biz.beans.vo.CatVo;
-import com.verificer.biz.beans.vo.req.CatDelVo;
-import com.verificer.biz.beans.vo.req.CatFormVo;
-import com.verificer.biz.beans.vo.req.CatPageQryVo;
+import com.verificer.biz.beans.vo.AdjustVo;
+import com.verificer.biz.beans.vo.req.AdjustBatchVo;
+import com.verificer.biz.beans.vo.req.AdjustFormVo;
+import com.verificer.biz.beans.vo.req.AdjustPageVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
@@ -20,10 +20,10 @@ import java.util.List;
 /**
  * Created by 35336 on 2021/2/26.
  */
-@Api(tags = "分类")
-@RequestMapping("/cat")
+@Api(tags = "调货")
+@RequestMapping("/adjust")
 @RestController
-public class CatController extends BaseController{
+public class AdjustController extends BaseController{
 
     @Autowired
     BizService bizService;
@@ -31,7 +31,7 @@ public class CatController extends BaseController{
 
     @ApiOperation(
             value = "列表（分页）",
-            response = CatVo.class,
+            response = AdjustVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
@@ -40,15 +40,15 @@ public class CatController extends BaseController{
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public Response page( @RequestBody CatPageQryVo qryVo) {
-        List<CatVo> list = bizService.catPage(qryVo);
-        int count = bizService.catCount(qryVo);
+    public Response page(@RequestBody AdjustPageVo qryVo) {
+        List<AdjustVo> list = bizService.adjustPage(qryVo);
+        int count = bizService.adjustCount(qryVo);
         return Response.listSuccess(count,list);
     }
 
 
     @ApiOperation(
-            value = "新增/修改",
+            value = "批量配货，页面BO-B4",
             response = Response.class,
             httpMethod = "POST"
     )
@@ -57,20 +57,15 @@ public class CatController extends BaseController{
     })
     @ResponseBody
     @NeedLogin
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public Response submit(@RequestBody  CatFormVo formVo) {
-        if(formVo.getId() == null){
-            bizService.catAdd(formVo);
-        }else{
-            bizService.catUpd(formVo);
-        }
-
+    @RequestMapping(value = "/batchAdjust", method = RequestMethod.POST)
+    public Response batchAdjust(@RequestBody AdjustBatchVo formVo) {
+        bizService.adjustBatch(formVo);
         return Response.simpleSuccess();
     }
 
 
     @ApiOperation(
-            value = "删除",
+            value = "补货/退货，页面BO-B11",
             response = Response.class,
             httpMethod = "POST"
     )
@@ -79,10 +74,9 @@ public class CatController extends BaseController{
     })
     @ResponseBody
     @NeedLogin
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public Response del(@RequestBody  CatDelVo delVo) {
-        bizService.catDel(delVo);
-
+    @RequestMapping(value = "/adjust", method = RequestMethod.POST)
+    public Response adjust(@RequestBody AdjustFormVo delVo) {
+        bizService.adjust(delVo);
         return Response.simpleSuccess();
     }
 

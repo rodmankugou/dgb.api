@@ -34,7 +34,7 @@ import java.util.UUID;
 /**
  * 图片验证码
  */
-@Api(value = "/", description = "图形验证码", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(tags = "图形验证码")
 @Controller
 @RequestMapping(value = "/image/code")
 public class

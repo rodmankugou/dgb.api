@@ -7,6 +7,7 @@ import com.verificer.beans.AreaVo;
 import com.verificer.beans.NationalVo;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.web.common.response.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by 35336 on 2021/2/26.
  */
+@Api(tags = "区域")
 @RequestMapping("/area")
 @RestController
 public class AreaController extends BaseController{

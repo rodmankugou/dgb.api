@@ -147,12 +147,20 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--以上内容自动生成-->
-  <select id="selectByRefUuid"  resultMap="BaseResultMap">
+  <select id="selectByRefIdAndSpecId"  resultMap="BaseResultMap">
 
     select
     <include refid="Base_Column_List" />
     from stock
-    where rel_uuid = #{relUuid}
+    where rel_uuid = #{relId} and spec_id = #{specId}
+  </select>
+
+  <select id="selectByIdForUpd"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from stock
+    where id = #{id} for update
   </select>
 
 </mapper>

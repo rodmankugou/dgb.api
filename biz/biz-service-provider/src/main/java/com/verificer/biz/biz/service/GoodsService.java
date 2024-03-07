@@ -2,6 +2,7 @@ package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.GoodsVo;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.biz.entity.Goods;
 
 import java.util.List;
 
@@ -56,4 +57,6 @@ public interface GoodsService {
      * @param reqVo
      */
     void goodsUpdSaleFlag(GoodsUpdSaleFlagVo reqVo);
+
+    Goods getById(Long goodsId);
 }

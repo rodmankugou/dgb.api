@@ -189,4 +189,9 @@ public class GoodsServiceImpl implements GoodsService {
         e.setSaleFlag(reqVo.getSaleFlag());
         mapper.updateByPrimaryKeySelective(e);
     }
+
+    @Override
+    public Goods getById(Long goodsId) {
+        return mapper.selectByPrimaryKey(goodsId);
+    }
 }

@@ -254,4 +254,9 @@ public class ShopServiceImpl implements ShopService {
         e.setFrozenTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(e);
     }
+
+    @Override
+    public Shop getById(String relId) {
+        return mapper.selectByPrimaryKey(relId);
+    }
 }

@@ -13,6 +13,7 @@ import com.verificer.security.login.ILoginMonitor;
 import com.verificer.utils.IPUtil;
 import com.verificer.utils.web.SecurityUtil;
 import com.verificer.web.common.response.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by 35336 on 2021/1/22.
  */
+@Api(tags = "登录、登出、修改密码")
 @RestController
 @RequestMapping("/login")
 public class LoginController extends BaseController{

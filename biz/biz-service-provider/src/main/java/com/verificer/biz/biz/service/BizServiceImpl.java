@@ -185,4 +185,24 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     public void shopUpdFrozenSta(ShopFrozenVo reqVo) {
         shopUpdFrozenSta(reqVo);
     }
+
+    @Override
+    public void adjustBatch(AdjustBatchVo formVo) {
+
+    }
+
+    @Override
+    public void adjust(AdjustFormVo delVo) {
+
+    }
+
+    @Override
+    public List<AdjustVo> adjustPage(AdjustPageVo qryVo) {
+        return null;
+    }
+
+    @Override
+    public int adjustCount(AdjustPageVo qryVo) {
+        return 0;
+    }
 }

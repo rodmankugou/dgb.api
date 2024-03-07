@@ -6,6 +6,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.web.common.response.Response;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by 35336 on 2021/2/26.
  */
+@Api(tags = "商品")
 @RequestMapping("/goods")
 @RestController
 public class GoodsController extends BaseController{

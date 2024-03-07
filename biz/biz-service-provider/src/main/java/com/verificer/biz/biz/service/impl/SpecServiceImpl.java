@@ -41,6 +41,11 @@ public class SpecServiceImpl implements SpecService {
 
     }
 
+    @Override
+    public Spec getById(Long specId) {
+        return mapper.selectByPrimaryKey(specId);
+    }
+
     private void addOrUpdate(Long goodsId, SpecReqVo reqVo){
         if(reqVo.getId() != null)
             add(goodsId,reqVo);

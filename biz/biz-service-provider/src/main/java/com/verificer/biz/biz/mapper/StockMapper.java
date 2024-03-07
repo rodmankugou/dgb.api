@@ -52,5 +52,7 @@ public interface StockMapper {
      */
     int updateByPrimaryKey(Stock record);
 
-    Stock selectByRefUuid(@Param("relUuid") String relUuid);
+    Stock selectByRefIdAndSpecId(@Param("refId") String refId,@Param("specId") Long specId);
+
+    Stock selectByIdForUpd(@Param("id") Long id);
 }

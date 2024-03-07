@@ -225,5 +225,31 @@ public interface BizService {
      * @param reqVo
      */
     void shopUpdFrozenSta(ShopFrozenVo reqVo);
+
+    /**
+     * 批量调货
+     * @param formVo
+     */
+    void adjustBatch(AdjustBatchVo formVo);
+
+    /**
+     * 调货
+     * @param delVo
+     */
+    void adjust(AdjustFormVo formVo);
+
+    /**
+     * 调货列表（分页）
+     * @param qryVo
+     * @return
+     */
+    List<AdjustVo> adjustPage(AdjustPageVo qryVo);
+
+    /**
+     * 统计符合条件的调货记录数
+     * @param qryVo
+     * @return
+     */
+    int adjustCount(AdjustPageVo qryVo);
 }
 
