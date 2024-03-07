@@ -1,6 +1,5 @@
 package com.verificer.biz.beans.vo;
 
-import com.sun.xml.internal.ws.developer.Serialization;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
