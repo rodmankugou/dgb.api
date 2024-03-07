@@ -8,6 +8,7 @@ import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.exchange.admin.security.filter.EscapeWrapper;
 import com.verificer.exchange.admin.service.StaffService;
 import com.verificer.exchange.admin.vo.LoginVo;
+import com.verificer.exchange.admin.vo.UpdPwdVo;
 import com.verificer.security.login.ILoginMonitor;
 import com.verificer.utils.IPUtil;
 import com.verificer.utils.web.SecurityUtil;
@@ -105,10 +106,9 @@ public class LoginController extends BaseController{
     @RequestMapping("/password/update")
     @NeedLogin
     public Response resetPassword(HttpServletRequest request,
-                                  String originPassword,
-                                  String newPassword) {
+                                  @RequestBody UpdPwdVo vo) {
         Long staffId = SecurityUtil.currentLogin().getId();
-        staffService.updatePassword(staffId, originPassword,newPassword);
+        staffService.updatePassword(staffId, vo.getOriginPassword(),vo.getNewPassword());
         return Response.simpleSuccess();
     }
 
