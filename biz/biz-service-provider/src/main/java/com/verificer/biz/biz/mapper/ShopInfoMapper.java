@@ -52,5 +52,5 @@ public interface ShopInfoMapper {
      */
     int updateByPrimaryKey(ShopInfo record);
 
-    ShopInfo selectByShopId(@Param("shopId") Long shopId);
+    ShopInfo selectByShopId(@Param("shopId") String shopId);
 }

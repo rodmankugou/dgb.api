@@ -22,23 +22,23 @@ public class HwObsClientUtil {
     /**
      * End Point
      */
-    public static String endPoint = "obs.cn-south-1.myhuaweicloud.com";
+    public static String endPoint = "https://obs.cn-south-1.myhuaweicloud.com";
     /**
      * Access Kye
      */
-    public static String ak = "0IGAPHZMDV7F0VVOLEME";
+    public static String ak = "9R1SGUTMVFNUZIGZWPUV";
     /**
      * Secret Key
      */
-    public static String sk = "OHCp2PWFwxgIFpwZJ5G8pshWH2Yh5mrv3JTlXpX8";
+    public static String sk = "jRja8jCcRtSYkcV1jUKWI7CnRaswAcdtSnbR0Tow";
 
 
     /**
      * 阿里云API的bucket名称
      */
-    public static String bucketName = "mtinft";
+    public static String bucketName = "dbg";
 
-    public static String crossDomain = "https://mtinft.obs.ap-southeast-3.myhuaweicloud.com/";
+    public static String crossDomain = "https://dbg.obs.cn-south-1.myhuaweicloud.com/";
 
 
     private static ObsClient getObsClient(){
@@ -78,7 +78,7 @@ public class HwObsClientUtil {
     }
 
     public static void createBucket(String bucketname ){
-        ObsClient obsClient = new ObsClient(ak, sk, endPoint);
+        ObsClient obsClient = new ObsClient("9R1SGUTMVFNUZIGZWPUV", "jRja8jCcRtSYkcV1jUKWI7CnRaswAcdtSnbR0Tow", "obs.cn-south-1.myhuaweicloud.com");
 
         try {
             obsClient.createBucket(bucketname);
@@ -160,12 +160,14 @@ public class HwObsClientUtil {
 
 
     public static void main(String[] args) {
+
         File file=new File("/Users/liujinhua/Desktop/avatars/bsc.png");
         System.out.println(uploadObject2OSS(file,"temp"));
 
 //        createBucket(bucketName);
 
     }
+
 
 
 }

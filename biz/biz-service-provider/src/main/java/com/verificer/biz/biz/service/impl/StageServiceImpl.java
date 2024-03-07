@@ -33,7 +33,7 @@ public class StageServiceImpl implements StageService {
     BaseSupService baseSupService;
 
     @Override
-    public Stage getById(Long stageId) {
+    public Stage getById(String stageId) {
         return mapper.selectByPrimaryKey(stageId);
     }
 
@@ -76,7 +76,6 @@ public class StageServiceImpl implements StageService {
     }
 
     private void mCheck(Stage e){
-        SCheckUtil.notEmpty(e.getUuid(),"Uuid"); //
         SCheckUtil.notEmpty(e.getName(),"Name");
         SCheckUtil.notEmpty(e.getCpName(),"CpName");
         SCheckUtil.notEmpty(e.getCpMobile(),"CpMobile");
@@ -129,7 +128,7 @@ public class StageServiceImpl implements StageService {
         Stage e = new Stage();
         SBeanUtils.copyProperties2(formVo,e);
         e.setCreateTime(System.currentTimeMillis());
-        e.setUuid(UuidUtils.newUuid());
+        e.setId(UuidUtils.newUuid());
         fillFields(e);
 
 
@@ -150,7 +149,6 @@ public class StageServiceImpl implements StageService {
         Stage e = new Stage();
         SBeanUtils.copyProperties2(formVo,e);
         e.setCreateTime(old.getCreateTime());
-        e.setUuid(old.getUuid());
         fillFields(e);
 
         mCheck(e);

@@ -8,13 +8,13 @@ import java.io.Serializable;
 @ApiModel
 public class ShopDelVo implements Serializable {
     @ApiModelProperty("ID")
-    private Long id;
+    private String id;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

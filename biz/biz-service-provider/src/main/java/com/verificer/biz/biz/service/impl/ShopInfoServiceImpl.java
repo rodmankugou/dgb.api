@@ -45,7 +45,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     }
 
     @Override
-    public void add(Long shopId,ShopFormVo formVo) {
+    public void add(String shopId,ShopFormVo formVo) {
         SCheckUtil.notEmpty(shopId,"ID");
 
         ShopInfo e = new ShopInfo();

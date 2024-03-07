@@ -11,7 +11,6 @@ public class SpecReqVo implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
 
-
     @ApiModelProperty("名称")
     private String name;
 
@@ -19,7 +18,7 @@ public class SpecReqVo implements Serializable {
     private String img;
 
     @ApiModelProperty("ID列表")
-    private List<Long> stageIds;
+    private List<String> stageIds;
 
     public Long getId() {
         return id;
@@ -45,11 +44,11 @@ public class SpecReqVo implements Serializable {
         this.img = img;
     }
 
-    public List<Long> getStageIds() {
+    public List<String> getStageIds() {
         return stageIds;
     }
 
-    public void setStageIds(List<Long> stageIds) {
+    public void setStageIds(List<String> stageIds) {
         this.stageIds = stageIds;
     }
 }

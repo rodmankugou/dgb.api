@@ -8,7 +8,7 @@ import com.verificer.biz.biz.entity.Stage;
 import java.util.List;
 
 public interface StageService {
-    Stage getById(Long stageId);
+    Stage getById(String stageId);
 
     /**
      * 仓库列表

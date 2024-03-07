@@ -10,10 +10,10 @@
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="order_type" jdbcType="TINYINT" property="orderType" />
     <result column="ref_type" jdbcType="TINYINT" property="refType" />
-    <result column="ref_id" jdbcType="BIGINT" property="refId" />
+    <result column="ref_id" jdbcType="VARCHAR" property="refId" />
     <result column="pay_type" jdbcType="BIGINT" property="payType" />
     <result column="pay_id" jdbcType="BIGINT" property="payId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="transit_type" jdbcType="TINYINT" property="transitType" />
     <result column="transit_way_code" jdbcType="VARCHAR" property="transitWayCode" />
@@ -80,8 +80,8 @@
       del_flag, del_time, take_code, 
       take_flag, take_time)
     values (#{status,jdbcType=TINYINT}, #{orderType,jdbcType=TINYINT}, #{refType,jdbcType=TINYINT}, 
-      #{refId,jdbcType=BIGINT}, #{payType,jdbcType=BIGINT}, #{payId,jdbcType=BIGINT}, 
-      #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{transitType,jdbcType=TINYINT}, 
+      #{refId,jdbcType=VARCHAR}, #{payType,jdbcType=BIGINT}, #{payId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{transitType,jdbcType=TINYINT}, 
       #{transitWayCode,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, #{receiverMobile,jdbcType=VARCHAR}, 
       #{receiverAddr,jdbcType=VARCHAR}, #{activityId,jdbcType=BIGINT}, #{activityTitle,jdbcType=VARCHAR}, 
       #{buyerRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{orderNum,jdbcType=VARCHAR}, 
@@ -189,7 +189,7 @@
         #{refType,jdbcType=TINYINT},
       </if>
       <if test="refId != null">
-        #{refId,jdbcType=BIGINT},
+        #{refId,jdbcType=VARCHAR},
       </if>
       <if test="payType != null">
         #{payType,jdbcType=BIGINT},
@@ -198,7 +198,7 @@
         #{payId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -276,7 +276,7 @@
         ref_type = #{refType,jdbcType=TINYINT},
       </if>
       <if test="refId != null">
-        ref_id = #{refId,jdbcType=BIGINT},
+        ref_id = #{refId,jdbcType=VARCHAR},
       </if>
       <if test="payType != null">
         pay_type = #{payType,jdbcType=BIGINT},
@@ -285,7 +285,7 @@
         pay_id = #{payId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -356,10 +356,10 @@
     set status = #{status,jdbcType=TINYINT},
       order_type = #{orderType,jdbcType=TINYINT},
       ref_type = #{refType,jdbcType=TINYINT},
-      ref_id = #{refId,jdbcType=BIGINT},
+      ref_id = #{refId,jdbcType=VARCHAR},
       pay_type = #{payType,jdbcType=BIGINT},
       pay_id = #{payId,jdbcType=BIGINT},
-      user_id = #{userId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       transit_type = #{transitType,jdbcType=TINYINT},
       transit_way_code = #{transitWayCode,jdbcType=VARCHAR},

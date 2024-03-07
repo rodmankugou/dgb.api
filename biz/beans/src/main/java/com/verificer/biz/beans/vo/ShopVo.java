@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @ApiModel
 public class ShopVo implements Serializable {
     @ApiModelProperty("ID")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("上级店铺ID")
     private Long parentId;
@@ -106,11 +106,11 @@ public class ShopVo implements Serializable {
     @ApiModelProperty("结算银行信息")
     private ShopBkVo sbk;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

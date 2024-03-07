@@ -7,6 +7,7 @@ import com.verificer.exchange.admin.entity.Staff;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.exchange.admin.security.filter.EscapeWrapper;
 import com.verificer.exchange.admin.service.StaffService;
+import com.verificer.exchange.admin.vo.LoginVo;
 import com.verificer.security.login.ILoginMonitor;
 import com.verificer.utils.IPUtil;
 import com.verificer.utils.web.SecurityUtil;
@@ -15,10 +16,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,29 +45,17 @@ public class LoginController extends BaseController{
 
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名",paramType = "form",required = true),
-            @ApiImplicitParam(name = "password", value = "密码",paramType = "form",required = true),
-//            @ApiImplicitParam(name = "code", value = "手机验证码",paramType = "form",required = true),
-//            @ApiImplicitParam(name = "googleCode", value = "谷歌验证码",paramType = "form",required = true),
-            @ApiImplicitParam(name = "imageId", value = "图片验证码id",paramType = "form",required = true),
-            @ApiImplicitParam(name = "imageCode", value = "图形验证码",paramType = "form",required = true)
     })
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Response login(
-            HttpServletRequest request) {
+            HttpServletRequest request, @RequestBody LoginVo vo) {
 
-        EscapeWrapper wrapper = new EscapeWrapper(request);
-        String username = wrapper.getParameter("username");
-        String password = request.getParameter("password");
-        String mobileCode = wrapper.getParameter("code");
-        String googleCode = wrapper.getParameter("googleCode");
-        String imageId = wrapper.getParameter("imageId");
-        String imageCode = wrapper.getParameter("imageCode");
+
         String ip = IPUtil.getIp(request);
 
         Staff staff = null;
-        if((staff = staffService.login(username,password,imageId,imageCode,googleCode,mobileCode)) != null){
+        if((staff = staffService.login(vo.getUsername(),vo.getPassword(),"","","","")) != null){
             //登录成功
         }
         String token = loginMonitor.login(getClient(),staff.getId().toString(),new UserIdentity(staff.getId()),new UserIdentity());

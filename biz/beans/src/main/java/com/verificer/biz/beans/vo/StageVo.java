@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @ApiModel
 public class StageVo {
     @ApiModelProperty("ID")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("名称")
     private String name;
@@ -54,11 +54,11 @@ public class StageVo {
     private Long createTime;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

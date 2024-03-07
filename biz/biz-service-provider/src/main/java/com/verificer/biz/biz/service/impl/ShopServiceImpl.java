@@ -8,7 +8,7 @@ import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.entity.Shop;
-import com.verificer.biz.biz.entity.Shop;
+
 import com.verificer.biz.biz.mapper.ShopInfoMapper;
 import com.verificer.biz.biz.mapper.ShopMapper;
 import com.verificer.biz.biz.service.ShopInfoService;
@@ -125,7 +125,6 @@ public class ShopServiceImpl implements ShopService {
     }
 
     private void mCheck(Shop e){
-        SCheckUtil.notEmpty(e.getUuid(),"Uuid"); //
         SCheckUtil.notEmpty(e.getName(),"Name");
         SCheckUtil.notEmpty(e.getLoginName(),"Login Name"); //
         SCheckUtil.notEmpty(e.getLoginPwd(),"Login Pwd"); //
@@ -172,7 +171,7 @@ public class ShopServiceImpl implements ShopService {
         return e.getName();
     }
 
-    private void buildChildRel(Long parentId,List<Long> childIds){
+    private void buildChildRel(String parentId,List<String> childIds){
         mapper.setParentIdNull(parentId);
 
         if(childIds != null && childIds.size() > 0)
@@ -183,7 +182,7 @@ public class ShopServiceImpl implements ShopService {
     public void shopAdd(ShopFormVo formVo) {
         Shop e = new Shop();
         SBeanUtils.copyProperties2(formVo,e);
-        e.setUuid(UuidUtils.newUuid());
+        e.setId(UuidUtils.newUuid());
         e.setLoginName(UuidUtils.newUuid());
         e.setLoginPwd(PasswordUtil.loginPassword("Dbg6688"));
         fillFields(e);
@@ -219,7 +218,6 @@ public class ShopServiceImpl implements ShopService {
 
         Shop e = new Shop();
         SBeanUtils.copyProperties2(formVo,e);
-        e.setUuid(old.getUuid());
         e.setLoginName(old.getLoginName());
         e.setLoginPwd(old.getLoginPwd());
         fillFields(e);

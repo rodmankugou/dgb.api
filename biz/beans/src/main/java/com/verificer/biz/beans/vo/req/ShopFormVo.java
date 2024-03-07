@@ -14,10 +14,10 @@ import java.util.List;
 @ApiModel
 public class ShopFormVo implements Serializable {
     @ApiModelProperty("ID")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("下属门店id列表")
-    private List<Long> childIds;
+    private List<String> childIds;
 
     @ApiModelProperty("店铺名称")
     private String name;
@@ -86,19 +86,19 @@ public class ShopFormVo implements Serializable {
     @ApiModelProperty("结算银行信息")
     private ShopBkVo sbk;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public List<Long> getChildIds() {
+    public List<String> getChildIds() {
         return childIds;
     }
 
-    public void setChildIds(List<Long> childIds) {
+    public void setChildIds(List<String> childIds) {
         this.childIds = childIds;
     }
 

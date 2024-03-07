@@ -248,12 +248,12 @@ public class MybatisGen {
 
 
     public static void main(String args[]){
-        String cfgFilePath = "/Users/liujinhua/dev/workspace/dbg.api/gen_cfg/mybatis_gen_cfg.yml";
+        String cfgFilePath = "/Users/liujinhua/dev/workspace/dgb.api/gen_cfg/mybatis_gen_cfg.yml";
 
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","Transfer");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"account","AccountLog");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"user","Avatar");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"sup","Area");
-        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","DbgOrder","OrderDetail","DbgOrderLog");
+        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","DbgOrder");
     }
 }

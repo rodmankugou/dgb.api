@@ -72,7 +72,7 @@ public class SwaggerConfig {
                 .enable(enable)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.system"))
-                .build().groupName("token");
+                .build().groupName("system");
     }
 
 

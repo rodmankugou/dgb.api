@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public class StageFormVo {
     @ApiModelProperty("ID,新增时不需要该参数")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("名称")
     private String name;
@@ -35,11 +35,11 @@ public class StageFormVo {
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -23,13 +23,13 @@ public class StockServiceImpl implements StockService {
     StageService stageService;
 
     @Override
-    public void addStageStockIfNotExist(Long goodsId, Long specId, List<Long> stageIds) {
-        for(Long stageId : stageIds){
+    public void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds) {
+        for(String stageId : stageIds){
             Stage stage = stageService.getById(stageId);
             if(stage == null)
                 throw new RuntimeException("Stage not exist!,id="+stageId);
 
-            addIfNotExist(goodsId,specId,true,stageId,stage.getUuid(),0);
+            addIfNotExist(goodsId,specId,true,stageId,stage.getId(),0);
         }
     }
 
@@ -38,12 +38,11 @@ public class StockServiceImpl implements StockService {
         SCheckUtil.notEmpty(e.getSpecId(),"stock.SpecId");
         SCheckUtil.notEmpty(e.getStageFlag(),"stock.StageFlag");
         SCheckUtil.notEmpty(e.getRelId(),"stock.RelId");
-        SCheckUtil.notEmpty(e.getRelUuid(),"stock.RelUuid");
         SCheckUtil.lgThan(e.getCount(),true,0,"stock.Count");
     }
 
 
-    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,Long refId,String refUuid,Integer count ){
+    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,String refId,String refUuid,Integer count ){
         Stock old = mapper.selectByRefUuid(refUuid);
         if(old != null)
             return;
@@ -53,7 +52,6 @@ public class StockServiceImpl implements StockService {
         e.setStageFlag(stageFlag);
         e.setStageFlag(stageFlag);
         e.setRelId(refId);
-        e.setRelUuid(refUuid);
         e.setCount(count);
 
         mCheck(e);

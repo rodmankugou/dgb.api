@@ -17,7 +17,7 @@ public class ShopInfo {
      *
      * @mbg.generated
      */
-    private Long shopId;
+    private String shopId;
 
     /**
      *
@@ -249,7 +249,7 @@ public class ShopInfo {
      *
      * @mbg.generated
      */
-    public Long getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
@@ -261,8 +261,8 @@ public class ShopInfo {
      *
      * @mbg.generated
      */
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setShopId(String shopId) {
+        this.shopId = shopId == null ? null : shopId.trim();
     }
 
     /**

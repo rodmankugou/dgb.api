@@ -44,7 +44,7 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    private Long refId;
+    private String refId;
 
     /**
      *
@@ -71,7 +71,7 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    private Long userId;
+    private String userId;
 
     /**
      *
@@ -348,7 +348,7 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    public Long getRefId() {
+    public String getRefId() {
         return refId;
     }
 
@@ -360,8 +360,8 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    public void setRefId(Long refId) {
-        this.refId = refId;
+    public void setRefId(String refId) {
+        this.refId = refId == null ? null : refId.trim();
     }
 
     /**
@@ -420,7 +420,7 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -432,8 +432,8 @@ public class DbgOrder {
      *
      * @mbg.generated
      */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     /**
