@@ -16,9 +16,9 @@ public class OrderPageVo extends PageQueryVo {
     private Long eTime;
     @ApiModelProperty("结算状态，1-未结算 2-待结算 3-已结算")
     private Integer settleStatus;
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态,状态 1-待支付 2-备货中 3-待发货 4-运输中 5-已收货（完成）6-已评价 7-已关闭 21-线下订单 22-线下自提 101-超时被取消 102-用户取消")
     private String status;
-    @ApiModelProperty("订单类型")
+    @ApiModelProperty("订单类型,订单类型，1-线下订单 2-自提订单 3-仓库订单")
     private Integer orderType;
     @ApiModelProperty("店铺ID")
     private String refId;
