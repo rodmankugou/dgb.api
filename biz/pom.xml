@@ -5,6 +5,7 @@
         <module>biz-service-provider</module>
         <module>biz-service-interface</module>
         <module>beans</module>
+        <module>cron</module>
     </modules>
     <parent>
         <artifactId>NFT</artifactId>

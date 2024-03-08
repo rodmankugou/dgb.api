@@ -14,6 +14,9 @@ public class BaseSupServiceImpl extends BaseDubboService implements BaseSupServi
     @Autowired
     AreaService areaService;
 
+    @Autowired
+    CfgService cfgService;
+
     @Override
     public List<AreaVo> areaList(AreaQryVo qryVo) {
         return areaService.areaList(qryVo);
@@ -21,6 +24,18 @@ public class BaseSupServiceImpl extends BaseDubboService implements BaseSupServi
 
     @Override
     public AreaVo areaGetByCode(String code) {
-        return null;
+        return areaService.areaGetByCode(code);
     }
+
+    @Override
+    public String getCfg(String code) {
+        return cfgService.getCfg(code);
+    }
+
+    @Override
+    public String getAesEncryptCfg(String code) {
+        return cfgService.getAesEncryptCfg(code);
+    }
+
+
 }

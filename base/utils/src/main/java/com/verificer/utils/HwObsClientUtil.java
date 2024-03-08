@@ -19,31 +19,7 @@ import java.io.*;
 public class HwObsClientUtil {
     private static final Logger logger = LoggerFactory.getLogger(HwObsClientUtil.class);
 
-    /**
-     * End Point
-     */
-    public static String endPoint = "https://obs.cn-south-1.myhuaweicloud.com";
-    /**
-     * Access Kye
-     */
-    public static String ak = "9R1SGUTMVFNUZIGZWPUV";
-    /**
-     * Secret Key
-     */
-    public static String sk = "jRja8jCcRtSYkcV1jUKWI7CnRaswAcdtSnbR0Tow";
 
-
-    /**
-     * 阿里云API的bucket名称
-     */
-    public static String bucketName = "dbg";
-
-    public static String crossDomain = "https://dbg.obs.cn-south-1.myhuaweicloud.com/";
-
-
-    private static ObsClient getObsClient(){
-        return new ObsClient(ak, sk, endPoint);
-    }
 
     /**
      * 上传图片至OSS
@@ -51,7 +27,7 @@ public class HwObsClientUtil {
      * @param file       上传文件（文件全路径如：D:\\image\\cake.jpg）
      * @return String 返回的唯一MD5数字签名
      */
-    public static String uploadObject2OSS(File file, String uploadDir) {
+    public static String uploadObject2OSS(String endPoint,String ak,String sk,String bucketName, String crossDomain,File file, String uploadDir) {
         ObsClient obsClient = new ObsClient(ak, sk, endPoint);
         String fileSubffix = file.getName().lastIndexOf(".") == -1 ? "" : file.getName().substring(file.getName().lastIndexOf("."));
         String objectKey = UuidUtils.newUuid()+fileSubffix;
@@ -162,7 +138,7 @@ public class HwObsClientUtil {
     public static void main(String[] args) {
 
         File file=new File("/Users/liujinhua/Desktop/avatars/bsc.png");
-        System.out.println(uploadObject2OSS(file,"temp"));
+//        System.out.println(uploadObject2OSS(file,"temp"));
 
 //        createBucket(bucketName);
 

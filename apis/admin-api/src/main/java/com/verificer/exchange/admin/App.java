@@ -1,6 +1,7 @@
 package com.verificer.exchange.admin;
 
 
+import com.verificer.GlobalConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class App
     public static void main( String[] args )
     {
         logger.info("Version 220812");
+        //确认配置加载正常
+        GlobalConfig.init();
         SpringApplication.run(App.class, args);
     }
 }

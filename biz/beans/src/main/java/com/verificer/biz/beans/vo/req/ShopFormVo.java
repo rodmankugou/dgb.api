@@ -86,6 +86,15 @@ public class ShopFormVo implements Serializable {
     @ApiModelProperty("结算银行信息")
     private ShopBkVo sbk;
 
+    @ApiModelProperty("Pos机的BaseUrl")
+    private String posBaseUrl;
+
+    @ApiModelProperty("Pos机AppSecret")
+    private String posAppSecret;
+
+    @ApiModelProperty("Pos机AppId")
+    private String posAppId;
+
     public String getId() {
         return id;
     }
@@ -276,5 +285,21 @@ public class ShopFormVo implements Serializable {
 
     public void setLs(ShopLsVo ls) {
         this.ls = ls;
+    }
+
+    public String getPosAppSecret() {
+        return posAppSecret;
+    }
+
+    public void setPosAppSecret(String posAppSecret) {
+        this.posAppSecret = posAppSecret;
+    }
+
+    public String getPosAppId() {
+        return posAppId;
+    }
+
+    public void setPosAppId(String posAppId) {
+        this.posAppId = posAppId;
     }
 }

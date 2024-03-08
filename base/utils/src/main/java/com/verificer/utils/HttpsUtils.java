@@ -262,11 +262,13 @@ public class HttpsUtils {
 //
 //        String respStr = postFile("https://api.pinata.cloud/pinning/pinFileToIPFS","file",new FileInputStream(new File(filePath)),headers);
 //        System.out.println(respStr);
-        Map<String,String> headers = new HashMap<>();
-        headers.put("pinata_api_key","39e4d46672cff36a39d0");
-        headers.put("pinata_secret_api_key","71710260cf96985f82797745d9f19a5f87254f41b615dcaaa0e2afe7ddd54343");
-       String resp =  getJson("https://gateway.pinata.cloud/ipfs/QmagACXM7pukdukPSKvdNv6vscUMGFpVvdcmCZBZ76ZhJQ",headers);
-       System.out.println(resp);
+//        Map<String,String> headers = new HashMap<>();
+//        headers.put("pinata_api_key","39e4d46672cff36a39d0");
+//        headers.put("pinata_secret_api_key","71710260cf96985f82797745d9f19a5f87254f41b615dcaaa0e2afe7ddd54343");
+//       String resp =  getJson("https://gateway.pinata.cloud/ipfs/QmagACXM7pukdukPSKvdNv6vscUMGFpVvdcmCZBZ76ZhJQ",headers);
+//       System.out.println(resp);
+
+
     }
 
 }

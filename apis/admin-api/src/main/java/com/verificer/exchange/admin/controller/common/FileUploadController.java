@@ -1,8 +1,9 @@
 package com.verificer.exchange.admin.controller.common;
 
 import com.google.common.collect.Lists;
+import com.verificer.base.sup.itf.BaseSupService;
+import com.verificer.base.sup.itf.CfgCodes;
 import com.verificer.base_user.service.BaseCustomerService;
-import com.verificer.beans.NationalVo;
 import com.verificer.common.exception.UploadException;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
@@ -43,6 +44,9 @@ public class FileUploadController extends BaseController{
 
     @Autowired
     BaseCustomerService baseCustomerService;
+
+    @Autowired
+    BaseSupService baseSupService;
 
     @ApiOperation(
             value = "上传图片",
@@ -122,7 +126,14 @@ public class FileUploadController extends BaseController{
                             }
                             // 定义上传路径
                             File file1=  OSSClientUtil.multipartFileToFile(file);
-                            String path= HwObsClientUtil.uploadObject2OSS(file1,dir);
+                            String path= HwObsClientUtil.uploadObject2OSS(
+                                    baseSupService.getCfg(CfgCodes.HW_OBS_END_POINT),
+                                    baseSupService.getCfg(CfgCodes.HW_OBS_ACCESS_KEY),
+                                    baseSupService.getAesEncryptCfg(CfgCodes.HW_OBS_SECRET_KEY),
+                                    baseSupService.getCfg(CfgCodes.HW_OBS_BUCKET_NAME),
+                                    baseSupService.getCfg(CfgCodes.HW_OBS_CROSS_DOMAIN),
+                                    file1,
+                                    dir);
                             OSSClientUtil.delteTempFile(file1);
                             rst.add(path);
 

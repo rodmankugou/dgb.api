@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <context:property-placeholder location="classpath:properties/config.properties" ignore-unresolvable="true"/>
+
+
+    <!--在此定义短信和验证码相关的bean，免得初始化时扫描过多的包-->
+    <bean id="emailService" class="com.verificer.message.service.impl.EmailServiceImpl">
+    </bean>
+
+
+    <bean id="aliyunSmsClient" class="com.verificer.message.service.impl.AliyunSmsClient">
+        <constructor-arg index="0"  value="Veriex"></constructor-arg>
+        <constructor-arg index="1"  value="cn-hongkong"></constructor-arg>
+        <constructor-arg index="2" value="dysmsapi.ap-southeast-1.aliyuncs.com"></constructor-arg>
+        <constructor-arg index="3"  value="LTAI4G6cYRNPHozrrAnwoEgc"></constructor-arg>
+        <constructor-arg index="4"  value="OeO6bOr462qsYV5SPQt9OV1Xzy1NWD"></constructor-arg>
+        <!--短信模板配置-->
+        <constructor-arg index="5">
+            <map>
+                <!--如果使用了activeCodeUtil，则名为verify_code的模板一定需要存在-->
+                <entry key="verify_code_zh_CN" value="SMS_10960012"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+
+    <bean id="smsService" class="com.verificer.message.service.impl.SmsServiceImpl">
+<!--        <constructor-arg index="0">-->
+<!--            <list>-->
+<!--                <ref bean="aliyunSmsClient"></ref>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+    </bean>
+
+    <bean id="activeCodeUtil" class="com.verificer.message.utils.ActiveCodeUtil">
+        <property name="smsService" ref="smsService"></property>
+        <property name="emailService" ref="emailService"></property>
+        <property name="redisUtil" ref="redisUtil"></property>
+        <!--是否debug模式，deubg模式下不限制验证码的发送频率-->
+        <property name="debug" value="true"></property>
+    </bean>
+
+    <bean id="redisMember" class="com.verificer.security.limit.impl.member.RedisMember">
+        <property name="redisUtil" ref="redisUtil"></property>
+        <property name="keyPrefix" value="limit:redis:member:"></property>
+    </bean>
+
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="fileEncoding" value="UTF-8" />
+        <property name="locations">
+            <list>
+                <value>classpath:properties/config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="limitMonitor" class="com.verificer.security.limit.impl.LimitMonitor">
+        <constructor-arg name="member" ref="redisMember"></constructor-arg>
+    </bean>
+</beans>

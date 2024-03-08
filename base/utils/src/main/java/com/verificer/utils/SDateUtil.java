@@ -19,6 +19,8 @@ public class SDateUtil {
     public static final long SEC_PER_HOUR = 60*SEC_PER_MINUTE;
     public static final long SEC_PER_DAY = 24*SEC_PER_HOUR;
 
+    public static final String FM_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+
     public static Long NanoSecToMs(Long nanoSec){
         if(nanoSec == null)
             return null;

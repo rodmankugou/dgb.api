@@ -93,4 +93,57 @@
 
 
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>global</package.environment>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>global-test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>online</id>
+            <properties>
+                <package.environment>global-online</package.environment>
+            </properties>
+        </profile>
+
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-global-config</id> <!-- here the phase you need -->
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration> <!--copyTo的目录-->
+                            <outputDirectory>target/classes</outputDirectory>
+                            <resources>
+                                <resource> <!--被copy的目录-->
+                                    <filtering>true</filtering>
+                                    <directory>../../global-config/${package.environment}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

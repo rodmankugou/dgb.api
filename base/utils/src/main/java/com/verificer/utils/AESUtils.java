@@ -26,13 +26,13 @@ public class AESUtils {
      * 5.内容加密
      * 6.返回字符串
      */
-    public static String encode(String encodeRules,String content){
+    public static String encode(String seed,String content){
         try {
             //1.构造密钥生成器，指定为AES算法,不区分大小写
             KeyGenerator keygen=KeyGenerator.getInstance("AES");
             //2.根据ecnodeRules规则初始化密钥生成器
             //生成一个128位的随机源,根据传入的字节数组
-            keygen.init(128, new SecureRandom(encodeRules.getBytes()));
+            keygen.init(128, new SecureRandom(seed.getBytes()));
             //3.产生原始对称密钥
             SecretKey original_key=keygen.generateKey();
             //4.获得原始对称密钥的字节数组
@@ -78,13 +78,13 @@ public class AESUtils {
      * 2.将加密后的字符串反纺成byte[]数组
      * 3.将加密内容解密
      */
-    public static String decode(String encodeRules,String content){
+    public static String decode(String seed,String content){
         try {
             //1.构造密钥生成器，指定为AES算法,不区分大小写
             KeyGenerator keygen=KeyGenerator.getInstance("AES");
             //2.根据ecnodeRules规则初始化密钥生成器
             //生成一个128位的随机源,根据传入的字节数组
-            keygen.init(128, new SecureRandom(encodeRules.getBytes()));
+            keygen.init(128, new SecureRandom(seed.getBytes()));
             //3.产生原始对称密钥
             SecretKey original_key=keygen.generateKey();
             //4.获得原始对称密钥的字节数组
@@ -207,19 +207,22 @@ public class AESUtils {
         return r;
     }
 
-    public static void main(String[] args) {
-        /*
-         * 加密
-         */
-        String encodeRules=JavaPropertiesUtil.getValue("properties/blockchain.properties","trx.encryp_password");
-        String content="kahsdfjlkasdflaf34fasdfasd";
-        String text=encode(encodeRules, content);
-        System.out.println(text);
+    public static void main(String[] args) throws GeneralSecurityException, UnsupportedEncodingException {
+//        /*
+//         * 加密
+//         */
+//        String encodeRules=JavaPropertiesUtil.getValue("properties/blockchain.properties","trx.encryp_password");
+//        String content="kahsdfjlkasdflaf34fasdfasd";
+//        String text=encode(encodeRules, content);
+//        System.out.println(text);
+//
+//        /*
+//         * 解密
+//         */
+//        System.out.println(decode(encodeRules, text));
 
-        /*
-         * 解密
-         */
-        System.out.println(decode(encodeRules, text));
+
+//        System.out.println(str);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.verificer.base_user;
 
+import com.verificer.GlobalConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +25,8 @@ import java.util.Date;
 public class App implements ApplicationRunner
 {
     public static void main(String[] args) {
+        //确认配置加载正常
+        GlobalConfig.init();
         new SpringApplicationBuilder(App.class)
                 .web(WebApplicationType.NONE) // .REACTIVE, .SERVLET
                 .bannerMode(Banner.Mode.OFF)

@@ -37,6 +37,9 @@
     <result column="op_s_time" jdbcType="BIGINT" property="opSTime" />
     <result column="op_e_time" jdbcType="BIGINT" property="opETime" />
     <result column="search_key" jdbcType="VARCHAR" property="searchKey" />
+    <result column="pos_base_url" jdbcType="VARCHAR" property="posBaseUrl" />
+    <result column="pos_app_secret" jdbcType="VARCHAR" property="posAppSecret" />
+    <result column="pos_app_id" jdbcType="VARCHAR" property="posAppId" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -46,7 +49,8 @@
     id, parent_id, name, login_name, login_pwd, avatar_img, big_img, description, commission_rate, 
     shop_level, adr_area1, adr_area1_name, adr_area2, adr_area2_name, adr_area3, adr_area3_name, 
     adr_detail, full_addr, cp_name, cp_tel, cp_mobile, longitude, latitude, frozen_flag, 
-    frozen_time, create_time, del_flag, del_time, op_s_time, op_e_time, search_key
+    frozen_time, create_time, del_flag, del_time, op_s_time, op_e_time, search_key, pos_base_url, 
+    pos_app_secret, pos_app_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--
@@ -81,7 +85,8 @@
       longitude, latitude, frozen_flag, 
       frozen_time, create_time, del_flag, 
       del_time, op_s_time, op_e_time, 
-      search_key)
+      search_key, pos_base_url, pos_app_secret, 
+      pos_app_id)
     values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, #{avatarImg,jdbcType=VARCHAR}, 
       #{bigImg,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{commissionRate,jdbcType=DECIMAL}, 
@@ -92,7 +97,8 @@
       #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, #{frozenFlag,jdbcType=BIT}, 
       #{frozenTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{delFlag,jdbcType=BIT}, 
       #{delTime,jdbcType=BIGINT}, #{opSTime,jdbcType=BIGINT}, #{opETime,jdbcType=BIGINT}, 
-      #{searchKey,jdbcType=VARCHAR})
+      #{searchKey,jdbcType=VARCHAR}, #{posBaseUrl,jdbcType=VARCHAR}, #{posAppSecret,jdbcType=VARCHAR}, 
+      #{posAppId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.Shop">
     <!--
@@ -194,6 +200,15 @@
       <if test="searchKey != null">
         search_key,
       </if>
+      <if test="posBaseUrl != null">
+        pos_base_url,
+      </if>
+      <if test="posAppSecret != null">
+        pos_app_secret,
+      </if>
+      <if test="posAppId != null">
+        pos_app_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -288,6 +303,15 @@
       </if>
       <if test="searchKey != null">
         #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="posBaseUrl != null">
+        #{posBaseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posAppSecret != null">
+        #{posAppSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="posAppId != null">
+        #{posAppId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -388,6 +412,15 @@
       <if test="searchKey != null">
         search_key = #{searchKey,jdbcType=VARCHAR},
       </if>
+      <if test="posBaseUrl != null">
+        pos_base_url = #{posBaseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="posAppSecret != null">
+        pos_app_secret = #{posAppSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="posAppId != null">
+        pos_app_id = #{posAppId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -426,10 +459,22 @@
       del_time = #{delTime,jdbcType=BIGINT},
       op_s_time = #{opSTime,jdbcType=BIGINT},
       op_e_time = #{opETime,jdbcType=BIGINT},
-      search_key = #{searchKey,jdbcType=VARCHAR}
+      search_key = #{searchKey,jdbcType=VARCHAR},
+      pos_base_url = #{posBaseUrl,jdbcType=VARCHAR},
+      pos_app_secret = #{posAppSecret,jdbcType=VARCHAR},
+      pos_app_id = #{posAppId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 <!--以上内容自动生成-->
+
+  <select id="selectByPosAppIdLimit1"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop
+    where del_flag = 0
+    and pos_app_id = #{posAppId}
+    limit 1
+  </select>
 
   <select id="selectByNameLimit1"  resultMap="BaseResultMap">
     select

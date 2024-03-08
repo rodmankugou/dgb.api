@@ -14,6 +14,7 @@ import com.verificer.biz.biz.mapper.ShopMapper;
 import com.verificer.biz.biz.service.ShopInfoService;
 import com.verificer.biz.biz.service.ShopService;
 import com.verificer.common.exception.BaseException;
+import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
@@ -152,7 +153,12 @@ public class ShopServiceImpl implements ShopService {
         SCheckUtil.notEmpty(e.getOpSTime(),"OpSTime");
         SCheckUtil.notEmpty(e.getOpETime(),"OpETime");
 
+        SCheckUtil.notEmpty(e.getPosBaseUrl(),"Host : Port");
+        if(!e.getPosBaseUrl().startsWith("https"))
+            throw new BaseException(ErrCode.SHOP_BASE_URL_MUST_START_WITH_HTTPS);
         SCheckUtil.notEmpty(e.getSearchKey(),"Search Key");//
+        SCheckUtil.notEmpty(e.getPosAppSecret(),"Pos App Secret");//
+        SCheckUtil.notEmpty(e.getPosAppId(),"Pos App ID");//
 
     }
 
@@ -166,6 +172,8 @@ public class ShopServiceImpl implements ShopService {
                 throw new BaseException(ErrCode.BRAND_NAME_REPEAT,new Object[]{e.getName()});
         }
     }
+
+
 
     private String genSearchKey(Shop e){
         return e.getName();
@@ -198,6 +206,11 @@ public class ShopServiceImpl implements ShopService {
         e.setLoginName(e.getAdrArea2()+e.getId());
         mapper.updateByPrimaryKeySelective(e);
 
+        //Pos机设置校验
+        if(mapper.selectByPosAppIdLimit1(e.getPosAppId()) != null)
+            throw new BaseException("该AppId已被使用");
+        //TODO 在此验证POS 机接口是否能正常调用
+
         //建立上下级关系
         buildChildRel(e.getId(),formVo.getChildIds());
 
@@ -225,6 +238,9 @@ public class ShopServiceImpl implements ShopService {
         e.setDelFlag(old.getDelFlag());
         e.setFrozenFlag(old.getFrozenFlag());
         e.setSearchKey(genSearchKey(e));
+        e.setPosAppId(old.getPosAppId());
+        e.setPosBaseUrl(old.getPosBaseUrl());
+        e.setPosAppSecret(old.getPosAppSecret());
 
         mCheck(e);
         uniqueCheck(e);
