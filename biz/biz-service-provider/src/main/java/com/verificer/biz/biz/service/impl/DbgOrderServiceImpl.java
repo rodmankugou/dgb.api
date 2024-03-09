@@ -94,6 +94,7 @@ public class DbgOrderServiceImpl implements DbgOrderService {
         order.setTransitOrderNum(formVo.getTransitOrderNum());
         order.setTakeTime(formVo.getTakeTime());
         order.setTakeCode(formVo.getTakeCode());
+        order.setCreateTime(formVo.getCreateTime());
         order.setDelFlag(false);
 
         if(order.getRefType() == MerType.STAGE.getValue()){
