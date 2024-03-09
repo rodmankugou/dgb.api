@@ -1,23 +1,21 @@
 {
   "TAP": "goods/submit",
   "coverImg": null,
-  "name": "AAA",
-  "keyWord": "A",
-  "imgList": "https://dbg.obs.cn-south-1.myhuaweicloud.com/8c3321fda26b49859906374a00ef6901.jpg",
+  "name": "A",
+  "keyWord": null,
+  "imgList": "https://dbg.obs.cn-south-1.myhuaweicloud.com/ca4e3bb0326741c5aa1441a88a5374cc.jpg",
   "brandId": "1",
   "categoryId": "1",
   "freeShippingFlag": true,
   "saleFlag": true,
-  "saleTimeOutFlag": true,
-  "stopSaleTime": 1710777600000,
+  "saleTimeOutFlag": false,
+  "stopSaleTime": null,
   "specList": [],
   "unit": null,
-  "volume": "90",
-  "weight": "100",
+  "volume": null,
+  "weight": null,
   "productImage": [
-    "https://dbg.obs.cn-south-1.myhuaweicloud.com/8c3321fda26b49859906374a00ef6901.jpg"
+    "https://dbg.obs.cn-south-1.myhuaweicloud.com/ca4e3bb0326741c5aa1441a88a5374cc.jpg"
   ],
-  "maxLimitCount": "10",
-  "minLimitCount": "1",
-  "detail": "<p>##########################</p >"
+  "posByWeightFlag": false
 }

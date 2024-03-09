@@ -81,7 +81,7 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getSearchKey(),"Search Key"); //需
         SCheckUtil.notEmpty(e.getFreeShippingFlag(),"Free Shipping Flag");
         SCheckUtil.notEmpty(e.getSaleTimeOutFlag(),"SaleTimeOutFlag");
-        if(e.getSaleTimeOutFlag() != null)
+        if(e.getSaleTimeOutFlag() == true)
             SCheckUtil.notEmpty(e.getStopSaleTime(),"Stop Sale Time");
         SCheckUtil.notEmpty(e.getDetail(),"Detail");
         SCheckUtil.notEmpty(e.getDelFlag(),"Del Flag");  //需
