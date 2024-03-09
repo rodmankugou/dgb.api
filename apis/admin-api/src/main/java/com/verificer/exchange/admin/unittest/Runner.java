@@ -94,7 +94,7 @@ public class Runner {
     }
 
     public static void main(String args[]) throws SQLException {
-//        Tools.init();
+        Tools.init();
 
 //        run("shop/add_1");
 //        run("shop/upd_1");
@@ -133,11 +133,11 @@ public class Runner {
 //        map.put("saleFlag",true);
 //        runPageQry("goods/page",map);
 
-//        OrderGen.genGoods();
+        OrderGen.genGoods();
 
 //        runPageQry("order/page");
 //        run("order/dtl");
-        runTemp();
+//        runTemp();
 
     }
 

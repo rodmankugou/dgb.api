@@ -83,13 +83,13 @@ public class OrderGen {
         Long transitTime = null;
         Long recTime = null;
         if(type == OrdType.POS.getValue()){
-            createTime = fourDayRan() + twoHourRan();
+            createTime = bTime + fourDayRan() + twoHourRan();
             o.setPayType(PayType.POS.getValue());
             o.setRefId(getShopId());
             o.setRefType(MerType.SHOP.getValue());
 
         }else if(type == OrdType.SELF_TAKE.getValue()){
-            createTime = fourDayRan() + twoHourRan();
+            createTime = bTime + fourDayRan() + twoHourRan();
             recTime = createTime + twoHourRan()*2;
             o.setTakeCode(SStringUtils.generateRandomNumSequence(6));
             o.setPayType(PayType.WX.getValue());
@@ -97,7 +97,7 @@ public class OrderGen {
             o.setRefType(MerType.SHOP.getValue());
 
         }else {
-            createTime = fourDayRan() + twoHourRan();
+            createTime = bTime+fourDayRan() + twoHourRan();
             transitTime = createTime + twoHourRan();
             recTime = transitTime + twoHourRan()*2;
             o.setAddrId(getAddrId());
