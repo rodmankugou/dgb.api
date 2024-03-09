@@ -30,9 +30,17 @@ public class Runner {
     }
 
     public static void runPageQry(String url){
+
+        runPageQry(url,new HashMap<>());
+    }
+
+    public static void runPageQry(String url,Map<String,Object> params){
         Map<String,Object> map = new HashMap<>();
         map.put("page",1);
         map.put("pageSize",10);
+        for(String key : params.keySet()){
+            map.put(key,params.get(key));
+        }
 
         Tools.callApi(url,FastJson.toJson(map));
     }
@@ -118,7 +126,10 @@ public class Runner {
 //        runDel("goods/del",3+"");
 //        runPageQry("goods/page");
 
-        runTemp();
+//        runTemp();
+        Map map = new HashMap();
+        map.put("rubbishFlag",false);
+        runPageQry("goods/page");
     }
 
 

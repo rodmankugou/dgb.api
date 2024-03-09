@@ -339,7 +339,7 @@
 
   <sql id="qryCond">
     <if test="rubbishFlag != null">
-      and g.rubbish_flag = #{rubbish_flag}
+      and g.rubbish_flag = #{rubbishFlag}
     </if>
     <if test="name != null and name != '' ">
       and g.name = #{name}
