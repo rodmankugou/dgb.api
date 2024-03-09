@@ -278,5 +278,11 @@ public interface BizService {
      * @return
      */
     DbgOrderVo orderDetail(Long id);
+
+    /**
+     * 同步银豹数据，临时
+     * @param
+     */
+    void ybSync();
 }
 

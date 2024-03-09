@@ -136,7 +136,8 @@ public class Runner {
 //        OrderGen.genGoods();
 
 //        runPageQry("order/page");
-        run("order/dtl");
+//        run("order/dtl");
+        runTemp();
 
     }
 

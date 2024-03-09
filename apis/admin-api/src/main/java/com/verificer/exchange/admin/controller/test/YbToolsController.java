@@ -1,7 +1,6 @@
 package com.verificer.exchange.admin.controller.test;
 
-import com.verificer.biz.beans.vo.BrandVo;
-import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
@@ -13,15 +12,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * Created by 35336 on 2021/2/26.
  */
-@Api(tags = "品牌")
-@RequestMapping("/ot")
+@Api(tags = "银豹")
+@RequestMapping("/yb")
 @RestController
-public class OrdTmpController extends BaseController {
+public class YbToolsController extends BaseController {
 
     @Autowired
     BizService bizService;
@@ -29,7 +26,7 @@ public class OrdTmpController extends BaseController {
 
 
     @ApiOperation(
-            value = "新增测试订单",
+            value = "同步银豹数据",
             response = Response.class,
             httpMethod = "POST"
     )
@@ -38,11 +35,11 @@ public class OrdTmpController extends BaseController {
     })
     @ResponseBody
     @NeedLogin
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public Response submit(@RequestBody DbgOrderFormVo2 formVo) {
-        Long orderId = bizService.orderAdd(formVo);
+    @RequestMapping(value = "/sync", method = RequestMethod.POST)
+    public Response sync(@RequestBody DbgOrderFormVo2 formVo) {
+        bizService.ybSync();
 
-        return Response.dataSuccess(orderId);
+        return Response.simpleSuccess();
     }
 
 

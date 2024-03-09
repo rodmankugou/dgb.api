@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Tools {
-    private static String baseUrl = "http://localhost:9000/admin_api/";
+//    private static String baseUrl = "http://localhost:9000/admin_api/";
+    private static String baseUrl = "http://121.37.22.89/admin_api/";
     public static String TEST_DATA_PATH = "/Users/liujinhua/dev/workspace/dgb.api/apis/admin-api/src/main/java/com/verificer/exchange/admin/unittest/data/";
 
     /**
@@ -28,7 +29,7 @@ public class Tools {
     }
 
     public static String getToken(){
-        return "a59b89bd01604064b5e8d4cc16a85b2aUBSK65CQM0Cdt1iE9ity23xo8vM3h937-1709975407315";
+        return "b5849a35cfcb41e5aab8b6331880311e1UYR0N1Wdo9O8VaFqDC48cI175P4O32W-1709994228730";
     }
 
     public static TResp callApi(String url,String json){

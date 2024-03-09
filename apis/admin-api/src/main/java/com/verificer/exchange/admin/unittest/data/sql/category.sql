@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/09/2024 11:18:02 AM
+ Date: 03/09/2024 21:48:50 PM
 */
 
 SET NAMES utf8;
@@ -31,13 +31,13 @@ CREATE TABLE `category` (
   `del_flag` tinyint(1) DEFAULT NULL,
   `del_time` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `category`
 -- ----------------------------
 BEGIN;
-INSERT INTO `category` VALUES ('3', '马来猫山王', '猫山王', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/4.png', '马来猫山王@猫山王', '1709954253726', '0', null);
+INSERT INTO `category` VALUES ('3', '马来猫山王', '猫山王', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/4.png', '马来猫山王', '1709954253726', '0', null), ('4', '马来金枕头', '金枕头', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/4.png', '金枕头', '1709954253726', '0', null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

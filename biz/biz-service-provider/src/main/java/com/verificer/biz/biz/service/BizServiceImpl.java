@@ -32,6 +32,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Autowired
     DbgOrderService dbgOrderService;
 
+    @Autowired
+    YbToolsService ybToolsService;
+
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
         return brandService.brandPage(qryVo);
@@ -230,5 +233,10 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public DbgOrderVo orderDetail(Long id) {
         return dbgOrderService.orderDetail(id);
+    }
+
+    @Override
+    public void ybSync() {
+        ybToolsService.ybSync();
     }
 }
