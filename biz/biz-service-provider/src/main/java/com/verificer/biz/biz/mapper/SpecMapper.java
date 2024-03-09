@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.biz.entity.Spec;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,6 @@ public interface SpecMapper {
     int updateByPrimaryKey(Spec record);
 
     List<Spec> selectByGoodsId(@Param("goodsId") Long goodsId);
+
+    List<SpecVo> selectVoByGoodsId(@Param("goodsId") Long goodsId);
 }

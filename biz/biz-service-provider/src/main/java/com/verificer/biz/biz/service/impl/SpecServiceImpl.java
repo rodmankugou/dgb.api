@@ -3,6 +3,7 @@ package com.verificer.biz.biz.service.impl;
 import com.verificer.ErrCode;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.SpecReqVo;
+import com.verificer.biz.biz.entity.GoodsSta;
 import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.SpecMapper;
 import com.verificer.biz.biz.service.GoodsStaService;
@@ -55,13 +56,14 @@ public class SpecServiceImpl implements SpecService {
 
     @Override
     public List<SpecVo> getGoodsSpecVoList(Long goodsId) {
-        List<Spec> specList = mapper.selectByGoodsId(goodsId);
-        List<SpecVo> voList = new LinkedList<>();
-        for(Spec spec : specList){
-            SpecVo specVo = new SpecVo();
-            SBeanUtils.copyProperties2(spec,specVo);
-            voList.add(specVo);
-        }
+        List<SpecVo> voList = mapper.selectVoByGoodsId(goodsId);
+//        List<SpecVo> voList = new LinkedList<>();
+//        for(Spec spec : specList){
+//            SpecVo specVo = new SpecVo();
+//            SBeanUtils.copyProperties2(spec,specVo);
+//            voList.add(specVo);
+//            GoodsSta sta = goodsStaService.select
+//        }
         return voList;
     }
 

@@ -88,6 +88,9 @@ public class GoodsVo implements Serializable {
     @ApiModelProperty("规格列表")
     private List<SpecVo> specList;
 
+    @ApiModelProperty("价格范围")
+    private String price;
+
 
 
     public Long getId() {
@@ -304,5 +307,13 @@ public class GoodsVo implements Serializable {
 
     public void setSpecList(List<SpecVo> specList) {
         this.specList = specList;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

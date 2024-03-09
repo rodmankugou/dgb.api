@@ -1,24 +1,29 @@
 package com.verificer.biz.biz.service.impl;
 
 import com.verificer.ErrCode;
+import com.verificer.GlobalConfig;
 import com.verificer.biz.beans.vo.GoodsVo;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Brand;
 import com.verificer.biz.biz.entity.Goods;
+import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.GoodsMapper;
 import com.verificer.biz.biz.service.GoodsService;
 import com.verificer.biz.biz.service.GoodsStaService;
 import com.verificer.biz.biz.service.SpecService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
+import com.verificer.utils.PriceUtils;
 import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.SStringUtils;
 import com.verificer.utils.check.SCheckUtil;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -37,11 +42,30 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<GoodsVo> goodsPage(GoodsQryVo qryVo) {
         List<GoodsVo> voList = mapper.page(qryVo);
+
         for(GoodsVo vo : voList){
             List<SpecVo> specList = specService.getGoodsSpecVoList(vo.getId());
             vo.setSpecList(specList);
+            vo.setPrice(calPriceRange(specList));
         }
+
         return voList;
+    }
+
+    private String calPriceRange(List<SpecVo> specList){
+        BigDecimal max = null;
+        BigDecimal min = null;
+        if(specList.size() == 1)
+            return PriceUtils.format(specList.get(0).getPrice());
+
+        for(SpecVo spec : specList){
+            if(min == null || spec.getPrice().compareTo(min) < 0)
+                min = spec.getPrice();
+            if(max == null || spec.getPrice().compareTo(min) > 0)
+                max = spec.getPrice();
+        }
+        return PriceUtils.format(min) + "-" + PriceUtils.format(max);
+
     }
 
     @Override
@@ -54,19 +78,19 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getBrandId(),"Brand Id");
         SCheckUtil.notEmpty(e.getName(),"Name");
         SCheckUtil.notEmpty(e.getImgList(),"Img List");
-        SCheckUtil.notEmpty(e.getKeyWord(),"Key Word");
         SCheckUtil.notEmpty(e.getSearchKey(),"Search Key"); //需
         SCheckUtil.notEmpty(e.getFreeShippingFlag(),"Free Shipping Flag");
         if(e.getFreeShippingFlag() != null)
             SCheckUtil.notEmpty(e.getStopSaleTime(),"Stop Sale Time");
         SCheckUtil.notEmpty(e.getDetail(),"Detail");
         SCheckUtil.notEmpty(e.getDelFlag(),"Del Flag");  //需
-
         SCheckUtil.notEmpty(e.getRubbishFlag(),"Rubbish Flag"); //需
         SCheckUtil.notEmpty(e.getPosByWeightFlag(),"Rubbish Flag"); //需
     }
 
     private String genSearchKey(Goods goods){
+        if(SStringUtils.isEmpty(goods.getKeyWord()))
+            return goods.getName();
         return goods.getName() +"@"+goods.getKeyWord();
     }
 

@@ -14,6 +14,8 @@ public class GlobalConfig {
     private static final Logger logger = LoggerFactory.getLogger(GlobalConfig.class);
 
     public static final String ENV= JavaPropertiesUtil.getValue("global.properties", "env");
+    public static final int PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "precision"));
+
     public static String AES_SEED = null;
 
 

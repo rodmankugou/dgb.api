@@ -81,7 +81,7 @@ public class Runner {
 
 
     public static void main(String args[]){
-//        Tools.init();
+        Tools.init();
 
 //        run("shop/add_1");
 //        run("shop/upd_1");
@@ -103,8 +103,8 @@ public class Runner {
 //        runDel("cat/del",3+"");
 //        runPageQry("cat/page");
 
-//        run("goods/add_1");
-//        run("goods/add_2");
+        run("goods/add_1");
+        run("goods/add_2");
 //        run("goods/upd_1");
 //        run("goods/upd_sale");
 //        run("goods/rubbish");
@@ -113,7 +113,7 @@ public class Runner {
 
 
 //        runDel("goods/del",3+"");
-        runPageQry("goods/page");
+//        runPageQry("goods/page");
     }
 
 

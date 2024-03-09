@@ -177,5 +177,33 @@
     where del_flag = 0 and goods_id = #{goodsId}
   </select>
 
+  <resultMap id="VoRstMap" type="com.verificer.biz.beans.vo.SpecVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="w_price" jdbcType="DECIMAL" property="wPrice" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+
+    <result column="pla_sale_count" jdbcType="INTEGER" property="plaSaleCount" />
+    <result column="pla_stage_count" jdbcType="INTEGER" property="plaStageCount" />
+    <result column="shop_sale_count" jdbcType="INTEGER" property="shopSaleCount" />
+    <result column="shop_stage_count" jdbcType="INTEGER" property="shopStageCount" />
+    <result column="sum_sale_count" jdbcType="INTEGER" property="sumSaleCount" />
+  </resultMap>
+
+  <select id="selectVoByGoodsId" resultMap="VoRstMap">
+
+    select
+        spec.*,
+        gs.pla_sale_count,
+        gs.pla_stage_count,
+        gs.shop_sale_count,
+        gs.shop_stage_count,
+        (gs.pla_sale_count + gs.shop_sale_count) as sum_sale_count
+    from spec
+        join goods_sta gs on (spec.id = gs.spec_id )
+    where del_flag = 0 and spec.goods_id = #{goodsId}
+  </select>
 
 </mapper>
