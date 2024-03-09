@@ -6,6 +6,7 @@ import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.vo.BrandVo;
 import com.verificer.biz.beans.vo.req.BrandDelVo;
 import com.verificer.biz.beans.vo.req.BrandFormVo;
+import com.verificer.biz.beans.vo.req.BrandListQryVo;
 import com.verificer.biz.beans.vo.req.BrandPageQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
@@ -51,6 +52,21 @@ public class BrandController extends BaseController{
         return Response.listSuccess(count,list);
     }
 
+    @ApiOperation(
+            value = "列表（不分页）",
+            response = BrandVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Response list(@RequestBody BrandListQryVo qryVo) {
+        List<BrandVo> list = bizService.brandList(qryVo);
+        return Response.dataSuccess(list);
+    }
 
     @ApiOperation(
             value = "新增/修改",

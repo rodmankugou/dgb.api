@@ -55,11 +55,12 @@ public class StockServiceImpl implements StockService {
         SCheckUtil.notEmpty(e.getStageFlag(),"stock.StageFlag");
         SCheckUtil.notEmpty(e.getRelId(),"stock.RelId");
         SCheckUtil.lgThan(e.getCount(),true,0,"stock.Count");
+        SCheckUtil.notEmpty(e.getCreateTime(),"stock.CrateTime");
     }
 
 
-    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,String refId,Integer count ){
-        Stock old = mapper.selectByRefIdAndSpecId(refId,specId);
+    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,String relId,Integer count ){
+        Stock old = mapper.selectByRefIdAndSpecId(relId,specId);
         if(old != null)
             return;
         Stock e = new Stock();
@@ -67,10 +68,12 @@ public class StockServiceImpl implements StockService {
         e.setSpecId(specId);
         e.setStageFlag(stageFlag);
         e.setStageFlag(stageFlag);
-        e.setRelId(refId);
+        e.setRelId(relId);
         e.setCount(count);
+        e.setCreateTime(System.currentTimeMillis());
 
         mCheck(e);
+        mapper.insertSelective(e);
     }
 
     private StockInsufficientException buildException(Stock stock){

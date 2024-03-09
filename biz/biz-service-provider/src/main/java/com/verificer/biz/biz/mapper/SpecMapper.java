@@ -1,6 +1,10 @@
 package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.biz.entity.Spec;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public interface SpecMapper {
     /**
@@ -50,4 +54,6 @@ public interface SpecMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Spec record);
+
+    List<Spec> selectByGoodsId(@Param("goodsId") Long goodsId);
 }

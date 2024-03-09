@@ -4,10 +4,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.repository.query.Param;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @ApiModel
-public class StageVo {
+public class StageVo implements Serializable {
     @ApiModelProperty("ID")
     private String id;
 

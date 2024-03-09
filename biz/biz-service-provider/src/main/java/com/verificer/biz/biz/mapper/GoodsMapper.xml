@@ -28,6 +28,7 @@
     <result column="del_time" jdbcType="BIGINT" property="delTime" />
     <result column="rubbish_flag" jdbcType="BIT" property="rubbishFlag" />
     <result column="rubbish_time" jdbcType="BIGINT" property="rubbishTime" />
+    <result column="pos_by_weight_flag" jdbcType="BIT" property="posByWeightFlag" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -36,7 +37,8 @@
     -->
     id, category_id, brand_id, name, img_list, key_word, search_key, free_shipping_flag, 
     weight, volume, max_limit_count, min_limit_count, unit, sale_flag, sale_time_out_flag, 
-    stop_sale_time, detail, create_time, del_flag, del_time, rubbish_flag, rubbish_time
+    stop_sale_time, detail, create_time, del_flag, del_time, rubbish_flag, rubbish_time, 
+    pos_by_weight_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -70,16 +72,16 @@
       max_limit_count, min_limit_count, unit, 
       sale_flag, sale_time_out_flag, stop_sale_time, 
       detail, create_time, del_flag, 
-      del_time, rubbish_flag, rubbish_time
-      )
+      del_time, rubbish_flag, rubbish_time, 
+      pos_by_weight_flag)
     values (#{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{imgList,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, 
       #{freeShippingFlag,jdbcType=BIT}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
       #{maxLimitCount,jdbcType=INTEGER}, #{minLimitCount,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, 
       #{saleFlag,jdbcType=TINYINT}, #{saleTimeOutFlag,jdbcType=TINYINT}, #{stopSaleTime,jdbcType=BIGINT}, 
       #{detail,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{delFlag,jdbcType=BIT}, 
-      #{delTime,jdbcType=BIGINT}, #{rubbishFlag,jdbcType=BIT}, #{rubbishTime,jdbcType=BIGINT}
-      )
+      #{delTime,jdbcType=BIGINT}, #{rubbishFlag,jdbcType=BIT}, #{rubbishTime,jdbcType=BIGINT}, 
+      #{posByWeightFlag,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.Goods">
     <!--
@@ -154,6 +156,9 @@
       <if test="rubbishTime != null">
         rubbish_time,
       </if>
+      <if test="posByWeightFlag != null">
+        pos_by_weight_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -218,6 +223,9 @@
       </if>
       <if test="rubbishTime != null">
         #{rubbishTime,jdbcType=BIGINT},
+      </if>
+      <if test="posByWeightFlag != null">
+        #{posByWeightFlag,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -291,6 +299,9 @@
       <if test="rubbishTime != null">
         rubbish_time = #{rubbishTime,jdbcType=BIGINT},
       </if>
+      <if test="posByWeightFlag != null">
+        pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -320,7 +331,8 @@
       del_flag = #{delFlag,jdbcType=BIT},
       del_time = #{delTime,jdbcType=BIGINT},
       rubbish_flag = #{rubbishFlag,jdbcType=BIT},
-      rubbish_time = #{rubbishTime,jdbcType=BIGINT}
+      rubbish_time = #{rubbishTime,jdbcType=BIGINT},
+      pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--以上内容自动生成-->
@@ -346,7 +358,31 @@
     </if>
   </sql>
 
-  <resultMap id="GoodsVoRstMap" extends="BaseResultMap" type="com.verificer.biz.beans.vo.GoodsVo">
+  <resultMap id="modelRstMap" type="com.verificer.biz.beans.vo.GoodsVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img_list" jdbcType="VARCHAR" property="imgList" />
+    <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
+    <result column="free_shipping_flag" jdbcType="BIT" property="freeShippingFlag" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="max_limit_count" jdbcType="INTEGER" property="maxLimitCount" />
+    <result column="min_limit_count" jdbcType="INTEGER" property="minLimitCount" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="sale_flag" jdbcType="TINYINT" property="saleFlag" />
+    <result column="sale_time_out_flag" jdbcType="TINYINT" property="saleTimeOutFlag" />
+    <result column="stop_sale_time" jdbcType="BIGINT" property="stopSaleTime" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="rubbish_flag" jdbcType="BIT" property="rubbishFlag" />
+    <result column="rubbish_time" jdbcType="BIGINT" property="rubbishTime" />
+    <result column="pos_by_weight_flag" jdbcType="BIT" property="posByWeightFlag" />
+
+  </resultMap>
+
+  <resultMap id="GoodsVoRstMap" extends="modelRstMap" type="com.verificer.biz.beans.vo.GoodsVo">
     <result column="pla_sale_count" jdbcType="INTEGER" property="plaSaleCount" />
     <result column="pla_stage_count" jdbcType="INTEGER" property="plaStageCount" />
     <result column="shop_sale_count" jdbcType="INTEGER" property="shopSaleCount" />
@@ -362,7 +398,7 @@
            gs.shop_sale_count,
            gs.shop_stage_count,
            (gs.pla_sale_count + gs.shop_sale_count) as sum_sale_count
-    from goods g join goods_sta gs on (g.id = gs.good_id and gs.sum_sta_flag = 1)
+    from goods g join goods_sta gs on (g.id = gs.goods_id and gs.sum_sta_flag = 1)
     where g.del_flag = 0
     <include refid="qryCond"></include>
     order by sum_sale_count desc
@@ -372,7 +408,7 @@
   <select id="count"  resultType="int">
     select
       count(*)
-    from goods g join goods_sta gs on (g.id = gs.good_id and gs.sum_sta_flag = 1)
+    from goods g join goods_sta gs on (g.id = gs.goods_id and gs.sum_sta_flag = 1)
     where g.del_flag = 0
     <include refid="qryCond"></include>
 

@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel
@@ -16,6 +17,13 @@ public class SpecReqVo implements Serializable {
 
     @ApiModelProperty("图片")
     private String img;
+
+
+    @ApiModelProperty("价格")
+    private BigDecimal price;
+
+    @ApiModelProperty("按重量计价价格")
+    private BigDecimal wPrice;
 
     @ApiModelProperty("ID列表")
     private List<String> stageIds;
@@ -50,5 +58,21 @@ public class SpecReqVo implements Serializable {
 
     public void setStageIds(List<String> stageIds) {
         this.stageIds = stageIds;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getwPrice() {
+        return wPrice;
+    }
+
+    public void setwPrice(BigDecimal wPrice) {
+        this.wPrice = wPrice;
     }
 }

@@ -152,7 +152,7 @@
     select
     <include refid="Base_Column_List" />
     from stock
-    where rel_uuid = #{relId} and spec_id = #{specId}
+    where rel_id = #{relId} and spec_id = #{specId}
   </select>
 
   <select id="selectByIdForUpd"  resultMap="BaseResultMap">

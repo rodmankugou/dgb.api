@@ -54,6 +54,13 @@ public class GoodsFormVo implements Serializable {
     @ApiModelProperty("定时下架时间")
     private Long stopSaleTime;
 
+    @ApiModelProperty("详情")
+    private String detail;
+
+    @ApiModelProperty("门店是否按重量计价，true-是 false-否")
+    private Boolean posByWeightFlag;
+
+
     @ApiModelProperty("规格列表")
     private List<SpecReqVo> specList;
 
@@ -184,5 +191,21 @@ public class GoodsFormVo implements Serializable {
 
     public void setSpecList(List<SpecReqVo> specList) {
         this.specList = specList;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Boolean getPosByWeightFlag() {
+        return posByWeightFlag;
+    }
+
+    public void setPosByWeightFlag(Boolean posByWeightFlag) {
+        this.posByWeightFlag = posByWeightFlag;
     }
 }

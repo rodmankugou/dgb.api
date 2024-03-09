@@ -1,6 +1,7 @@
 package com.verificer.biz.biz.service.impl;
 
 import com.verificer.ErrCode;
+import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.vo.*;
@@ -14,7 +15,7 @@ import com.verificer.biz.biz.mapper.ShopMapper;
 import com.verificer.biz.biz.service.ShopInfoService;
 import com.verificer.biz.biz.service.ShopService;
 import com.verificer.common.exception.BaseException;
-import com.verificer.common.exception.BizErrMsgException;
+import com.verificer.utils.AESUtils;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.security.GeneralSecurityException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -201,15 +204,20 @@ public class ShopServiceImpl implements ShopService {
 
         mCheck(e);
         uniqueCheck(e);
+
+        if(mapper.selectByPosAppIdLimit1(e.getPosAppId()) != null)
+            throw new BaseException(ErrCode.POS_API_ID_ERR);
+        //TODO 在此验证POS 机接口是否能正常调用
+
+        try {
+            e.setPosAppSecret(AESUtils.encrypt(GlobalConfig.AES_SEED,e.getPosAppSecret()));
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage(),ex);
+        }
         mapper.insertSelective(e);
 
         e.setLoginName(e.getAdrArea2()+e.getId());
         mapper.updateByPrimaryKeySelective(e);
-
-        //Pos机设置校验
-        if(mapper.selectByPosAppIdLimit1(e.getPosAppId()) != null)
-            throw new BaseException("该AppId已被使用");
-        //TODO 在此验证POS 机接口是否能正常调用
 
         //建立上下级关系
         buildChildRel(e.getId(),formVo.getChildIds());

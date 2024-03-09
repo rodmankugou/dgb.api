@@ -3,8 +3,10 @@ package com.verificer.biz.beans.vo.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel
-public class FreeRemarkVo {
+public class FreeRemarkVo implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
     @ApiModelProperty("备注")

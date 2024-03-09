@@ -302,4 +302,14 @@ public class ShopFormVo implements Serializable {
     public void setPosAppId(String posAppId) {
         this.posAppId = posAppId;
     }
+
+    public String getPosBaseUrl() {
+        return posBaseUrl;
+    }
+
+    public void setPosBaseUrl(String posBaseUrl) {
+        this.posBaseUrl = posBaseUrl;
+    }
+
+
 }

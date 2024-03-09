@@ -3,8 +3,10 @@ package com.verificer.biz.beans.vo.req;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel
-public class IdVo {
+public class IdVo implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
 

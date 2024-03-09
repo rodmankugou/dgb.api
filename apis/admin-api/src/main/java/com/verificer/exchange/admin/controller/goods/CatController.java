@@ -3,6 +3,7 @@ package com.verificer.exchange.admin.controller.goods;
 import com.verificer.biz.beans.vo.CatVo;
 import com.verificer.biz.beans.vo.req.CatDelVo;
 import com.verificer.biz.beans.vo.req.CatFormVo;
+import com.verificer.biz.beans.vo.req.CatListQryVo;
 import com.verificer.biz.beans.vo.req.CatPageQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
@@ -27,6 +28,22 @@ public class CatController extends BaseController{
 
     @Autowired
     BizService bizService;
+
+    @ApiOperation(
+            value = "列表（不分页）",
+            response = CatVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Response list( @RequestBody CatListQryVo qryVo) {
+        List<CatVo> list = bizService.catList(qryVo);
+        return Response.dataSuccess(list);
+    }
 
 
     @ApiOperation(

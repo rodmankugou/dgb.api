@@ -1,6 +1,8 @@
 package com.verificer.biz.beans.vo.req;
 
-public class StockUpdVo {
+import java.io.Serializable;
+
+public class StockUpdVo implements Serializable {
     private boolean addFlag;
     private String relId;
     private long specId;

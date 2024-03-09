@@ -251,5 +251,6 @@ public class ErrCode {
     public static final String OP_GOODS_RUBBISH_STATUS_ERR = "OP_GOODS_RUBBISH_STATUS_ERR";
     public static final String OP_ADJUST_STAGE_STOCK_NOT_ENOUGH = "OP_ADJUST_STAGE_STOCK_NOT_ENOUGH";
     public static final String SHOP_BASE_URL_MUST_START_WITH_HTTPS = "SHOP_BASE_URL_MUST_START_WITH_HTTPS";
+    public static final String POS_API_ID_ERR = "POS_API_ID_ERR";
 
 }

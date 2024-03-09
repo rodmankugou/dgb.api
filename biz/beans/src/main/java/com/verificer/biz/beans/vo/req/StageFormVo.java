@@ -2,9 +2,10 @@ package com.verificer.biz.beans.vo.req;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class StageFormVo {
+public class StageFormVo implements Serializable {
     @ApiModelProperty("ID,新增时不需要该参数")
     private String id;
 

@@ -3,8 +3,10 @@ package com.verificer.biz.beans.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel
-public class WebUserInfoVo {
+public class WebUserInfoVo implements Serializable {
     @ApiModelProperty("用户名")
     private String username;
     @ApiModelProperty("角色 1-发展商 2-建筑商 3-供应商")

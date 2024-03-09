@@ -26,6 +26,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Autowired
     ShopService shopService;
 
+    @Autowired
+    AdjustService adjustService;
+
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
         return brandService.brandPage(qryVo);
@@ -168,41 +171,41 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Override
     public void shopAdd(ShopFormVo formVo) {
-        shopAdd(formVo);
+        shopService.shopAdd(formVo);
     }
 
     @Override
     public void shopUpd(ShopFormVo formVo) {
-        shopUpd(formVo);
+        shopService.shopUpd(formVo);
     }
 
     @Override
     public void shopDel(ShopDelVo delVo) {
-        shopDel(delVo);
+        shopService.shopDel(delVo);
     }
 
     @Override
     public void shopUpdFrozenSta(ShopFrozenVo reqVo) {
-        shopUpdFrozenSta(reqVo);
+        shopService.shopUpdFrozenSta(reqVo);
     }
 
     @Override
     public void adjustBatch(AdjustBatchVo formVo) {
-
+        adjustService.adjustBatch(formVo);
     }
 
     @Override
     public void adjust(AdjustFormVo delVo) {
-
+        adjustService.adjust(delVo);
     }
 
     @Override
     public List<AdjustVo> adjustPage(AdjustPageVo qryVo) {
-        return null;
+        return adjustService.adjustPage(qryVo);
     }
 
     @Override
     public int adjustCount(AdjustPageVo qryVo) {
-        return 0;
+        return adjustService.adjustCount(qryVo);
     }
 }

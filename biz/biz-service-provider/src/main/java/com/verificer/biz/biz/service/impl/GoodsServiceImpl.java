@@ -2,11 +2,13 @@ package com.verificer.biz.biz.service.impl;
 
 import com.verificer.ErrCode;
 import com.verificer.biz.beans.vo.GoodsVo;
+import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Brand;
 import com.verificer.biz.biz.entity.Goods;
 import com.verificer.biz.biz.mapper.GoodsMapper;
 import com.verificer.biz.biz.service.GoodsService;
+import com.verificer.biz.biz.service.GoodsStaService;
 import com.verificer.biz.biz.service.SpecService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
@@ -29,9 +31,16 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     SpecService specService;
 
+    @Autowired
+    GoodsStaService goodsStaService;
+
     @Override
     public List<GoodsVo> goodsPage(GoodsQryVo qryVo) {
         List<GoodsVo> voList = mapper.page(qryVo);
+        for(GoodsVo vo : voList){
+            List<SpecVo> specList = specService.getGoodsSpecVoList(vo.getId());
+            vo.setSpecList(specList);
+        }
         return voList;
     }
 
@@ -54,6 +63,7 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getDelFlag(),"Del Flag");  //需
 
         SCheckUtil.notEmpty(e.getRubbishFlag(),"Rubbish Flag"); //需
+        SCheckUtil.notEmpty(e.getPosByWeightFlag(),"Rubbish Flag"); //需
     }
 
     private String genSearchKey(Goods goods){
@@ -67,9 +77,11 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setSearchKey(genSearchKey(goods));
         goods.setDelFlag(false);
         goods.setRubbishFlag(false);
+        goods.setCreateTime(System.currentTimeMillis());
 
         mCheck(goods);
         mapper.insertSelective(goods);
+        goodsStaService.add(goods.getId());
 
         specService.add(goods.getId(),formVo.getSpecList());
     }
@@ -87,10 +99,13 @@ public class GoodsServiceImpl implements GoodsService {
 
         Goods e = new Goods();
         SBeanUtils.copyProperties2(formVo,e);
+        e.setCreateTime(old.getCreateTime());
         e.setSearchKey(genSearchKey(e));
         e.setCreateTime(old.getCreateTime());
         e.setDelFlag(old.getDelFlag());
         e.setRubbishFlag(old.getRubbishFlag());
+        e.setPosByWeightFlag(old.getPosByWeightFlag());
+
 
         mCheck(e);
         mapper.updateByPrimaryKeySelective(e);
@@ -172,7 +187,7 @@ public class GoodsServiceImpl implements GoodsService {
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
         if(e.getRubbishFlag() == false )
             throw new BaseException(ErrCode.OP_GOODS_DEL_STATUS_ERR,new Object[]{e.getName()});
-        e.setDelFlag(false);
+        e.setDelFlag(true);
         e.setDelTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(e);
     }

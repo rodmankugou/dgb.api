@@ -69,9 +69,8 @@ public class FileUploadController extends BaseController{
 
 
 
-
     @ApiOperation(
-            value = "上传图片",
+            value = "上传图片,免登录，Debug接口，生产环境不可用",
             response = Response.class,
             httpMethod = "POST",
             notes = "按照文件上传的顺序返回上传后的文件url"

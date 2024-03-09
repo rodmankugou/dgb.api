@@ -1,10 +1,7 @@
-package com.verificer.utils.c3p0;
+package com.verificer.utils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-
-import com.verificer.utils.JavaPropertiesUtil;
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyVetoException;
@@ -12,7 +9,8 @@ import java.beans.PropertyVetoException;
 public class C3p0Tools {
     private static Logger LOGGER = LoggerFactory.getLogger(C3p0Tools.class);
     private static String driverClass = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.driverClass");
-    private static String jdbcUrl = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.jdbcUrl");
+//    private static String jdbcUrl = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.jdbcUrl");
+    private static String jdbcUrl = "jdbc:mysql://localhost:3306/dbg?serverTimezone=UTC";
     private static String user = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.user");
     private static String passwd = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.password");
     private static int poolSize = Integer.parseInt(JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.initialPoolSize"));

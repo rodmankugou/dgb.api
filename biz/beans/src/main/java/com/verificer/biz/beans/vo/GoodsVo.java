@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @ApiModel
 public class GoodsVo implements Serializable {
@@ -62,6 +63,12 @@ public class GoodsVo implements Serializable {
     @ApiModelProperty("放入回收站的时间")
     private Long rubbishTime;
 
+    @ApiModelProperty("详情")
+    private String detail;
+
+    @ApiModelProperty("门店是否按重量计价，true-是 false-否")
+    private Boolean posByWeightFlag;
+
 
     @ApiModelProperty("平台销售总量")
     private Integer plaSaleCount;
@@ -77,6 +84,10 @@ public class GoodsVo implements Serializable {
 
     @ApiModelProperty("库存量，Web端和商家端使用")
     private Integer stageCount;
+
+    @ApiModelProperty("规格列表")
+    private List<SpecVo> specList;
+
 
 
     public Long getId() {
@@ -269,5 +280,29 @@ public class GoodsVo implements Serializable {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Boolean getPosByWeightFlag() {
+        return posByWeightFlag;
+    }
+
+    public void setPosByWeightFlag(Boolean posByWeightFlag) {
+        this.posByWeightFlag = posByWeightFlag;
+    }
+
+    public List<SpecVo> getSpecList() {
+        return specList;
+    }
+
+    public void setSpecList(List<SpecVo> specList) {
+        this.specList = specList;
     }
 }
