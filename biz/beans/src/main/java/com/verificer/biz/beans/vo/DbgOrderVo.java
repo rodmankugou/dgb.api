@@ -43,13 +43,18 @@ public class DbgOrderVo implements Serializable {
     private Integer transitType;
 
     @ApiModelProperty("收货人姓名")
-    private String receiverName;
+    private String rcName;
 
     @ApiModelProperty("收货人手机号码")
-    private String receiverMobile;
+    private String rcMobile;
 
     @ApiModelProperty("收获地址")
-    private String receiverAddr;
+    private String rcAddr;
+
+    @ApiModelProperty("收获地址详细地址")
+    private String rcAddrDetail;
+
+
 
     @ApiModelProperty("活动ID")
     private Long activityId;
@@ -173,29 +178,6 @@ public class DbgOrderVo implements Serializable {
         this.transitType = transitType;
     }
 
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public String getReceiverMobile() {
-        return receiverMobile;
-    }
-
-    public void setReceiverMobile(String receiverMobile) {
-        this.receiverMobile = receiverMobile;
-    }
-
-    public String getReceiverAddr() {
-        return receiverAddr;
-    }
-
-    public void setReceiverAddr(String receiverAddr) {
-        this.receiverAddr = receiverAddr;
-    }
 
     public Long getActivityId() {
         return activityId;
@@ -283,5 +265,37 @@ public class DbgOrderVo implements Serializable {
 
     public void setOrderItems(List<OrderDetailVo> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getRcName() {
+        return rcName;
+    }
+
+    public void setRcName(String rcName) {
+        this.rcName = rcName;
+    }
+
+    public String getRcMobile() {
+        return rcMobile;
+    }
+
+    public void setRcMobile(String rcMobile) {
+        this.rcMobile = rcMobile;
+    }
+
+    public String getRcAddr() {
+        return rcAddr;
+    }
+
+    public void setRcAddr(String rcAddr) {
+        this.rcAddr = rcAddr;
+    }
+
+    public String getRcAddrDetail() {
+        return rcAddrDetail;
+    }
+
+    public void setRcAddrDetail(String rcAddrDetail) {
+        this.rcAddrDetail = rcAddrDetail;
     }
 }
