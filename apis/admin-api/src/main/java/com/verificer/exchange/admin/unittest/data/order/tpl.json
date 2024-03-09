@@ -1,0 +1,26 @@
+{
+  "addrId": 0,
+  "buyerRemark": "string",
+  "createTime": 0,
+  "details": [
+    {
+      "count": 0,
+      "goodsId": 0,
+      "price": 0,
+      "specId": 0
+    }
+  ],
+  "id": 0,
+  "orderNum": "string",
+  "orderType": 0,
+  "payType": 0,
+  "refId": "string",
+  "refType": 0,
+  "status": 0,
+  "takeCode": "string",
+  "takeTime": 0,
+  "transitOrderNum": "string",
+  "transitTime": 0,
+  "transitType": 0,
+  "userId": "string"
+}

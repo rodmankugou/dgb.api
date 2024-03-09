@@ -1,4 +1,5 @@
-
+delete from addr;
+delete from user;
 delete from adjust;
 delete from brand;
 delete from category;

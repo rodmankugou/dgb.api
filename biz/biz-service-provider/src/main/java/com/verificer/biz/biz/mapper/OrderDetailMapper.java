@@ -1,6 +1,9 @@
 package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.biz.entity.OrderDetail;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface OrderDetailMapper {
     /**
@@ -50,4 +53,6 @@ public interface OrderDetailMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(OrderDetail record);
+
+    List<OrderDetail> selectByOrdId(@Param("orderId") Long orderId);
 }

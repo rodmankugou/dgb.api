@@ -1,21 +1,41 @@
 {
   "TAP": "goods/submit",
   "coverImg": null,
-  "name": "A",
-  "keyWord": null,
-  "imgList": "https://dbg.obs.cn-south-1.myhuaweicloud.com/ca4e3bb0326741c5aa1441a88a5374cc.jpg",
+  "name": "TEST",
+  "keyWord": "test",
+  "imgList": "https://dbg.obs.cn-south-1.myhuaweicloud.com/dd33be9ba6ca497b9a0efc7c103bc8df.jpg",
   "brandId": "1",
   "categoryId": "1",
   "freeShippingFlag": true,
   "saleFlag": true,
   "saleTimeOutFlag": false,
   "stopSaleTime": null,
-  "specList": [],
+  "specList": [
+    {
+      "name": "A1",
+      "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/c2f8881abf4e4acf970db65abbb31ddb.png",
+      "price": "100",
+      "stageIds": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "name": "A2",
+      "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/0c61bcbd333a4b6182dbcab3c723f0cb.jpg",
+      "price": "300",
+      "stageIds": [
+        "2",
+        "3"
+      ]
+    }
+  ],
   "unit": null,
   "volume": null,
   "weight": null,
   "productImage": [
-    "https://dbg.obs.cn-south-1.myhuaweicloud.com/ca4e3bb0326741c5aa1441a88a5374cc.jpg"
+    "https://dbg.obs.cn-south-1.myhuaweicloud.com/dd33be9ba6ca497b9a0efc7c103bc8df.jpg"
   ],
-  "posByWeightFlag": false
+  "posByWeightFlag": false,
+  "detail": "<p>====================================</p >"
 }

@@ -1,6 +1,9 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.req.OrderPageVo;
 import com.verificer.biz.biz.entity.DbgOrder;
+
+import java.util.List;
 
 public interface DbgOrderMapper {
     /**
@@ -50,4 +53,8 @@ public interface DbgOrderMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(DbgOrder record);
+
+    List<DbgOrder> page(OrderPageVo qryVo);
+
+    int count(OrderPageVo qryVo);
 }

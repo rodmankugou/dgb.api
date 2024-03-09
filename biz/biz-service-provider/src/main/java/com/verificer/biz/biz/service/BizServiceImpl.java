@@ -29,6 +29,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Autowired
     AdjustService adjustService;
 
+    @Autowired
+    DbgOrderService dbgOrderService;
+
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
         return brandService.brandPage(qryVo);
@@ -207,5 +210,25 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public int adjustCount(AdjustPageVo qryVo) {
         return adjustService.adjustCount(qryVo);
+    }
+
+    @Override
+    public Long orderAdd(DbgOrderFormVo2 formVo) {
+        return dbgOrderService.orderAdd(formVo);
+    }
+
+    @Override
+    public List<DbgOrderVo> orderPage(OrderPageVo qryVo) {
+        return dbgOrderService.orderPage(qryVo);
+    }
+
+    @Override
+    public int orderCount(OrderPageVo qryVo) {
+        return dbgOrderService.orderCount(qryVo);
+    }
+
+    @Override
+    public DbgOrderVo orderDetail(Long id) {
+        return dbgOrderService.orderDetail(id);
     }
 }

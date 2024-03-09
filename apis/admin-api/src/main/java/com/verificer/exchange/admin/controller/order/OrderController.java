@@ -43,9 +43,9 @@ public class OrderController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public Response page(@RequestBody OrderPageVo qryVo) {
-//        List<BrandVo> list = bizService.brandPage(qryVo);
-//        int count = bizService.brandCount(qryVo);
-        return Response.listSuccess(0,new LinkedList<>());
+        List<DbgOrderVo> list = bizService.orderPage(qryVo);
+        int count = bizService.orderCount(qryVo);
+        return Response.listSuccess(count,list);
     }
 
 
@@ -60,10 +60,9 @@ public class OrderController extends BaseController{
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public Response page(@RequestBody IdVo qryVo) {
-//        List<BrandVo> list = bizService.brandPage(qryVo);
-//        int count = bizService.brandCount(qryVo);
-        return Response.dataSuccess(null);
+    public Response detail(@RequestBody IdVo qryVo) {
+        DbgOrderVo vo = bizService.orderDetail(qryVo.getId());
+        return Response.dataSuccess(vo);
     }
 
 

@@ -21,7 +21,7 @@ public class OrderPageVo extends PageQueryVo {
     @ApiModelProperty("订单类型,订单类型，1-线下订单 2-自提订单 3-仓库订单")
     private Integer orderType;
     @ApiModelProperty("店铺ID")
-    private String refId;
+        private String refId;
 
     public Long getId() {
         return id;

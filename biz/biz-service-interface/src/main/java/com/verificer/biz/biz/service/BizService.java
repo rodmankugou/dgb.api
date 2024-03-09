@@ -251,5 +251,32 @@ public interface BizService {
      * @return
      */
     int adjustCount(AdjustPageVo qryVo);
+
+    /**
+     * 新增订单
+     * @param formVo
+     * @return
+     */
+    Long orderAdd(DbgOrderFormVo2 formVo);
+
+    /**
+     * 订单列表
+     * @param qryVo
+     * @return
+     */
+    List<DbgOrderVo> orderPage(OrderPageVo qryVo);
+
+    /**
+     * 统计符合条件的订单数
+     * @param qryVo
+     * @return
+     */
+    int orderCount(OrderPageVo qryVo);
+
+    /**
+     * 订单详情
+     * @return
+     */
+    DbgOrderVo orderDetail(Long id);
 }
 

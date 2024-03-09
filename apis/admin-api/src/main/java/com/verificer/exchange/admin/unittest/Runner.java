@@ -2,6 +2,7 @@ package com.verificer.exchange.admin.unittest;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.verificer.exchange.admin.unittest.order.OrderGen;
 import com.verificer.utils.C3p0Tools;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.RandomUtils;
@@ -11,6 +12,7 @@ import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,7 +93,7 @@ public class Runner {
         run("temp");
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws SQLException {
 //        Tools.init();
 
 //        run("shop/add_1");
@@ -127,9 +129,15 @@ public class Runner {
 //        runPageQry("goods/page");
 
 //        runTemp();
-        Map map = new HashMap();
-        map.put("saleFlag",true);
-        runPageQry("goods/page",map);
+//        Map map = new HashMap();
+//        map.put("saleFlag",true);
+//        runPageQry("goods/page",map);
+
+//        OrderGen.genGoods();
+
+//        runPageQry("order/page");
+        run("order/dtl");
+
     }
 
 

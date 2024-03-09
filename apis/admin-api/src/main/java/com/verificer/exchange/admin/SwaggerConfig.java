@@ -87,6 +87,16 @@ public class SwaggerConfig {
                 .build().groupName("order");
     }
 
+    @Bean
+    public Docket createTestApi(){
+
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                .enable(enable)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.test"))
+                .build().groupName("test");
+    }
+
 
     private ApiInfo apiInfo(){
 
