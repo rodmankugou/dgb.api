@@ -1,0 +1,59 @@
+{
+  "TAP": "shop/submit",
+  "id": "d000e3c443794213a92d61a9c6f6f6fe",
+  "name": "后海科兴总店1",
+  "shopLevel": 1,
+  "posBaseUrl": "https://area53-win.pospal.cn:443/",
+  "posAppId": "747A09332D58D135805F190A93C84FA7",
+  "posAppSecret": "874859095189735996",
+  "opETime": 1,
+  "opSTime": 100001,
+  "adrArea1": "44",
+  "adrArea2": "4403",
+  "adrArea3": "440305",
+  "adrDetail": "后海科技大道1",
+  "avatarImg": "@img1",
+  "bigImg": "@img1",
+  "bk": {
+    "bankName": "平安银行后海支行1",
+    "city": "深圳1",
+    "num": "620330182342481",
+    "userName": "莫文业1"
+  },
+  "childIds": [
+
+  ],
+  "com": {
+    "comAddr": "后台中科大厦1",
+    "comCode": "34234324291",
+    "comLicense": "@img1",
+    "comLpIdCardNum": "4404371991023111",
+    "comName": "文兴果业1",
+    "comOpRange": "零售、餐饮1"
+  },
+  "commissionRate": 0.051,
+  "cpMobile": "138003842341",
+  "cpName": "莫文业1",
+  "cpTel": "0755-54331381",
+  "description": "新媒体零售体1",
+  "latitude": 180.321,
+  "longitude": 22.311,
+  "lp": {
+    "lpIdCardBack": "@img1",
+    "lpIdCardFront": "@img1",
+    "lpIdCardNum": "4404371991023111",
+    "lpMobile": "138003842341",
+    "lpName": "莫文业1"
+  },
+  "ls": {
+    "shopCode": "8234234842892931",
+    "shopLicense": "@img1",
+    "shopOpRange": "水果、零食1"
+  },
+  "sbk": {
+    "bankName": "中国银行福田支行1",
+    "city": "深圳1",
+    "num": "623910834897289421",
+    "userName": "莫文业1"
+  }
+}
