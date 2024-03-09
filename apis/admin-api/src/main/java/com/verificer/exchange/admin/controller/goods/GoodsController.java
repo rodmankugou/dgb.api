@@ -26,6 +26,21 @@ public class GoodsController extends BaseController{
     @Autowired
     BizService bizService;
 
+    @ApiOperation(
+            value = "根据条件统计符合条件的商品数量",
+            response = GoodsVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/count", method = RequestMethod.POST)
+    public Response count(@RequestBody GoodsQryVo qryVo) {
+        int count = bizService.goodsCount(qryVo);
+        return Response.dataSuccess(count);
+    }
 
     @ApiOperation(
             value = "列表（分页）",

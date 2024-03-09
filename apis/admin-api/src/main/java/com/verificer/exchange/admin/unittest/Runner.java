@@ -128,8 +128,8 @@ public class Runner {
 
 //        runTemp();
         Map map = new HashMap();
-        map.put("rubbishFlag",false);
-        runPageQry("goods/page");
+        map.put("saleFlag",true);
+        runPageQry("goods/page",map);
     }
 
 

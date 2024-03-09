@@ -341,6 +341,9 @@
     <if test="rubbishFlag != null">
       and g.rubbish_flag = #{rubbishFlag}
     </if>
+    <if test="saleFlag != null">
+      and g.sale_flag = #{saleFlag}
+    </if>
     <if test="name != null and name != '' ">
       and g.name = #{name}
     </if>

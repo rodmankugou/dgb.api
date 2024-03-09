@@ -20,8 +20,8 @@ public class GoodsQryVo extends PageQueryVo {
     private Boolean rubbishFlag;
 //    @ApiModelProperty("搜索关键词")
 //    private String searchKey;
-//    @ApiModelProperty("是否上架。true-是；false-否")
-//    private Boolean saleFlag;
+    @ApiModelProperty("是否上架。true-是；false-否")
+    private Boolean saleFlag;
 //    @ApiModelProperty("是否有货。true-是；false-否")
 //    private Boolean inStockFlag;
 
@@ -75,5 +75,13 @@ public class GoodsQryVo extends PageQueryVo {
 
     public void setRubbishFlag(Boolean rubbishFlag) {
         this.rubbishFlag = rubbishFlag;
+    }
+
+    public Boolean getSaleFlag() {
+        return saleFlag;
+    }
+
+    public void setSaleFlag(Boolean saleFlag) {
+        this.saleFlag = saleFlag;
     }
 }
