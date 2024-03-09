@@ -85,7 +85,7 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getDetail(),"Detail");
         SCheckUtil.notEmpty(e.getDelFlag(),"Del Flag");  //需
         SCheckUtil.notEmpty(e.getRubbishFlag(),"Rubbish Flag"); //需
-        SCheckUtil.notEmpty(e.getPosByWeightFlag(),"Rubbish Flag"); //需
+        SCheckUtil.notEmpty(e.getPosByWeightFlag(),"Pos By Weight Flag"); //需
     }
 
     private String genSearchKey(Goods goods){
