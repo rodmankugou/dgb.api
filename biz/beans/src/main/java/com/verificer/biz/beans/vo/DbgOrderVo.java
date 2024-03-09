@@ -27,7 +27,7 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("店铺/仓库名称")
     private String refName;
 
-    @ApiModelProperty("支付方式 1-微信支付 ")
+    @ApiModelProperty("支付方式  1-微信支付 2-线下pos支付 3-现金支付")
     private Integer payType;
 
     @ApiModelProperty("支付记录id")

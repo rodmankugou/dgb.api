@@ -4,6 +4,7 @@ import com.verificer.beans.AreaVo;
 import com.verificer.beans.ArtworkSubmitVo;
 import com.verificer.biz.beans.vo.*;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.ApiOperation;
 
@@ -226,17 +227,7 @@ public interface BizService {
      */
     void shopUpdFrozenSta(ShopFrozenVo reqVo);
 
-    /**
-     * 批量调货
-     * @param formVo
-     */
-    void adjustBatch(AdjustBatchVo formVo);
 
-    /**
-     * 调货
-     * @param delVo
-     */
-    void adjust(AdjustFormVo formVo);
 
     /**
      * 调货列表（分页）
@@ -284,5 +275,25 @@ public interface BizService {
      * @param
      */
     void ybSync();
+
+
+    /**
+     * 获取某个仓库/店铺所有的商品库存
+     * @param qryVo
+     * @return
+     */
+    List<MerStockVo> merStockList(StockMerQryVo qryVo);
+
+    /**
+     * 调货
+     * @param form
+     */
+    void adjust(AdjFormVo form);
+
+    /**
+     * 批量调货
+     * @param formList
+     */
+    void adjustBatch(List<AdjFormVo> formList);
 }
 

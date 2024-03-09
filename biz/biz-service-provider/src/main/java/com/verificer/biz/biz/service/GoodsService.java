@@ -59,4 +59,6 @@ public interface GoodsService {
     void goodsUpdSaleFlag(GoodsUpdSaleFlagVo reqVo);
 
     Goods getById(Long goodsId);
+
+
 }

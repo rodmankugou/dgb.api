@@ -3,12 +3,11 @@ package com.verificer.biz.biz.service.impl;
 import com.verificer.ErrCode;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.SpecReqVo;
-import com.verificer.biz.biz.entity.GoodsSta;
 import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.SpecMapper;
 import com.verificer.biz.biz.service.GoodsStaService;
 import com.verificer.biz.biz.service.SpecService;
-import com.verificer.biz.biz.service.StockService;
+import com.verificer.biz.biz.service.StockCoreService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -26,7 +24,7 @@ public class SpecServiceImpl implements SpecService {
     SpecMapper mapper;
 
     @Autowired
-    StockService stockService;
+    StockCoreService stockCoreService;
 
     @Autowired
     GoodsStaService goodsStaService;
@@ -88,7 +86,7 @@ public class SpecServiceImpl implements SpecService {
         goodsStaService.add(goodsId, spec.getId());
 
 
-        stockService.addStageStockIfNotExist(spec.getGoodsId(),spec.getId(),reqVo.getStageIds());
+        stockCoreService.addStageStockIfNotExist(spec.getGoodsId(),spec.getId(),reqVo.getStageIds());
     }
 
     private void upd(Long goodsId,SpecReqVo reqVo){
@@ -110,7 +108,7 @@ public class SpecServiceImpl implements SpecService {
         mCheck(e);
         mapper.updateByPrimaryKeySelective(e);
 
-        stockService.addStageStockIfNotExist(old.getGoodsId(),old.getId(),reqVo.getStageIds());
+        stockCoreService.addStageStockIfNotExist(old.getGoodsId(),old.getId(),reqVo.getStageIds());
 
     }
 }

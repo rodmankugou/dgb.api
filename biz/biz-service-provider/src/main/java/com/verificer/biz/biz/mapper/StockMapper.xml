@@ -163,4 +163,32 @@
     where id = #{id} for update
   </select>
 
+  <resultMap id="merStockRstMap" type="com.verificer.biz.beans.vo.MerStockVo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+
+  </resultMap>
+
+  <select id="selectByRelId" resultMap="merStockRstMap">
+    select
+           spec.id as id,
+           spec.goods_id as goods_id,
+           spec.name as name,
+           goods.name as goods_name,
+           spec.price as price,
+           spec.img as goods_img,
+           spec.img as img,
+           stock.count as count
+      from stock
+      left join goods on stock.goods_id = goods.id
+      left join spec on stock.spec_id = spec.id
+    where stock.rel_id = #{relId}
+  </select>
+
 </mapper>

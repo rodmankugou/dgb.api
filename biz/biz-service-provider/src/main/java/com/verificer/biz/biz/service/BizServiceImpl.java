@@ -3,6 +3,7 @@ package com.verificer.biz.biz.service;
 import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.vo.*;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.dubbo.BaseDubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     YbToolsService ybToolsService;
+
+    @Autowired
+    StockService stockService;
 
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
@@ -195,15 +199,7 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
         shopService.shopUpdFrozenSta(reqVo);
     }
 
-    @Override
-    public void adjustBatch(AdjustBatchVo formVo) {
-        adjustService.adjustBatch(formVo);
-    }
 
-    @Override
-    public void adjust(AdjustFormVo delVo) {
-        adjustService.adjust(delVo);
-    }
 
     @Override
     public List<AdjustVo> adjustPage(AdjustPageVo qryVo) {
@@ -238,5 +234,21 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public void ybSync() {
         ybToolsService.ybSync();
+    }
+
+    @Override
+    public List<MerStockVo> merStockList(StockMerQryVo qryVo) {
+        return stockService.merStockList(qryVo);
+    }
+
+    @Override
+    public void adjust(AdjFormVo form) {
+        adjustService.adjust(form);
+    }
+
+    @Override
+    public void adjustBatch(List<AdjFormVo> formList) {
+        adjustService.adjustBatch(formList);
+
     }
 }

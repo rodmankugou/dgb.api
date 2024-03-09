@@ -1,9 +1,8 @@
 package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.AdjustVo;
-import com.verificer.biz.beans.vo.req.AdjustBatchVo;
-import com.verificer.biz.beans.vo.req.AdjustFormVo;
 import com.verificer.biz.beans.vo.req.AdjustPageVo;
+import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 
 import java.util.List;
 
@@ -23,17 +22,16 @@ public interface AdjustService {
      */
     int adjustCount(AdjustPageVo qryVo);
 
-    /**
-     * 批量调货
-     * @param formVo
-     */
-    void adjustBatch(AdjustBatchVo formVo);
 
     /**
      * 调货
-     * @param formVo
+     * @param form
      */
-    void adjust(AdjustFormVo formVo);
+    void adjust(AdjFormVo form);
 
-
+    /**
+     * 批量调货
+     * @param formList
+     */
+    void adjustBatch(List<AdjFormVo> formList);
 }

@@ -55,7 +55,7 @@ public interface AdjustMapper {
      */
     int updateByPrimaryKey(Adjust record);
 
-    List<AdjustVo> page(AdjustPageVo qryVo);
+    List<Adjust> page(AdjustPageVo qryVo);
 
     int count(AdjustPageVo qryVo);
 }

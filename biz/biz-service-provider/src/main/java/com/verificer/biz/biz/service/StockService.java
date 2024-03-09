@@ -1,15 +1,17 @@
 package com.verificer.biz.biz.service;
 
-import com.verificer.biz.beans.exceptions.StockInsufficientException;
-import com.verificer.biz.beans.vo.req.StockUpdVo;
+import com.verificer.biz.beans.vo.CatVo;
+import com.verificer.biz.beans.vo.MerStockVo;
+import com.verificer.biz.beans.vo.req.StockMerQryVo;
 
 import java.util.List;
 
 public interface StockService {
-    void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds);
 
-    void modifyStock(StockUpdVo updVo) throws StockInsufficientException;
-    void modifyStock(List<StockUpdVo> asList) throws StockInsufficientException;
-
-    void addShopStockIfNotExist(String shopId, Long goodsId, Long specId);
+    /**
+     * 获取某个仓库/店铺所有的商品库存
+     * @param qryVo
+     * @return
+     */
+    List<MerStockVo> merStockList(StockMerQryVo qryVo);
 }

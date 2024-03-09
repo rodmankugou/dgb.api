@@ -133,13 +133,21 @@ public class Runner {
 //        map.put("saleFlag",true);
 //        runPageQry("goods/page",map);
 
-        OrderGen.genGoods();
+//        OrderGen.genGoods();
 
 //        runPageQry("order/page");
 //        run("order/dtl");
 //        runTemp();
 
+//          run("stock/merStockList");
+
+        run("adjust/supply");
+        run("adjust/batchShopIn");
+//        run("adjust/shopIn");
+        run("adjust/shopOut");
+
     }
+
 
 
 }

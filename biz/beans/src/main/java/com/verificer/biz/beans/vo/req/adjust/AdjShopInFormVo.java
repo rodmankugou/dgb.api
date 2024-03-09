@@ -1,13 +1,12 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.biz.beans.vo.req.adjust;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import jnr.ffi.annotations.SaveError;
 
 import java.io.Serializable;
 
 @ApiModel
-public class AdjustFormVo implements Serializable {
+public class AdjShopInFormVo implements Serializable {
     @ApiModelProperty("仓库ID")
     private String stageId;
     @ApiModelProperty("店铺ID")
@@ -16,12 +15,9 @@ public class AdjustFormVo implements Serializable {
     private Long goodsId;
     @ApiModelProperty("规格ID")
     private Long specId;
-
-    @ApiModelProperty("方向。1-仓库发往店铺 0-店铺退往仓库")
-    private Integer direction;
-
     @ApiModelProperty("数量")
     private Integer count;
+
 
     public String getStageId() {
         return stageId;
@@ -63,11 +59,4 @@ public class AdjustFormVo implements Serializable {
         this.count = count;
     }
 
-    public Integer getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Integer direction) {
-        this.direction = direction;
-    }
 }

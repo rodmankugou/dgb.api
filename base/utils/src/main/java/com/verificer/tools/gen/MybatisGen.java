@@ -253,7 +253,7 @@ public class MybatisGen {
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","Transfer");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"account","AccountLog");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"user","Avatar");
-        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","DbgOrder","Addr");
+        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","Adjust","Addr");
 //        updateMapperAndModelFiles(true,new File(cfgFilePath),"biz","Shop");
     }
 }

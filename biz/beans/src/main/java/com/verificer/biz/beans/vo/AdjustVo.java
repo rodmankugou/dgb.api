@@ -11,11 +11,11 @@ public class AdjustVo implements Serializable {
     @ApiModelProperty("Id")
     private Integer id;
 
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态 1-待确认 11-已确认收货")
     private Integer status;
 
-    @ApiModelProperty("方向。1-仓库发往店铺 0-店铺退往仓库")
-    private Integer direction;
+    @ApiModelProperty("1-仓库配货到仓库 2-仓库接收门店退货  3-仓库进货 11-门店从仓库入货 2-门店退货给仓库")
+    private Integer type;
 
     @ApiModelProperty("仓库ID")
     private String stageId;
@@ -66,13 +66,6 @@ public class AdjustVo implements Serializable {
         this.status = status;
     }
 
-    public Integer getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Integer direction) {
-        this.direction = direction;
-    }
 
     public String getStageId() {
         return stageId;
@@ -129,4 +122,46 @@ public class AdjustVo implements Serializable {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+
+    public String getStageName() {
+        return stageName;
+    }
+
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getSpecName() {
+        return specName;
+    }
+
+    public void setSpecName(String specName) {
+        this.specName = specName;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+
 }

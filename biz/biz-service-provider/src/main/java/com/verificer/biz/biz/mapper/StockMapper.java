@@ -1,7 +1,10 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.MerStockVo;
 import com.verificer.biz.biz.entity.Stock;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface StockMapper {
     /**
@@ -55,4 +58,6 @@ public interface StockMapper {
     Stock selectByRefIdAndSpecId(@Param("relId") String relId,@Param("specId") Long specId);
 
     Stock selectByIdForUpd(@Param("id") Long id);
+
+    List<MerStockVo> selectByRelId(@Param("relId") String relId);
 }
