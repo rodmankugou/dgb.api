@@ -15,16 +15,16 @@ public class OrderDetailVo implements Serializable {
     private Long goodsId;
 
     @ApiModelProperty("商品名称")
-    private Long goodsName;
+    private String goodsName;
 
     @ApiModelProperty("规格ID")
     private Long specId;
 
     @ApiModelProperty("规格名称")
-    private Long specName;
+    private String specName;
 
     @ApiModelProperty("规格图")
-    private Long specImg;
+    private String specImg;
 
     @ApiModelProperty("运输费用")
     private BigDecimal transitFee;
@@ -60,13 +60,6 @@ public class OrderDetailVo implements Serializable {
         this.goodsId = goodsId;
     }
 
-    public Long getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(Long goodsName) {
-        this.goodsName = goodsName;
-    }
 
     public Long getSpecId() {
         return specId;
@@ -76,13 +69,6 @@ public class OrderDetailVo implements Serializable {
         this.specId = specId;
     }
 
-    public Long getSpecName() {
-        return specName;
-    }
-
-    public void setSpecName(Long specName) {
-        this.specName = specName;
-    }
 
     public BigDecimal getTransitFee() {
         return transitFee;
@@ -132,11 +118,28 @@ public class OrderDetailVo implements Serializable {
         this.refundStatus = refundStatus;
     }
 
-    public Long getSpecImg() {
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getSpecName() {
+        return specName;
+    }
+
+    public void setSpecName(String specName) {
+        this.specName = specName;
+    }
+
+    public String getSpecImg() {
         return specImg;
     }
 
-    public void setSpecImg(Long specImg) {
+    public void setSpecImg(String specImg) {
         this.specImg = specImg;
     }
 }
