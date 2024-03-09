@@ -24,8 +24,11 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("仓库/店铺ID")
     private String refId;
 
+    @ApiModelProperty("店铺/仓库名称")
+    private String refName;
+
     @ApiModelProperty("支付方式 1-微信支付 ")
-    private Long payType;
+    private Integer payType;
 
     @ApiModelProperty("支付记录id")
     private Long payId;
@@ -122,11 +125,19 @@ public class DbgOrderVo implements Serializable {
         this.refId = refId;
     }
 
-    public Long getPayType() {
+    public String getRefName() {
+        return refName;
+    }
+
+    public void setRefName(String refName) {
+        this.refName = refName;
+    }
+
+    public Integer getPayType() {
         return payType;
     }
 
-    public void setPayType(Long payType) {
+    public void setPayType(Integer payType) {
         this.payType = payType;
     }
 
