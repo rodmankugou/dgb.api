@@ -15,7 +15,7 @@ public class CrossConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://test-bo-api.durianboat.com")
                 .allowedMethods("GET","HEAD","POST","PUT","DELETE","OPTIONS")
-                .allowCredentials(false)
+                .allowCredentials(true)
                 .maxAge(3600)
                 .allowedHeaders("*");
     }
