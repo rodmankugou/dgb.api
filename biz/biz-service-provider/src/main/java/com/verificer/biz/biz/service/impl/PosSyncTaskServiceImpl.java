@@ -67,10 +67,13 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
             if(PosSyncTaskType.GOODS_UPD.getValue() == task.getType()){
                 UpdGoodsReq req = FastJson.fromJson(task.getReqData(),UpdGoodsReq.class);
                 YinBaoClient.goodsUpd(shop.getPosBaseUrl(),shop.getPosAppId(),apiSecret,req);
+                task.setStatus(PosSyncTaskStatus.SUC.getValue());
             }else if((PosSyncTaskType.GOODS_ADD.getValue() == task.getType())){
                 AddGoodsReq req = FastJson.fromJson(task.getReqData(),AddGoodsReq.class);
                 YinBaoClient.goodsAdd(shop.getPosBaseUrl(),shop.getPosAppId(),apiSecret,req);
+                task.setStatus(PosSyncTaskStatus.SUC.getValue());
             }
+            mapper.updateByPrimaryKey(task);
             return 1;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(),e);

@@ -210,7 +210,7 @@
     select
     <include refid="Base_Column_List" />
     from pos_sync_task
-    where where status = #{status} order by id desc limit 1
+    where  status = #{status} order by id asc limit 1
   </select>
 
 </mapper>

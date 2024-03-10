@@ -18,6 +18,7 @@
     <dubbo:reference id="baseCustomerService" interface="com.verificer.base_user.service.BaseCustomerService" retries="0" check="false" timeout="30000"  url="${dubbo.user.service.url}"/>
 
     <dubbo:reference id="baseSupService" interface="com.verificer.base.sup.itf.BaseSupService" retries="0" check="false" timeout="360000"  url="${dubbo.sup.service.url}"/>
+    <dubbo:reference id="bizService" interface="com.verificer.biz.biz.service.BizService" retries="0" check="false" timeout="120000" url="${dubbo.biz.service.url}"/>
 
 
 </beans>

@@ -378,5 +378,7 @@ public class YinBaoClient {
 
 //        delAllGoods(baseUrl,appId,appSecret);
 
+        List<YbGoods> goods = qryAllGoods(baseUrl,appId,appSecret);
+        System.out.println(FastJson.toJson(goods));
     }
 }

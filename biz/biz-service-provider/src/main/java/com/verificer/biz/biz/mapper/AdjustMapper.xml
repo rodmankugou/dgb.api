@@ -318,12 +318,8 @@
 
   <select id="count"  resultType="int">
     select
-      count(adj.id)
-    from adjust adj
-    left join spec on (adj.spec_id = spec.id)
-    left join goods  on (adj.goods_id = g.id)
-    left join shop  on (adj.shop_id = shop.id)
-    left join stage  on (adj.stage_id = stage.id)
+      count(*)
+    from adjust
     where 1 = 1
     <include refid="pageCond"></include>
   </select>

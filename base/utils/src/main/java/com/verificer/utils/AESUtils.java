@@ -1,5 +1,6 @@
 package com.verificer.utils;
 
+import com.verificer.GlobalConfig;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 

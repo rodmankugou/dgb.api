@@ -72,6 +72,7 @@ public class AdjustServiceImpl implements AdjustService {
                 vo.setStageName(adj.getToName());
                 vo.setStageId(adj.getToId());
             }
+            voList.add(vo);
         }
         return voList;
     }
