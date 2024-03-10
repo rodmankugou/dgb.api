@@ -297,9 +297,15 @@ public interface BizService {
     void adjustBatch(List<AdjFormVo> formList);
 
     /**
-     * 处理银豹数据同步任务
+     * 处理银豹数据商品同步任务
      * @return
      */
-    int handleSyncTask();
+    int handlePosGoodsSyncTask();
+
+    /**
+     * 处理银豹数据订单同步任务
+     * @return
+     */
+    int handlePosOrderSyncTask(String shopId) throws Exception;
 }
 

@@ -90,7 +90,7 @@ public class ShopServiceImpl implements ShopService {
     }
     
     @Override
-    public List<ShopVo> shopList(ShopListVo qryVo) {
+    public List<ShopVo> shopVoList(ShopListVo qryVo) {
         List<Shop> list = mapper.list(qryVo);
         return toVoList(list);
     }
@@ -282,5 +282,10 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Shop getById(String relId) {
         return mapper.selectByPrimaryKey(relId);
+    }
+
+    @Override
+    public List<Shop> shopList() {
+        return mapper.selectAll();
     }
 }

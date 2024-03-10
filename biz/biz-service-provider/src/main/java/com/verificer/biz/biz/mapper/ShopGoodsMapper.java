@@ -2,6 +2,7 @@ package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.biz.entity.ShopGoods;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -55,4 +56,8 @@ public interface ShopGoodsMapper {
     int updateByPrimaryKey(ShopGoods record);
 
     List<ShopGoods> selectBySpecId(@Param("specId") Long specId);
+
+    ShopGoods selectByPosGoodsId(@Param("posGoodsId") Long posGoodsId);
+
+    ShopGoods selectByShopIdAndSpecId(@Param("shopId") String shopId,@Param(("specId")) Long specId);
 }

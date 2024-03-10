@@ -46,7 +46,7 @@ public class PosGoodsSyncServiceImpl implements PosGoodsSyncService {
         req.setPrice(spec.getPrice());
         req.setWeighing(goods.getPosByWeightFlag());
 
-        posSyncTaskService.addTask(shopId,PosSyncTaskType.GOODS_ADD.getValue(), FastJson.toJson(req));
+        posSyncTaskService.addTask(shopId,spec.getId(),PosSyncTaskType.GOODS_ADD.getValue(), FastJson.toJson(req));
     }
 
     //TODO 目前还不支持Spec的新增和修改
@@ -83,7 +83,7 @@ public class PosGoodsSyncServiceImpl implements PosGoodsSyncService {
             SBeanUtils.copyProperties2(baseReq,req);
             req.setUid(sg.getPosGoodsId());
             req.setCategoryUid(merCategory.getPosCatId());
-            posSyncTaskService.addTask(sg.getShopId(),PosSyncTaskType.GOODS_UPD.getValue(), FastJson.toJson(req));
+            posSyncTaskService.addTask(sg.getShopId(),spec.getId(),PosSyncTaskType.GOODS_UPD.getValue(), FastJson.toJson(req));
         }
     }
 

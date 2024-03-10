@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/09/2024 19:49:30 PM
+ Date: 03/11/2024 05:16:12 AM
 */
 
 SET NAMES utf8;
@@ -31,13 +31,13 @@ CREATE TABLE `stock` (
   `create_time` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uuid_spec_id` (`rel_id`,`spec_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `stock`
 -- ----------------------------
 BEGIN;
-INSERT INTO `stock` VALUES ('20', '20', '26', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953783'), ('21', '21', '27', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953824'), ('22', '21', '28', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953828'), ('23', '21', '29', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953834'), ('24', '21', '30', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953838');
+INSERT INTO `stock` VALUES ('20', '20', '26', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '174', '1709984953783'), ('21', '21', '27', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '174', '1709984953824'), ('22', '21', '28', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '174', '1709984953828'), ('23', '21', '29', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '174', '1709984953834'), ('24', '21', '30', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '174', '1709984953838');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

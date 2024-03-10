@@ -16,7 +16,7 @@
     <result column="transit_fee" jdbcType="DECIMAL" property="transitFee" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="real_price" jdbcType="DECIMAL" property="realPrice" />
-    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="count" jdbcType="DECIMAL" property="count" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="refund_status" jdbcType="TINYINT" property="refundStatus" />
@@ -63,7 +63,7 @@
     values (#{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, 
       #{specId,jdbcType=BIGINT}, #{specName,jdbcType=VARCHAR}, #{specImg,jdbcType=VARCHAR}, 
       #{transitFee,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{realPrice,jdbcType=DECIMAL}, 
-      #{count,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
+      #{count,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
       #{refundStatus,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.OrderDetail">
@@ -145,7 +145,7 @@
         #{realPrice,jdbcType=DECIMAL},
       </if>
       <if test="count != null">
-        #{count,jdbcType=INTEGER},
+        #{count,jdbcType=DECIMAL},
       </if>
       <if test="amount != null">
         #{amount,jdbcType=DECIMAL},
@@ -193,7 +193,7 @@
         real_price = #{realPrice,jdbcType=DECIMAL},
       </if>
       <if test="count != null">
-        count = #{count,jdbcType=INTEGER},
+        count = #{count,jdbcType=DECIMAL},
       </if>
       <if test="amount != null">
         amount = #{amount,jdbcType=DECIMAL},
@@ -222,7 +222,7 @@
       transit_fee = #{transitFee,jdbcType=DECIMAL},
       price = #{price,jdbcType=DECIMAL},
       real_price = #{realPrice,jdbcType=DECIMAL},
-      count = #{count,jdbcType=INTEGER},
+      count = #{count,jdbcType=DECIMAL},
       amount = #{amount,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT},
       refund_status = #{refundStatus,jdbcType=TINYINT}

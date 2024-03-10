@@ -1,4 +1,4 @@
-package com.verificer.exchange.admin.unittest.data.posssync;
+package com.verificer.exchange.admin.unittest.data.possync;
 
 import com.verificer.biz.beans.vo.GoodsVo;
 import com.verificer.biz.beans.vo.SpecVo;
@@ -6,9 +6,7 @@ import com.verificer.biz.beans.vo.req.GoodsFormVo;
 import com.verificer.exchange.admin.unittest.GoodsTools;
 import com.verificer.exchange.admin.unittest.TResp;
 import com.verificer.exchange.admin.unittest.Tools;
-import com.verificer.exchange.admin.unittest.order.GoodsResp;
 import com.verificer.utils.FastJson;
-import com.verificer.utils.SBeanUtils;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

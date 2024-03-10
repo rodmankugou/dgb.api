@@ -42,7 +42,7 @@ INSERT INTO `spec` VALUES ('26', '20', null, '11.000000000000000000', '新的测
 
 INSERT INTO `stock` VALUES ('20', '20', '26', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953783'), ('21', '21', '27', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953824'), ('22', '21', '28', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953828'), ('23', '21', '29', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953834'), ('24', '21', '30', '1', '6f22c403ffa94c9da21cce5b715c3cfe', '0', '1709984953838');
 
-insert into `dbg`.`user` ( `id`, `reg_time`, `sum_order_count`, `member_flag`, `sum_order_amount`, `invite_count`, `member_s_time`, `invite_commission`, `avatar`, `member_e_time`, `nickname`, `referrer_flag`) values ( '1', null, null, '1', null, null, null, null, null, null, '李东云', null);
+INSERT INTO `user` VALUES ('1', '李东云', '1', null, null, null, null, null, null, '464130953646563552', null, null, null);
 
 insert into `dbg`.`addr` ( `mobile`, `detail_addr`, `longitude`, `id`, `rc_name`, `addr`, `tag`, `user_id`, `latitude`, `create_time`) values ( '18169408966', '3908', '180.200000000000000000', '1', '李东云', '湖南省长沙市开福区通泰街万达A座', '公司', '1', '22.330000000000000000', null);
 

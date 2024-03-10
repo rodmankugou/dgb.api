@@ -140,7 +140,7 @@ public class DbgOrderServiceImpl implements DbgOrderService {
             od.setTransitFee(BigDecimal.ZERO);
             od.setPrice(vo.getPrice());
             od.setCount(vo.getCount());
-            od.setAmount(vo.getPrice().multiply(new BigDecimal(vo.getCount())));
+            od.setAmount(vo.getPrice().multiply(vo.getCount()));
 
             if(order.getStatus() == DbgOrdSta.WAIT_PAY.getValue()
                     || order.getStatus() == DbgOrdSta.WaitTransit.getValue()

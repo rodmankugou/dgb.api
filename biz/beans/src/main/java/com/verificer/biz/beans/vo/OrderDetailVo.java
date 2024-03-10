@@ -33,7 +33,7 @@ public class OrderDetailVo implements Serializable {
     private BigDecimal price;
 
     @ApiModelProperty("数量")
-    private Integer count;
+    private BigDecimal count;
 
     @ApiModelProperty("金额")
     private BigDecimal amount;
@@ -86,11 +86,11 @@ public class OrderDetailVo implements Serializable {
         this.price = price;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 

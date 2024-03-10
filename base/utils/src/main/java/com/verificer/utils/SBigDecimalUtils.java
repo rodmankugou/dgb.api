@@ -22,6 +22,10 @@ public class SBigDecimalUtils {
         return bigDecimal.scale();
     }
 
+    public static int getRealScale(BigDecimal number){
+        return getRealScale(number.toPlainString());
+    }
+
     /**
      * 设置真实的精度，如1.100000的精度将被设置为1(值1.1)
      * @param decimal

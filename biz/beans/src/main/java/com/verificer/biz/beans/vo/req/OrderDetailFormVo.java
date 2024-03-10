@@ -13,7 +13,7 @@ public class OrderDetailFormVo  implements Serializable {
     @ApiModelProperty("规格ID")
     private Long specId;
     @ApiModelProperty("数量")
-    private Integer count;
+    private BigDecimal count;
     @ApiModelProperty("价格")
     private BigDecimal price;
 
@@ -33,11 +33,11 @@ public class OrderDetailFormVo  implements Serializable {
         this.specId = specId;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 

@@ -5,6 +5,7 @@ import com.verificer.biz.biz.entity.OrderDetail;
 import com.verificer.biz.biz.mapper.OrderDetailMapper;
 import com.verificer.biz.biz.service.OrderDetailService;
 import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.SBigDecimalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         for(OrderDetail o : orderDetails){
             OrderDetailVo vo = new OrderDetailVo();
             SBeanUtils.copyProperties2(o,vo);
+            if(SBigDecimalUtils.getRealScale(o.getCount()) == 0)
+                vo.setCount(o.getCount().setScale(0));
+            else
+                vo.setCount(o.getCount().setScale(2));
+
             voList.add(vo);
         }
         return voList;

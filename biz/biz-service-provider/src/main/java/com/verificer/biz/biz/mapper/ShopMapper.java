@@ -69,4 +69,6 @@ public interface ShopMapper {
     void setParentId(@Param("parentId")String parentId,@Param("childIds") List<String> childIds);
 
     Shop selectByPosAppIdLimit1(@Param("posAppId") String posAppId);
+
+    List<Shop> selectAll();
 }

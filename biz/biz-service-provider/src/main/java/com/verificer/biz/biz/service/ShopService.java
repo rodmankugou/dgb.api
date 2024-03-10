@@ -3,6 +3,7 @@ package com.verificer.biz.biz.service;
 import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Shop;
+import com.verificer.biz.biz.entity.ShopGoods;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface ShopService {
      * @param qryVo
      * @return
      */
-    List<ShopVo> shopList(ShopListVo qryVo);
+    List<ShopVo> shopVoList(ShopListVo qryVo);
 
     /**
      * 店铺列表（分页）
@@ -54,4 +55,12 @@ public interface ShopService {
     void shopUpdFrozenSta(ShopFrozenVo reqVo);
 
     Shop getById(String relId);
+
+    /**
+     * 所有店铺
+     * @param shopListVo
+     * @return
+     */
+    List<Shop> shopList();
+
 }

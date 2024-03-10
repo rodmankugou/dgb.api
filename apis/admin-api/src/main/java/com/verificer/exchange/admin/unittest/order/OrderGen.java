@@ -13,6 +13,7 @@ import com.verificer.utils.*;
 import com.verificer.web.common.response.Response;
 import org.bouncycastle.pqc.math.linearalgebra.RandUtils;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -215,7 +216,7 @@ public class OrderGen {
 
         List<OrderDetailFormVo> list = new LinkedList<>();
         int gSize = RandomUtils.getInt(1,2);
-        int cSize = RandomUtils.getInt(1,4);
+        BigDecimal cSize = new BigDecimal(RandomUtils.getInt(1,4));
         int gIdx = RandomUtils.getInt(0,1);
         if(gSize == 1){
             list.add(genDetail(goodsList.get(gIdx),cSize));
@@ -228,7 +229,7 @@ public class OrderGen {
         return list;
     }
 
-    public static OrderDetailFormVo genDetail(GoodsVo goods,int count){
+    public static OrderDetailFormVo genDetail(GoodsVo goods, BigDecimal count){
         OrderDetailFormVo vo = new OrderDetailFormVo();
         vo.setCount(count);
         vo.setPrice(goods.getSpecList().get(0).getPrice());

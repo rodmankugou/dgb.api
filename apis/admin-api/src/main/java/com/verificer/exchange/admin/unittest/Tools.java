@@ -29,7 +29,7 @@ public class Tools {
     }
 
     public static String getToken(){
-        return "062873d75e984f408425ef4ae7302a03jVL0H9JENcM5M9iG8ReR77cP8xy3RS81-1709995951639";
+        return "157aa2024ce7481985394d88734525f8mD8jss56D0yJJ0w7PB60SQiSdn6VHAzC-1710104623033";
     }
 
     public static TResp callApi(String url,String json){
@@ -70,12 +70,12 @@ public class Tools {
         }
     }
 
-    public static void init(){
+    public static void init(String path){
         List<String> sqls = null;
         try {
-             sqls = FileUtils.readLines(new File(TEST_DATA_PATH+"/init.sql"));
+            sqls = FileUtils.readLines(new File(TEST_DATA_PATH+path));
         } catch (IOException e) {
-            throw new RuntimeException("加载sql脚本失败");
+            throw new RuntimeException("加载sql脚本失败,文件路径：\n"+TEST_DATA_PATH+path);
         }
 
         Connection conn = null;
@@ -103,6 +103,10 @@ public class Tools {
         }finally {
             DbUtil.closeConnection(conn,null,null);
         }
+    }
+
+    public static void init(){
+        init("init.sql");
 
     }
 

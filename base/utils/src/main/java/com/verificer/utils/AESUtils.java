@@ -223,7 +223,8 @@ public class AESUtils {
 //        System.out.println(decode(encodeRules, text));
 
 
-//        System.out.println(str);
+          String str = AESUtils.encrypt(GlobalConfig.AES_SEED,"874859095189735996");
+        System.out.println(str);
     }
 
 }

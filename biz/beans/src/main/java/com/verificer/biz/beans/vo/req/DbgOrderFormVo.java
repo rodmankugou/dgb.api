@@ -22,7 +22,7 @@ public class DbgOrderFormVo implements Serializable {
     @ApiModelProperty(value = "地址ID，需要配送时，才需要填写",required = false)
     private Long addrId;
 
-    @ApiModelProperty(value = "快的类型 快递类型 1-同城急送 2-普通快递",required = false)
+    @ApiModelProperty(value = "快递类型 快递类型 1-同城急送 2-普通快递",required = false)
     private Integer transitType;
 
     @ApiModelProperty("addressId")

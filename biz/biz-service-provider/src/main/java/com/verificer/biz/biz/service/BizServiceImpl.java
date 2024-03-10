@@ -1,6 +1,5 @@
 package com.verificer.biz.biz.service;
 
-import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.vo.*;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
@@ -169,7 +168,7 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Override
     public List<ShopVo> shopList(ShopListVo qryVo) {
-        return shopService.shopList(qryVo);
+        return shopService.shopVoList(qryVo);
     }
 
     @Override
@@ -256,7 +255,12 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
-    public int handleSyncTask() {
-        return posSyncTaskService.handleSyncTask();
+    public int handlePosGoodsSyncTask() {
+        return posSyncTaskService.handlePosGoodsSyncTask();
+    }
+
+    @Override
+    public int handlePosOrderSyncTask(String shopId) throws Exception {
+        return posSyncTaskService.handlePosOrderSyncTask(shopId);
     }
 }

@@ -1,15 +1,11 @@
 package com.verificer.exchange.admin.unittest;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.verificer.exchange.admin.unittest.data.posssync.PosSyncTester;
+import com.verificer.exchange.admin.unittest.data.possync.PosSyncTester;
 import com.verificer.exchange.admin.unittest.order.OrderGen;
-import com.verificer.utils.C3p0Tools;
 import com.verificer.utils.FastJson;
-import com.verificer.utils.RandomUtils;
 import com.verificer.utils.SStringUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,7 +91,7 @@ public class Runner {
     }
 
     public static void main(String args[]) throws SQLException {
-        Tools.init();
+//        Tools.init();
 
 //        run("shop/add_1");
 //        run("shop/upd_1");
@@ -134,7 +130,8 @@ public class Runner {
 //        map.put("saleFlag",true);
 //        runPageQry("goods/page",map);
 
-//        OrderGen.genGoods();
+        Tools.init("order/init.sql");
+        OrderGen.genGoods();
 
 //        runPageQry("order/page");
 //        run("order/dtl");
@@ -143,12 +140,13 @@ public class Runner {
 //          run("stock/merStockList");
 
 
-        run("adjust/supply");
-        run("adjust/batchShopIn");
+//        run("adjust/supply");
+//        run("adjust/batchShopIn");
 
 //        run("adjust/shopIn");
 //        run("adjust/shopOut");
 
+//        Tools.init("possync/init.sql");
 //        PosSyncTester.runTest();
     }
 

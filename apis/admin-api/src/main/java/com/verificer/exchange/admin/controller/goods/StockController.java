@@ -29,7 +29,7 @@ public class StockController extends BaseController{
 
     @ApiOperation(
             value = "获取某个仓库/店铺所有的商品库存",
-            response = CatVo.class,
+            response = MerStockVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({

@@ -47,5 +47,22 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
     public List<ShopGoods> getBySpecId(Long specId) {
         return mapper.selectBySpecId(specId);
     }
+
+    @Override
+    public ShopGoods selectByPosGoodsId(Long posGoodsId) {
+        return mapper.selectByPosGoodsId(posGoodsId);
+    }
+
+    @Override
+    public void bindPosGoodsId(String shopId,Long specId, Long uid) {
+        ShopGoods goods =  mapper.selectByShopIdAndSpecId(shopId,specId);
+        goods.setPosGoodsId(uid);
+        mapper.updateByPrimaryKeySelective(goods);
+    }
+
+    @Override
+    public ShopGoods getByShopIdAndSpecId(String shopId, Long specId) {
+        return mapper.selectByShopIdAndSpecId(shopId,specId);
+    }
 }
 

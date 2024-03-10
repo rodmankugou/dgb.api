@@ -1,6 +1,7 @@
 package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.biz.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     /**
@@ -50,4 +51,6 @@ public interface UserMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(User record);
+
+    User selectByPosMemberId(@Param("posMemberId") Long posMemberId);
 }

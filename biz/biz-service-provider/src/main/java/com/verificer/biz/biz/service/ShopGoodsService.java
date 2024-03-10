@@ -18,4 +18,21 @@ public interface ShopGoodsService {
      * @return
      */
     List<ShopGoods> getBySpecId(Long specId);
+
+    /**
+     *
+     * @param posGoodsId
+     * @return
+     */
+    ShopGoods selectByPosGoodsId(Long posGoodsId);
+
+    /**
+     * 绑定PosGoodsId
+     * @param specId
+     * @param uid
+     */
+    void bindPosGoodsId(String shopId,Long specId, Long uid);
+
+
+    ShopGoods getByShopIdAndSpecId(String shopId, Long specId);
 }

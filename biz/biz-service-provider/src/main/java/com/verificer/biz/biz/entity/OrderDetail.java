@@ -100,7 +100,7 @@ public class OrderDetail {
      *
      * @mbg.generated
      */
-    private Integer count;
+    private BigDecimal count;
 
     /**
      *
@@ -377,7 +377,7 @@ public class OrderDetail {
      *
      * @mbg.generated
      */
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
@@ -389,7 +389,7 @@ public class OrderDetail {
      *
      * @mbg.generated
      */
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 

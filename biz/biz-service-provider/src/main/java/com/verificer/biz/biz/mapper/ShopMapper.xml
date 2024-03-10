@@ -543,4 +543,8 @@
     </foreach>
   </update>
 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from shop where del_flag = 0;
+  </select>
+
 </mapper>

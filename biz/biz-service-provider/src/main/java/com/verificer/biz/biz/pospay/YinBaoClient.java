@@ -129,7 +129,7 @@ public class YinBaoClient {
         return cat;
     }
 
-    public static YbCat goodsAdd(String baseUrl, String appId, String appSecret, AddGoodsReq req) throws YinBaoApiException {
+    public static YbGoods goodsAdd(String baseUrl, String appId, String appSecret, AddGoodsReq req) throws YinBaoApiException {
         String price  = req.getPrice().setScale(2).toPlainString();
         Map<String,Object> rp = new HashMap<>();
         Map<String,Object> pInfo = new HashMap<>();
@@ -160,8 +160,8 @@ public class YinBaoClient {
             throw new YinBaoApiException(resp.getStatus(),resp.getMessages());
         String data = resp.getData();
         System.out.println(data);
-        YbCat cat = FastJson.fromJson(data,YbCat.class);
-        return cat;
+        YbGoods goods = FastJson.fromJson(data,YbGoods.class);
+        return goods;
     }
 
     public static void goodsDel(String baseUrl, String appId, String appSecret,Long uid) throws YinBaoApiException {
@@ -321,8 +321,12 @@ public class YinBaoClient {
 
     public static void delAllGoods(String baseUrl, String appId, String appSecret) throws YinBaoApiException {
         List<YbGoods> goods = qryAllGoods(baseUrl,appId,appSecret);
-        for(YbGoods g : goods)
-            goodsUpd(baseUrl,appId,appSecret,UpdGoodsReq.buildDisableReq(g.getUid()));
+
+        System.out.println(FastJson.toJson(goods));
+        for(YbGoods g : goods){
+            if(g.getEnable() == 1)
+                goodsUpd(baseUrl,appId,appSecret,UpdGoodsReq.buildDisableReq(g.getUid()));
+        }
     }
 
     public static void main(String args[]) throws Exception{
@@ -344,15 +348,16 @@ public class YinBaoClient {
 //        goodsAdd(baseUrl,appId,appSecret,req);
 
 //        QryOrderReq req = new QryOrderReq();
+////        req.setStartTime(SDateUtil.getTodayStartTime() - 2 * SDateUtil.MS_PER_DAY);
 //        req.setStartTime(SDateUtil.getTodayStartTime());
-//        req.setEndTime(req.getStartTime()+16*60*60*1000);
+//        req.setEndTime(req.getStartTime()+23*60*60*1000);
 //        List<YbOrder> orders = qryOrder(baseUrl,appId,appSecret,req);
 //        System.out.println(orders.size());
 
 //        AddMemberReq req = new AddMemberReq();
-//        req.setNumber("200031");
-//        req.setName("莫问业");
-//        req.setPhone("15920278702");
+//        req.setNumber("10008");
+//        req.setName("李东云");
+//        req.setPhone("18169408966");
 //        req.setExpireTime(System.currentTimeMillis()+30*SDateUtil.SEC_PER_DAY);
 //        addMember(baseUrl,"FE39EEFF17DE79E337AD71D0511385D4","511271613037108330",req);
 
@@ -378,7 +383,13 @@ public class YinBaoClient {
 
 //        delAllGoods(baseUrl,appId,appSecret);
 
-        List<YbGoods> goods = qryAllGoods(baseUrl,appId,appSecret);
-        System.out.println(FastJson.toJson(goods));
+
+
+////        QryOrderReq req = new QryOrderReq();
+////        req.setStartTime(0L);
+////        req.setEndTime(System.currentTimeMillis());
+//        List<YbOrder> goods = qryOrder(baseUrl,appId,appSecret,req);
+//        System.out.println(FastJson.toJson(goods));
+        YinBaoClient.qryAllGoods(baseUrl,appId,appSecret);
     }
 }
