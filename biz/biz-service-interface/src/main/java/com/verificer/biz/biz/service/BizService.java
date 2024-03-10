@@ -295,5 +295,11 @@ public interface BizService {
      * @param formList
      */
     void adjustBatch(List<AdjFormVo> formList);
+
+    /**
+     * 处理银豹数据同步任务
+     * @return
+     */
+    int handleSyncTask();
 }
 

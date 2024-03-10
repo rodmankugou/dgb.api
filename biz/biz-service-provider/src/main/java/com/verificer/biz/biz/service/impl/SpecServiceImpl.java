@@ -65,6 +65,13 @@ public class SpecServiceImpl implements SpecService {
         return voList;
     }
 
+    @Override
+    public List<Spec> getGoodsSpecList(Long id) {
+        return mapper.selectByGoodsId(id);
+    }
+
+
+
     private void addOrUpdate(Long goodsId, SpecReqVo reqVo){
         if(reqVo.getId() != null)
             add(goodsId,reqVo);
@@ -87,6 +94,25 @@ public class SpecServiceImpl implements SpecService {
 
 
         stockCoreService.addStageStockIfNotExist(spec.getGoodsId(),spec.getId(),reqVo.getStageIds());
+    }
+
+    @Override
+    public void upd(Long id, List<SpecReqVo> list) {
+
+        //TODO 未完全实现
+        for(SpecReqVo spec : list){
+            if(spec.getId() == null)
+                continue;
+            Spec old = mapper.selectByPrimaryKey(spec.getId());
+            if(old == null)
+                continue;
+
+            old.setPrice(spec.getPrice());
+            old.setwPrice(spec.getwPrice());
+            old.setName(spec.getName());
+            old.setImg(spec.getImg());
+            mapper.updateByPrimaryKeySelective(old);
+        }
     }
 
     private void upd(Long goodsId,SpecReqVo reqVo){

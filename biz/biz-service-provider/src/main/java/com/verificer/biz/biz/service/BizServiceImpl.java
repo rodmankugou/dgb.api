@@ -39,6 +39,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Autowired
     StockService stockService;
 
+    @Autowired
+    PosSyncTaskService posSyncTaskService;
+
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
         return brandService.brandPage(qryVo);
@@ -250,5 +253,10 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     public void adjustBatch(List<AdjFormVo> formList) {
         adjustService.adjustBatch(formList);
 
+    }
+
+    @Override
+    public int handleSyncTask() {
+        return posSyncTaskService.handleSyncTask();
     }
 }

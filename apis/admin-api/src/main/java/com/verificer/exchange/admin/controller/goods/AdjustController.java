@@ -44,6 +44,7 @@ public class AdjustController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public Response page(@RequestBody AdjustPageVo qryVo) {
+        qryVo.setMerId("d000e3c443794213a92d61a9c6f6f6fe");
         List<AdjustVo> list = bizService.adjustPage(qryVo);
         int count = bizService.adjustCount(qryVo);
         return Response.listSuccess(count,list);

@@ -12,4 +12,8 @@ public interface SpecService {
     Spec getById(Long specId);
 
     List<SpecVo> getGoodsSpecVoList(Long id);
+
+    List<Spec> getGoodsSpecList(Long id);
+
+    void upd(Long id, List<SpecReqVo> list);
 }

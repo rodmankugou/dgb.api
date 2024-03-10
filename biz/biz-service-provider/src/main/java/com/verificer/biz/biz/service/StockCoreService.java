@@ -11,5 +11,7 @@ public interface StockCoreService {
     void modifyStock(StockUpdVo updVo) throws StockInsufficientException;
     void modifyStock(List<StockUpdVo> asList) throws StockInsufficientException;
 
+    boolean isStockExist(String shopId,Long goodsId, Long specId);
+
     void addShopStockIfNotExist(String shopId, Long goodsId, Long specId);
 }

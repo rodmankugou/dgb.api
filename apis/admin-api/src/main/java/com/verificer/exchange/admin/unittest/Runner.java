@@ -2,6 +2,7 @@ package com.verificer.exchange.admin.unittest;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.verificer.exchange.admin.unittest.data.posssync.PosSyncTester;
 import com.verificer.exchange.admin.unittest.order.OrderGen;
 import com.verificer.utils.C3p0Tools;
 import com.verificer.utils.FastJson;
@@ -133,7 +134,7 @@ public class Runner {
 //        map.put("saleFlag",true);
 //        runPageQry("goods/page",map);
 
-//        OrderGen.genGoods();
+        OrderGen.genGoods();
 
 //        runPageQry("order/page");
 //        run("order/dtl");
@@ -141,12 +142,17 @@ public class Runner {
 
 //          run("stock/merStockList");
 
-        run("adjust/supply");
-        run("adjust/batchShopIn");
-//        run("adjust/shopIn");
-        run("adjust/shopOut");
 
+//        run("adjust/supply");
+//        run("adjust/batchShopIn");
+
+//        run("adjust/shopIn");
+//        run("adjust/shopOut");
+
+//        PosSyncTester.runTest();
     }
+
+
 
 
 

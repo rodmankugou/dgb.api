@@ -45,6 +45,9 @@ public class AdjustServiceImpl implements AdjustService {
     @Autowired
     SpecService specService;
 
+    @Autowired
+    ShopGoodsService shopGoodsService;
+
     @Override
     public List<AdjustVo> adjustPage(AdjustPageVo qryVo) {
         List<Adjust> list = mapper.page(qryVo);
@@ -82,6 +85,9 @@ public class AdjustServiceImpl implements AdjustService {
     public void adjustBatch(List<AdjFormVo> list) {
 
         for(AdjFormVo vo : list){
+            if(!stockCoreService.isStockExist(vo.getToId(),vo.getGoodsId(),vo.getSpecId())){
+                shopGoodsService.addGoods(vo.getToId(),vo.getGoodsId(),vo.getSpecId());
+            }
             stockCoreService.addShopStockIfNotExist(vo.getToId(),vo.getGoodsId(),vo.getSpecId());
             adjust(vo);
 

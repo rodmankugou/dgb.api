@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 
 public class YbGoods implements Serializable {
-    private String uid;
+    private Long uid;
     private String name;
     private Long categoryUid;
     private String sellPrice;
@@ -18,11 +18,11 @@ public class YbGoods implements Serializable {
 
     private Integer enable;
 
-    public String getUid() {
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 

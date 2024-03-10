@@ -11,6 +11,7 @@ import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.GoodsMapper;
 import com.verificer.biz.biz.service.GoodsService;
 import com.verificer.biz.biz.service.GoodsStaService;
+import com.verificer.biz.biz.service.PosGoodsSyncService;
 import com.verificer.biz.biz.service.SpecService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
@@ -39,6 +40,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     GoodsStaService goodsStaService;
+
+    @Autowired
+    PosGoodsSyncService posGoodsSyncService;
 
     @Override
     public List<GoodsVo> goodsPage(GoodsQryVo qryVo) {
@@ -132,9 +136,14 @@ public class GoodsServiceImpl implements GoodsService {
         e.setRubbishFlag(old.getRubbishFlag());
         e.setPosByWeightFlag(old.getPosByWeightFlag());
 
+        //TODO 目前没做新增和删除检测
+        List<SpecReqVo> list = formVo.getSpecList();
+        specService.upd(formVo.getId(),list);
+
 
         mCheck(e);
         mapper.updateByPrimaryKeySelective(e);
+        posGoodsSyncService.onGoodsUpdate(e);
     }
 
     @Override
@@ -161,6 +170,8 @@ public class GoodsServiceImpl implements GoodsService {
             throw new BaseException(ErrCode.OP_GOODS_RUBBISH_STATUS_ERR,new Object[]{e.getName()});
         e.setRubbishFlag(true);
         mapper.updateByPrimaryKeySelective(e);
+        posGoodsSyncService.onGoodsUpdate(e);
+
     }
 
     @Override
@@ -188,6 +199,8 @@ public class GoodsServiceImpl implements GoodsService {
         e.setRubbishFlag(false);
         e.setRubbishTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(e);
+        posGoodsSyncService.onGoodsUpdate(e);
+
     }
 
     @Override
@@ -216,6 +229,8 @@ public class GoodsServiceImpl implements GoodsService {
         e.setDelFlag(true);
         e.setDelTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(e);
+        posGoodsSyncService.onGoodsUpdate(e);
+
     }
 
     @Override
@@ -229,6 +244,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         e.setSaleFlag(reqVo.getSaleFlag());
         mapper.updateByPrimaryKeySelective(e);
+        posGoodsSyncService.onGoodsUpdate(e);
+
     }
 
     @Override

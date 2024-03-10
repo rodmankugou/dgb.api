@@ -172,7 +172,10 @@ public class StockCoreServiceImpl implements StockCoreService {
         }
     }
 
-
+    @Override
+    public boolean isStockExist(String relId, Long goodsId, Long specId) {
+        return mapper.selectByRefIdAndSpecId(relId,specId) != null;
+    }
 
 
     private Stock getStock(List<Stock> stocks,String refId,Long specId){

@@ -20,6 +20,7 @@ public class YinBaoClient {
 
     static String CAT_PAGE = "pospal-api2/openapi/v1/productOpenApi/queryProductCategoryPages";
     static String CAT_ADD = "pospal-api2/openapi/v1/productOpenApi/addCategory";
+    static String CAT_UPD = "pospal-api2/openapi/v1/productOpenApi/updateCategory";
 
     static String GOODS_ADD = "pospal-api2/openapi/v1/productOpenApi/addProductInfo";
     static String GOODS_UPD = "pospal-api2/openapi/v1/productOpenApi/updateProductInfo";
@@ -98,6 +99,21 @@ public class YinBaoClient {
             stringBuffer.append(hex.toUpperCase());
         }
         return stringBuffer.toString();
+    }
+
+    public static YbCat catUpd(String baseUrl,String appId,String appSecret,UpdCatReq req) throws YinBaoApiException {
+        Map<String,Object> rp = new HashMap<>();
+        rp.put("appId",appId);
+        rp.put("uid",req.getUid());
+        rp.put("name",req.getName());
+        setParamsIfNotNotNull(rp,"parentId",req.getParentId());
+        YinBaoResp resp = post(baseUrl,appId,appSecret,CAT_UPD,rp);
+        if(!resp.isSuc())
+            throw new YinBaoApiException(resp.getStatus(),resp.getMessages());
+        String data = resp.getData();
+        System.out.println(data);
+        YbCat cat = FastJson.fromJson(data,YbCat.class);
+        return cat;
     }
 
     public static YbCat catAdd(String baseUrl,String appId,String appSecret,String catName) throws YinBaoApiException {
@@ -303,6 +319,12 @@ public class YinBaoClient {
         return m;
     }
 
+    public static void delAllGoods(String baseUrl, String appId, String appSecret) throws YinBaoApiException {
+        List<YbGoods> goods = qryAllGoods(baseUrl,appId,appSecret);
+        for(YbGoods g : goods)
+            goodsUpd(baseUrl,appId,appSecret,UpdGoodsReq.buildDisableReq(g.getUid()));
+    }
+
     public static void main(String args[]) throws Exception{
 
 
@@ -344,8 +366,17 @@ public class YinBaoClient {
 //        req.setMainSpec(false);
 //        goodsUpd(baseUrl,appId,appSecret,req);
 
-        List<YbGoods> list = qryAllGoods(baseUrl,appId,appSecret);
-        System.out.println(FastJson.toJson(list));
+//        List<YbGoods> list = qryAllGoods(baseUrl,appId,appSecret);
+//        System.out.println(FastJson.toJson(list));
+
+//        UpdCatReq req = new UpdCatReq();
+//        req.setUid(1709867459998183336L);
+//        req.setName("马来猫山王");
+//        catUpd(baseUrl,appId,appSecret,req);
+//        YinBaoResp resp = catPage(baseUrl,appId,appSecret);
+//        System.out.println(FastJson.toJson(resp));
+
+//        delAllGoods(baseUrl,appId,appSecret);
 
     }
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class UpdGoodsReq {
     private Long uid;
     private BigDecimal price;
-    private BigDecimal categoryUid;
+    private Long categoryUid;
     private String name;
     private String specName;
     private Boolean isMainSpec;
@@ -52,11 +52,11 @@ public class UpdGoodsReq {
         this.price = price;
     }
 
-    public BigDecimal getCategoryUid() {
+    public Long getCategoryUid() {
         return categoryUid;
     }
 
-    public void setCategoryUid(BigDecimal categoryUid) {
+    public void setCategoryUid(Long categoryUid) {
         this.categoryUid = categoryUid;
     }
 
@@ -92,6 +92,7 @@ public class UpdGoodsReq {
     public void setEnable(Integer enable) {
         this.enable = enable;
     }
+
 
 
 }
