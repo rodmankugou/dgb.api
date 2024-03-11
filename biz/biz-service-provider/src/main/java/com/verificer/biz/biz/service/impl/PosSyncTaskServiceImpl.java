@@ -155,7 +155,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
 
         ShopGoods shopGoods = shopGoodsService.selectByPosGoodsId(order.getItems().get(0).getProductUid());
         if(shopGoods == null){
-            logger.error("无法识别订单中的商品，Pos订单信息:"+FastJson.toJson(shopGoods));
+            logger.error("无法识别订单中的商品，Pos订单信息:"+FastJson.toJson(order));
             return;
 
         }
