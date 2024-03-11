@@ -46,7 +46,7 @@ public class StockServiceImpl implements StockService {
             gsv.setId(goodsId);
             gsv.setName(specList.get(0).getGoodsName());
             gsv.setImg(specList.get(0).getImg());
-            gsv.setCount(sumCount(specStockList));
+            gsv.setCount(sumCount(specList));
 
             String price = "";
             if(specList.size() == 1){
