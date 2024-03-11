@@ -148,18 +148,20 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
         of.setRefId(shop.getId());
         of.setRefType(MerType.SHOP.getValue());
 
-        List<OrderDetailFormVo> detail = parseDetail(order.getItems());
+        ShopGoods shopGoods = shopGoodsService.selectByPosGoodsId(order.getItems().get(0).getProductUid());
+        if(shopGoods == null)
+            return;
+        List<OrderDetailFormVo> detail = parseDetail(shopGoods,order.getItems());
         of.setDetails(detail);
 
         dbgOrderService.orderAdd(of);
     }
 
-    private List<OrderDetailFormVo> parseDetail(List<YbOrderItem> itemList){
+    private List<OrderDetailFormVo> parseDetail(ShopGoods shopGoods,List<YbOrderItem> itemList){
         List<OrderDetailFormVo> list = new LinkedList<>();
         for(YbOrderItem item : itemList){
             OrderDetailFormVo vo = new OrderDetailFormVo();
             list.add(vo);
-            ShopGoods shopGoods = shopGoodsService.selectByPosGoodsId(item.getProductUid());
             vo.setGoodsId(shopGoods.getGoodsId());
             vo.setSpecId(shopGoods.getSpecId());
             vo.setCount(item.getQuantity());
