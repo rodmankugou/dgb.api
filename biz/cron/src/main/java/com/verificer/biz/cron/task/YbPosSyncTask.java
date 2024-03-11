@@ -38,7 +38,7 @@ public class YbPosSyncTask {
                         }
                     } catch (Exception e) {
                         logger.error("同步银豹Pos机器的定时任务调用失败，错误信息："+e.getMessage(),e);
-                        ThreadUtils.sleep(30*SDateUtil.MS_PER_MINUTE);
+                        ThreadUtils.sleep(1*SDateUtil.MS_PER_MINUTE);
                     }
                 }
             }
@@ -60,7 +60,7 @@ public class YbPosSyncTask {
                     } catch (Exception e) {
                         logger.error("同步银豹Pos机器的定时任务调用失败，错误信息："+e.getMessage(),e);
                     }finally {
-                        ThreadUtils.sleep(SDateUtil.MS_PER_MINUTE * 30);
+                        ThreadUtils.sleep(SDateUtil.MS_PER_MINUTE * 5);
 
                     }
                 }

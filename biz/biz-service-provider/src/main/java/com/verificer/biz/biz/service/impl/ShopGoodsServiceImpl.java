@@ -33,6 +33,8 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
         Spec spec = specService.getById(specId);
         ShopGoods sg = new ShopGoods();
 
+        if(mapper.selectByShopIdAndSpecId(shopId,specId) != null)
+            return;
         sg.setGoodsId(goodsId);
         sg.setSpecId(specId);
         sg.setShopId(shopId);
