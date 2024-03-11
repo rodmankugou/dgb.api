@@ -132,6 +132,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
         }
         pointer.setPointer(eTime.toString());
         pointer.setUpdTime(System.currentTimeMillis());
+        pointerService.upd(pointer);
         return 0;
     }
 
