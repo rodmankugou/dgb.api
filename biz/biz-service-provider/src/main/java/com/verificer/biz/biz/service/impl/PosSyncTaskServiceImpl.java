@@ -22,6 +22,8 @@ import com.verificer.utils.AESUtils;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class PosSyncTaskServiceImpl implements PosSyncTaskService {
+    private static final Logger logger = LoggerFactory.getLogger(PosSyncTaskServiceImpl.class);
+
     @Autowired
     PosSyncTaskMapper mapper ;
 
@@ -52,6 +56,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
 
     @Autowired
     DbgOrderService dbgOrderService;
+
 
 
     private static final String VERSION = "V1.0";
@@ -149,8 +154,11 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
         of.setRefType(MerType.SHOP.getValue());
 
         ShopGoods shopGoods = shopGoodsService.selectByPosGoodsId(order.getItems().get(0).getProductUid());
-        if(shopGoods == null)
+        if(shopGoods == null){
+            logger.error("无法识别订单中的商品，Pos订单信息:"+FastJson.toJson(shopGoods));
             return;
+
+        }
         List<OrderDetailFormVo> detail = parseDetail(shopGoods,order.getItems());
         of.setDetails(detail);
 
