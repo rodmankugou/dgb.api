@@ -75,6 +75,17 @@ public class SwaggerConfig {
                 .build().groupName("system");
     }
 
+    @Bean
+    public Docket createOperationApi(){
+
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                .enable(enable)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.operation"))
+                .build().groupName("operation");
+    }
+
+
 
 
     @Bean
