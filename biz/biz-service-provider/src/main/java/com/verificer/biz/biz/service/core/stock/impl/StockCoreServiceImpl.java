@@ -1,4 +1,4 @@
-package com.verificer.biz.biz.service.impl;
+package com.verificer.biz.biz.service.core.stock.impl;
 
 import com.verificer.ErrCode;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
@@ -6,12 +6,17 @@ import com.verificer.biz.beans.vo.req.StockUpdVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.StockMapper;
 import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.common.GoodsCommon;
+import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BaseException;
+import com.verificer.common.exception.BizErrMsgException;
+import com.verificer.utils.SBigDecimalUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -33,6 +38,12 @@ public class StockCoreServiceImpl implements StockCoreService {
     @Autowired
     SpecService specService;
 
+    @Autowired
+    StockCommon stockCommon;
+
+    @Autowired
+    GoodsCommon goodsCommon;
+
     @Override
     public void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds) {
         for(String stageId : stageIds){
@@ -40,13 +51,15 @@ public class StockCoreServiceImpl implements StockCoreService {
             if(stage == null)
                 throw new RuntimeException("Stage not exist!,id="+stageId);
 
-            addIfNotExist(goodsId,specId,true,stageId,0);
+
+            addIfNotExist(goodsId,specId,true,stageId,BigDecimal.ZERO);
         }
     }
 
     @Override
     public void addShopStockIfNotExist(String shopId, Long goodsId, Long specId) {
-        addIfNotExist(goodsId,specId,false,shopId,0);
+
+        addIfNotExist(goodsId,specId,false,shopId,BigDecimal.ZERO);
     }
 
     private void mCheck(Stock e){
@@ -54,17 +67,20 @@ public class StockCoreServiceImpl implements StockCoreService {
         SCheckUtil.notEmpty(e.getSpecId(),"stock.SpecId");
         SCheckUtil.notEmpty(e.getStageFlag(),"stock.StageFlag");
         SCheckUtil.notEmpty(e.getRelId(),"stock.RelId");
-        SCheckUtil.lgThan(e.getCount(),true,0,"stock.Count");
+        SCheckUtil.lgThan(e.getCount(),true, BigDecimal.ZERO,"stock.Count");
         SCheckUtil.notEmpty(e.getCreateTime(),"stock.CrateTime");
     }
 
 
-    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,String relId,Integer count ){
+    private void addIfNotExist(Long goodsId,Long specId,Boolean stageFlag,String relId,BigDecimal count ){
         Stock old = mapper.selectByRefIdAndSpecId(relId,specId);
         if(old != null)
             return;
+        boolean skuFlag = goodsCommon.isGoodsSku(goodsId);
+
         Stock e = new Stock();
         e.setGoodsId(goodsId);
+        e.setSkuFlag(skuFlag);
         e.setSpecId(specId);
         e.setStageFlag(stageFlag);
         e.setStageFlag(stageFlag);
@@ -96,7 +112,7 @@ public class StockCoreServiceImpl implements StockCoreService {
                 goods.getName(),
                 stock.getSpecId(),
                 spec.getName(),
-                stock.getCount());
+                stockCommon.formatCount(stock) );
     }
 
     /**
@@ -106,12 +122,15 @@ public class StockCoreServiceImpl implements StockCoreService {
      */
     private void updStock(Stock locked,StockUpdVo updVo) throws StockInsufficientException {
         if(updVo.isAddFlag() ){
-            locked.setCount(locked.getCount() + updVo.getCount());
+            locked.setCount(locked.getCount().add(updVo.getCount()));
         }else {
-            locked.setCount(locked.getCount() - updVo.getCount());
+            locked.setCount(locked.getCount().subtract(updVo.getCount()));
         }
 
-        if(locked.getCount() < 0 )
+        if(locked.getSkuFlag() && SBigDecimalUtils.getRealScale(locked.getCount()) != 0)
+            throw new BizErrMsgException("SKU Stock's count can not be floating point number");
+
+        if(locked.getCount().compareTo(BigDecimal.ZERO) < 0 )
             throw buildException(locked);
 
         mapper.updateByPrimaryKey(locked);

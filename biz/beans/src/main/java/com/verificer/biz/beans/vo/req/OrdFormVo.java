@@ -7,17 +7,18 @@ import java.io.Serializable;
 import java.util.List;
 
 @ApiModel
-public class DbgOrderFormVo implements Serializable {
+public class OrdFormVo implements Serializable {
+    private String userId;
 
 
     @ApiModelProperty("1-线下订单 2-自提订单 3-平台配送订单")
     private Integer orderType;
 
     @ApiModelProperty("售方类型，1-仓库 2-店铺")
-    private Integer refType;
+    private Integer relType;
 
     @ApiModelProperty("仓库/店铺ID")
-    private String refId;
+    private String relId;
 
     @ApiModelProperty(value = "地址ID，需要配送时，才需要填写",required = false)
     private Long addrId;
@@ -25,13 +26,12 @@ public class DbgOrderFormVo implements Serializable {
     @ApiModelProperty(value = "快递类型 快递类型 1-同城急送 2-普通快递",required = false)
     private Integer transitType;
 
-    @ApiModelProperty("addressId")
-    private Long id;
 
     @ApiModelProperty("买家备注")
     private String buyerRemark;
 
-    List<OrderDetailFormVo> details;
+    @ApiModelProperty("订单明细")
+    List<OrdItemFormVo> details;
 
     public Integer getOrderType() {
         return orderType;
@@ -41,20 +41,20 @@ public class DbgOrderFormVo implements Serializable {
         this.orderType = orderType;
     }
 
-    public Integer getRefType() {
-        return refType;
+    public Integer getRelType() {
+        return relType;
     }
 
-    public void setRefType(Integer refType) {
-        this.refType = refType;
+    public void setRelType(Integer relType) {
+        this.relType = relType;
     }
 
-    public String getRefId() {
-        return refId;
+    public String getRelId() {
+        return relId;
     }
 
-    public void setRefId(String refId) {
-        this.refId = refId;
+    public void setRelId(String relId) {
+        this.relId = relId;
     }
 
 
@@ -66,13 +66,6 @@ public class DbgOrderFormVo implements Serializable {
         this.transitType = transitType;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getBuyerRemark() {
         return buyerRemark;
@@ -82,11 +75,11 @@ public class DbgOrderFormVo implements Serializable {
         this.buyerRemark = buyerRemark;
     }
 
-    public List<OrderDetailFormVo> getDetails() {
+        public List<OrdItemFormVo> getDetails() {
         return details;
     }
 
-    public void setDetails(List<OrderDetailFormVo> details) {
+    public void setDetails(List<OrdItemFormVo> details) {
         this.details = details;
     }
 
@@ -96,5 +89,14 @@ public class DbgOrderFormVo implements Serializable {
 
     public void setAddrId(Long addrId) {
         this.addrId = addrId;
+    }
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -1,8 +1,7 @@
 package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.DbgOrderVo;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
+import com.verificer.biz.beans.vo.req.OrdFormVo2;
 import com.verificer.biz.beans.vo.req.OrderPageVo;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public interface DbgOrderService {
      * @param formVo
      * @return
      */
-    Long orderAdd(DbgOrderFormVo2 formVo);
+    Long orderAdd(OrdFormVo2 formVo);
 
     /**
      * 订单详情

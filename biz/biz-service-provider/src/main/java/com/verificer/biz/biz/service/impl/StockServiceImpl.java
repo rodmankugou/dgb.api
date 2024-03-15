@@ -70,10 +70,11 @@ public class StockServiceImpl implements StockService {
         return list;
     }
 
-    private int sumCount(List<MerStockVo> specStockList){
-        int count = 0;
+    private BigDecimal sumCount(List<MerStockVo> specStockList){
+        BigDecimal count = BigDecimal.ZERO;
+
         for(MerStockVo specStock : specStockList)
-            count = count+specStock.getCount();
+            count = count.add(specStock.getCount());
 
         return count;
     }

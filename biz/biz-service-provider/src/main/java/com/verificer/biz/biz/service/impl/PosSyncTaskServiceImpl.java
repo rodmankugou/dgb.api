@@ -1,23 +1,19 @@
 package com.verificer.biz.biz.service.impl;
 
-import com.mysql.cj.xdevapi.DatabaseObject;
 import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.biz.beans.enums.*;
-import com.verificer.biz.beans.exceptions.YinBaoApiException;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
-import com.verificer.biz.beans.vo.req.OrderDetailFormVo;
-import com.verificer.biz.beans.vo.req.ShopListVo;
+import com.verificer.biz.beans.vo.req.OrdFormVo2;
+import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.PosSyncTaskMapper;
 import com.verificer.biz.biz.pospay.YinBaoClient;
-import com.verificer.biz.biz.pospay.entity.YbGoods;
-import com.verificer.biz.biz.pospay.entity.YbOrder;
-import com.verificer.biz.biz.pospay.entity.YbOrderItem;
+import com.verificer.biz.biz.pospay.entity.*;
 import com.verificer.biz.biz.pospay.entity.req.AddGoodsReq;
 import com.verificer.biz.biz.pospay.entity.req.QryOrderReq;
 import com.verificer.biz.biz.pospay.entity.req.UpdGoodsReq;
 import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.core.order.OrdService;
 import com.verificer.utils.AESUtils;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SDateUtil;
@@ -56,6 +52,9 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
 
     @Autowired
     DbgOrderService dbgOrderService;
+
+    @Autowired
+    OrdService ordService;
 
 
 
@@ -142,17 +141,17 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
         User user = userService.selectByPosMemberId(order.getCustomerUid());
 
 
-        DbgOrderFormVo2 of = new DbgOrderFormVo2();
+        YbOrdFormVo of = new YbOrdFormVo();
         if(user != null)
             of.setUserId(user.getId());
-        of.setStatus(DbgOrdSta.Finish.getValue());
-        of.setPayType(PayType.POS.getValue());
-        of.setOrderNum("DX"+ SStringUtils.generateRandomNumSequence(18));
-        of.setCreateTime(SDateUtil.parse(order.getDatetime(),SDateUtil.FM_yyyy_MM_dd_HH_mm_ss).getTime());
-        of.setTakeTime(SDateUtil.parse(order.getDatetime(),SDateUtil.FM_yyyy_MM_dd_HH_mm_ss).getTime());
         of.setOrderType(OrdType.POS.getValue());
-        of.setRefId(shop.getId());
-        of.setRefType(MerType.SHOP.getValue());
+        of.setRelId(shop.getId());
+        of.setRelType(MerType.SHOP.getValue());
+        of.setPosOrdId(order.getUid());
+        of.setPosCashierId(order.getCashierUid());
+        of.setPosOrdTime(SDateUtil.parse(order.getDatetime(),SDateUtil.FM_yyyy_MM_dd_HH_mm_ss).getTime());
+        of.setPosMemberId(order.getCashierUid());
+
 
         ShopGoods shopGoods = shopGoodsService.selectByPosGoodsId(order.getItems().get(0).getProductUid());
         if(shopGoods == null){
@@ -160,21 +159,23 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
             return;
 
         }
-        List<OrderDetailFormVo> detail = parseDetail(shopGoods,order.getItems());
+        List<OrdItemFormVo> detail = parseDetail(shopGoods,order.getItems());
         of.setDetails(detail);
 
-        dbgOrderService.orderAdd(of);
+        ordService.create(of);
     }
 
-    private List<OrderDetailFormVo> parseDetail(ShopGoods shopGoods,List<YbOrderItem> itemList){
-        List<OrderDetailFormVo> list = new LinkedList<>();
+    private List<OrdItemFormVo> parseDetail(ShopGoods shopGoods, List<YbOrderItem> itemList){
+        List<OrdItemFormVo> list = new LinkedList<>();
         for(YbOrderItem item : itemList){
-            OrderDetailFormVo vo = new OrderDetailFormVo();
+            YbOrdItemVo vo = new YbOrdItemVo();
             list.add(vo);
             vo.setGoodsId(shopGoods.getGoodsId());
             vo.setSpecId(shopGoods.getSpecId());
             vo.setCount(item.getQuantity());
             vo.setPrice(item.getSellPrice());
+            vo.setRealPrice(item.getTotalAmount().divide(item.getQuantity()));
+            vo.setAmount(item.getTotalAmount());
 
         }
 

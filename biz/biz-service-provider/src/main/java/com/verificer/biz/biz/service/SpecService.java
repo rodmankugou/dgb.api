@@ -11,6 +11,13 @@ public interface SpecService {
 
     Spec getById(Long specId);
 
+    /**
+     * 获取未被删除的specId
+     * @param specId
+     * @return
+     */
+    Spec getActById(Long specId);
+
     List<SpecVo> getGoodsSpecVoList(Long id);
 
     List<Spec> getGoodsSpecList(Long id);

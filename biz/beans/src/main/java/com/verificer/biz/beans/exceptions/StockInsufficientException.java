@@ -1,5 +1,7 @@
 package com.verificer.biz.beans.exceptions;
 
+import java.math.BigDecimal;
+
 /**
  * 库存不足异常
  */
@@ -42,9 +44,9 @@ public class StockInsufficientException extends Exception{
     /**
      * 当前库存
      */
-    private int stockCount;
+    private String stockCount;
 
-    public StockInsufficientException(boolean isStage, String refId, String refName, Long goodsId, String goodsName, Long specId, String specName, int stockCount) {
+    public StockInsufficientException(boolean isStage, String refId, String refName, Long goodsId, String goodsName, Long specId, String specName, String stockCount) {
         super(isStage? "库存":"店铺"+"[Id="+refId+", name="+refName+"]库存不足,商品[id="+goodsId+", specId="+specId+",goodsName="+goodsName+",specName="+specName+"],当前剩余库存量为"+stockCount);
         this.isStage = isStage;
         this.refId = refId;
@@ -84,7 +86,7 @@ public class StockInsufficientException extends Exception{
         return specName;
     }
 
-    public int getStockCount() {
+    public String getStockCount() {
         return stockCount;
     }
 }

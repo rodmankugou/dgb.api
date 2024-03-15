@@ -19,10 +19,10 @@ public class DbgOrderVo implements Serializable {
     private Integer orderType;
 
     @ApiModelProperty("售方类型，1-仓库 2-店铺")
-    private Integer refType;
+    private Integer relType;
 
     @ApiModelProperty("仓库/店铺ID")
-    private String refId;
+    private String relId;
 
     @ApiModelProperty("店铺/仓库名称")
     private String refName;
@@ -114,20 +114,20 @@ public class DbgOrderVo implements Serializable {
         this.orderType = orderType;
     }
 
-    public Integer getRefType() {
-        return refType;
+    public Integer getRelType() {
+        return relType;
     }
 
-    public void setRefType(Integer refType) {
-        this.refType = refType;
+    public void setRelType(Integer relType) {
+        this.relType = relType;
     }
 
-    public String getRefId() {
-        return refId;
+    public String getRelId() {
+        return relId;
     }
 
-    public void setRefId(String refId) {
-        this.refId = refId;
+    public void setRelId(String relId) {
+        this.relId = relId;
     }
 
     public String getRefName() {

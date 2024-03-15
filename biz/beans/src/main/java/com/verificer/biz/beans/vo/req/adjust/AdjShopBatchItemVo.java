@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import jnr.ffi.annotations.SaveError;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @ApiModel
 public class AdjShopBatchItemVo implements Serializable {
@@ -14,7 +15,7 @@ public class AdjShopBatchItemVo implements Serializable {
     private Long specId;
 
     @ApiModelProperty("数量")
-    private Integer count;
+    private BigDecimal count;
 
     public Long getGoodsId() {
         return goodsId;
@@ -32,12 +33,11 @@ public class AdjShopBatchItemVo implements Serializable {
         this.specId = specId;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
-
 }

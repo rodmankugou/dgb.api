@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @ApiModel
 public class AdjShopInFormVo implements Serializable {
@@ -16,7 +17,7 @@ public class AdjShopInFormVo implements Serializable {
     @ApiModelProperty("规格ID")
     private Long specId;
     @ApiModelProperty("数量")
-    private Integer count;
+    private BigDecimal count;
 
 
     public String getStageId() {
@@ -51,12 +52,11 @@ public class AdjShopInFormVo implements Serializable {
         this.specId = specId;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
-
 }

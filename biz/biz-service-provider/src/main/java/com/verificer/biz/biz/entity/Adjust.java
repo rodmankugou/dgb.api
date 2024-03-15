@@ -1,5 +1,7 @@
 package com.verificer.biz.biz.entity;
 
+import java.math.BigDecimal;
+
 public class Adjust {
     /**
      *
@@ -125,7 +127,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    private Integer count;
+    private BigDecimal count;
 
     /**
      *
@@ -134,7 +136,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    private Integer realCount;
+    private BigDecimal realCount;
 
     /**
      *
@@ -492,7 +494,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
@@ -504,7 +506,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 
@@ -516,7 +518,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    public Integer getRealCount() {
+    public BigDecimal getRealCount() {
         return realCount;
     }
 
@@ -528,7 +530,7 @@ public class Adjust {
      *
      * @mbg.generated
      */
-    public void setRealCount(Integer realCount) {
+    public void setRealCount(BigDecimal realCount) {
         this.realCount = realCount;
     }
 

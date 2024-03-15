@@ -6,7 +6,8 @@ package com.verificer.biz.beans.enums;
 public enum OrdType {
     POS(1), //线下收银
     SELF_TAKE(2),//门店自提
-    TRANSIT(3); //平台配送
+    STAGE(3), //平台配送
+    REISSUE(4); //补发单
 
 
     private int value;

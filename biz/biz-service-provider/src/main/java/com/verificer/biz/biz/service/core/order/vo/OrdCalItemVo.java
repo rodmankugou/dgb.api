@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.biz.biz.service.core.order.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,16 +6,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@ApiModel
-public class OrderDetailFormVo  implements Serializable {
-    @ApiModelProperty("商品ID")
+public class OrdCalItemVo implements Serializable {
     private Long goodsId;
-    @ApiModelProperty("规格ID")
     private Long specId;
-    @ApiModelProperty("数量")
     private BigDecimal count;
-    @ApiModelProperty("价格")
-    private BigDecimal price;
 
     public Long getGoodsId() {
         return goodsId;
@@ -39,13 +33,5 @@ public class OrderDetailFormVo  implements Serializable {
 
     public void setCount(BigDecimal count) {
         this.count = count;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }

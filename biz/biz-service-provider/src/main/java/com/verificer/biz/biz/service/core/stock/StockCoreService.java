@@ -1,4 +1,4 @@
-package com.verificer.biz.biz.service;
+package com.verificer.biz.biz.service.core.stock;
 
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.req.StockUpdVo;

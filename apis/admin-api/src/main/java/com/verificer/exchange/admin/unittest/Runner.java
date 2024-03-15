@@ -6,6 +6,7 @@ import com.verificer.exchange.admin.unittest.order.OrderGen;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SStringUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,23 +52,69 @@ public class Runner {
         Tools.callApi(url,FastJson.toJson(map));
     }
 
-    public static void  run(String reqFilePath){
+
+    public static void  run(String reqFilePath,String dbName,String tableName){
         String path = Tools.TEST_DATA_PATH+reqFilePath+".json";
         File file = new File(path);
         if(!file.exists())
-            throw new RuntimeException("请求文件 "+path+" 不存在");
+            throw new RuntimeException("请求文件 \n"+path+" \n不存在");
         String json = null;
         try {
             json = FileUtils.readFileToString(file,"utf-8");
-            json = replaceParam(json);
-        } catch (IOException e) {
+            json = replaceParam(json,dbName,tableName);
+        } catch (IOException | SQLException e) {
             throw new RuntimeException("读取请求文件 "+path+" ，读取失败");
         }
         Req req = FastJson.fromJson(json,Req.class);
         Tools.callApi(req.getApiPath(),json);
     }
 
-    private static String replaceParam(String json){
+    public static void  run(String reqFilePath){
+        run(reqFilePath,null,null);
+    }
+
+    public static void runDir(String dirPath,String[] fileNames,String dbName) throws SQLException {
+        Long nextId = Tools.getTableNextId(dbName,dirPath);
+        String origDirPath = dirPath;
+        dirPath = Tools.TEST_DATA_PATH + dirPath;
+        File dir = new File(dirPath);
+        if(!dir.exists())
+            throw new RuntimeException("[path= "+dirPath+" ] not exist");
+        if(!dir.isDirectory())
+            throw new RuntimeException("[path= "+dirPath+" ] not directory");
+
+        File[] files = dir.listFiles();
+        boolean isInitSqlExist= false;
+        for(String fName : fileNames){
+            fName = fName+".json";
+            boolean exist = false;
+            for(File file : files){
+                if(file.getName().equals(fName)){
+                    if(file.isDirectory())
+                        throw new RuntimeException("[path= \n"+dirPath+"/"+fName+" \n] not file,it is directory");
+                    exist = true;
+                }
+                if(file.getName().equals("init.sql"))
+                    isInitSqlExist = true;
+            }
+            if(!exist)
+                throw new RuntimeException("[path= \n"+dirPath+"/"+fName+" \n] not exist");
+
+        }
+
+        if(isInitSqlExist)
+            Tools.init(dbName,origDirPath+"/init.sql");
+
+        for(String fName : fileNames){
+            System.out.println("Run :" + fName);
+            run(origDirPath+"/"+fName,dbName,origDirPath);
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+        }
+    }
+
+    private static String replaceParam(String json,String dbName,String tableName) throws SQLException {
         String s = json.replaceAll("@img",Tools.getRandomImg());
         s = s.replaceAll("@100", SStringUtils.generateRandomNumSequence(100));
         s = s.replaceAll("@20", SStringUtils.generateRandomNumSequence(20));
@@ -83,8 +130,16 @@ public class Runner {
         s = s.replaceAll("@5", SStringUtils.generateRandomNumSequence(5));
         s = s.replaceAll("@6", SStringUtils.generateRandomNumSequence(6));
 
+        if(!SStringUtils.isAnyEmpty(dbName,tableName) && s.contains("@mid")){
+            Long nextId = Tools.getTableNextId(dbName,tableName);
+            s = s.replaceAll("@mid",nextId.toString());
+        }
+
+
         return s;
     }
+
+
 
     public static void runTemp(){
         run("temp");
@@ -130,8 +185,8 @@ public class Runner {
 //        map.put("saleFlag",true);
 //        runPageQry("goods/page",map);
 
-        Tools.init("order/init.sql");
-        OrderGen.genGoods();
+//        Tools.init("order/init.sql");
+//        OrderGen.genGoods();
 
 //        runPageQry("order/page");
 //        run("order/dtl");
@@ -148,6 +203,10 @@ public class Runner {
 
 //        Tools.init("possync/init.sql");
 //        PosSyncTester.runTest();
+
+//        runDir("banner",new String[] {"add","upd","page","del","page"},"dbg_sup");
+//        runDir("advert",new String[] {"add","upd","page","del","page"},"dbg_sup");
+        runDir("help",new String[] {"add","upd","page","del","page"},"dbg_sup");
     }
 
 

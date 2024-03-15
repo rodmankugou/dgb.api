@@ -214,7 +214,7 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
-    public Long orderAdd(DbgOrderFormVo2 formVo) {
+    public Long orderAdd(OrdFormVo2 formVo) {
         return dbgOrderService.orderAdd(formVo);
     }
 

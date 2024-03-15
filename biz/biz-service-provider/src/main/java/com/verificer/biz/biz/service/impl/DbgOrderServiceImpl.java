@@ -1,13 +1,12 @@
 package com.verificer.biz.biz.service.impl;
 
-import com.verificer.biz.beans.enums.DbgOrdSta;
+import com.verificer.biz.beans.enums.OrdSta;
 import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.beans.enums.OrdDtlSta;
 import com.verificer.biz.beans.vo.DbgOrderVo;
 import com.verificer.biz.beans.vo.OrderDetailVo;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
-import com.verificer.biz.beans.vo.req.OrderDetailFormVo;
+import com.verificer.biz.beans.vo.req.OrdFormVo2;
+import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.beans.vo.req.OrderPageVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.DbgOrderMapper;
@@ -15,7 +14,6 @@ import com.verificer.biz.biz.mapper.OrderDetailMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SBeanUtils;
-import io.swagger.models.refs.RefType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,13 +77,13 @@ public class DbgOrderServiceImpl implements DbgOrderService {
     }
 
     @Override
-    public Long orderAdd(DbgOrderFormVo2 formVo) {
+    public Long orderAdd(OrdFormVo2 formVo) {
         DbgOrder order = new DbgOrder();
         order.setStatus(formVo.getStatus());
         order.setUserId(formVo.getUserId());
         order.setOrderType(formVo.getOrderType());
-        order.setRefType(formVo.getRefType());
-        order.setRefId(formVo.getRefId());
+        order.setRelType(formVo.getRelType());
+        order.setRelId(formVo.getRelId());
         order.setTransitType(formVo.getTransitType());
         order.setBuyerRemark(formVo.getBuyerRemark());
         order.setPayType(formVo.getPayType());
@@ -97,11 +95,11 @@ public class DbgOrderServiceImpl implements DbgOrderService {
         order.setCreateTime(formVo.getCreateTime());
         order.setDelFlag(false);
 
-        if(order.getRefType() == MerType.STAGE.getValue()){
-            Stage stage = stageService.getById(order.getRefId());
+        if(order.getRelType() == MerType.STAGE.getValue()){
+            Stage stage = stageService.getById(order.getRelId());
             order.setRefName(stage.getName());
-        }else if(order.getRefType() == MerType.SHOP.getValue()){
-            Shop shop = shopService.getById(order.getRefId());
+        }else if(order.getRelType() == MerType.SHOP.getValue()){
+            Shop shop = shopService.getById(order.getRelId());
             order.setRefName(shop.getName());
         }else {
             throw new BizErrMsgException("Parameter refType error");
@@ -127,7 +125,7 @@ public class DbgOrderServiceImpl implements DbgOrderService {
         if(formVo.getDetails() == null || formVo.getDetails().size() == 0){
             throw new BizErrMsgException("Details 不能为空");
         }
-        for(OrderDetailFormVo vo : formVo.getDetails()){
+        for(OrdItemFormVo vo : formVo.getDetails()){
             Goods goods = goodsService.getById(vo.getGoodsId());
             Spec spec = specService.getById(vo.getSpecId());
             OrderDetail od = new OrderDetail();
@@ -142,12 +140,12 @@ public class DbgOrderServiceImpl implements DbgOrderService {
             od.setCount(vo.getCount());
             od.setAmount(vo.getPrice().multiply(vo.getCount()));
 
-            if(order.getStatus() == DbgOrdSta.WAIT_PAY.getValue()
-                    || order.getStatus() == DbgOrdSta.WaitTransit.getValue()
-                    || order.getStatus() == DbgOrdSta.InStock.getValue()
+            if(order.getStatus() == OrdSta.WAIT_PAY.getValue()
+                    || order.getStatus() == OrdSta.WaitTransit.getValue()
+                    || order.getStatus() == OrdSta.InStock.getValue()
             ){
                 od.setStatus(OrdDtlSta.WAIT_TRANSIT.getValue());
-            }else if(order.getStatus() == DbgOrdSta.InTransit.getValue()
+            }else if(order.getStatus() == OrdSta.InTransit.getValue()
 
             ){
                 od.setStatus(OrdDtlSta.WAIT_TRANSIT.getValue());

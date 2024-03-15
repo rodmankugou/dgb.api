@@ -4,10 +4,26 @@ import java.io.Serializable;
 import java.util.List;
 
 public class YbOrder implements Serializable {
+    /**
+     * 订单唯一ID
+     */
     private Long uid;
+    /**
+     * 收银员唯一ID
+     */
+    private Long cashierUid;
     private String remark;
+    /**
+     * 订单总金额
+     */
     private String totalAmount;
+    /**
+     * 会员唯一ID
+     */
     private Long customerUid;
+    /**
+     * 订单时间
+     */
     private String datetime;
 
     private List<YbOrderItem> items;
@@ -58,5 +74,13 @@ public class YbOrder implements Serializable {
 
     public void setItems(List<YbOrderItem> items) {
         this.items = items;
+    }
+
+    public Long getCashierUid() {
+        return cashierUid;
+    }
+
+    public void setCashierUid(Long cashierUid) {
+        this.cashierUid = cashierUid;
     }
 }

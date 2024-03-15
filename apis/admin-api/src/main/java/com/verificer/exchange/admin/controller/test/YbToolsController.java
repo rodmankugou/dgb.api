@@ -1,6 +1,6 @@
 package com.verificer.exchange.admin.controller.test;
 
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
+import com.verificer.biz.beans.vo.req.OrdFormVo2;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
@@ -36,7 +36,7 @@ public class YbToolsController extends BaseController {
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/sync", method = RequestMethod.POST)
-    public Response sync(@RequestBody DbgOrderFormVo2 formVo) {
+    public Response sync(@RequestBody OrdFormVo2 formVo) {
         bizService.ybSync();
 
         return Response.simpleSuccess();

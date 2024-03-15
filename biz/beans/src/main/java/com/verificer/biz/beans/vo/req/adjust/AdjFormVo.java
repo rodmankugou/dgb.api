@@ -1,6 +1,7 @@
 package com.verificer.biz.beans.vo.req.adjust;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class AdjFormVo implements Serializable {
     private Integer shortType;
@@ -8,8 +9,8 @@ public class AdjFormVo implements Serializable {
     private String toId;
     private Long goodsId;
     private Long specId;
-    private Integer count;
-    private Integer realCount;
+    private BigDecimal count;
+    private BigDecimal realCount;
     private String remark;
 
 
@@ -53,19 +54,19 @@ public class AdjFormVo implements Serializable {
         this.specId = specId;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 
-    public Integer getRealCount() {
+    public BigDecimal getRealCount() {
         return realCount;
     }
 
-    public void setRealCount(Integer realCount) {
+    public void setRealCount(BigDecimal realCount) {
         this.realCount = realCount;
     }
 

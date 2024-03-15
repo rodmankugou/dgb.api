@@ -1,7 +1,9 @@
 package com.verificer.beans.suportVo;
 
 
+import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.verificer.web.common.enums.BannerTerminalType;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,22 +17,26 @@ public class BannerVo implements Serializable{
     /**
      * ID
      */
-    private Integer id;
+    @ApiModelProperty("ID")
+    private Long id;
 
     /**
      * 名称
      */
+    @ApiModelProperty("名称")
     private String name;// 名称
 
     /**
      * 图片地址
      */
-    private String imageURI;// 图片地址
+    @ApiModelProperty("图片")
+    private String imageUri;// 图片地址
 
     /**
      * 落地页地址，如微信落地页地址
      */
-    private String htmlURL;// 点击之后的落地页地址
+    @ApiModelProperty("小程序 Short Path")
+    private String htmlUrl;// 点击之后的落地页地址
 
     /**
      * 落地页标题
@@ -76,24 +82,12 @@ public class BannerVo implements Serializable{
     public BannerVo() {
     }
 
-    public BannerVo(String name, String imageURI, String htmlURL, String htmlTitle, boolean enable, Date createTime, Date endTime, Date updateTime, Integer sortParameter, String internationalType) {
-        this.name = name;
-        this.imageURI = imageURI;
-        this.htmlURL = htmlURL;
-        this.htmlTitle = htmlTitle;
-        this.enable = enable;
-        this.createTime = createTime;
-        this.endTime = endTime;
-        this.updateTime = updateTime;
-        this.sortParameter = sortParameter;
-        this.internationalType = internationalType;
-    }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -105,20 +99,20 @@ public class BannerVo implements Serializable{
         this.name = name;
     }
 
-    public String getImageURI() {
-        return imageURI;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setImageURI(String imageURI) {
-        this.imageURI = imageURI;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public String getHtmlURL() {
-        return htmlURL;
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 
-    public void setHtmlURL(String htmlURL) {
-        this.htmlURL = htmlURL;
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
     }
 
     public String getHtmlTitle() {

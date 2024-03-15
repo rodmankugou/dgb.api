@@ -7,7 +7,7 @@ import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.SpecMapper;
 import com.verificer.biz.biz.service.GoodsStaService;
 import com.verificer.biz.biz.service.SpecService;
-import com.verificer.biz.biz.service.StockCoreService;
+import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
@@ -50,6 +50,14 @@ public class SpecServiceImpl implements SpecService {
     @Override
     public Spec getById(Long specId) {
         return mapper.selectByPrimaryKey(specId);
+    }
+
+    @Override
+    public Spec getActById(Long specId) {
+        Spec spec = getById(specId);
+        if(spec == null || spec.getDelFlag())
+            return null;
+        return spec;
     }
 
     @Override

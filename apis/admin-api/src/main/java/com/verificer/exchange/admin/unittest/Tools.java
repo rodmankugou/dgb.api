@@ -7,10 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,7 @@ public class Tools {
     }
 
     public static String getToken(){
-        return "157aa2024ce7481985394d88734525f8mD8jss56D0yJJ0w7PB60SQiSdn6VHAzC-1710104623033";
+        return "3fade4c7327c46eb81c40743622280c1p82rB540oHzOI648Km7412m5W1kvswvj-1710253913760";
     }
 
     public static TResp callApi(String url,String json){
@@ -44,17 +41,12 @@ public class Tools {
         }
         if(resp.getCode() == null)
             throw new RuntimeException("调用接口失败，返回内容:\n"+s);
-        System.out.println("调用成功，接口返回内容：\n"+s);
+        System.out.println("调用成功，接口返回内容：\n"+FastJson.pretty(s));
         return resp;
     }
 
-    private static Connection getConn() throws Exception{
-        ComboPooledDataSource mysql = C3p0Tools.getInstance();
-
-
-        Connection conn = mysql.getConnection();
-        conn.setAutoCommit(true);
-        return conn;
+    private static Connection getConn(String db) throws Exception{
+       return C3p0Tools.getInstance(db).getConnection();
     }
 
     private static void executeSql(Connection conn,String sql) throws Exception{
@@ -70,7 +62,7 @@ public class Tools {
         }
     }
 
-    public static void init(String path){
+    public static void init(String db,String path){
         List<String> sqls = null;
         try {
             sqls = FileUtils.readLines(new File(TEST_DATA_PATH+path));
@@ -81,7 +73,7 @@ public class Tools {
         Connection conn = null;
 
         try {
-            conn = getConn();
+            conn = getConn(db);
             conn.setAutoCommit(false);
             for(String sql : sqls){
                 System.out.println("执行sql: "+sql);
@@ -105,9 +97,35 @@ public class Tools {
         }
     }
 
-    public static void init(){
-        init("init.sql");
+    public static void init(String path){
+        init(null,path);
 
     }
+
+    public static void init(){
+        init(null,"init.sql");
+
+    }
+
+    public static Long getTableNextId(String dbName,String tableName) throws SQLException {
+        Connection conn = C3p0Tools.getInstance(dbName).getConnection();
+        String sql = "select max(id) as mid from "+tableName;
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = conn.prepareStatement(sql);
+
+            rs = stm.executeQuery();
+            if (rs.next()){
+                return rs.getLong("mid");
+            }
+            throw new RuntimeException(dbName+"."+tableName+"没有自增ID");
+        }finally {
+            DbUtil.closeConnection(conn,stm,rs);
+        }
+    }
+
 
 }

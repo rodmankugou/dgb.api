@@ -1,14 +1,9 @@
 package com.verificer.biz.biz.service;
 
-import com.verificer.beans.AreaVo;
-import com.verificer.beans.ArtworkSubmitVo;
 import com.verificer.biz.beans.vo.*;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
-import com.verificer.web.common.response.Response;
-import io.swagger.annotations.ApiOperation;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -248,7 +243,7 @@ public interface BizService {
      * @param formVo
      * @return
      */
-    Long orderAdd(DbgOrderFormVo2 formVo);
+    Long orderAdd(OrdFormVo2 formVo);
 
     /**
      * 订单列表

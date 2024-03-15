@@ -12,9 +12,11 @@ import com.verificer.biz.biz.entity.Shop;
 
 import com.verificer.biz.biz.mapper.ShopInfoMapper;
 import com.verificer.biz.biz.mapper.ShopMapper;
+import com.verificer.biz.biz.pospay.YinBaoClient;
 import com.verificer.biz.biz.service.ShopInfoService;
 import com.verificer.biz.biz.service.ShopService;
 import com.verificer.common.exception.BaseException;
+import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.AESUtils;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.UuidUtils;
@@ -207,7 +209,10 @@ public class ShopServiceImpl implements ShopService {
 
         if(mapper.selectByPosAppIdLimit1(e.getPosAppId()) != null)
             throw new BaseException(ErrCode.POS_API_ID_ERR);
-        //TODO 在此验证POS 机接口是否能正常调用
+
+        if(!YinBaoClient.checkApiKey(e.getPosBaseUrl(),e.getPosAppId(),e.getPosAppSecret())){
+            throw new BizErrMsgException(ErrCode.ADD_SHOP_POS_SETTING_ERR);
+        }
 
         try {
             e.setPosAppSecret(AESUtils.encrypt(GlobalConfig.AES_SEED,e.getPosAppSecret()));

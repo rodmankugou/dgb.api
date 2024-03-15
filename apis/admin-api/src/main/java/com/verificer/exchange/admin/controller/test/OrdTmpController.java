@@ -1,6 +1,5 @@
 package com.verificer.exchange.admin.controller.test;
 
-import com.verificer.biz.beans.vo.BrandVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
@@ -12,8 +11,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by 35336 on 2021/2/26.
@@ -39,7 +36,7 @@ public class OrdTmpController extends BaseController {
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public Response submit(@RequestBody DbgOrderFormVo2 formVo) {
+    public Response submit(@RequestBody OrdFormVo2 formVo) {
         Long orderId = bizService.orderAdd(formVo);
 
         return Response.dataSuccess(orderId);

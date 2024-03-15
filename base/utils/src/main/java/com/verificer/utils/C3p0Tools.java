@@ -10,21 +10,25 @@ public class C3p0Tools {
     private static Logger LOGGER = LoggerFactory.getLogger(C3p0Tools.class);
     private static String driverClass = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.driverClass");
 //    private static String jdbcUrl = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.jdbcUrl");
-    private static String jdbcUrl = "jdbc:mysql://localhost:3306/dbg?serverTimezone=UTC";
+    private static String jdbcUrl = "jdbc:mysql://localhost:3306/@db?serverTimezone=UTC";
     private static String user = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.user");
     private static String passwd = JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.password");
-    private static int poolSize = Integer.parseInt(JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.initialPoolSize"));
-    private static int maxPoolSize = Integer.parseInt(JavaPropertiesUtil.getValue("properties/mysql.properties", "mysql.maxPoolSize"));
+    private static int poolSize = 1;
+    private static int maxPoolSize = 1;
 
     private static ComboPooledDataSource dataSource ;
+    private static String DF_DB = "dbg";
 
-    public static synchronized ComboPooledDataSource getInstance(){
-        if(dataSource == null)
-            createDataSource();
-        return dataSource;
+    public static  ComboPooledDataSource getInstance(String db){
+
+        return createDataSource(db);
     }
 
-    private static ComboPooledDataSource createDataSource() {
+    public static  ComboPooledDataSource getInstance(){
+        return getInstance(DF_DB);
+    }
+
+    private static ComboPooledDataSource createDataSource(String db) {
         dataSource = new ComboPooledDataSource();
 
         try {
@@ -35,7 +39,8 @@ public class C3p0Tools {
             throw new RuntimeException(e.getMessage(), e);
         }
 
-        dataSource.setJdbcUrl(jdbcUrl);
+        String jUrl = jdbcUrl.replaceAll("@db",db);
+        dataSource.setJdbcUrl(jUrl);
 
         dataSource.setUser(user);
 

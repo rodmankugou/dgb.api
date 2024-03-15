@@ -1,7 +1,11 @@
 package com.verificer.base.sup.itf;
 
 import java.util.List;
+
+import com.verificer.beans.AdvertPageVo;
 import com.verificer.beans.*;
+import com.verificer.beans.suportVo.AdvertVo;
+import com.verificer.beans.suportVo.HelpVo;
 
 public interface BaseSupService {
     /**
@@ -31,4 +35,38 @@ public interface BaseSupService {
      * @return 返回解密后的配置值
      */
     String getAesEncryptCfg(String code);
+
+    List<AdminBannerVo> bannerPage(String language, BannerQueryVo queryVo);
+
+    int bannerCount(BannerQueryVo queryVo);
+
+    void bannerAdd(BannerFormVo fvo);
+
+    void bannerUpd(BannerFormVo fvo);
+
+    void bannerDel(IdVo idVo);
+
+    List<AdvertVo> advertPage(String language, AdvertPageVo queryVo);
+
+    int advertCount(AdvertPageVo queryVo);
+
+    void advertAdd(AdvertFormVo fVo);
+
+    void advertUpd(AdvertFormVo fVo);
+
+    void advertDel(IdVo idVo);
+
+    List<HelpVo> helpPage(String language, HelpPageVo queryVo);
+
+    int helpCount(HelpPageVo queryVo);
+
+    void helpAdd(HelpFormVo fVo);
+
+    void helpUpd(HelpFormVo fVo);
+
+    void helpDel(IdVo idVo);
+
+    HelpVo helpDetail(IdVo idVo);
+
+
 }

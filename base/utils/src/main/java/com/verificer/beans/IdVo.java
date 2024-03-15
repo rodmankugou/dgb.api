@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.beans;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

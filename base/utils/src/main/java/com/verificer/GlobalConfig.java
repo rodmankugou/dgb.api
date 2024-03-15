@@ -12,9 +12,17 @@ import java.util.List;
 
 public class GlobalConfig {
     private static final Logger logger = LoggerFactory.getLogger(GlobalConfig.class);
+    public static final String APP_NAME= JavaPropertiesUtil.getValue("global.properties", "app_name");
 
     public static final String ENV= JavaPropertiesUtil.getValue("global.properties", "env");
+    /**
+     * 价格精度
+     */
     public static final int PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "precision"));
+    /**
+     * 重量精度
+     */
+    public static final int W_PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "weight_precision"));
 
     public static String AES_SEED = null;
 

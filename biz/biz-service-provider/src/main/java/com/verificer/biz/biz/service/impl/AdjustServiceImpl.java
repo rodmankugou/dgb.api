@@ -11,6 +11,7 @@ import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.AdjustMapper;
 import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SStringUtils;
@@ -19,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -104,9 +105,9 @@ public class AdjustServiceImpl implements AdjustService {
 
         SCheckUtil.notEmpty(formVo.getGoodsId(),"Goods Id");
         SCheckUtil.notEmpty(formVo.getSpecId(),"Spec Id");
-        SCheckUtil.lgThanAndNotNull(formVo.getCount(),true,0,"Count");
+        SCheckUtil.lgThanAndNotNull(formVo.getCount(),true, BigDecimal.ZERO,"Count");
 
-        if(formVo.getCount() == 0)
+        if(formVo.getCount().compareTo(BigDecimal.ZERO) == 0)
             return;
 
         if(isFinish(formVo)){

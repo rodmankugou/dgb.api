@@ -28,6 +28,7 @@
     <result column="del_time" jdbcType="BIGINT" property="delTime" />
     <result column="rubbish_flag" jdbcType="BIT" property="rubbishFlag" />
     <result column="rubbish_time" jdbcType="BIGINT" property="rubbishTime" />
+    <result column="sku_flag" jdbcType="BIT" property="skuFlag" />
     <result column="pos_by_weight_flag" jdbcType="BIT" property="posByWeightFlag" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -38,7 +39,7 @@
     id, category_id, brand_id, name, img_list, key_word, search_key, free_shipping_flag, 
     weight, volume, max_limit_count, min_limit_count, unit, sale_flag, sale_time_out_flag, 
     stop_sale_time, detail, create_time, del_flag, del_time, rubbish_flag, rubbish_time, 
-    pos_by_weight_flag
+    sku_flag, pos_by_weight_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -73,7 +74,7 @@
       sale_flag, sale_time_out_flag, stop_sale_time, 
       detail, create_time, del_flag, 
       del_time, rubbish_flag, rubbish_time, 
-      pos_by_weight_flag)
+      sku_flag, pos_by_weight_flag)
     values (#{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{imgList,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, 
       #{freeShippingFlag,jdbcType=BIT}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
@@ -81,7 +82,7 @@
       #{saleFlag,jdbcType=TINYINT}, #{saleTimeOutFlag,jdbcType=TINYINT}, #{stopSaleTime,jdbcType=BIGINT}, 
       #{detail,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{delFlag,jdbcType=BIT}, 
       #{delTime,jdbcType=BIGINT}, #{rubbishFlag,jdbcType=BIT}, #{rubbishTime,jdbcType=BIGINT}, 
-      #{posByWeightFlag,jdbcType=BIT})
+      #{skuFlag,jdbcType=BIT}, #{posByWeightFlag,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.Goods">
     <!--
@@ -156,6 +157,9 @@
       <if test="rubbishTime != null">
         rubbish_time,
       </if>
+      <if test="skuFlag != null">
+        sku_flag,
+      </if>
       <if test="posByWeightFlag != null">
         pos_by_weight_flag,
       </if>
@@ -223,6 +227,9 @@
       </if>
       <if test="rubbishTime != null">
         #{rubbishTime,jdbcType=BIGINT},
+      </if>
+      <if test="skuFlag != null">
+        #{skuFlag,jdbcType=BIT},
       </if>
       <if test="posByWeightFlag != null">
         #{posByWeightFlag,jdbcType=BIT},
@@ -299,6 +306,9 @@
       <if test="rubbishTime != null">
         rubbish_time = #{rubbishTime,jdbcType=BIGINT},
       </if>
+      <if test="skuFlag != null">
+        sku_flag = #{skuFlag,jdbcType=BIT},
+      </if>
       <if test="posByWeightFlag != null">
         pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT},
       </if>
@@ -332,6 +342,7 @@
       del_time = #{delTime,jdbcType=BIGINT},
       rubbish_flag = #{rubbishFlag,jdbcType=BIT},
       rubbish_time = #{rubbishTime,jdbcType=BIGINT},
+      sku_flag = #{skuFlag,jdbcType=BIT},
       pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>

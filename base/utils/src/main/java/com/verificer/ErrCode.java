@@ -253,4 +253,10 @@ public class ErrCode {
     public static final String SHOP_BASE_URL_MUST_START_WITH_HTTPS = "SHOP_BASE_URL_MUST_START_WITH_HTTPS";
     public static final String POS_API_ID_ERR = "POS_API_ID_ERR";
 
+    public static final String GOODS_SPEC_NOT_EXIST = "GOODS_SPEC_NOT_EXIST";
+    public static final String GOODS_NOT_IN_SALE = "GOODS_NOT_IN_SALE";
+
+    public static final String CREATE_ORD_STOCK_NOT_ENOUGH = "CREATE_ORD_STOCK_NOT_ENOUGH";
+    public static final String CREATE_ORD_GOODS_PRICE_CHANGE = "CREATE_ORD_GOODS_PRICE_CHANGE";
+    public static final String ADD_SHOP_POS_SETTING_ERR = "ADD_SHOP_POS_SETTING_ERR";
 }

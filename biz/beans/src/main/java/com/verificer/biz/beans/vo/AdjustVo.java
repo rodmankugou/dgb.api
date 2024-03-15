@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @ApiModel
 public class AdjustVo implements Serializable {
@@ -42,7 +43,7 @@ public class AdjustVo implements Serializable {
     private String specName;
 
     @ApiModelProperty("数量")
-    private Integer count;
+    private BigDecimal count;
 
     @ApiModelProperty("单位")
     private String unit;
@@ -66,6 +67,13 @@ public class AdjustVo implements Serializable {
         this.status = status;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getStageId() {
         return stageId;
@@ -73,6 +81,14 @@ public class AdjustVo implements Serializable {
 
     public void setStageId(String stageId) {
         this.stageId = stageId;
+    }
+
+    public String getStageName() {
+        return stageName;
+    }
+
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
     }
 
     public String getShopId() {
@@ -83,12 +99,28 @@ public class AdjustVo implements Serializable {
         this.shopId = shopId;
     }
 
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     public Long getGoodsId() {
         return goodsId;
     }
 
     public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
     public Long getSpecId() {
@@ -99,11 +131,19 @@ public class AdjustVo implements Serializable {
         this.specId = specId;
     }
 
-    public Integer getCount() {
+    public String getSpecName() {
+        return specName;
+    }
+
+    public void setSpecName(String specName) {
+        this.specName = specName;
+    }
+
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 
@@ -122,46 +162,4 @@ public class AdjustVo implements Serializable {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
-
-    public String getStageName() {
-        return stageName;
-    }
-
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
-    public String getSpecName() {
-        return specName;
-    }
-
-    public void setSpecName(String specName) {
-        this.specName = specName;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-
 }

@@ -1,20 +1,15 @@
 package com.verificer.biz.beans.enums;
 
-import com.verificer.I18nCode;
-
 /**
  * Created by 35336 on 2021/1/4.
  */
-public enum DbgOrdSta {
-    WAIT_PAY(1),
-    InStock(2),
-    WaitTransit(3),
-    InTransit(4),
-    Received(5),
-    Evaluated(6),
-    Finish(7),
-    WaitSelfTake(22),
-    Canceled(101);
+public enum OpEntry {
+    System(1),
+    App(2),
+    Bo(3),
+    Merchant(4),
+    Pos(5);
+
 
 
     private int value;
@@ -24,7 +19,7 @@ public enum DbgOrdSta {
         return value;
     }
 
-    DbgOrdSta(int value) {
+    OpEntry(int value) {
         this.value = value;
     }
 
@@ -32,7 +27,7 @@ public enum DbgOrdSta {
     public static boolean isValidStatus(Integer status) {
         if (status == null)
             return false;
-        for (DbgOrdSta c : DbgOrdSta.values()) {
+        for (OpEntry c : OpEntry.values()) {
             if (c.getValue() == status) {
                 return true;
             }
@@ -41,8 +36,8 @@ public enum DbgOrdSta {
     }
 
 
-    public static DbgOrdSta get(Integer status) {
-        for (DbgOrdSta c : DbgOrdSta.values()) {
+    public static OpEntry get(Integer status) {
+        for (OpEntry c : OpEntry.values()) {
             if (c.getValue() == status) {
                 return c;
             }

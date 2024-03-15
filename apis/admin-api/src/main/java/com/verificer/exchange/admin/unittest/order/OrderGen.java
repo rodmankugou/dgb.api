@@ -1,17 +1,15 @@
 package com.verificer.exchange.admin.unittest.order;
 
-import com.verificer.biz.beans.enums.DbgOrdSta;
+import com.verificer.biz.beans.enums.OrdSta;
 import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.beans.enums.OrdType;
 import com.verificer.biz.beans.enums.PayType;
 import com.verificer.biz.beans.vo.GoodsVo;
-import com.verificer.biz.beans.vo.req.DbgOrderFormVo2;
-import com.verificer.biz.beans.vo.req.OrderDetailFormVo;
+import com.verificer.biz.beans.vo.req.OrdFormVo2;
+import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.exchange.admin.unittest.TResp;
 import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.*;
-import com.verificer.web.common.response.Response;
-import org.bouncycastle.pqc.math.linearalgebra.RandUtils;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -26,19 +24,19 @@ import java.util.Map;
 public class OrderGen {
     static Map<Integer,Integer[]> staTypeMap = new HashMap<>();
     static {
-        staTypeMap.put(DbgOrdSta.WAIT_PAY.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.InStock.getValue(),new Integer[]{OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.WaitTransit.getValue(),new Integer[]{OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.InTransit.getValue(),new Integer[]{OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.Received.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.Evaluated.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.Finish.getValue(),new Integer[]{OrdType.POS.getValue(),OrdType.SELF_TAKE.getValue(),OrdType.TRANSIT.getValue()});
-        staTypeMap.put(DbgOrdSta.WaitSelfTake.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue()});
+        staTypeMap.put(OrdSta.WAIT_PAY.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.InStock.getValue(),new Integer[]{OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.WaitTransit.getValue(),new Integer[]{OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.InTransit.getValue(),new Integer[]{OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.Received.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.Evaluated.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue(),OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.Finish.getValue(),new Integer[]{OrdType.POS.getValue(),OrdType.SELF_TAKE.getValue(),OrdType.STAGE.getValue()});
+        staTypeMap.put(OrdSta.WaitSelfTake.getValue(),new Integer[]{OrdType.SELF_TAKE.getValue()});
     }
 
-    public static List<DbgOrderFormVo2> gen(Integer status,int num) throws SQLException {
+    public static List<OrdFormVo2> gen(Integer status, int num) throws SQLException {
 
-        List<DbgOrderFormVo2> oList = new LinkedList<>();
+        List<OrdFormVo2> oList = new LinkedList<>();
         for(int i=0; i< num-2;i++){
             oList.add(gen(status));
         }
@@ -47,8 +45,8 @@ public class OrderGen {
         return oList;
     }
 
-    private static DbgOrderFormVo2 gen(Integer status) throws SQLException {
-        DbgOrderFormVo2 o = new DbgOrderFormVo2();
+    private static OrdFormVo2 gen(Integer status) throws SQLException {
+        OrdFormVo2 o = new OrdFormVo2();
         o.setStatus(status);
         o.setBuyerRemark("");
         o.setUserId(getUserId());
@@ -77,7 +75,7 @@ public class OrderGen {
     }
 
 
-    private static void fillByType(DbgOrderFormVo2 o) throws SQLException {
+    private static void fillByType(OrdFormVo2 o) throws SQLException {
         Integer type = o.getOrderType();
         Long bTime = 1709348003000L;
         Long createTime = null;
@@ -86,16 +84,16 @@ public class OrderGen {
         if(type == OrdType.POS.getValue()){
             createTime = bTime + fourDayRan() + twoHourRan();
             o.setPayType(PayType.POS.getValue());
-            o.setRefId(getShopId());
-            o.setRefType(MerType.SHOP.getValue());
+            o.setRelId(getShopId());
+            o.setRelType(MerType.SHOP.getValue());
 
         }else if(type == OrdType.SELF_TAKE.getValue()){
             createTime = bTime + fourDayRan() + twoHourRan();
             recTime = createTime + twoHourRan()*2;
             o.setTakeCode(SStringUtils.generateRandomNumSequence(6));
             o.setPayType(PayType.WX.getValue());
-            o.setRefId(getShopId());
-            o.setRefType(MerType.SHOP.getValue());
+            o.setRelId(getShopId());
+            o.setRelType(MerType.SHOP.getValue());
 
         }else {
             createTime = bTime+fourDayRan() + twoHourRan();
@@ -103,8 +101,8 @@ public class OrderGen {
             recTime = transitTime + twoHourRan()*2;
             o.setAddrId(getAddrId());
             o.setPayType(PayType.WX.getValue());
-            o.setRefId(getStageId());
-            o.setRefType(MerType.STAGE.getValue());
+            o.setRelId(getStageId());
+            o.setRelType(MerType.STAGE.getValue());
             o.setTransitType(1);
         }
 
@@ -201,7 +199,7 @@ public class OrderGen {
         }
     }
 
-    private static List<OrderDetailFormVo> genDetails(){
+    private static List<OrdItemFormVo> genDetails(){
         Map<String,Object> map = new HashMap<>();
         map.put("page",1);
         map.put("pageSize",10);
@@ -214,7 +212,7 @@ public class OrderGen {
         if(goodsList.size() < 2)
             throw new RuntimeException("商品表中数量不足，必须要有超过2条数据");
 
-        List<OrderDetailFormVo> list = new LinkedList<>();
+        List<OrdItemFormVo> list = new LinkedList<>();
         int gSize = RandomUtils.getInt(1,2);
         BigDecimal cSize = new BigDecimal(RandomUtils.getInt(1,4));
         int gIdx = RandomUtils.getInt(0,1);
@@ -229,8 +227,8 @@ public class OrderGen {
         return list;
     }
 
-    public static OrderDetailFormVo genDetail(GoodsVo goods, BigDecimal count){
-        OrderDetailFormVo vo = new OrderDetailFormVo();
+    public static OrdItemFormVo genDetail(GoodsVo goods, BigDecimal count){
+        OrdItemFormVo vo = new OrdItemFormVo();
         vo.setCount(count);
         vo.setPrice(goods.getSpecList().get(0).getPrice());
         vo.setSpecId(goods.getSpecList().get(0).getId());
@@ -239,12 +237,12 @@ public class OrderGen {
     }
 
     public static void genGoods() throws SQLException {
-        List<DbgOrderFormVo2> formList = new LinkedList<>();
+        List<OrdFormVo2> formList = new LinkedList<>();
         for(Integer key : staTypeMap.keySet()){
             formList.addAll(gen(key,5));
         }
 
-        for(DbgOrderFormVo2 form : formList){
+        for(OrdFormVo2 form : formList){
             Tools.callApi("/ot/submit",FastJson.toJson(form));
         }
     }

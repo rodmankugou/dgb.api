@@ -1,14 +1,15 @@
 package com.verificer.biz.beans.vo.req;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class StockUpdVo implements Serializable {
     private boolean addFlag;
     private String relId;
     private long specId;
-    private int count;
+    private BigDecimal count;
 
-    public StockUpdVo(boolean addFlag, String relId, long specId, int count) {
+    public StockUpdVo(boolean addFlag, String relId, long specId, BigDecimal count) {
         this.addFlag = addFlag;
         this.relId = relId;
         this.specId = specId;
@@ -27,7 +28,7 @@ public class StockUpdVo implements Serializable {
         return specId;
     }
 
-    public int getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 }

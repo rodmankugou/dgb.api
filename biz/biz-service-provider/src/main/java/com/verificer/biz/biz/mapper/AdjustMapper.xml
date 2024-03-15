@@ -19,8 +19,8 @@
     <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
     <result column="spec_id" jdbcType="BIGINT" property="specId" />
     <result column="spec_name" jdbcType="VARCHAR" property="specName" />
-    <result column="count" jdbcType="INTEGER" property="count" />
-    <result column="real_count" jdbcType="INTEGER" property="realCount" />
+    <result column="count" jdbcType="DECIMAL" property="count" />
+    <result column="real_count" jdbcType="DECIMAL" property="realCount" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
@@ -71,7 +71,7 @@
       #{fromId,jdbcType=VARCHAR}, #{fromName,jdbcType=VARCHAR}, #{toId,jdbcType=VARCHAR}, 
       #{toName,jdbcType=VARCHAR}, #{merName,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
       #{goodsName,jdbcType=VARCHAR}, #{specId,jdbcType=BIGINT}, #{specName,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER}, #{realCount,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{count,jdbcType=DECIMAL}, #{realCount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
       #{unit,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{finiishTime,jdbcType=BIGINT}
       )
   </insert>
@@ -178,10 +178,10 @@
         #{specName,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
-        #{count,jdbcType=INTEGER},
+        #{count,jdbcType=DECIMAL},
       </if>
       <if test="realCount != null">
-        #{realCount,jdbcType=INTEGER},
+        #{realCount,jdbcType=DECIMAL},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -241,10 +241,10 @@
         spec_name = #{specName,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
-        count = #{count,jdbcType=INTEGER},
+        count = #{count,jdbcType=DECIMAL},
       </if>
       <if test="realCount != null">
-        real_count = #{realCount,jdbcType=INTEGER},
+        real_count = #{realCount,jdbcType=DECIMAL},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
@@ -279,8 +279,8 @@
       goods_name = #{goodsName,jdbcType=VARCHAR},
       spec_id = #{specId,jdbcType=BIGINT},
       spec_name = #{specName,jdbcType=VARCHAR},
-      count = #{count,jdbcType=INTEGER},
-      real_count = #{realCount,jdbcType=INTEGER},
+      count = #{count,jdbcType=DECIMAL},
+      real_count = #{realCount,jdbcType=DECIMAL},
       remark = #{remark,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},

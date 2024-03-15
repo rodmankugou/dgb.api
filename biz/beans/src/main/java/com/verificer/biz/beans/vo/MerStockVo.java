@@ -22,7 +22,7 @@ public class MerStockVo implements Serializable {
     @ApiModelProperty("图片")
     private String img;
     @ApiModelProperty("库存数量")
-    private Integer count;
+    private BigDecimal count;
     private List<MerStockVo> specList;
 
     public Long getId() {
@@ -65,11 +65,11 @@ public class MerStockVo implements Serializable {
         this.goodsImg = goodsImg;
     }
 
-    public Integer getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 

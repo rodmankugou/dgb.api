@@ -2,6 +2,7 @@ package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.beans.vo.req.OrderPageVo;
 import com.verificer.biz.biz.entity.DbgOrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,4 +58,6 @@ public interface DbgOrderMapper {
     List<DbgOrder> page(OrderPageVo qryVo);
 
     int count(OrderPageVo qryVo);
+
+    DbgOrder selectByRelIdAndTakeCodeAndStatus(@Param("relId") String relId,@Param("takeCode") String takeCode,@Param("status") Integer status);
 }

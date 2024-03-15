@@ -1,13 +1,9 @@
 package com.verificer.biz.beans.vo.req;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
-import java.util.List;
 
 @ApiModel
-public class DbgOrderFormVo2 extends DbgOrderFormVo {
+public class OrdFormVo2 extends OrdFormVo {
 
 
     private String userId;

@@ -4,6 +4,8 @@ import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SStringUtils;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SCheckUtil {
 
@@ -14,6 +16,13 @@ public class SCheckUtil {
         String errMsg = "Parameter " + fieldName +" can not be null";
         if(val instanceof String){
             if(SStringUtils.isEmpty((String) val))
+                throw new BizErrMsgException(errMsg);
+        }
+
+        errMsg = "Parameter " + fieldName +" can not be empty";
+        if(val instanceof List<?>){
+            List<?> list = (List<?>) val;
+            if(list.size() == 0)
                 throw new BizErrMsgException(errMsg);
         }
     }
@@ -223,5 +232,11 @@ public class SCheckUtil {
         notEmpty(val,fieldName);
 
         inRange(val,minEqFlag,minVal,maxEqFlag,maxVal,fieldName);
+    }
+
+    public static void main(String args[]){
+        List<Long> list = new LinkedList<>();
+        list.add(1L);
+        SCheckUtil.notEmpty(list,"ID");
     }
 }
