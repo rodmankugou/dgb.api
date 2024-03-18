@@ -35,6 +35,8 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     private AdvertVo toVo(Advert e){
+        if(e == null)
+            return null;
         AdvertVo vo = new AdvertVo();
         SBeanUtils.copyProperties2(e,vo);
 
@@ -88,5 +90,12 @@ public class AdvertServiceImpl implements AdvertService {
     public void advertDel(IdVo idVo) {
         SCheckUtil.notEmpty(idVo.getId(),"ID");
         mapper.deleteByPrimaryKey(idVo.getId());
+    }
+
+    @Override
+    public AdvertVo advertDetail(IdVo idVo) {
+        SCheckUtil.notEmpty(idVo.getId(),"ID");
+        Advert advert = mapper.selectByPrimaryKey(idVo.getId());
+        return toVo(advert);
     }
 }

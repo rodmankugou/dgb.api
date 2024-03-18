@@ -5,6 +5,8 @@ import com.verificer.biz.biz.entity.Goods;
 import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.GoodsMapper;
 import com.verificer.biz.biz.mapper.SpecMapper;
+import com.verificer.biz.biz.service.GoodsService;
+import com.verificer.biz.biz.service.impl.GoodsServiceImpl;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.check.SCheckUtil;
@@ -19,6 +21,9 @@ public class GoodsCommon {
 
     @Autowired
     SpecMapper specMapper;
+
+    @Autowired
+    GoodsService goodsService;
 
     public String getSpecFullName(Long specId){
         SCheckUtil.notEmpty(specId,"Spec Id");
@@ -88,4 +93,7 @@ public class GoodsCommon {
     }
 
 
+    public boolean isGoodsOnSale(Goods goods) {
+        return goodsService.isGoodsOnSale(goods);
+    }
 }

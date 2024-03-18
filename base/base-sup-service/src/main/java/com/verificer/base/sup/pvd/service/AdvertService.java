@@ -18,4 +18,6 @@ public interface AdvertService  {
     void advertUpd(AdvertFormVo fVo);
 
     void advertDel(IdVo idVo);
+
+    AdvertVo advertDetail(IdVo idVo);
 }

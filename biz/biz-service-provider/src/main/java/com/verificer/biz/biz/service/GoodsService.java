@@ -61,4 +61,5 @@ public interface GoodsService {
     Goods getById(Long goodsId);
 
 
+    boolean isGoodsOnSale(Goods goods);
 }

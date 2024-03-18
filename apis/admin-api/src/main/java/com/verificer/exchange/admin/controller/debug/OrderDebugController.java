@@ -1,13 +1,24 @@
 package com.verificer.exchange.admin.controller.debug;
 
 import com.verificer.biz.beans.enums.AdjShortType;
+import com.verificer.biz.beans.enums.MerType;
+import com.verificer.biz.beans.enums.OrdType;
+import com.verificer.biz.beans.enums.TransTypeEnums;
 import com.verificer.biz.beans.vo.AdjustVo;
+import com.verificer.biz.beans.vo.GoodsVo;
+import com.verificer.biz.beans.vo.SpecVo;
+import com.verificer.biz.beans.vo.debug.order.DebPosOrderVo;
+import com.verificer.biz.beans.vo.order.OrdFormVo;
+import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.req.AdjustPageVo;
+import com.verificer.biz.beans.vo.req.GoodsQryVo;
+import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.beans.vo.req.adjust.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.RandomUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -16,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,132 +44,89 @@ public class OrderDebugController extends BaseController{
 
 
     @ApiOperation(
-            value = "新增订单",
-            response = AdjustVo.class,
-            httpMethod = "POST"
+            value = "新增Pos机收银订单",
+            response = Response.class,
+            httpMethod = "POST",
+            notes = "响应报文的data字段为订单ID"
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
     })
     @ResponseBody
-    @NeedLogin
-    @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public Response page(@RequestBody AdjustPageVo qryVo) {
-        qryVo.setMerId("d000e3c443794213a92d61a9c6f6f6fe");
-        List<AdjustVo> list = bizService.adjustPage(qryVo);
-        int count = bizService.adjustCount(qryVo);
-        return Response.listSuccess(count,list);
+    @RequestMapping(value = "/create/pos", method = RequestMethod.POST)
+    public Response createPosOrder(@RequestBody DebPosOrderVo  reqVo) {
+        YbOrdFormVo fvo = new YbOrdFormVo();
+        fvo.setPosOrdId(System.currentTimeMillis());
+        fvo.setPosCashierId(121212L);
+        fvo.setPosOrdTime(System.currentTimeMillis());
+        fvo.setPosMemberId(212121L);
+        fillOrdFormVo(fvo,reqVo.getMultiGoodsFlag() ? 2:1,OrdType.POS,MerType.SHOP);
+
+        Long id = bizService.orderCreate(fvo);
+        return Response.dataSuccess(id);
     }
 
+    private void fillOrdFormVo(OrdFormVo ordFormVo, int goodsSize, OrdType ordType, MerType merType){
+        List<OrdItemFormVo> items = genItems(goodsSize);
+        ordFormVo.setUserId(getUserId());
+        ordFormVo.setOrderType(ordType.getValue());
+        ordFormVo.setRelType(ordType.getValue());
+        if(MerType.SHOP.getValue() == merType.getValue())
+            ordFormVo.setRelId(getShopId());
+        else
+            ordFormVo.setRelId(getStageId());
 
-
-    @ApiOperation(
-            value = "仓库补货，页面BO-B13",
-            response = Response.class,
-            httpMethod = "POST"
-    )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
-    })
-    @ResponseBody
-    @NeedLogin
-    @RequestMapping(value = "/stage/supply", method = RequestMethod.POST)
-    public Response stageSupply(@RequestBody AdjStageInFormVo formVo) {
-        AdjFormVo a = new AdjFormVo();
-        a.setShortType(AdjShortType.STAGE_SUPPLY.getValue());
-        a.setFromId(null);
-        a.setToId(formVo.getStageId());
-        a.setGoodsId(formVo.getGoodsId());
-        a.setSpecId(formVo.getSpecId());
-        a.setCount(formVo.getCount());
-        a.setRealCount(formVo.getCount());
-        a.setRemark(null);
-        bizService.adjust(a);
-        return Response.simpleSuccess();
-    }
-
-    @ApiOperation(
-            value = "批量配货，页面BO-B4",
-            response = Response.class,
-            httpMethod = "POST"
-    )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
-    })
-    @ResponseBody
-    @NeedLogin
-    @RequestMapping(value = "/stage/to/shop/batch", method = RequestMethod.POST)
-    public Response batchAdjust(@RequestBody AdjShopBatchInVo formVo) {
-        if(formVo.getItems() == null || formVo.getItems().size() == 0)
-            throw new BizErrMsgException("Parameter items can not be empty");
-
-        List<AdjFormVo> formList = new LinkedList<>();
-        for(AdjShopBatchItemVo item : formVo.getItems()){
-            AdjFormVo a = new AdjFormVo();
-            a.setShortType(AdjShortType.STAGE_TO_SHOP.getValue());
-            a.setFromId(formVo.getStageId());
-            a.setToId(formVo.getShopId());
-            a.setGoodsId(item.getGoodsId());
-            a.setSpecId(item.getSpecId());
-            a.setCount(item.getCount());
-            a.setRealCount(item.getCount());   //到时候需要确认到货，取消这句
-            a.setRemark(null);
-            formList.add(a);
+        if(ordType.getValue() == OrdType.STAGE.getValue() || ordType.getValue() == OrdType.REISSUE.getValue()){
+            ordFormVo.setAddrId(getAddrId(ordFormVo.getUserId()));
         }
-        bizService.adjustBatch(formList);
-        return Response.simpleSuccess();
+        ordFormVo.setTransitType(1);
+        ordFormVo.setBuyerRemark("备注1111");
+        ordFormVo.setDetails(items);
+
     }
 
-
-    @ApiOperation(
-            value = "补货，页面BO-B11",
-            response = Response.class,
-            httpMethod = "POST"
-    )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
-    })
-    @ResponseBody
-    @NeedLogin
-    @RequestMapping(value = "/stage/to/shop", method = RequestMethod.POST)
-    public Response adjust(@RequestBody AdjShopInFormVo formVo) {
-        AdjFormVo a = new AdjFormVo();
-        a.setShortType(AdjShortType.STAGE_TO_SHOP.getValue());
-        a.setFromId(formVo.getStageId());
-        a.setToId(formVo.getShopId());
-        a.setGoodsId(formVo.getGoodsId());
-        a.setSpecId(formVo.getSpecId());
-        a.setCount(formVo.getCount());
-        a.setRealCount(formVo.getCount()); //到时候需要确认到货，取消这句
-        a.setRemark(null);
-        bizService.adjust(a);
-        return Response.simpleSuccess();
+    private String getStageId(){
+        return "6f22c403ffa94c9da21cce5b715c3cfe";
     }
 
-
-    @ApiOperation(
-            value = "退货，页面BO-B11",
-            response = Response.class,
-            httpMethod = "POST"
-    )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
-    })
-    @ResponseBody
-    @NeedLogin
-    @RequestMapping(value = "/shop/to/stage", method = RequestMethod.POST)
-    public Response adjust(@RequestBody AdjShopOutFormVo formVo) {
-        AdjFormVo a = new AdjFormVo();
-        a.setShortType(AdjShortType.SHOP_TO_STAGE.getValue());
-        a.setFromId(formVo.getShopId());
-        a.setToId(formVo.getStageId());
-        a.setGoodsId(formVo.getGoodsId());
-        a.setSpecId(formVo.getSpecId());
-        a.setCount(formVo.getCount());
-        a.setRealCount(formVo.getCount()); //到时候需要确认到货，取消这句
-        a.setRemark(null);
-        bizService.adjust(a);
-        return Response.simpleSuccess();
+    private String getShopId(){
+        return "d000e3c443794213a92d61a9c6f6f6fe";
     }
 
+    private String  getUserId(){
+        return "1";
+    }
+
+    private Long getAddrId(String userId){
+        return 1L;
+    }
+
+    private List<OrdItemFormVo> genItems(int size){
+        GoodsQryVo qry = new GoodsQryVo();
+        qry.setPageSize(1000);
+        List<GoodsVo> allGoodsList = bizService.goodsPage(qry);
+
+        List<GoodsVo> gList = new LinkedList<>();
+        for(GoodsVo g : allGoodsList){
+            if(g.getSaleFlag())
+                gList.add(g);
+        }
+
+        if(size > gList.size())
+            throw new BizErrMsgException("上架的商品数量为："+size+"，无法满足创建订单要求");
+
+        List<OrdItemFormVo> items = new LinkedList<>();
+        for(int i = 0 ; i<size; i++){
+            GoodsVo g = gList.get(i);
+            SpecVo spec = g.getSpecList().get(0);
+
+            OrdItemFormVo item = new OrdItemFormVo();
+            items.add(item);
+            item.setGoodsId(g.getId());
+            item.setSpecId(spec.getId());
+            item.setCount(new BigDecimal(RandomUtils.getInt(1,4)));
+            item.setPrice(spec.getPrice());
+        }
+
+        return items;
+    }
 }

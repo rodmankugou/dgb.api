@@ -69,4 +69,7 @@ public interface BaseSupService {
     HelpVo helpDetail(IdVo idVo);
 
 
+    AdvertVo advertDetail(IdVo idVo);
+
+    AdminBannerVo bannerDetail(IdVo idVo);
 }

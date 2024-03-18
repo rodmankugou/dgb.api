@@ -51,4 +51,6 @@ public interface BannerService
      * @param idVo
      */
     void bannerDel(IdVo idVo);
+
+    AdminBannerVo bannerDetail(IdVo idVo);
 }

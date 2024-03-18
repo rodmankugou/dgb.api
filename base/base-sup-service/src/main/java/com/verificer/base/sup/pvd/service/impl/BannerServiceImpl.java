@@ -31,11 +31,17 @@ public class BannerServiceImpl implements BannerService {
         List<Banner> list = bannerMapper.page(queryVo);
         List<AdminBannerVo> voList = new LinkedList<>();
         for(Banner banner : list){
-            AdminBannerVo vo = new AdminBannerVo();
-            SBeanUtils.copyProperties2(banner,vo);
-            voList.add(vo);
+           voList.add(toAdminVo(banner));
         }
         return voList;
+    }
+
+    private AdminBannerVo toAdminVo(Banner banner){
+        if(banner == null)
+            return null;
+        AdminBannerVo vo = new AdminBannerVo();
+        SBeanUtils.copyProperties2(banner,vo);
+        return vo;
     }
 
 
@@ -111,6 +117,13 @@ public class BannerServiceImpl implements BannerService {
     public void bannerDel(IdVo idVo) {
         SCheckUtil.notEmpty(idVo.getId(),"ID");
         bannerMapper.deleteByPrimaryKey(idVo.getId());
+    }
+
+    @Override
+    public AdminBannerVo bannerDetail(IdVo idVo) {
+        SCheckUtil.notEmpty(idVo.getId(),"ID");
+        Banner banner = bannerMapper.selectByPrimaryKey(idVo.getId());
+        return toAdminVo(banner);
     }
 
 

@@ -129,5 +129,15 @@ public class BaseSupServiceImpl extends BaseDubboService implements BaseSupServi
         return helpService.helpDetail(idVo);
     }
 
+    @Override
+    public AdvertVo advertDetail(IdVo idVo) {
+        return advertService.advertDetail(idVo);
+    }
+
+    @Override
+    public AdminBannerVo bannerDetail(IdVo idVo) {
+        return bannerService.bannerDetail(idVo);
+    }
+
 
 }

@@ -44,6 +44,21 @@ public class AdvertController extends BaseController {
         return Response.listSuccess(count,voLIst);
     }
 
+    @ApiOperation(
+            value = "详情",
+            httpMethod = "POST",
+            response = AdvertVo.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token",paramType = "header",required = true),
+    })
+    @RequestMapping("/detail")
+    @NeedLogin
+    public Response detail(@RequestBody IdVo idVo){
+
+        AdvertVo vo = baseSupService.advertDetail(idVo);
+        return Response.dataSuccess(vo);
+    }
 
 
     @ApiOperation(

@@ -169,6 +169,7 @@ public class GoodsServiceImpl implements GoodsService {
         if(e.getRubbishFlag() == true  )
             throw new BaseException(ErrCode.OP_GOODS_RUBBISH_STATUS_ERR,new Object[]{e.getName()});
         e.setRubbishFlag(true);
+        e.setSaleFlag(false);
         mapper.updateByPrimaryKeySelective(e);
         posGoodsSyncService.onGoodsUpdate(e);
 
@@ -228,6 +229,7 @@ public class GoodsServiceImpl implements GoodsService {
             throw new BaseException(ErrCode.OP_GOODS_DEL_STATUS_ERR,new Object[]{e.getName()});
         e.setDelFlag(true);
         e.setDelTime(System.currentTimeMillis());
+        e.setSaleFlag(false);
         mapper.updateByPrimaryKeySelective(e);
         posGoodsSyncService.onGoodsUpdate(e);
 
@@ -242,6 +244,12 @@ public class GoodsServiceImpl implements GoodsService {
         if(e == null || e.getDelFlag() )
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
+        if(reqVo.getSaleFlag() && e.getRubbishFlag()){
+            throw new BizErrMsgException(ErrCode.RUBBISH_GOODS_CAN_NOT_ON_SALE);
+        }
+        if(reqVo.getSaleFlag() && e.getDelFlag()){
+            throw new BizErrMsgException(ErrCode.DEL_GOODS_CAN_NOT_ON_SALE);
+        }
         e.setSaleFlag(reqVo.getSaleFlag());
         mapper.updateByPrimaryKeySelective(e);
         posGoodsSyncService.onGoodsUpdate(e);
@@ -251,6 +259,13 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods getById(Long goodsId) {
         return mapper.selectByPrimaryKey(goodsId);
+    }
+
+    @Override
+    public boolean isGoodsOnSale(Goods goods) {
+        if(goods.getDelFlag() || goods.getRubbishFlag() || !goods.getSaleFlag())
+            return false;
+        return true;
     }
 
 

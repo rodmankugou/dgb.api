@@ -110,7 +110,8 @@ public class OrdCoreServiceImpl implements OrdCoreService {
             Goods goods = goodsCommon.getGoodsIgnoreDel(item.getGoodsId());
             if (goods == null)
                 throw new BizErrMsgException("商品不存在,id" + goods.getId());
-            if (goods.getDelFlag() || goods.getRubbishFlag() || !goods.getSaleFlag())
+
+            if (!goodsCommon.isGoodsOnSale(goods))
                 throw new BizErrMsgException(ErrCode.GOODS_NOT_IN_SALE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
 
             Spec spec = goodsCommon.getSpecIgnoreDel(item.getSpecId());
@@ -207,7 +208,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
         }
 
 
-        return null;
+        return o.getId();
     }
 
     @Override

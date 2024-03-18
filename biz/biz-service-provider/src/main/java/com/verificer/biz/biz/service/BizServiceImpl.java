@@ -1,8 +1,12 @@
 package com.verificer.biz.biz.service;
 
+import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
+import com.verificer.biz.biz.service.core.order.OrdCoreService;
+import com.verificer.biz.biz.service.core.order.OrdCoreServiceImpl;
 import com.verificer.dubbo.BaseDubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +44,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     PosSyncTaskService posSyncTaskService;
+
+    @Autowired
+    OrdCoreService ordCoreService;
 
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
@@ -262,5 +269,10 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public int handlePosOrderSyncTask(String shopId) throws Exception {
         return posSyncTaskService.handlePosOrderSyncTask(shopId);
+    }
+
+    @Override
+    public Long orderCreate(OrdFormVo fvo) {
+        return ordCoreService.create(fvo);
     }
 }

@@ -1,6 +1,8 @@
 package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.order.OrdFormVo;
+import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 
@@ -302,5 +304,7 @@ public interface BizService {
      * @return
      */
     int handlePosOrderSyncTask(String shopId) throws Exception;
+
+    Long orderCreate(OrdFormVo fvo);
 }
 

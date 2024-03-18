@@ -98,22 +98,31 @@ public class SwaggerConfig {
                 .build().groupName("order");
     }
 
+//    @Bean
+//    public Docket createTestApi(){
+//
+//        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+//                .enable(enable)
+//                .select()
+//                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.test"))
+//                .build().groupName("test");
+//    }
+
     @Bean
-    public Docket createTestApi(){
+    public Docket createDebugApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.test"))
-                .build().groupName("test");
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.admin.controller.debug"))
+                .build().groupName("debug");
     }
-
 
     private ApiInfo apiInfo(){
 
         return new ApiInfoBuilder()
                 .title("NFT ADMIN API Doc")
-                .description("目前共有common-通用接口、system-系统（登录等）、goods-商品、shop-店铺、code-图片验证码,order-订单，共6组api，\n请点击上方的选择框选择不同分组的api进行查阅。")
+                .description("目前共有common-通用接口、system-系统（登录等）、goods-商品、shop-店铺、code-图片验证码,order-订单,operation-运营中心 ，共6组api，\n请点击上方的选择框选择不同分组的api进行查阅。")
                 .version("1.0")
                 .build();
     }

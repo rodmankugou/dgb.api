@@ -44,6 +44,22 @@ public class BannerController extends BaseController {
         return Response.listSuccess(count,voLIst);
     }
 
+    @ApiOperation(
+            value = "详情",
+            httpMethod = "POST",
+            response = AdminBannerVo.class
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token",paramType = "header",required = true),
+    })
+    @RequestMapping("/detail")
+    @NeedLogin
+    public Response detail(@RequestBody IdVo idVo){
+
+        AdminBannerVo vo = baseSupService.bannerDetail(idVo);
+        return Response.dataSuccess(vo);
+    }
+
 
 
     @ApiOperation(

@@ -1,4 +1,4 @@
-package com.verificer.exchange.admin.controller.test;
+package com.verificer.exchange.admin.controller.debug;
 
 import com.verificer.biz.beans.vo.req.OrdFormVo2;
 import com.verificer.biz.biz.service.BizService;
