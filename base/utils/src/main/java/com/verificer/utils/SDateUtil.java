@@ -137,6 +137,26 @@ public class SDateUtil {
         return calendar.getTime().getTime();
     }
 
+    public static long getDayStartTime(Long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime().getTime();
+    }
+
+    public static long getDayEndTime(Long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTime().getTime();
+    }
+
 
     /**
      * 通过时间秒毫秒数判断两个时间的间隔

@@ -5,6 +5,7 @@ import com.verificer.biz.biz.entity.DbgOrder;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DbgOrderMapper {
     /**
@@ -60,4 +61,11 @@ public interface DbgOrderMapper {
     int count(OrderPageVo qryVo);
 
     DbgOrder selectByRelIdAndTakeCodeAndStatus(@Param("relId") String relId,@Param("takeCode") String takeCode,@Param("status") Integer status);
+
+    Map<Object, Object> selectByUserIdAndStatus(@Param("userId") String userId,
+                                                @Param("status") Integer status);
+
+    List<DbgOrder> selectTodayUserOrders(@Param("userId") String userId,@Param("sTime") Long sTime,@Param("eTime") Long eTime);
+
+    DbgOrder getAndLock(@Param("id") Long id);
 }

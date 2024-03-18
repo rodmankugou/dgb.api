@@ -2,19 +2,23 @@ package com.verificer.biz.biz.service.common;
 
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
+import com.verificer.biz.beans.enums.AfterSaleSta;
 import com.verificer.biz.beans.enums.OpEntry;
 import com.verificer.biz.beans.enums.OrdOpType;
 import com.verificer.biz.beans.enums.OrdSta;
-import com.verificer.biz.biz.entity.Addr;
-import com.verificer.biz.biz.entity.DbgOrder;
-import com.verificer.biz.biz.entity.DbgOrderLog;
-import com.verificer.biz.biz.entity.Spec;
-import com.verificer.biz.biz.service.DbgOrderLogService;
-import com.verificer.biz.biz.service.GoodsService;
-import com.verificer.biz.biz.service.SpecService;
-import com.verificer.biz.biz.service.common.GoodsCommon;
+import com.verificer.biz.beans.exceptions.StockInsufficientException;
+import com.verificer.biz.beans.vo.order.ConfirmReceiveVo;
+import com.verificer.biz.beans.vo.order.EvaluateVo;
+import com.verificer.biz.beans.vo.order.PayVo;
+import com.verificer.biz.beans.vo.order.TransitVo;
+import com.verificer.biz.beans.vo.req.StockUpdVo;
+import com.verificer.biz.biz.entity.*;
+import com.verificer.biz.biz.mapper.DbgOrderMapper;
+import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
 import com.verificer.biz.biz.service.core.order.vo.*;
-import com.verificer.biz.biz.service.impl.DbgOrderLogServiceImpl;
+import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.check.SCheckUtil;
@@ -22,9 +26,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class OrdCommon {
+
+    @Autowired
+    DbgOrderMapper mapper;
 
     @Autowired
     SpecService specService;
@@ -46,6 +55,15 @@ public class OrdCommon {
 
     @Autowired
     DbgOrderLogService dbgOrderLogService;
+
+    @Autowired
+    OrderDetailService orderDetailService;
+
+    @Autowired
+    AfterSaleService afterSaleService;
+
+    @Autowired
+    StockCoreService stockCoreService;
 
 
 
@@ -72,7 +90,7 @@ public class OrdCommon {
         return amount;
     }
 
-    public void afterPay(DbgOrder o,PayVo payVo){
+    public void afterPay(DbgOrder o, PayVo payVo){
         if(payVo.getPayAmount().compareTo(o.getAmount()) != 0){
             throw new RuntimeException("非法支付，应付金额与支付金额不一致，应收金额为："+o.getAmount().toPlainString()+",实收金额为："+payVo.getPayAmount());
         }
@@ -166,7 +184,7 @@ public class OrdCommon {
                 System.currentTimeMillis());
     }
 
-    public void receiveConfirm( DbgOrder o,ConfirmReceiveVo receiveVo){
+    public void receiveConfirm(DbgOrder o, ConfirmReceiveVo receiveVo, OrdNotifier notifier){
         o.setTransitRcTime(System.currentTimeMillis());
         o.setStatus(OrdSta.Received.getValue());
         writeLog( o,
@@ -175,12 +193,74 @@ public class OrdCommon {
                 receiveVo.isUserFlag() ? o.getUserId() : null,
                 null,
                 System.currentTimeMillis());
+        notifier.triggerAll(new OrdReceivedEvent(o.getId()));
+
+    }
+
+    public List<OrderDetail> getOrdItems(Long orderId){
+        return orderDetailService.getByOrdId(orderId);
     }
 
     /**
      * 插入售后记录
      */
-    public void addAfterSale(){
+    public void addAfterSale(DbgOrder o){
+        if(OrdSta.Received.getValue() != o.getStatus()){
+            throw new RuntimeException("只有处于Received状态的订单能创建售后记录");
+        }
 
+        List<OrderDetail> odList = getOrdItems(o.getId());
+        for(OrderDetail od : odList){
+            AfterSale as = new AfterSale();
+            Long rootOrderId = o.getRootOrderId() == null ? o.getId() : o.getRootOrderId();
+            as.setRootOrderId(rootOrderId);
+            as.setOrderId(o.getId());
+            as.setStatus(AfterSaleSta.INIT.getValue());
+
+            as.setGoodsId(od.getGoodsId());
+            as.setGoodsName(od.getGoodsName());
+            as.setSpecId(od.getSpecId());
+            as.setSpecName(od.getSpecName());
+            as.setCount(od.getCount());
+
+            afterSaleService.add(as);
+
+        }
+
+    }
+
+    public void subtractStock(DbgOrder o,Integer stockOpType,String remark){
+        modifyStock(false,o,stockOpType,remark);
+    }
+
+    public void increaseStock(DbgOrder o,Integer stockOpType,String remark){
+        modifyStock(true,o,stockOpType,remark);
+    }
+
+    private void modifyStock(boolean isAdd,DbgOrder o,Integer stockOpType,String remark){
+        List<OrderDetail> odList = getOrdItems(o.getId());
+        List<StockUpdVo> updList = new LinkedList<>();
+        for(OrderDetail od : odList){
+            StockUpdVo vo = new StockUpdVo(isAdd,o.getId().toString(),od.getSpecId(),od.getCount(),stockOpType,remark);
+            updList.add(vo);
+        }
+        try {
+            stockCoreService.modifyStock(updList);
+        } catch (StockInsufficientException e) {
+            String specFullName = goodsCommon.getSpecFullName(e.getSpecId());
+            throw new BizErrMsgException(ErrCode.GOODS_STOCK_NOT_ENOUGHT,new Object[]{specFullName});
+        }
+    }
+
+    public DbgOrder getOrd(Long ordId) {
+        return mapper.selectByPrimaryKey(ordId);
+    }
+
+    public DbgOrder getAndLock(Long id) {
+        DbgOrder order = mapper.getAndLock(id);
+        if(order == null)
+            throw new BaseException(ErrCode.RECORD_NOT_EXIST);
+
+        return order;
     }
 }

@@ -8,12 +8,16 @@ public class StockUpdVo implements Serializable {
     private String relId;
     private long specId;
     private BigDecimal count;
+    private Integer opType;
+    private String remark;
 
-    public StockUpdVo(boolean addFlag, String relId, long specId, BigDecimal count) {
+    public StockUpdVo(boolean addFlag, String relId, long specId, BigDecimal count,Integer opType,String remark) {
         this.addFlag = addFlag;
         this.relId = relId;
         this.specId = specId;
         this.count = count;
+        this.opType = opType;
+        this.remark = remark;
     }
 
     public boolean isAddFlag() {
@@ -30,5 +34,13 @@ public class StockUpdVo implements Serializable {
 
     public BigDecimal getCount() {
         return count;
+    }
+
+    public Integer getOpType() {
+        return opType;
+    }
+
+    public String getRemark() {
+        return remark;
     }
 }

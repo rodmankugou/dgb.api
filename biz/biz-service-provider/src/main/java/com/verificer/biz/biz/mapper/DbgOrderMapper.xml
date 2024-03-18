@@ -31,6 +31,7 @@
     <result column="activity_id" jdbcType="BIGINT" property="activityId" />
     <result column="activity_title" jdbcType="VARCHAR" property="activityTitle" />
     <result column="buyer_remark" jdbcType="VARCHAR" property="buyerRemark" />
+    <result column="write_to_db_time" jdbcType="BIGINT" property="writeToDbTime" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
     <result column="transit_order_id" jdbcType="VARCHAR" property="transitOrderId" />
@@ -48,7 +49,6 @@
     <result column="pos_ord_id" jdbcType="BIGINT" property="posOrdId" />
     <result column="pos_cashier_uid" jdbcType="BIGINT" property="posCashierUid" />
     <result column="pos_member_uid" jdbcType="BIGINT" property="posMemberUid" />
-    <result column="pos_ord_time" jdbcType="BIGINT" property="posOrdTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -58,10 +58,10 @@
     id, status, root_order_id, orig_order_id, order_type, rel_type, rel_id, ref_name, 
     amount, real_amount, pay_type, pay_id, user_id, user_name, transit_type, transit_way_code, 
     rc_name, rc_mobile, rc_addr, rc_addr_detail, rc_longitude, rc_latitude, activity_id, 
-    activity_title, buyer_remark, create_time, order_num, transit_order_id, transit_time, 
-    transit_rc_time, transit_user_confirm_time, transit_order_num, transit_staff_id, 
+    activity_title, buyer_remark, write_to_db_time, create_time, order_num, transit_order_id, 
+    transit_time, transit_rc_time, transit_user_confirm_time, transit_order_num, transit_staff_id, 
     transit_staff_name, del_flag, del_time, take_code, take_flag, take_time, pos_ord_id, 
-    pos_cashier_uid, pos_member_uid, pos_ord_time
+    pos_cashier_uid, pos_member_uid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -97,13 +97,13 @@
       rc_name, rc_mobile, rc_addr, 
       rc_addr_detail, rc_longitude, rc_latitude, 
       activity_id, activity_title, buyer_remark, 
-      create_time, order_num, transit_order_id, 
-      transit_time, transit_rc_time, transit_user_confirm_time, 
-      transit_order_num, transit_staff_id, transit_staff_name, 
-      del_flag, del_time, take_code, 
-      take_flag, take_time, pos_ord_id, 
-      pos_cashier_uid, pos_member_uid, pos_ord_time
-      )
+      write_to_db_time, create_time, order_num, 
+      transit_order_id, transit_time, transit_rc_time, 
+      transit_user_confirm_time, transit_order_num, 
+      transit_staff_id, transit_staff_name, del_flag, 
+      del_time, take_code, take_flag, 
+      take_time, pos_ord_id, pos_cashier_uid, 
+      pos_member_uid)
     values (#{status,jdbcType=TINYINT}, #{rootOrderId,jdbcType=BIGINT}, #{origOrderId,jdbcType=BIGINT}, 
       #{orderType,jdbcType=TINYINT}, #{relType,jdbcType=TINYINT}, #{relId,jdbcType=VARCHAR}, 
       #{refName,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{realAmount,jdbcType=DECIMAL}, 
@@ -112,13 +112,13 @@
       #{rcName,jdbcType=VARCHAR}, #{rcMobile,jdbcType=VARCHAR}, #{rcAddr,jdbcType=VARCHAR}, 
       #{rcAddrDetail,jdbcType=VARCHAR}, #{rcLongitude,jdbcType=DECIMAL}, #{rcLatitude,jdbcType=DECIMAL}, 
       #{activityId,jdbcType=BIGINT}, #{activityTitle,jdbcType=VARCHAR}, #{buyerRemark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{orderNum,jdbcType=VARCHAR}, #{transitOrderId,jdbcType=VARCHAR}, 
-      #{transitTime,jdbcType=BIGINT}, #{transitRcTime,jdbcType=BIGINT}, #{transitUserConfirmTime,jdbcType=TIMESTAMP}, 
-      #{transitOrderNum,jdbcType=VARCHAR}, #{transitStaffId,jdbcType=BIGINT}, #{transitStaffName,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=TINYINT}, #{delTime,jdbcType=BIGINT}, #{takeCode,jdbcType=VARCHAR}, 
-      #{takeFlag,jdbcType=BIT}, #{takeTime,jdbcType=BIGINT}, #{posOrdId,jdbcType=BIGINT}, 
-      #{posCashierUid,jdbcType=BIGINT}, #{posMemberUid,jdbcType=BIGINT}, #{posOrdTime,jdbcType=BIGINT}
-      )
+      #{writeToDbTime,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{orderNum,jdbcType=VARCHAR}, 
+      #{transitOrderId,jdbcType=VARCHAR}, #{transitTime,jdbcType=BIGINT}, #{transitRcTime,jdbcType=BIGINT}, 
+      #{transitUserConfirmTime,jdbcType=TIMESTAMP}, #{transitOrderNum,jdbcType=VARCHAR}, 
+      #{transitStaffId,jdbcType=BIGINT}, #{transitStaffName,jdbcType=VARCHAR}, #{delFlag,jdbcType=TINYINT}, 
+      #{delTime,jdbcType=BIGINT}, #{takeCode,jdbcType=VARCHAR}, #{takeFlag,jdbcType=BIT}, 
+      #{takeTime,jdbcType=BIGINT}, #{posOrdId,jdbcType=BIGINT}, #{posCashierUid,jdbcType=BIGINT}, 
+      #{posMemberUid,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.DbgOrder">
     <!--
@@ -202,6 +202,9 @@
       <if test="buyerRemark != null">
         buyer_remark,
       </if>
+      <if test="writeToDbTime != null">
+        write_to_db_time,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -252,9 +255,6 @@
       </if>
       <if test="posMemberUid != null">
         pos_member_uid,
-      </if>
-      <if test="posOrdTime != null">
-        pos_ord_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -330,6 +330,9 @@
       <if test="buyerRemark != null">
         #{buyerRemark,jdbcType=VARCHAR},
       </if>
+      <if test="writeToDbTime != null">
+        #{writeToDbTime,jdbcType=BIGINT},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=BIGINT},
       </if>
@@ -380,9 +383,6 @@
       </if>
       <if test="posMemberUid != null">
         #{posMemberUid,jdbcType=BIGINT},
-      </if>
-      <if test="posOrdTime != null">
-        #{posOrdTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -465,6 +465,9 @@
       <if test="buyerRemark != null">
         buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
       </if>
+      <if test="writeToDbTime != null">
+        write_to_db_time = #{writeToDbTime,jdbcType=BIGINT},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
@@ -516,9 +519,6 @@
       <if test="posMemberUid != null">
         pos_member_uid = #{posMemberUid,jdbcType=BIGINT},
       </if>
-      <if test="posOrdTime != null">
-        pos_ord_time = #{posOrdTime,jdbcType=BIGINT},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -552,6 +552,7 @@
       activity_id = #{activityId,jdbcType=BIGINT},
       activity_title = #{activityTitle,jdbcType=VARCHAR},
       buyer_remark = #{buyerRemark,jdbcType=VARCHAR},
+      write_to_db_time = #{writeToDbTime,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=BIGINT},
       order_num = #{orderNum,jdbcType=VARCHAR},
       transit_order_id = #{transitOrderId,jdbcType=VARCHAR},
@@ -568,8 +569,7 @@
       take_time = #{takeTime,jdbcType=BIGINT},
       pos_ord_id = #{posOrdId,jdbcType=BIGINT},
       pos_cashier_uid = #{posCashierUid,jdbcType=BIGINT},
-      pos_member_uid = #{posMemberUid,jdbcType=BIGINT},
-      pos_ord_time = #{posOrdTime,jdbcType=BIGINT}
+      pos_member_uid = #{posMemberUid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--以上内容自动生成-->
@@ -624,4 +624,29 @@
     limit 1
   </select>
 
+  <select id="selectByUserIdAndStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dbg_order
+    where del_flag = 0
+    and user_id = #{userId}
+    and status = #{status}
+  </select>
+
+  <select id="selectTodayUserOrders" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dbg_order
+    where del_flag = 0
+    and user_id = #{userId}
+    and create_time BETWEEN #{sTime} and #{eTime}
+  </select>
+
+  <select id="getAndLock" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dbg_order
+    where id = #{id}
+    for update
+  </select>
 </mapper>

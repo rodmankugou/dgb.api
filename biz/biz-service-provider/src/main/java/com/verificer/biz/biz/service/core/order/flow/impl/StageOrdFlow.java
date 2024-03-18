@@ -4,10 +4,11 @@ package com.verificer.biz.biz.service.core.order.flow.impl;
 import com.verificer.biz.beans.enums.OpEntry;
 import com.verificer.biz.beans.enums.OrdOpType;
 import com.verificer.biz.beans.enums.OrdSta;
-import com.verificer.biz.beans.vo.req.OrdFormVo;
+import com.verificer.biz.beans.enums.StockOpType;
+import com.verificer.biz.beans.vo.order.*;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.service.common.OrdCommon;
-import com.verificer.biz.biz.service.core.order.flow.IOrderFlow;
+import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
 import com.verificer.biz.biz.service.core.order.vo.*;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,13 @@ import org.springframework.stereotype.Service;
  * 云仓订单
  */
 @Service
-public class StageOrdFlow implements IOrderFlow {
+public class StageOrdFlow extends BaseOrdFlow {
     @Autowired
     OrdCommon ordCommon;
 
 
     @Override
-    public void beforeCreate(OrdVo ovo, OrdFormVo ofo) {
+    public void beforeCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         //填写地址信息
         DbgOrder o = ovo.getOrd();
         SCheckUtil.notEmpty(ofo.getAddrId(),"Addr Id");
@@ -33,13 +34,14 @@ public class StageOrdFlow implements IOrderFlow {
     }
 
     @Override
-    public void afterCreate(OrdVo ovo, OrdFormVo ofo) {
+    public void afterCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
         ordCommon.writeLog( o, OrdOpType.Create_Order.getValue(), OpEntry.App.getValue(),o.getUserId(),null,System.currentTimeMillis());
+        ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"仓库配送单下单后减库存");
     }
 
     @Override
-    public void toNextStatus(OrdVo ovo, OrdFormVo ofo, Object formVo) {
+    public void toNextStatus(OrdVo ovo,  Object formVo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
         if(OrdSta.WAIT_PAY.getValue() == o.getStatus()){
             if(!(formVo instanceof PayVo))
@@ -59,7 +61,7 @@ public class StageOrdFlow implements IOrderFlow {
             if(!(formVo instanceof ConfirmReceiveVo))
                 throw new RuntimeException("OrdSta.InTransit状态下只接收ReceiveVo类型参数");
             ConfirmReceiveVo receiveVo = (ConfirmReceiveVo) formVo;
-            ordCommon.receiveConfirm(o,receiveVo);
+            ordCommon.receiveConfirm(o,receiveVo,notifier);
 
         }else if(OrdSta.Received.getValue() == o.getStatus()){
             if(formVo instanceof EvaluateVo){

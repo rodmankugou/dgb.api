@@ -10,10 +10,10 @@
     <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
     <result column="spec_id" jdbcType="BIGINT" property="specId" />
     <result column="sum_sta_flag" jdbcType="BIT" property="sumStaFlag" />
-    <result column="pla_sale_count" jdbcType="INTEGER" property="plaSaleCount" />
-    <result column="pla_stage_count" jdbcType="INTEGER" property="plaStageCount" />
-    <result column="shop_sale_count" jdbcType="INTEGER" property="shopSaleCount" />
-    <result column="shop_stage_count" jdbcType="INTEGER" property="shopStageCount" />
+    <result column="pla_sale_count" jdbcType="DECIMAL" property="plaSaleCount" />
+    <result column="pla_stage_count" jdbcType="DECIMAL" property="plaStageCount" />
+    <result column="shop_sale_count" jdbcType="DECIMAL" property="shopSaleCount" />
+    <result column="shop_stage_count" jdbcType="DECIMAL" property="shopStageCount" />
     <result column="evaluate_count" jdbcType="INTEGER" property="evaluateCount" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -54,8 +54,8 @@
       pla_sale_count, pla_stage_count, shop_sale_count, 
       shop_stage_count, evaluate_count)
     values (#{goodsId,jdbcType=BIGINT}, #{specId,jdbcType=BIGINT}, #{sumStaFlag,jdbcType=BIT}, 
-      #{plaSaleCount,jdbcType=INTEGER}, #{plaStageCount,jdbcType=INTEGER}, #{shopSaleCount,jdbcType=INTEGER}, 
-      #{shopStageCount,jdbcType=INTEGER}, #{evaluateCount,jdbcType=INTEGER})
+      #{plaSaleCount,jdbcType=DECIMAL}, #{plaStageCount,jdbcType=DECIMAL}, #{shopSaleCount,jdbcType=DECIMAL}, 
+      #{shopStageCount,jdbcType=DECIMAL}, #{evaluateCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.GoodsSta">
     <!--
@@ -103,16 +103,16 @@
         #{sumStaFlag,jdbcType=BIT},
       </if>
       <if test="plaSaleCount != null">
-        #{plaSaleCount,jdbcType=INTEGER},
+        #{plaSaleCount,jdbcType=DECIMAL},
       </if>
       <if test="plaStageCount != null">
-        #{plaStageCount,jdbcType=INTEGER},
+        #{plaStageCount,jdbcType=DECIMAL},
       </if>
       <if test="shopSaleCount != null">
-        #{shopSaleCount,jdbcType=INTEGER},
+        #{shopSaleCount,jdbcType=DECIMAL},
       </if>
       <if test="shopStageCount != null">
-        #{shopStageCount,jdbcType=INTEGER},
+        #{shopStageCount,jdbcType=DECIMAL},
       </if>
       <if test="evaluateCount != null">
         #{evaluateCount,jdbcType=INTEGER},
@@ -136,16 +136,16 @@
         sum_sta_flag = #{sumStaFlag,jdbcType=BIT},
       </if>
       <if test="plaSaleCount != null">
-        pla_sale_count = #{plaSaleCount,jdbcType=INTEGER},
+        pla_sale_count = #{plaSaleCount,jdbcType=DECIMAL},
       </if>
       <if test="plaStageCount != null">
-        pla_stage_count = #{plaStageCount,jdbcType=INTEGER},
+        pla_stage_count = #{plaStageCount,jdbcType=DECIMAL},
       </if>
       <if test="shopSaleCount != null">
-        shop_sale_count = #{shopSaleCount,jdbcType=INTEGER},
+        shop_sale_count = #{shopSaleCount,jdbcType=DECIMAL},
       </if>
       <if test="shopStageCount != null">
-        shop_stage_count = #{shopStageCount,jdbcType=INTEGER},
+        shop_stage_count = #{shopStageCount,jdbcType=DECIMAL},
       </if>
       <if test="evaluateCount != null">
         evaluate_count = #{evaluateCount,jdbcType=INTEGER},
@@ -162,14 +162,32 @@
     set goods_id = #{goodsId,jdbcType=BIGINT},
       spec_id = #{specId,jdbcType=BIGINT},
       sum_sta_flag = #{sumStaFlag,jdbcType=BIT},
-      pla_sale_count = #{plaSaleCount,jdbcType=INTEGER},
-      pla_stage_count = #{plaStageCount,jdbcType=INTEGER},
-      shop_sale_count = #{shopSaleCount,jdbcType=INTEGER},
-      shop_stage_count = #{shopStageCount,jdbcType=INTEGER},
+      pla_sale_count = #{plaSaleCount,jdbcType=DECIMAL},
+      pla_stage_count = #{plaStageCount,jdbcType=DECIMAL},
+      shop_sale_count = #{shopSaleCount,jdbcType=DECIMAL},
+      shop_stage_count = #{shopStageCount,jdbcType=DECIMAL},
       evaluate_count = #{evaluateCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--以上内容自动生成-->
+
+  <select id="getAndLockByGoodsId"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from goods_sta
+    where goods_id = #{goodsId} and sum_sta_flag = 1
+    for update
+  </select>
+
+  <select id="getAndLockBySpecId"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from goods_sta
+    where spec_id = #{specId}
+    for update
+  </select>
 
 
 </mapper>

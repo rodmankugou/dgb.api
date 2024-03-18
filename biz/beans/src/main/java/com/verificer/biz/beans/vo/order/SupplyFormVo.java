@@ -1,27 +1,15 @@
-package com.verificer.biz.biz.service.core.order.vo;
+package com.verificer.biz.beans.vo.order;
 
-import com.verificer.biz.beans.vo.req.OrdFormVo;
-import com.verificer.biz.biz.entity.Addr;
-
-import java.io.Serializable;
 
 /**
  * 补货单
  */
-public class SupplyFormVo extends OrdFormVo implements Serializable {
-    private Addr addr;
+public class SupplyFormVo extends OrdFormVo  {
     private Long rootOrderId;
     private Long origOrderId;
     private Long staffId;
     private String staffName;
 
-    public Addr getAddr() {
-        return addr;
-    }
-
-    public void setAddr(Addr addr) {
-        this.addr = addr;
-    }
 
     public Long getRootOrderId() {
         return rootOrderId;

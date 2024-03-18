@@ -48,4 +48,15 @@ public enum OrdSta {
         }
         return null;
     }
+
+
+    /**
+     * 是否有效订单，被用户取消/超时未支付取消/退款的订单不算有效订单
+     */
+    public static boolean isValidOrd(int status){
+        if(Canceled.getValue() == status
+            || Refunded.getValue() == status)
+            return false;
+        return true;
+    }
 }

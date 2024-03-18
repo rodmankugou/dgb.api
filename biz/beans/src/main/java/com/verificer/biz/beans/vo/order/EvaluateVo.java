@@ -1,5 +1,8 @@
-package com.verificer.biz.biz.service.core.order.vo;
+package com.verificer.biz.beans.vo.order;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel
 public class EvaluateVo {
     /**
      * 是否用户评价

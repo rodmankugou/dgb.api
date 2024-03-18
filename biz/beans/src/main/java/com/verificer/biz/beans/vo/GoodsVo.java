@@ -37,10 +37,10 @@ public class GoodsVo implements Serializable {
     private BigDecimal volume;
 
     @ApiModelProperty("限购数")
-    private Integer maxLimitCount;
+    private BigDecimal maxLimitCount;
 
     @ApiModelProperty("起购数")
-    private Integer minLimitCount;
+    private BigDecimal minLimitCount;
 
     @ApiModelProperty("单位")
     private String unit;
@@ -165,19 +165,19 @@ public class GoodsVo implements Serializable {
         this.volume = volume;
     }
 
-    public Integer getMaxLimitCount() {
+    public BigDecimal getMaxLimitCount() {
         return maxLimitCount;
     }
 
-    public void setMaxLimitCount(Integer maxLimitCount) {
+    public void setMaxLimitCount(BigDecimal maxLimitCount) {
         this.maxLimitCount = maxLimitCount;
     }
 
-    public Integer getMinLimitCount() {
+    public BigDecimal getMinLimitCount() {
         return minLimitCount;
     }
 
-    public void setMinLimitCount(Integer minLimitCount) {
+    public void setMinLimitCount(BigDecimal minLimitCount) {
         this.minLimitCount = minLimitCount;
     }
 

@@ -1,5 +1,7 @@
 package com.verificer.biz.biz.entity;
 
+import java.math.BigDecimal;
+
 public class GoodsSta {
     /**
      *
@@ -44,7 +46,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    private Integer plaSaleCount;
+    private BigDecimal plaSaleCount;
 
     /**
      *
@@ -53,7 +55,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    private Integer plaStageCount;
+    private BigDecimal plaStageCount;
 
     /**
      *
@@ -62,7 +64,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    private Integer shopSaleCount;
+    private BigDecimal shopSaleCount;
 
     /**
      *
@@ -71,7 +73,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    private Integer shopStageCount;
+    private BigDecimal shopStageCount;
 
     /**
      *
@@ -186,7 +188,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public Integer getPlaSaleCount() {
+    public BigDecimal getPlaSaleCount() {
         return plaSaleCount;
     }
 
@@ -198,7 +200,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public void setPlaSaleCount(Integer plaSaleCount) {
+    public void setPlaSaleCount(BigDecimal plaSaleCount) {
         this.plaSaleCount = plaSaleCount;
     }
 
@@ -210,7 +212,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public Integer getPlaStageCount() {
+    public BigDecimal getPlaStageCount() {
         return plaStageCount;
     }
 
@@ -222,7 +224,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public void setPlaStageCount(Integer plaStageCount) {
+    public void setPlaStageCount(BigDecimal plaStageCount) {
         this.plaStageCount = plaStageCount;
     }
 
@@ -234,7 +236,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public Integer getShopSaleCount() {
+    public BigDecimal getShopSaleCount() {
         return shopSaleCount;
     }
 
@@ -246,7 +248,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public void setShopSaleCount(Integer shopSaleCount) {
+    public void setShopSaleCount(BigDecimal shopSaleCount) {
         this.shopSaleCount = shopSaleCount;
     }
 
@@ -258,7 +260,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public Integer getShopStageCount() {
+    public BigDecimal getShopStageCount() {
         return shopStageCount;
     }
 
@@ -270,7 +272,7 @@ public class GoodsSta {
      *
      * @mbg.generated
      */
-    public void setShopStageCount(Integer shopStageCount) {
+    public void setShopStageCount(BigDecimal shopStageCount) {
         this.shopStageCount = shopStageCount;
     }
 

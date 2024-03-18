@@ -42,4 +42,10 @@ public enum OrdType {
         }
         return null;
     }
+
+    public static boolean isSafeTakeOrd(int orderType){
+        if(REISSUE.getValue() == orderType)
+            return true;
+        return false;
+    }
 }

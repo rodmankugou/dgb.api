@@ -4,37 +4,37 @@ package com.verificer.biz.biz.service.core.order.flow.impl;
 import com.verificer.biz.beans.enums.OpEntry;
 import com.verificer.biz.beans.enums.OrdOpType;
 import com.verificer.biz.beans.enums.OrdSta;
-import com.verificer.biz.beans.vo.req.OrdFormVo;
+import com.verificer.biz.beans.enums.StockOpType;
+import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.entity.OrderDetail;
-import com.verificer.biz.biz.pospay.entity.YbOrdFormVo;
+import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.biz.pospay.entity.YbOrdItemVo;
 import com.verificer.biz.biz.service.common.OrdCommon;
-import com.verificer.biz.biz.service.core.order.flow.IOrderFlow;
+import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 门店Pos机收银订单
  */
 @Service
-public class PosOrdFlow  implements IOrderFlow {
+public class PosOrdFlow  extends BaseOrdFlow  {
     @Autowired
     OrdCommon ordCommon;
 
     @Override
-    public void beforeCreate(OrdVo ovo, OrdFormVo ofo) {
+    public void beforeCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         if(!(ofo instanceof YbOrdFormVo))
             throw new RuntimeException("银豹收银系统的");
         YbOrdFormVo ybo = (YbOrdFormVo) ofo;
         DbgOrder o = ovo.getOrd();
         o.setPosOrdId(ybo.getPosOrdId());
         o.setPosCashierUid(ybo.getPosCashierId());
-        o.setPosOrdTime(ybo.getPosOrdTime());
+        o.setCreateTime(ybo.getPosOrdTime());
         o.setPosMemberUid(ybo.getPosMemberId());
         o.setUserId(ybo.getUserId());
         o.setStatus(OrdSta.Finish.getValue());
@@ -50,18 +50,18 @@ public class PosOrdFlow  implements IOrderFlow {
             }
         }
 
-
     }
 
     @Override
-    public void afterCreate(OrdVo ovo, OrdFormVo ofo) {
+    public void afterCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
-        ordCommon.writeLog(o, OrdOpType.Create_Order.getValue(), OpEntry.Pos.getValue(), o.getRelId(),null,o.getPosOrdTime());
-
+        ordCommon.writeLog(o, OrdOpType.Create_Order.getValue(), OpEntry.Pos.getValue(), o.getRelId(),null,o.getCreateTime());
+        ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"Pos机收款后剪库存");
+        notifier.triggerAll(new OrdReceivedEvent(o.getId()));
     }
 
     @Override
-    public void toNextStatus(OrdVo ovo, OrdFormVo ofo, Object formVo) {
+    public void toNextStatus(OrdVo ovo,  Object formVo, OrdNotifier notifier) {
         throw new UnsupportedOperationException("Pos Order no next status");
     }
 
@@ -70,5 +70,11 @@ public class PosOrdFlow  implements IOrderFlow {
         //考虑一些非会员单
         return true;
     }
+
+    @Override
+    public boolean isCheckBuyCountLimit() {
+        return false;
+    }
+
 
 }

@@ -16,8 +16,8 @@
     <result column="free_shipping_flag" jdbcType="BIT" property="freeShippingFlag" />
     <result column="weight" jdbcType="DECIMAL" property="weight" />
     <result column="volume" jdbcType="DECIMAL" property="volume" />
-    <result column="max_limit_count" jdbcType="INTEGER" property="maxLimitCount" />
-    <result column="min_limit_count" jdbcType="INTEGER" property="minLimitCount" />
+    <result column="max_limit_count" jdbcType="DECIMAL" property="maxLimitCount" />
+    <result column="min_limit_count" jdbcType="DECIMAL" property="minLimitCount" />
     <result column="unit" jdbcType="VARCHAR" property="unit" />
     <result column="sale_flag" jdbcType="TINYINT" property="saleFlag" />
     <result column="sale_time_out_flag" jdbcType="TINYINT" property="saleTimeOutFlag" />
@@ -78,7 +78,7 @@
     values (#{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{imgList,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, 
       #{freeShippingFlag,jdbcType=BIT}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
-      #{maxLimitCount,jdbcType=INTEGER}, #{minLimitCount,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, 
+      #{maxLimitCount,jdbcType=DECIMAL}, #{minLimitCount,jdbcType=DECIMAL}, #{unit,jdbcType=VARCHAR}, 
       #{saleFlag,jdbcType=TINYINT}, #{saleTimeOutFlag,jdbcType=TINYINT}, #{stopSaleTime,jdbcType=BIGINT}, 
       #{detail,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{delFlag,jdbcType=BIT}, 
       #{delTime,jdbcType=BIGINT}, #{rubbishFlag,jdbcType=BIT}, #{rubbishTime,jdbcType=BIGINT}, 
@@ -193,10 +193,10 @@
         #{volume,jdbcType=DECIMAL},
       </if>
       <if test="maxLimitCount != null">
-        #{maxLimitCount,jdbcType=INTEGER},
+        #{maxLimitCount,jdbcType=DECIMAL},
       </if>
       <if test="minLimitCount != null">
-        #{minLimitCount,jdbcType=INTEGER},
+        #{minLimitCount,jdbcType=DECIMAL},
       </if>
       <if test="unit != null">
         #{unit,jdbcType=VARCHAR},
@@ -271,10 +271,10 @@
         volume = #{volume,jdbcType=DECIMAL},
       </if>
       <if test="maxLimitCount != null">
-        max_limit_count = #{maxLimitCount,jdbcType=INTEGER},
+        max_limit_count = #{maxLimitCount,jdbcType=DECIMAL},
       </if>
       <if test="minLimitCount != null">
-        min_limit_count = #{minLimitCount,jdbcType=INTEGER},
+        min_limit_count = #{minLimitCount,jdbcType=DECIMAL},
       </if>
       <if test="unit != null">
         unit = #{unit,jdbcType=VARCHAR},
@@ -330,8 +330,8 @@
       free_shipping_flag = #{freeShippingFlag,jdbcType=BIT},
       weight = #{weight,jdbcType=DECIMAL},
       volume = #{volume,jdbcType=DECIMAL},
-      max_limit_count = #{maxLimitCount,jdbcType=INTEGER},
-      min_limit_count = #{minLimitCount,jdbcType=INTEGER},
+      max_limit_count = #{maxLimitCount,jdbcType=DECIMAL},
+      min_limit_count = #{minLimitCount,jdbcType=DECIMAL},
       unit = #{unit,jdbcType=VARCHAR},
       sale_flag = #{saleFlag,jdbcType=TINYINT},
       sale_time_out_flag = #{saleTimeOutFlag,jdbcType=TINYINT},

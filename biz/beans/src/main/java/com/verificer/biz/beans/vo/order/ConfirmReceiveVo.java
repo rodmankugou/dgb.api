@@ -1,8 +1,7 @@
-package com.verificer.biz.biz.service.core.order.vo;
+package com.verificer.biz.beans.vo.order;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 

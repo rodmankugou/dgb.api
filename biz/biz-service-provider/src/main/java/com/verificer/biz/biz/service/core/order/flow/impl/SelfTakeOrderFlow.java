@@ -1,17 +1,15 @@
 package com.verificer.biz.biz.service.core.order.flow.impl;
 
-import com.verificer.biz.beans.enums.OpEntry;
-import com.verificer.biz.beans.enums.OrdOpType;
-import com.verificer.biz.beans.enums.OrdSta;
-import com.verificer.biz.beans.enums.RefundBizType;
-import com.verificer.biz.beans.vo.req.OrdFormVo;
+import com.verificer.biz.beans.enums.*;
+import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.mapper.DbgOrderMapper;
 import com.verificer.biz.biz.service.common.OrdCommon;
-import com.verificer.biz.biz.service.core.order.flow.IOrderFlow;
-import com.verificer.biz.biz.service.core.order.vo.EvaluateVo;
+import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
+import com.verificer.biz.beans.vo.order.EvaluateVo;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
-import com.verificer.biz.biz.service.core.order.vo.PayVo;
+import com.verificer.biz.beans.vo.order.PayVo;
 import com.verificer.biz.biz.service.core.order.vo.selftake.SelfTakeRefundVo;
 import com.verificer.biz.biz.service.core.order.vo.selftake.SelfTakeTakeVo;
 import com.verificer.biz.biz.service.pay.PayService;
@@ -24,7 +22,7 @@ import org.springframework.stereotype.Service;
  * 门店自提订单
  */
 @Service
-public class SelfTakeOrderFlow implements IOrderFlow {
+public class SelfTakeOrderFlow extends BaseOrdFlow {
 
     @Autowired
     OrdCommon ordCommon;
@@ -37,18 +35,20 @@ public class SelfTakeOrderFlow implements IOrderFlow {
 
 
     @Override
-    public void beforeCreate(OrdVo ovo, OrdFormVo ofo){
+    public void beforeCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier){
 
     }
 
     @Override
-    public void afterCreate(OrdVo ovo, OrdFormVo ofo) {
+    public void afterCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
         ordCommon.writeLog(o,OrdOpType.Create_Order.getValue(), OpEntry.App.getValue(), o.getUserId(),null,System.currentTimeMillis());
+        ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"自提单下单后减库存");
+
     }
 
     @Override
-    public void toNextStatus(OrdVo ovo, OrdFormVo ofo, Object formVo) {
+    public void toNextStatus(OrdVo ovo,  Object formVo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
         if(OrdSta.WAIT_PAY.getValue() == o.getStatus()){
             if(!(formVo instanceof PayVo))
@@ -69,12 +69,14 @@ public class SelfTakeOrderFlow implements IOrderFlow {
                 vo.setAmount(o.getAmount());
                 payService.refund(vo);
                 ordCommon.writeLog( o, OrdOpType.Refund.getValue(), OpEntry.Merchant.getValue(),o.getRelId(),null,System.currentTimeMillis());
+                ordCommon.increaseStock(o,StockOpType.ORD_REFUND.getValue(), "自提单申请退款后加库存");
 
             }else if(formVo instanceof SelfTakeTakeVo){
                 o.setStatus(OrdSta.Received.getValue());
                 o.setTakeFlag(true);
                 o.setTakeTime(System.currentTimeMillis());
-                ordCommon.writeLog( o, OrdOpType.Refund.getValue(), OpEntry.App.getValue(),o.getUserId(),null,System.currentTimeMillis());
+                ordCommon.writeLog( o, OrdOpType.Take.getValue(), OpEntry.App.getValue(),o.getUserId(),null,System.currentTimeMillis());
+                notifier.triggerAll(new OrdReceivedEvent(o.getId()));
 
             }else {
                 throw new RuntimeException("OrdSta.WaitSelfTake下只接收SelfTakeRefundVo或者SelfTakeTakeVo类型参数");
@@ -115,5 +117,13 @@ public class SelfTakeOrderFlow implements IOrderFlow {
     }
 
 
+    @Override
+    public boolean isCheckBuyCountLimit() {
+        return false;
+    }
 
+    @Override
+    public boolean isAfterSale() {
+        return true;
+    }
 }

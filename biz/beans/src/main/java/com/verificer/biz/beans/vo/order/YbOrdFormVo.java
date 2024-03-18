@@ -1,6 +1,4 @@
-package com.verificer.biz.biz.pospay.entity;
-
-import com.verificer.biz.beans.vo.req.OrdFormVo;
+package com.verificer.biz.beans.vo.order;
 
 public class YbOrdFormVo extends OrdFormVo {
     private Long posOrdId;

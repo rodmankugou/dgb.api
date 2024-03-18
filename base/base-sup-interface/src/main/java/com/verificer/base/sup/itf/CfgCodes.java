@@ -8,4 +8,5 @@ public class CfgCodes {
     public static String HW_OBS_SECRET_KEY = "HW_OBS_SECRET_KEY";
     public static String HW_OBS_BUCKET_NAME = "HW_OBS_BUCKET_NAME";
     public static String HW_OBS_CROSS_DOMAIN = "HW_OBS_CROSS_DOMAIN";
+    public static String AFTER_SALE_EXPIRE_DAYS = "AFTER_SALE_EXPIRE_DAYS";
 }

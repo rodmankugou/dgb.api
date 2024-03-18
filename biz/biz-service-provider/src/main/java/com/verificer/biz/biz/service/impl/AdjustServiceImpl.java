@@ -4,6 +4,7 @@ import com.verificer.ErrCode;
 import com.verificer.biz.beans.enums.AdjShortType;
 import com.verificer.biz.beans.enums.AdjStatus;
 import com.verificer.biz.beans.enums.AdjType;
+import com.verificer.biz.beans.enums.StockOpType;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.AdjustVo;
 import com.verificer.biz.beans.vo.req.*;
@@ -113,12 +114,12 @@ public class AdjustServiceImpl implements AdjustService {
         if(isFinish(formVo)){
             List<StockUpdVo> updVos = new LinkedList<>();
             if(formVo.getShortType() == AdjShortType.STAGE_SUPPLY.getValue()){
-                updVos.add(new StockUpdVo(true,formVo.getToId(),formVo.getSpecId(),formVo.getRealCount()));
+                updVos.add(new StockUpdVo(true,formVo.getToId(),formVo.getSpecId(),formVo.getRealCount(), StockOpType.ADJUST_IN.getValue(),"调货"));
             }else if(formVo.getShortType() == AdjShortType.SHOP_TO_STAGE.getValue()
                     || formVo.getShortType() == AdjShortType.STAGE_TO_SHOP.getValue()
             ){
-                updVos.add(new StockUpdVo(true,formVo.getToId(),formVo.getSpecId(),formVo.getRealCount()));
-                updVos.add(new StockUpdVo(false,formVo.getFromId(),formVo.getSpecId(),formVo.getRealCount()));
+                updVos.add(new StockUpdVo(true,formVo.getToId(),formVo.getSpecId(),formVo.getRealCount() ,StockOpType.ADJUST_IN.getValue(),"调货"));
+                updVos.add(new StockUpdVo(false,formVo.getFromId(),formVo.getSpecId(),formVo.getRealCount(), StockOpType.ADJUST_OUT.getValue(),"调货"));
 
             }else {
                 throw new BizErrMsgException("error short type");

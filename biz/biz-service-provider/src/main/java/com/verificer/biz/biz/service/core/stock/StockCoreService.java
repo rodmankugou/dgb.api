@@ -2,10 +2,13 @@ package com.verificer.biz.biz.service.core.stock;
 
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.req.StockUpdVo;
+import com.verificer.biz.biz.service.core.stock.entity.StockIdVo;
+import com.verificer.biz.biz.service.core.stock.notify.events.IStockListener;
 
 import java.util.List;
 
 public interface StockCoreService {
+    void addListener(IStockListener listener);
     void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds);
 
     void modifyStock(StockUpdVo updVo) throws StockInsufficientException;
@@ -14,4 +17,7 @@ public interface StockCoreService {
     boolean isStockExist(String shopId,Long goodsId, Long specId);
 
     void addShopStockIfNotExist(String shopId, Long goodsId, Long specId);
+
+
+    void lockStocks(List<StockIdVo> idVos);
 }

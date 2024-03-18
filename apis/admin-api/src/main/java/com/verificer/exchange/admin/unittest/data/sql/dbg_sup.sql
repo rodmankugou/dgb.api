@@ -11,11 +11,24 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/10/2024 18:08:25 PM
+ Date: 03/18/2024 10:29:48 AM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `advert`
+-- ----------------------------
+DROP TABLE IF EXISTS `advert`;
+CREATE TABLE `advert` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `image_uri` varchar(255) DEFAULT NULL,
+  `html_url` varchar(255) DEFAULT NULL,
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `area`
@@ -39,6 +52,27 @@ INSERT INTO `area` VALUES ('433127', '4331', '3', '永顺县'), ('433130', '4331
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `banner`
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `content` text,
+  `image_uri` varchar(255) DEFAULT NULL COMMENT '图片地址',
+  `html_url` varchar(255) DEFAULT NULL COMMENT '落地页地址',
+  `html_title` varchar(255) DEFAULT NULL COMMENT '落地页标题',
+  `enable` tinyint(1) DEFAULT NULL COMMENT '是否启用',
+  `create_time` bigint DEFAULT NULL COMMENT '创建时间',
+  `end_time` bigint DEFAULT NULL COMMENT '结束时间',
+  `update_time` bigint DEFAULT NULL COMMENT '最近更新时间',
+  `sort_parameter` int DEFAULT NULL COMMENT '排序参数，值越小优先级越高',
+  `international_type` varchar(255) DEFAULT NULL COMMENT '语言环境，用于国际化',
+  `terminal_type` int DEFAULT NULL COMMENT '终端类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `cfg`
 -- ----------------------------
 DROP TABLE IF EXISTS `cfg`;
@@ -52,7 +86,19 @@ CREATE TABLE `cfg` (
 --  Records of `cfg`
 -- ----------------------------
 BEGIN;
-INSERT INTO `cfg` VALUES ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS');
+INSERT INTO `cfg` VALUES ('AFTER_SALE_EXPIRE_DAYS', '7'), ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `help`
+-- ----------------------------
+DROP TABLE IF EXISTS `help`;
+CREATE TABLE `help` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='帮助中心\n';
 
 SET FOREIGN_KEY_CHECKS = 1;

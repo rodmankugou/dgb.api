@@ -259,4 +259,8 @@ public class ErrCode {
     public static final String CREATE_ORD_STOCK_NOT_ENOUGH = "CREATE_ORD_STOCK_NOT_ENOUGH";
     public static final String CREATE_ORD_GOODS_PRICE_CHANGE = "CREATE_ORD_GOODS_PRICE_CHANGE";
     public static final String ADD_SHOP_POS_SETTING_ERR = "ADD_SHOP_POS_SETTING_ERR";
+    public static final String GOODS_STOCK_NOT_ENOUGHT = "GOODS_STOCK_NOT_ENOUGHT";
+    public static final String NEED_FINISH_PAY_PREV_ORDER = "NEED_FINISH_PAY_PREV_ORDER";
+    public static final String GOODS_DAYS_LIMIT_EXCEEDED = "GOODS_DAYS_LIMIT_EXCEEDED";
+    public static final String GOODS_MIN_COUNT_LIMIT_EXCEEDED = "GOODS_MIN_COUNT_LIMIT_EXCEEDED";
 }

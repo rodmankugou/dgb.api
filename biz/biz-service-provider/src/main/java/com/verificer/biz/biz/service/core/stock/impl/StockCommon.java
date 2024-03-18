@@ -2,7 +2,7 @@ package com.verificer.biz.biz.service.core.stock.impl;
 
 import com.verificer.GlobalConfig;
 import com.verificer.biz.biz.entity.Stock;
-import com.verificer.biz.biz.service.core.order.vo.PayVo;
+import com.verificer.biz.beans.vo.order.PayVo;
 import org.springframework.stereotype.Service;
 
 @Service

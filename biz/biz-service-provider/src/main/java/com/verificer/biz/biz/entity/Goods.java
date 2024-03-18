@@ -100,7 +100,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    private Integer maxLimitCount;
+    private BigDecimal maxLimitCount;
 
     /**
      *
@@ -109,7 +109,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    private Integer minLimitCount;
+    private BigDecimal minLimitCount;
 
     /**
      *
@@ -467,7 +467,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    public Integer getMaxLimitCount() {
+    public BigDecimal getMaxLimitCount() {
         return maxLimitCount;
     }
 
@@ -479,7 +479,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    public void setMaxLimitCount(Integer maxLimitCount) {
+    public void setMaxLimitCount(BigDecimal maxLimitCount) {
         this.maxLimitCount = maxLimitCount;
     }
 
@@ -491,7 +491,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    public Integer getMinLimitCount() {
+    public BigDecimal getMinLimitCount() {
         return minLimitCount;
     }
 
@@ -503,7 +503,7 @@ public class Goods {
      *
      * @mbg.generated
      */
-    public void setMinLimitCount(Integer minLimitCount) {
+    public void setMinLimitCount(BigDecimal minLimitCount) {
         this.minLimitCount = minLimitCount;
     }
 

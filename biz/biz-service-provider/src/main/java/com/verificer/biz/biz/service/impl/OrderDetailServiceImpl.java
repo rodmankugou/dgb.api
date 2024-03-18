@@ -35,4 +35,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         }
         return voList;
     }
+
+    @Override
+    public List<OrderDetail> getByOrdId(Long id) {
+        return orderDetailMapper.selectByOrdId(id);
+    }
 }

@@ -18,7 +18,7 @@ public abstract class ConcurrentNotifier<T,E> {
 
     private List<T> listeners = new LinkedList<>();
 
-    protected abstract void trigger(T listener,E event) throws Exception;
+    protected abstract void trigger(T listener,E event);
 
     public void addListener(T listener){
         WLock.lock();
@@ -29,7 +29,7 @@ public abstract class ConcurrentNotifier<T,E> {
         }
     }
 
-    public void triggerAll(E event) throws Exception{
+    public void triggerAll(E event) {
         RLock.lock();
         try {
             for(T listener : listeners ){

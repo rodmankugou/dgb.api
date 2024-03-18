@@ -1,7 +1,8 @@
-package com.verificer.biz.biz.service.core.order.vo;
+package com.verificer.biz.beans.vo.order;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 
 public class PayVo implements Serializable {
     private Integer payType;

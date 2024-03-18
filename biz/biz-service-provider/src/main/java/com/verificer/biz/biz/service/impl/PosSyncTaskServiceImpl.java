@@ -3,7 +3,7 @@ package com.verificer.biz.biz.service.impl;
 import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.biz.beans.enums.*;
-import com.verificer.biz.beans.vo.req.OrdFormVo2;
+import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.PosSyncTaskMapper;
@@ -13,11 +13,10 @@ import com.verificer.biz.biz.pospay.entity.req.AddGoodsReq;
 import com.verificer.biz.biz.pospay.entity.req.QryOrderReq;
 import com.verificer.biz.biz.pospay.entity.req.UpdGoodsReq;
 import com.verificer.biz.biz.service.*;
-import com.verificer.biz.biz.service.core.order.OrdService;
+import com.verificer.biz.biz.service.core.order.OrdCoreService;
 import com.verificer.utils.AESUtils;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SDateUtil;
-import com.verificer.utils.SStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
     DbgOrderService dbgOrderService;
 
     @Autowired
-    OrdService ordService;
+    OrdCoreService ordCoreService;
 
 
 
@@ -162,7 +161,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
         List<OrdItemFormVo> detail = parseDetail(shopGoods,order.getItems());
         of.setDetails(detail);
 
-        ordService.create(of);
+        ordCoreService.create(of);
     }
 
     private List<OrdItemFormVo> parseDetail(ShopGoods shopGoods, List<YbOrderItem> itemList){

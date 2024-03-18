@@ -4,10 +4,15 @@ import com.verificer.ErrCode;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.req.StockUpdVo;
 import com.verificer.biz.biz.entity.*;
+import com.verificer.biz.biz.mapper.StockLogMapper;
 import com.verificer.biz.biz.mapper.StockMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.biz.biz.service.common.GoodsCommon;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
+import com.verificer.biz.biz.service.core.stock.entity.StockIdVo;
+import com.verificer.biz.biz.service.core.stock.notify.StockNotifier;
+import com.verificer.biz.biz.service.core.stock.notify.events.IStockListener;
+import com.verificer.biz.biz.service.core.stock.notify.events.StockEvent;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SBigDecimalUtils;
@@ -22,6 +27,7 @@ import java.util.*;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StockCoreServiceImpl implements StockCoreService {
+    private StockNotifier notifier = new StockNotifier();
 
     @Autowired
     StockMapper mapper;
@@ -43,6 +49,14 @@ public class StockCoreServiceImpl implements StockCoreService {
 
     @Autowired
     GoodsCommon goodsCommon;
+
+    @Autowired
+    StockLogMapper stockLogMapper;
+
+    @Override
+    public void addListener(IStockListener listener) {
+        notifier.addListener(listener);
+    }
 
     @Override
     public void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds) {
@@ -121,11 +135,29 @@ public class StockCoreServiceImpl implements StockCoreService {
      * @param updVo
      */
     private void updStock(Stock locked,StockUpdVo updVo) throws StockInsufficientException {
+        BigDecimal origStock = locked.getCount();
         if(updVo.isAddFlag() ){
             locked.setCount(locked.getCount().add(updVo.getCount()));
         }else {
             locked.setCount(locked.getCount().subtract(updVo.getCount()));
         }
+
+        StockLog log = new StockLog();
+        log.setStockId(locked.getId());
+        log.setGoodsId(locked.getGoodsId());
+        log.setSpecId(locked.getSpecId());
+        log.setOpType(updVo.getOpType());
+        log.setRelId(locked.getRelId());
+        log.setCount(updVo.getCount());
+        log.setBeforeStock(origStock);
+        log.setAfterStock(locked.getCount());
+        log.setCreateTime(System.currentTimeMillis());
+        log.setRemark(updVo.getRemark());
+        stockLogMapper.insert(log);
+
+        //通知监听器
+        notifier.triggerAll(new StockEvent(updVo.isAddFlag(),locked.getStageFlag(),log));
+
 
         if(locked.getSkuFlag() && SBigDecimalUtils.getRealScale(locked.getCount()) != 0)
             throw new BizErrMsgException("SKU Stock's count can not be floating point number");
@@ -157,12 +189,26 @@ public class StockCoreServiceImpl implements StockCoreService {
     public void modifyStock(List<StockUpdVo> updVos) throws StockInsufficientException {
         if(updVos.size() == 0)
             return;
+        List<StockIdVo> idVos = new LinkedList<>();
+        for(StockUpdVo vo : updVos)
+            idVos.add(new StockIdVo(vo.getRelId(),vo.getSpecId()));
+        List<Stock> lockedStocks = getAndLockStocks(idVos);
 
+        //处理库存增减
+        for(StockUpdVo updVo : updVos){
+            Stock locked = getStock(lockedStocks,updVo.getRelId(),updVo.getSpecId());
+            updStock(locked,updVo);
+        }
+    }
+
+
+
+    private List<Stock> getAndLockStocks(List<StockIdVo> idVos){
         //get And Lock,为了避免死锁，根据id顺序进行加锁
         Map<Long,Stock> map = new HashMap<>();
         List<Stock> stocks = new LinkedList<>();
         List<Stock> lockedStocks = new LinkedList<>();
-        for(StockUpdVo updVo : updVos){
+        for(StockIdVo updVo : idVos){
             Stock stock = mapper.selectByRefIdAndSpecId(updVo.getRelId(),updVo.getSpecId());
             if(stock == null)
                 throw new BaseException(ErrCode.SERVER_ERROR);
@@ -183,12 +229,12 @@ public class StockCoreServiceImpl implements StockCoreService {
                 throw new BaseException(ErrCode.SERVER_ERROR);
             lockedStocks.add(lockedStock);
         }
+        return lockedStocks;
+    }
 
-        //处理库存增减
-        for(StockUpdVo updVo : updVos){
-            Stock locked = getStock(lockedStocks,updVo.getRelId(),updVo.getSpecId());
-            updStock(locked,updVo);
-        }
+    @Override
+    public void lockStocks(List<StockIdVo> idVos){
+        getAndLockStocks(idVos);
     }
 
     @Override

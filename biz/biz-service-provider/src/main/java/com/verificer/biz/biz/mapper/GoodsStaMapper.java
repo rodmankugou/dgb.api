@@ -1,6 +1,7 @@
 package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.biz.entity.GoodsSta;
+import org.apache.ibatis.annotations.Param;
 
 public interface GoodsStaMapper {
     /**
@@ -50,4 +51,8 @@ public interface GoodsStaMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(GoodsSta record);
+
+    GoodsSta getAndLockByGoodsId(@Param("goodsId") Long goodsId);
+
+    GoodsSta getAndLockBySpecId(@Param("specId") Long specId);
 }
