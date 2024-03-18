@@ -1,5 +1,6 @@
 package com.verificer.exchange.admin.controller.debug;
 
+import com.verificer.GlobalConfig;
 import com.verificer.biz.beans.enums.AdjShortType;
 import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.beans.enums.OrdType;
@@ -10,6 +11,7 @@ import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.debug.order.DebPosOrderVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.order.YbOrdFormVo;
+import com.verificer.biz.beans.vo.order.YbOrdItemVo;
 import com.verificer.biz.beans.vo.req.AdjustPageVo;
 import com.verificer.biz.beans.vo.req.GoodsQryVo;
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
@@ -19,6 +21,7 @@ import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.utils.RandomUtils;
+import com.verificer.utils.SBeanUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -28,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,6 +64,17 @@ public class OrderDebugController extends BaseController{
         fvo.setPosOrdTime(System.currentTimeMillis());
         fvo.setPosMemberId(212121L);
         fillOrdFormVo(fvo,reqVo.getMultiGoodsFlag() ? 2:1,OrdType.POS,MerType.SHOP);
+        List<OrdItemFormVo> items = fvo.getDetails();
+        List<OrdItemFormVo> ybItems = new LinkedList<>();
+        for(OrdItemFormVo item : items){
+            YbOrdItemVo ybItem = new YbOrdItemVo();
+            SBeanUtils.copyProperties2(item,ybItem);
+            ybItem.setAmount(item.getCount().multiply(item.getPrice()).setScale(GlobalConfig.PREC,RoundingMode.HALF_UP));
+            ybItem.setRealPrice(item.getPrice());
+            ybItems.add(ybItem);
+        }
+        fvo.setDetails(ybItems);
+
 
         Long id = bizService.orderCreate(fvo);
         return Response.dataSuccess(id);
@@ -81,6 +96,13 @@ public class OrderDebugController extends BaseController{
         ordFormVo.setTransitType(1);
         ordFormVo.setBuyerRemark("备注1111");
         ordFormVo.setDetails(items);
+
+        BigDecimal amount = BigDecimal.ZERO;
+        for(OrdItemFormVo item : items){
+            amount  = amount.add(item.getCount().multiply(item.getPrice()));
+        }
+        amount.setScale(GlobalConfig.PREC, RoundingMode.HALF_UP);
+        ordFormVo.setAmount(amount);
 
     }
 

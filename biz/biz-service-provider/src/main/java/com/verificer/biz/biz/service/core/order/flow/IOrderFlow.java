@@ -46,4 +46,6 @@ public interface IOrderFlow {
      * @return
      */
     Long getOrdTime(DbgOrder o);
+
+    boolean isCheckAmount();
 }

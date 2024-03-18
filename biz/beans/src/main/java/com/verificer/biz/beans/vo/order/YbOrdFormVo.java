@@ -1,11 +1,12 @@
 package com.verificer.biz.beans.vo.order;
 
+import java.util.List;
+
 public class YbOrdFormVo extends OrdFormVo {
     private Long posOrdId;
     private Long posCashierId;
     private Long posOrdTime;
     private Long posMemberId;
-
 
 
     public Long getPosOrdId() {
@@ -39,4 +40,5 @@ public class YbOrdFormVo extends OrdFormVo {
     public void setPosMemberId(Long posMemberId) {
         this.posMemberId = posMemberId;
     }
+
 }

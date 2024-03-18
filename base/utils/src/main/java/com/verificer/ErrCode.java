@@ -265,4 +265,5 @@ public class ErrCode {
     public static final String GOODS_MIN_COUNT_LIMIT_EXCEEDED = "GOODS_MIN_COUNT_LIMIT_EXCEEDED";
     public static final String RUBBISH_GOODS_CAN_NOT_ON_SALE = "RUBBISH_GOODS_CAN_NOT_ON_SALE";
     public static final String DEL_GOODS_CAN_NOT_ON_SALE = "DEL_GOODS_CAN_NOT_ON_SALE";
+    public static final String ORD_AMOUNT_ERROR = "ORD_AMOUNT_ERROR";
 }

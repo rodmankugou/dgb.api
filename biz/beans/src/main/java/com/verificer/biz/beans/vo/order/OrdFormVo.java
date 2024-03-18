@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel
@@ -27,12 +28,22 @@ public class OrdFormVo implements Serializable {
     @ApiModelProperty(value = "快递类型 快递类型 1-同城急送 2-普通快递",required = false)
     private Integer transitType;
 
+    @ApiModelProperty("金额")
+    private BigDecimal amount;
 
     @ApiModelProperty("买家备注")
     private String buyerRemark;
 
     @ApiModelProperty("订单明细")
     List<OrdItemFormVo> details;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
     public Integer getOrderType() {
         return orderType;

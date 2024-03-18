@@ -245,10 +245,10 @@ public class GoodsServiceImpl implements GoodsService {
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
         if(reqVo.getSaleFlag() && e.getRubbishFlag()){
-            throw new BizErrMsgException(ErrCode.RUBBISH_GOODS_CAN_NOT_ON_SALE);
+            throw new BaseException(ErrCode.RUBBISH_GOODS_CAN_NOT_ON_SALE);
         }
         if(reqVo.getSaleFlag() && e.getDelFlag()){
-            throw new BizErrMsgException(ErrCode.DEL_GOODS_CAN_NOT_ON_SALE);
+            throw new BaseException(ErrCode.DEL_GOODS_CAN_NOT_ON_SALE);
         }
         e.setSaleFlag(reqVo.getSaleFlag());
         mapper.updateByPrimaryKeySelective(e);

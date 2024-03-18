@@ -13,6 +13,7 @@ import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.AdjustMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
+import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SStringUtils;
@@ -128,7 +129,7 @@ public class AdjustServiceImpl implements AdjustService {
             try {
                 stockCoreService.modifyStock(updVos);
             } catch (StockInsufficientException e) {
-                throw new BizErrMsgException(ErrCode.OP_ADJUST_STAGE_STOCK_NOT_ENOUGH,
+                throw new BaseException(ErrCode.OP_ADJUST_STAGE_STOCK_NOT_ENOUGH,
                         new Object[]{
                                 e.getRefName(),
                                 e.getGoodsName(),

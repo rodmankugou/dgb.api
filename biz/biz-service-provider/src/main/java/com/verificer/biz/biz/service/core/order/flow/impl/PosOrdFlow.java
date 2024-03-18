@@ -10,7 +10,7 @@ import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.entity.OrderDetail;
 import com.verificer.biz.beans.vo.order.YbOrdFormVo;
-import com.verificer.biz.biz.pospay.entity.YbOrdItemVo;
+import com.verificer.biz.beans.vo.order.YbOrdItemVo;
 import com.verificer.biz.biz.service.common.OrdCommon;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
 import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
@@ -76,5 +76,8 @@ public class PosOrdFlow  extends BaseOrdFlow  {
         return false;
     }
 
-
+    @Override
+    public boolean isCheckAmount() {
+        return false;
+    }
 }

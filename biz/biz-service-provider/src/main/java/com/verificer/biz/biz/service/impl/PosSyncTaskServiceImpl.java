@@ -4,6 +4,7 @@ import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.biz.beans.enums.*;
 import com.verificer.biz.beans.vo.order.YbOrdFormVo;
+import com.verificer.biz.beans.vo.order.YbOrdItemVo;
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.PosSyncTaskMapper;

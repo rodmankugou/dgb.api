@@ -211,7 +211,7 @@ public class ShopServiceImpl implements ShopService {
             throw new BaseException(ErrCode.POS_API_ID_ERR);
 
         if(!YinBaoClient.checkApiKey(e.getPosBaseUrl(),e.getPosAppId(),e.getPosAppSecret())){
-            throw new BizErrMsgException(ErrCode.ADD_SHOP_POS_SETTING_ERR);
+            throw new BaseException(ErrCode.ADD_SHOP_POS_SETTING_ERR);
         }
 
         try {

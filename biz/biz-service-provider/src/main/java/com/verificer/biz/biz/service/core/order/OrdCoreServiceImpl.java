@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.service.core.order;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
 import com.verificer.biz.beans.enums.OrdSta;
@@ -17,6 +18,8 @@ import com.verificer.biz.biz.service.common.OrdCommon;
 import com.verificer.biz.biz.service.common.UserCommon;
 import com.verificer.biz.biz.service.core.order.notify.IOrdListener;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
+import com.verificer.biz.biz.service.core.order.vo.OrdCalItemVo;
+import com.verificer.biz.biz.service.core.order.vo.OrdCalVo;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.biz.biz.service.common.GoodsCommon;
@@ -24,6 +27,7 @@ import com.verificer.biz.biz.service.core.order.flow.IOrderFlow;
 import com.verificer.biz.biz.service.core.order.flow.impl.PosOrdFlow;
 import com.verificer.biz.biz.service.core.order.flow.impl.SelfTakeOrderFlow;
 import com.verificer.biz.biz.service.core.order.flow.impl.StageOrdFlow;
+import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
@@ -88,6 +92,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
         o.setBuyerRemark(ofo.getBuyerRemark());
         o.setCreateTime(now);
         o.setWriteToDbTime(now);
+        o.setAmount(ofo.getAmount());
         IOrderFlow flow = getOrdFlow(o);
 
         if (ofo.getUserId() == null && !flow.canUserIdNull())
@@ -104,6 +109,9 @@ public class OrdCoreServiceImpl implements OrdCoreService {
         List<OrderDetail> details = new LinkedList<>();
 
 
+        if(flow.isCheckAmount())
+            checkAmount(o.getAmount(),details);
+
         SCheckUtil.notEmpty(ofo.getDetails(), "Details");
         for (OrdItemFormVo item : ofo.getDetails()) {
             //检查商品是否已下架
@@ -112,19 +120,19 @@ public class OrdCoreServiceImpl implements OrdCoreService {
                 throw new BizErrMsgException("商品不存在,id" + goods.getId());
 
             if (!goodsCommon.isGoodsOnSale(goods))
-                throw new BizErrMsgException(ErrCode.GOODS_NOT_IN_SALE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
+                throw new BaseException(ErrCode.GOODS_NOT_IN_SALE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
 
             Spec spec = goodsCommon.getSpecIgnoreDel(item.getSpecId());
             if (spec == null)
                 throw new BizErrMsgException("规格不存在，id=" + spec.getId());
             if (spec.getDelFlag())
-                throw new BizErrMsgException(ErrCode.GOODS_NOT_IN_SALE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
+                throw new BaseException(ErrCode.GOODS_NOT_IN_SALE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
 
             if (!spec.getPrice().equals(item.getPrice()))
-                throw new BizErrMsgException(ErrCode.CREATE_ORD_GOODS_PRICE_CHANGE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
+                throw new BaseException(ErrCode.CREATE_ORD_GOODS_PRICE_CHANGE, new Object[]{goodsCommon.getSpecFullName(item.getSpecId())});
 
             if(mapper.selectByUserIdAndStatus(ofo.getUserId(), OrdSta.WAIT_PAY.getValue()).size() > 0)
-                throw new BizErrMsgException(ErrCode.NEED_FINISH_PAY_PREV_ORDER);
+                throw new BaseException(ErrCode.NEED_FINISH_PAY_PREV_ORDER);
 
 
 
@@ -165,7 +173,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
             BigDecimal count = goodsCountMap.get(goodsId);
             if(minLimitCount.compareTo(count) > 0){
                 String mc = minLimitCount.setScale(GlobalConfig.W_PREC,BigDecimal.ROUND_UP).toPlainString();
-                throw new BizErrMsgException(ErrCode.GOODS_MIN_COUNT_LIMIT_EXCEEDED,new Object[]{goods.getName(),mc});
+                throw new BaseException(ErrCode.GOODS_MIN_COUNT_LIMIT_EXCEEDED,new Object[]{goods.getName(),mc});
             }
         }
 
@@ -186,7 +194,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
                     if(od.getCount().compareTo(restCount) > 0){
                         String lc = goods.getMaxLimitCount().setScale(GlobalConfig.W_PREC).toPlainString();
                         String rc = restCount.setScale(GlobalConfig.W_PREC).toPlainString();
-                        throw new BizErrMsgException(ErrCode.GOODS_DAYS_LIMIT_EXCEEDED,new Object[]{goods.getName(),lc,rc});
+                        throw new BaseException(ErrCode.GOODS_DAYS_LIMIT_EXCEEDED,new Object[]{goods.getName(),lc,rc});
                     }
                     todayBuyCountMap.put(goodsId,todayBuyCountMap.get(goodsId).add(od.getCount()));
                 }
@@ -209,6 +217,22 @@ public class OrdCoreServiceImpl implements OrdCoreService {
 
 
         return o.getId();
+    }
+
+    private void checkAmount(BigDecimal amount, List<OrderDetail> details) {
+        OrdCalVo calVo = new OrdCalVo();
+        List<OrdCalItemVo> itemVos = new LinkedList<>();
+        for(OrderDetail od : details){
+            OrdCalItemVo cv = new OrdCalItemVo();
+            cv.setGoodsId(od.getGoodsId());
+            cv.setSpecId(od.getSpecId());
+            cv.setCount(od.getCount());
+            itemVos.add(cv);
+        }
+        BigDecimal realAmount = ordCommon.calOrdAmount(calVo);
+        if(realAmount.compareTo(amount) != 0)
+            throw new BaseException(ErrCode.ORD_AMOUNT_ERROR);
+
     }
 
     @Override

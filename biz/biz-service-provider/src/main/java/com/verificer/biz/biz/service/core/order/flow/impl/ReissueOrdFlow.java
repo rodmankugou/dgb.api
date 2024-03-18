@@ -18,7 +18,7 @@ import java.math.BigDecimal;
  * 补货单流程
  */
 @Service
-public class SupplyOrdFlow extends BaseOrdFlow {
+public class ReissueOrdFlow extends BaseOrdFlow {
 
     @Autowired
     OrdCommon ordCommon;
@@ -51,6 +51,8 @@ public class SupplyOrdFlow extends BaseOrdFlow {
     @Override
     public void toNextStatus(OrdVo ovo,  Object formVo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
+
+
         if(OrdSta.WaitTransit.getValue() == o.getStatus()){
             if(!(formVo instanceof TransitVo))
                 throw new RuntimeException("OrdSta.WaitTransit状态下只接收TransitVo类型参数");
@@ -76,6 +78,11 @@ public class SupplyOrdFlow extends BaseOrdFlow {
 
     @Override
     public boolean canUserIdNull() {
+        return false;
+    }
+
+    @Override
+    public boolean isCheckAmount() {
         return false;
     }
 }

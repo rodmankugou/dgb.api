@@ -248,7 +248,7 @@ public class OrdCommon {
             stockCoreService.modifyStock(updList);
         } catch (StockInsufficientException e) {
             String specFullName = goodsCommon.getSpecFullName(e.getSpecId());
-            throw new BizErrMsgException(ErrCode.GOODS_STOCK_NOT_ENOUGHT,new Object[]{specFullName});
+            throw new BaseException(ErrCode.GOODS_STOCK_NOT_ENOUGHT,new Object[]{specFullName});
         }
     }
 

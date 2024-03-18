@@ -1,4 +1,4 @@
-package com.verificer.biz.biz.pospay.entity;
+package com.verificer.biz.beans.vo.order;
 
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
 

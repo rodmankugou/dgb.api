@@ -22,4 +22,9 @@ public abstract class BaseOrdFlow implements IOrderFlow {
     public Long getOrdTime(DbgOrder o) {
         return o.getCreateTime();
     }
+
+    @Override
+    public boolean isCheckAmount() {
+        return true;
+    }
 }
