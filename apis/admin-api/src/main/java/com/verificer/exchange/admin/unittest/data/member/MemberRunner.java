@@ -14,14 +14,14 @@ import java.sql.SQLException;
 public class MemberRunner {
 
     public static void run() throws SQLException {
-//        Tools.init("dbg","member/init.sql");
-//        Tools.callApi("/debug/user/creatFinishWithdraw","{}");
-//
-//
-//        ShopMemberVo vo = new ShopMemberVo();
-//        vo.setYear(2023);
-//        vo.setMonth(10);
-//        Tools.callApi("/debug/user/createShopMember2",FastJson.toJson(vo));
+        Tools.init("dbg","member/init.sql");
+        Tools.callApi("/debug/user/creatFinishWithdraw","{}");
+
+
+        ShopMemberVo vo = new ShopMemberVo();
+        vo.setYear(2022);
+        vo.setMonth(10);
+        Tools.callApi("/debug/user/createShopMember2",FastJson.toJson(vo));
 
 //          settleTransfer();
 
@@ -49,7 +49,7 @@ public class MemberRunner {
 //        Tools.callApi("/settle/item/page","{\"orderId\":\""+Tools.getTableMaxId("dbg","settle_order")+"\"}");
 //            Tools.callApi("/settle/order/page","{}");
 
-        Tools.callApi("/settle/order/detail","{\"id\":\""+Tools.getTableMaxId("dbg","settle_order")+"\"}");
+//        Tools.callApi("/settle/order/detail","{\"id\":\""+Tools.getTableMaxId("dbg","settle_order")+"\"}");
 
 
 

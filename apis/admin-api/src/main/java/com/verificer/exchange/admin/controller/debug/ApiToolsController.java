@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
@@ -69,11 +71,11 @@ public class ApiToolsController extends BaseController {
     @RequestMapping(value = "/sync", method = RequestMethod.POST)
     public Response sync(@RequestParam(required = true) String pageIndex) throws IOException {
         System.out.println(pageIndex);
-        File file =  new ClassPathResource("api.json").getFile();
-        String json = FileUtils.readFileToString(file,"utf-8");
+
+        InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
+        String json = IOUtils.toString(io,"utf-8");
 
         List<Page> pages = FastJson.parseArray(json,Page.class);
-
         Page target = null;
         for(Page page : pages){
             if(page.getName().equalsIgnoreCase(pageIndex)){

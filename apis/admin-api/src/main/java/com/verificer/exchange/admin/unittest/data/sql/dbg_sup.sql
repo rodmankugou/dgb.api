@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/18/2024 10:29:48 AM
+ Date: 03/22/2024 11:58:58 AM
 */
 
 SET NAMES utf8;
@@ -86,7 +86,7 @@ CREATE TABLE `cfg` (
 --  Records of `cfg`
 -- ----------------------------
 BEGIN;
-INSERT INTO `cfg` VALUES ('AFTER_SALE_EXPIRE_DAYS', '7'), ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS');
+INSERT INTO `cfg` VALUES ('AFTER_SALE_EXPIRE_DAYS', '7'), ('BAIDU_MAP_AK', 'PBxE0YMGel5p191KTdogE3xt0wzxK0xW'), ('BAIDU_MAP_SK', '2c2SlHhdYPSmx5PVZ5Z3Stu2ZyNVAPIc'), ('DEFAULT_USER_AVATAR', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png'), ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('INTEGRAL_PER_ORD_AMOUNT', '1'), ('SETTLE_S_MONTH', '1'), ('SETTLE_S_YEAR', '2022'), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS'), ('YB_BASE_RUL', 'https://area53-win.pospal.cn:443/');
 COMMIT;
 
 -- ----------------------------
