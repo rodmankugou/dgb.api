@@ -11,20 +11,24 @@ import com.verificer.utils.web.SecurityUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Set;
 
 
 /**
  * 登录拦截器
  */
+@Component
 public class NeedPermissionterceptor extends BaseInterceptor {
 
     private static final Log logger = LogFactory.getLog(NeedPermissionterceptor.class);
 
+    @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
@@ -55,15 +59,29 @@ public class NeedPermissionterceptor extends BaseInterceptor {
         HandlerMethod mHandler = (HandlerMethod) handler;
 
         NeedPermission needPermission = mHandler.getMethodAnnotation(NeedPermission.class);
+        if(needPermission == null)
+            return true;
 
 
-        String needAuth = needPermission.needAuth();
-        if(!SStringUtils.isEmpty(needAuth)){
+        String needAuthStr = needPermission.needAuth();
+        if(!SStringUtils.isEmpty(needAuthStr)){
             UserIdentity userIdentity = SecurityUtil.currentLogin();
             Set<String> authSet = baseAuthService.getUserAuthSet(userIdentity.getId());
-            if(!authSet.contains(needAuth)){
-                respAsJson(response,ErrCode.PERMISSION_DENIED);
+
+            boolean isPermission = false;
+            List<String> needs = SStringUtils.split(needAuthStr,"\\|\\|");
+            for(String need : needs){
+                if(SStringUtils.isEmpty(need))
+                    continue;
+                if(authSet.contains(need)){
+                    isPermission = true;
+                    break;
+                }
             }
+
+            if(!isPermission)
+                respAsJson(response,ErrCode.PERMISSION_DENIED);
+
         }
 
 

@@ -4,6 +4,7 @@ import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.AreaVo;
+import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.vo.*;
 import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
@@ -105,6 +106,13 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public ShopVo shopDetail(ShopIdVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getId(),"ID");
+        Shop shop = mapper.selectByPrimaryKey(reqVo.getId());
+        return toVo(shop);
+    }
+
+    @Override
     public int shopCount(ShopPageVo qryVo) {
         return mapper.count(qryVo);
     }
@@ -195,7 +203,7 @@ public class ShopServiceImpl implements ShopService {
     public void shopAdd(ShopFormVo formVo) {
         Shop e = new Shop();
         SBeanUtils.copyProperties2(formVo,e);
-        e.setId(UuidUtils.newUuid());
+        e.setId(BizConst.ID_PREFIX_SHOP+UuidUtils.newUuid());
         e.setLoginName(UuidUtils.newUuid());
         e.setLoginPwd(PasswordUtil.loginPassword("Dbg6688"));
         fillFields(e);

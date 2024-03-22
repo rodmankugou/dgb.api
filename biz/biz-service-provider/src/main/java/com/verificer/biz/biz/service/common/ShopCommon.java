@@ -20,4 +20,13 @@ public class ShopCommon {
             return "";
         return shop.getName();
     }
+
+    /**
+     * 获取操作员名称
+     * @return
+     */
+    public Shop getById(String shopId){
+        Shop shop = shopMapper.selectByPrimaryKey(shopId);
+        return shop;
+    }
 }

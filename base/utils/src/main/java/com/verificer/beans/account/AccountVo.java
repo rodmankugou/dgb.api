@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 public class AccountVo implements Serializable {
     private Long id;
 
-    private Long customerId;
+    private String customerId;
 
     private String subName;
 
@@ -28,11 +28,11 @@ public class AccountVo implements Serializable {
         this.id = id;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 

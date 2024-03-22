@@ -4,6 +4,7 @@ import com.mchange.v2.uid.UidUtils;
 import com.verificer.ErrCode;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.AreaVo;
+import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.vo.BrandVo;
 import com.verificer.biz.beans.vo.StageVo;
 import com.verificer.biz.beans.vo.req.StageFormVo;
@@ -128,7 +129,7 @@ public class StageServiceImpl implements StageService {
         Stage e = new Stage();
         SBeanUtils.copyProperties2(formVo,e);
         e.setCreateTime(System.currentTimeMillis());
-        e.setId(UuidUtils.newUuid());
+        e.setId(BizConst.ID_PREFIX_STAGE+UuidUtils.newUuid());
         fillFields(e);
 
 

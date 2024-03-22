@@ -2,6 +2,7 @@ package com.verificer.utils;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.core.util.datetime.FastDateFormat;
+import org.web3j.abi.datatypes.Int;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,9 @@ public class SDateUtil {
         return nanoSec/1000000;
     }
 
+    public static Long offsetDate(Long time, Integer days, Integer months, Integer years){
+        return offsetDate(new Date(time),days,months,years).getTime();
+    }
     // 偏移日期
     public static Date offsetDate(Date date, Integer days, Integer months, Integer years) {
         Calendar cal = Calendar.getInstance();
@@ -49,6 +53,9 @@ public class SDateUtil {
         return sdf.format(date);
     }
 
+    public static Integer getYear(Long time){
+        return getYear(new Date(time));
+    }
     //获取年份
     public static Integer getYear(Date date) {
         if (date == null) {
@@ -57,6 +64,20 @@ public class SDateUtil {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);// 设置起时间
         return cal.get(Calendar.YEAR);
+    }
+
+    public static Integer getMonth(Long time){
+        return getMonth(new Date(time));
+    }
+
+    //获取月份
+    public static Integer getMonth(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);// 设置起时间
+        return cal.get(Calendar.MONTH);
     }
 
     //一年的总天数
@@ -196,6 +217,17 @@ public class SDateUtil {
         }
     }
 
+    public static Long getMonthSTime(Long time){
+        return getRangeBeginTime(time,Calendar.MONTH).getTime();
+    }
+
+    public static Long getNextMonthSTime(Long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.add(Calendar.MONTH,1);
+        return getMonthSTime(calendar.getTime().getTime());
+    }
+
     /**
      * 以当天为坐标的之后的第n天
      * @param n 可以为负数
@@ -287,8 +319,14 @@ public class SDateUtil {
 //        System.out.println(getRangeBeginTime(cur + 7 * dayRange,Calendar.DAY_OF_WEEK));
 //        System.out.println(getRangeBeginTime(cur + 8 * dayRange,Calendar.DAY_OF_WEEK));
 
-        System.out.println(SDateUtil.parse("2022-06-22 00:00:00","yyyy-MM-dd HH:mm:ss").getTime());
+//        System.out.println(SDateUtil.parse("2022-06-22 00:00:00","yyyy-MM-dd HH:mm:ss").getTime());
+
+        System.out.println(SDateUtil.format(getMonthSTime(System.currentTimeMillis())));
+        System.out.println(SDateUtil.format(getNextMonthSTime(System.currentTimeMillis())));
     }
+
+
+
 
     /**
      * 解释时间，如将4s解释成4000

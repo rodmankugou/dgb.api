@@ -3,6 +3,7 @@ package com.verificer.exchange.admin.controller.debug;
 import com.verificer.biz.beans.vo.req.OrdFormVo2;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
+import com.verificer.exchange.admin.security.annotation.DebugController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "银豹")
 @RequestMapping("/yb")
 @RestController
+@DebugController
 public class YbToolsController extends BaseController {
 
     @Autowired

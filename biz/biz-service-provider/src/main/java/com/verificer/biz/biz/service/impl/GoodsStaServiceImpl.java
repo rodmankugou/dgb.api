@@ -11,8 +11,7 @@ import com.verificer.biz.biz.service.common.OrdCommon;
 import com.verificer.biz.biz.service.core.order.OrdCoreService;
 import com.verificer.biz.biz.service.core.order.notify.IOrdListener;
 import com.verificer.biz.biz.service.core.order.notify.events.OrdEvent;
-import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
-import com.verificer.biz.biz.service.core.order.notify.events.OrdSelfTakeRefundEvent;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdSucFinishEvent;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.biz.biz.service.core.stock.entity.StockIdVo;
 import com.verificer.biz.biz.service.core.stock.notify.events.IStockListener;
@@ -81,11 +80,8 @@ public class GoodsStaServiceImpl implements GoodsStaService {
     }
 
     private void handleOrdEvent(OrdEvent event){
-        if(event instanceof OrdReceivedEvent){
-            OrdReceivedEvent re = (OrdReceivedEvent) event;
-            updateSaleCount(true,re.getOrdId());
-        }else if(event instanceof OrdSelfTakeRefundEvent){
-            OrdSelfTakeRefundEvent re = (OrdSelfTakeRefundEvent) event;
+        if(event instanceof OrdSucFinishEvent){
+            OrdSucFinishEvent re = (OrdSucFinishEvent) event;
             updateSaleCount(false,re.getOrdId());
         }
     }

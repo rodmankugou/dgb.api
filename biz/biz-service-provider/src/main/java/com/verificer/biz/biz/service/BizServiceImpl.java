@@ -1,12 +1,38 @@
 package com.verificer.biz.biz.service;
 
-import com.amazonaws.services.dynamodbv2.xspec.L;
+import com.verificer.beans.IdVo;
+import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.pay.PayReqVo;
+import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.member.MemberTypeVo;
+import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
+import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
+import com.verificer.biz.beans.vo.settle.SettleItemVo;
+import com.verificer.biz.beans.vo.settle.SettleOrdVo;
+import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.user.RefereeVo;
+import com.verificer.biz.beans.vo.user.ReferrerStaVo;
+import com.verificer.biz.beans.vo.user.UserWithdrawVo;
+import com.verificer.biz.beans.vo.user.member.MemberPageVo;
+import com.verificer.biz.beans.vo.user.member.MemberRankVo;
+import com.verificer.biz.beans.vo.user.member.MemberStaVo;
+import com.verificer.biz.beans.vo.user.member.MemberVo;
+import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.UserVo;
+import com.verificer.biz.beans.vo.user.req.RefereeListReqVo;
+import com.verificer.biz.beans.vo.user.req.RefereeStaReqVo;
+import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
+import com.verificer.biz.beans.vo.user.withdraw.*;
 import com.verificer.biz.biz.service.core.order.OrdCoreService;
-import com.verificer.biz.biz.service.core.order.OrdCoreServiceImpl;
+import com.verificer.biz.biz.service.core.user.*;
+import com.verificer.biz.biz.service.settle.PlaIncomeLogService;
+import com.verificer.biz.biz.service.settle.SettleItemService;
+import com.verificer.biz.biz.service.settle.SettleOrdService;
+import com.verificer.biz.biz.service.settle.SettleService;
 import com.verificer.dubbo.BaseDubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +73,36 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     OrdCoreService ordCoreService;
+
+    @Autowired
+    UserCoreService userCoreService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    MemberTypeService memberTypeService;
+
+    @Autowired
+    MemberOrderService memberOrderService;
+
+    @Autowired
+    ReferrerWithdrawService referrerWithdrawService;
+
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    SettleService settleService;
+
+    @Autowired
+    PlaIncomeLogService plaIncomeLogService;
+
+    @Autowired
+    SettleOrdService settleOrdService;
+
+    @Autowired
+    SettleItemService settleItemService;
 
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
@@ -184,6 +240,11 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
+    public ShopVo shopDetail(ShopIdVo reqVo) {
+        return shopService.shopDetail(reqVo);
+    }
+
+    @Override
     public int shopCount(ShopPageVo qryVo) {
         return shopService.shopCount(qryVo);
     }
@@ -274,5 +335,177 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public Long orderCreate(OrdFormVo fvo) {
         return ordCoreService.create(fvo);
+    }
+
+    @Override
+    public List<UserVo> userPage(UserPageVo qryVo) {
+        return userService.userPage(qryVo);
+    }
+
+    @Override
+    public int userCount(UserPageVo qryVo) {
+        return userService.userCount(qryVo);
+    }
+
+    @Override
+    public void userSetReferrer(UserSetRefVo reqVo) {
+        userCoreService.userSetReferrer(reqVo);
+    }
+
+    @Override
+    public UserVo userDetail(IdVo idVo) {
+        return userService.userDetail(idVo);
+    }
+
+    @Override
+    public List<MemberTypeVo> memberTypeList() {
+
+        return memberTypeService.memberTypeList();
+    }
+
+    @Override
+    public PayReqVo memberCharge(MemberChargeVo reqVo) {
+
+        return memberOrderService.memberCharge(reqVo);
+    }
+
+    @Override
+    public Long wxLogin(WxLoginReqVo reqVo) {
+        return userCoreService.wxLogin(reqVo);
+    }
+
+    @Override
+    public void userBindMobile(BindMobileVo reqVo) {
+        userCoreService.userBindMobile(reqVo);
+    }
+
+    @Override
+    public void memberOnPaySuc(PaySucVo paySucVo) {
+        memberOrderService.onPaySuc(paySucVo);
+    }
+
+    @Override
+    public List<RefereeVo> userRefereeList(RefereeListReqVo reqVo) {
+        return userService.userRefereeList(reqVo);
+    }
+
+    @Override
+    public int userRefereeCount(RefereeListReqVo reqVo) {
+        return userService.userRefereeCount(reqVo);
+    }
+
+    @Override
+    public ReferrerStaVo userRefereeSta(RefereeStaReqVo reqVo) {
+        return userService.userRefereeSta(reqVo);
+    }
+
+    @Override
+    public List<UserWithdrawVo> userWithdrawPage(ReferrerWithdrawPageReqVo reqVo) {
+        return userService.referrerWithdrawPage(reqVo);
+    }
+
+    @Override
+    public int userWithdrawCount(ReferrerWithdrawPageReqVo reqVo) {
+        return userService.referrerWithdrawCount(reqVo);
+    }
+
+    @Override
+    public long referrerWithdrawApply(ReferrerFormVo reqVo) {
+        return referrerWithdrawService.referrerWithdrawApply(reqVo);
+    }
+
+    @Override
+    public void referrerWithdrawReview(ReferrerReviewVo reqVo) {
+        referrerWithdrawService.referrerWithdrawReview(reqVo);
+    }
+
+    @Override
+    public void referrerWithdrawTransfer(ReferrerTransferVo reqVo) {
+        referrerWithdrawService.referrerWithdrawTransfer(reqVo);
+    }
+
+    @Override
+    public List<ReferrerWithdrawVo> referrerWithdrawPage(ReferrerWithdrawPageVo qryVo) {
+        return referrerWithdrawService.referrerWithdrawPage(qryVo);
+    }
+
+    @Override
+    public int referrerWithdrawCount(ReferrerWithdrawPageVo qryVo) {
+        return referrerWithdrawService.referrerWithdrawCount(qryVo);
+    }
+
+    @Override
+    public MemberStaVo memberSta() {
+        return memberService.memberSta();
+    }
+
+    @Override
+    public List<MemberRankVo> memberRank() {
+        return memberService.memberRank();
+    }
+
+    @Override
+    public List<MemberVo> memberPage(MemberPageVo reqVo) {
+        return memberService.memberPage(reqVo);
+    }
+
+    @Override
+    public int memberCount(MemberPageVo reqVo) {
+        return memberService.memberCount(reqVo);
+    }
+
+    @Override
+    public int clearExpireMember() {
+        return userCoreService.clearExpireMember();
+    }
+
+    @Override
+    public MemberStaVo settleSta(SettleStaQryVo reqVo) {
+        return settleService.settleSta(reqVo);
+    }
+
+    @Override
+    public List<PlaIncomeLogVo> plaIncomeLogPage(PlaIncomeLogQryVo reqVo) {
+        return plaIncomeLogService.plaIncomeLogPage(reqVo);
+    }
+
+    @Override
+    public int plaIncomeLogCount(PlaIncomeLogQryVo reqVo) {
+        return plaIncomeLogService.plaIncomeLogCount(reqVo);
+    }
+
+    @Override
+    public List<SettleOrdVo> settleOrdPage(SettleOrdQryVo reqVo) {
+        return settleOrdService.settleOrdPage(reqVo);
+    }
+
+    @Override
+    public int settleOrdCount(SettleOrdQryVo reqVo) {
+        return settleOrdService.settleOrdCount(reqVo);
+    }
+
+    @Override
+    public void settleOrdTransfer(SettleTransferVo reqVo) {
+        settleOrdService.settleOrdTransfer(reqVo);
+    }
+
+    @Override
+    public List<SettleItemVo> settleItemPage(SettleItemQryVo reqVo) {
+        return settleItemService.settleItemPage(reqVo);
+    }
+
+    @Override
+    public int settleItemCount(SettleItemQryVo reqVo) {
+        return settleItemService.settleItemCount(reqVo);
+    }
+
+    @Override
+    public Long trySettle() {
+        return settleOrdService.trySettle();
+    }
+
+    @Override
+    public int settle(Long ordId) {
+        return settleOrdService.settle(ordId);
     }
 }

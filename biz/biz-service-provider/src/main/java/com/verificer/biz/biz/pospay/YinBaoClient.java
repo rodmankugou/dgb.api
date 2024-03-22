@@ -29,6 +29,7 @@ public class YinBaoClient {
     static String QRY_ORDER = "pospal-api2/openapi/v1/ticketOpenApi/queryTicketPages";
 
     static String MEMBER_ADD = "pospal-api2/openapi/v1/customerOpenApi/add";
+    static String MEMBER_UPD = "pospal-api2/openapi/v1/customerOpenApi/updateBaseInfo";
 
 //    static {
 //        try {
@@ -317,6 +318,22 @@ public class YinBaoClient {
         System.out.println(data);
         YbMember m = FastJson.fromJson(data,YbMember.class);
         return m;
+    }
+
+    public static void updMember(String baseUrl, String appId, String appSecret, UpdMemberReq req) throws YinBaoApiException {
+        Map<String,Object> rp = new HashMap<>();
+        Map<String,Object> customerInfo = new HashMap<>();
+        rp.put("appId",appId);
+        rp.put("customerInfo",customerInfo);
+
+        customerInfo.put("customerUid",req.getPosMemberId());
+        customerInfo.put("expiryDate",SDateUtil.format(req.getExpiryTime(),SDateUtil.FM_yyyy_MM_dd_HH_mm_ss));
+
+        YinBaoResp resp = post(baseUrl,appId,appSecret,MEMBER_UPD,rp);
+        if(!resp.isSuc())
+            throw new YinBaoApiException(resp.getStatus(),resp.getMessages());
+        String data = resp.getData();
+        System.out.println(data);
     }
 
     public static void delAllGoods(String baseUrl, String appId, String appSecret) throws YinBaoApiException {

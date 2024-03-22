@@ -1,6 +1,7 @@
 package com.verificer.biz.biz.service.core.order.flow.impl;
 
 
+import com.verificer.beans.account.AccountVo;
 import com.verificer.biz.beans.enums.OpEntry;
 import com.verificer.biz.beans.enums.OrdOpType;
 import com.verificer.biz.beans.enums.OrdSta;
@@ -13,7 +14,6 @@ import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.order.YbOrdItemVo;
 import com.verificer.biz.biz.service.common.OrdCommon;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
-import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,14 +50,15 @@ public class PosOrdFlow  extends BaseOrdFlow  {
             }
         }
 
+        ordCommon.addUserIntegralIfNeed(o);
     }
 
     @Override
     public void afterCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
         ordCommon.writeLog(o, OrdOpType.Create_Order.getValue(), OpEntry.Pos.getValue(), o.getRelId(),null,o.getCreateTime());
-        ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"Pos机收款后剪库存");
-        notifier.triggerAll(new OrdReceivedEvent(o.getId()));
+        ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"Pos机收款后减库存");
+        notifier.triggerAll(ordCommon.genSucFinishEvent(o.getId()));
     }
 
     @Override

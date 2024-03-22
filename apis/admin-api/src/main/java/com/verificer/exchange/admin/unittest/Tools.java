@@ -26,7 +26,7 @@ public class Tools {
     }
 
     public static String getToken(){
-        return "3fade4c7327c46eb81c40743622280c1p82rB540oHzOI648Km7412m5W1kvswvj-1710253913760";
+        return "9135ce68223041d8bac35fc095f0fbe8v21i7k6Yp6S9S89kN7fr3W4B93XamcrT-1711044045199";
     }
 
     public static TResp callApi(String url,String json){
@@ -107,7 +107,7 @@ public class Tools {
 
     }
 
-    public static Long getTableNextId(String dbName,String tableName) throws SQLException {
+    public static Long getTableMaxId(String dbName, String tableName) throws SQLException {
         Connection conn = C3p0Tools.getInstance(dbName).getConnection();
         String sql = "select max(id) as mid from "+tableName;
 

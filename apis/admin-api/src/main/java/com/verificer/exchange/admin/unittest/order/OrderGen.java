@@ -140,7 +140,7 @@ public class OrderGen {
 
     }
 
-    private static String getUserId() throws SQLException {
+    private static Long getUserId() throws SQLException {
         Connection conn = C3p0Tools.getInstance().getConnection();
         String sql = "select * from user ";
 
@@ -152,7 +152,7 @@ public class OrderGen {
 
             rs = stm.executeQuery();
             if (rs.next()){
-                return rs.getString("id");
+                return rs.getLong("id");
             }
             throw new RuntimeException("stage表没有数据");
         }finally {

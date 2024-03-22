@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.service;
 
+import com.verificer.biz.beans.vo.ShopIdVo;
 import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Shop;
@@ -21,6 +22,9 @@ public interface ShopService {
      * @return
      */
     List<ShopVo> shopPage(ShopPageVo qryVo);
+
+    ShopVo shopDetail(ShopIdVo reqVo);
+
 
     /**
      * 统计符合条件的店铺数

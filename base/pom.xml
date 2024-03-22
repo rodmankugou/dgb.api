@@ -20,6 +20,7 @@
         <module>base-auth-service</module>
         <module>base-sup-interface</module>
         <module>base-sup-service</module>
+        <module>base-account-service</module>
 
     </modules>
 

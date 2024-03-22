@@ -30,6 +30,13 @@ public interface BaseSupService {
     String getCfg(String code);
 
     /**
+     * 修改配置
+     * @param code
+     * @param val
+     */
+    void updCfg(String code, String val);
+
+    /**
      * 获取加密的配置
      * @param code
      * @return 返回解密后的配置值
@@ -72,4 +79,5 @@ public interface BaseSupService {
     AdvertVo advertDetail(IdVo idVo);
 
     AdminBannerVo bannerDetail(IdVo idVo);
+
 }

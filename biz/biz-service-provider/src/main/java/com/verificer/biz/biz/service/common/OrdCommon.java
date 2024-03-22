@@ -2,10 +2,13 @@ package com.verificer.biz.biz.service.common;
 
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
-import com.verificer.biz.beans.enums.AfterSaleSta;
-import com.verificer.biz.beans.enums.OpEntry;
-import com.verificer.biz.beans.enums.OrdOpType;
-import com.verificer.biz.beans.enums.OrdSta;
+import com.verificer.account.itf.AccOpType;
+import com.verificer.account.itf.BaseAccountService;
+import com.verificer.base.sup.itf.BaseSupService;
+import com.verificer.base.sup.itf.CfgCodes;
+import com.verificer.beans.account.AccountVo;
+import com.verificer.biz.beans.constants.BizConst;
+import com.verificer.biz.beans.enums.*;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.order.ConfirmReceiveVo;
 import com.verificer.biz.beans.vo.order.EvaluateVo;
@@ -16,7 +19,8 @@ import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.DbgOrderMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
-import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdEvent;
+import com.verificer.biz.biz.service.core.order.notify.events.OrdSucFinishEvent;
 import com.verificer.biz.biz.service.core.order.vo.*;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BaseException;
@@ -64,6 +68,12 @@ public class OrdCommon {
 
     @Autowired
     StockCoreService stockCoreService;
+
+    @Autowired
+    BaseAccountService baseAccountService;
+
+    @Autowired
+    BaseSupService baseSupService;
 
 
 
@@ -142,7 +152,7 @@ public class OrdCommon {
     public void writeLog(DbgOrder o,Integer opType,Integer opEntry,String oprId,String oprName,Long time){
         if(oprName == null){
             if(OpEntry.System.getValue() == opEntry){
-                oprName = "系统";
+                oprName = BizConst.OPR_SYSTEM;
             } else if(OpEntry.App.getValue() == opEntry){
                 oprName = userCommon.getNickName(oprId);
             } else if(OpEntry.Merchant.getValue() == opEntry){
@@ -179,8 +189,8 @@ public class OrdCommon {
         writeLog( o,
                 evaluateVo.isUserFlag() ? OrdOpType.User_Evaluate.getValue() : OrdOpType.Auto_Evaluate.getValue(),
                 evaluateVo.isUserFlag() ? OpEntry.App.getValue() : OpEntry.System.getValue(),
-                evaluateVo.isUserFlag() ?  o.getUserId() : null,
-                null,
+                evaluateVo.isUserFlag() ? userCommon.getUid(o.getUserId()) : null,
+                evaluateVo.isUserFlag() ? userCommon.getNickName(o.getUserId()) : BizConst.OPR_SYSTEM,
                 System.currentTimeMillis());
     }
 
@@ -190,10 +200,10 @@ public class OrdCommon {
         writeLog( o,
                 receiveVo.isUserFlag() ? OrdOpType.User_Confirm_Deliver.getValue() : OrdOpType.Courier_Deliver.getValue(),
                 receiveVo.isUserFlag() ? OpEntry.App.getValue() : OpEntry.System.getValue(),
-                receiveVo.isUserFlag() ? o.getUserId() : null,
-                null,
+                receiveVo.isUserFlag() ? userCommon.getUid(o.getUserId()) : null,
+                receiveVo.isUserFlag() ? userCommon.getNickName(o.getUserId()) : BizConst.OPR_SYSTEM,
                 System.currentTimeMillis());
-        notifier.triggerAll(new OrdReceivedEvent(o.getId()));
+        notifier.triggerAll(genSucFinishEvent(o.getId()));
 
     }
 
@@ -262,5 +272,30 @@ public class OrdCommon {
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
         return order;
+    }
+
+    public OrdEvent genSucFinishEvent(Long id) {
+        DbgOrder o = mapper.selectByPrimaryKey(id);
+        return new OrdSucFinishEvent(id,o.getAmount(),o.getUserId());
+    }
+
+    public void addUserIntegralIfNeed(DbgOrder o) {
+        if(o.getUserId() == null)
+            return;
+
+        User u = userCommon.getById(o.getUserId());
+        if(!u.getMemberFlag())
+            return;
+
+        String integralPerAmountCfg = baseSupService.getCfg(CfgCodes.INTEGRAL_PER_ORD_AMOUNT);
+        BigDecimal integralPerAmount = new BigDecimal(integralPerAmountCfg);
+
+        userCommon.updIntegral(u,
+                true,
+                AccOpType.INTEGRAL_ADD_BY_ORD_SUC.getValue(),
+                o.getId(),
+                integralPerAmount.multiply(o.getAmount()),
+                "订单完成后加用户积分"
+                );
     }
 }

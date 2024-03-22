@@ -8,10 +8,13 @@ import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.enums.ClientEnum;
+import com.verificer.exchange.admin.entity.Staff;
+import com.verificer.exchange.admin.service.StaffService;
 import com.verificer.security.login.ILoginMonitor;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.ThreadLocalUtil;
 import com.verificer.utils.web.SecurityUtil;
+import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,9 @@ public class BaseController {
 
     @Autowired
     ILoginMonitor myLoginMonitor;
+
+    @Autowired
+    StaffService _staffService;
 
 
     @Value("#{configProperties['HOST']}")
@@ -62,8 +68,32 @@ public class BaseController {
     }
 
 
-    public String getIp(){
-        return "";
+    private static boolean checkIP(String ip) {
+        if (ip == null || ip.length() == 0 || "unkown".equalsIgnoreCase(ip)
+                || ip.split("\\.").length != 4) {
+            return false;
+        }
+        return true;
+    }
+
+    public static String getIP(HttpServletRequest request) {
+        String ip = request.getHeader("x-real-ip");
+        if (!checkIP(ip)) {
+            ip = request.getHeader("X-Real-Ip");
+        }if (!checkIP(ip)) {
+            ip = request.getHeader("x-forwarded-for");
+        }if (!checkIP(ip)) {
+            ip = request.getHeader("X-Forwarded-For");
+        }if (!checkIP(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (!checkIP(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (!checkIP(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 
 
@@ -131,5 +161,11 @@ public class BaseController {
      */
     public String getClient(){
         return ClientEnum.WEB.getName();
+    }
+
+    public  Staff getCurLoginStaff(HttpServletRequest hReq){
+        Long id = UserIdentityUtils.getUserIdentity(hReq).getId();
+        Staff staff = _staffService.getById(id);
+        return staff;
     }
 }

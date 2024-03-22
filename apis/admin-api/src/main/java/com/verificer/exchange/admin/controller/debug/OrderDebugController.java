@@ -19,6 +19,7 @@ import com.verificer.biz.beans.vo.req.adjust.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.exchange.admin.controller.BaseController;
+import com.verificer.exchange.admin.security.annotation.DebugController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.utils.RandomUtils;
 import com.verificer.utils.SBeanUtils;
@@ -41,7 +42,8 @@ import java.util.List;
 @Api(tags = "订单Debug")
 @RequestMapping("/debug/order")
 @RestController
-public class OrderDebugController extends BaseController{
+@DebugController
+public class OrderDebugController extends BaseDebugController{
 
     @Autowired
     BizService bizService;
@@ -106,19 +108,10 @@ public class OrderDebugController extends BaseController{
 
     }
 
-    private String getStageId(){
-        return "6f22c403ffa94c9da21cce5b715c3cfe";
-    }
 
-    private String getShopId(){
-        return "d000e3c443794213a92d61a9c6f6f6fe";
-    }
 
-    private String  getUserId(){
-        return "1";
-    }
 
-    private Long getAddrId(String userId){
+    private Long getAddrId(Long userId){
         return 1L;
     }
 

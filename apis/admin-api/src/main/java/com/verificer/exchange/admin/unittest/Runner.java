@@ -1,12 +1,9 @@
 package com.verificer.exchange.admin.unittest;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.verificer.exchange.admin.unittest.data.possync.PosSyncTester;
-import com.verificer.exchange.admin.unittest.order.OrderGen;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SStringUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +71,7 @@ public class Runner {
     }
 
     public static void runDir(String dirPath,String[] fileNames,String dbName) throws SQLException {
-        Long nextId = Tools.getTableNextId(dbName,dirPath);
+        Long nextId = Tools.getTableMaxId(dbName,dirPath);
         String origDirPath = dirPath;
         dirPath = Tools.TEST_DATA_PATH + dirPath;
         File dir = new File(dirPath);
@@ -131,7 +128,7 @@ public class Runner {
         s = s.replaceAll("@6", SStringUtils.generateRandomNumSequence(6));
 
         if(!SStringUtils.isAnyEmpty(dbName,tableName) && s.contains("@mid")){
-            Long nextId = Tools.getTableNextId(dbName,tableName);
+            Long nextId = Tools.getTableMaxId(dbName,tableName);
             s = s.replaceAll("@mid",nextId.toString());
         }
 

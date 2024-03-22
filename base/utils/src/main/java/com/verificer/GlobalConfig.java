@@ -24,6 +24,8 @@ public class GlobalConfig {
      */
     public static final int W_PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "weight_precision"));
 
+    public static final int PERCENT_PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "percent_precision"));
+
     public static String AES_SEED = null;
 
 

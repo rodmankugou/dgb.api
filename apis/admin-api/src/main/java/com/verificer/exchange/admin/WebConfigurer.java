@@ -1,7 +1,9 @@
 package com.verificer.exchange.admin;
 
 import com.verificer.exchange.admin.security.filter.XSSFilter;
+import com.verificer.exchange.admin.security.interceptor.DebugInterceptor;
 import com.verificer.exchange.admin.security.interceptor.NeedLoginInterceptor;
+import com.verificer.exchange.admin.security.interceptor.NeedPermissionterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,12 @@ public class WebConfigurer implements WebMvcConfigurer {
     @Autowired
     NeedLoginInterceptor needLoginInterceptor;
 
+    @Autowired
+    DebugInterceptor debugInterceptor;
+
+    @Autowired
+    NeedPermissionterceptor needPermissionterceptor;
+
 
 
     @Override
@@ -32,7 +40,21 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/**/webjars/springfox-swagger-ui/**",
                         "/swagger-resources/**",
                         "/webjars/springfox-swagger-ui/**");
+
+        registry.addInterceptor(needPermissionterceptor).addPathPatterns("/**")
+                .excludePathPatterns("/login","/**.html",
+                        "/**/webjars/springfox-swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/webjars/springfox-swagger-ui/**");
+
+        registry.addInterceptor(debugInterceptor).addPathPatterns("/**")
+                .excludePathPatterns("/**.html",
+                        "/**/webjars/springfox-swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/webjars/springfox-swagger-ui/**");
     }
+
+
 
 
 //    @Bean //将方法中返回的对象注入到IOC容器中

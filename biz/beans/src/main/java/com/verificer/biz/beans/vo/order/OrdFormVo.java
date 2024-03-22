@@ -10,7 +10,7 @@ import java.util.List;
 
 @ApiModel
 public class OrdFormVo implements Serializable {
-    private String userId;
+    private Long userId;
 
 
     @ApiModelProperty("1-线下订单 2-自提订单 3-平台配送订单")
@@ -103,12 +103,11 @@ public class OrdFormVo implements Serializable {
         this.addrId = addrId;
     }
 
-
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

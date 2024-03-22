@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModel;
 public class OrdFormVo2 extends OrdFormVo {
 
 
-    private String userId;
+    private Long userId;
 
     private Integer status;
 
@@ -22,11 +22,13 @@ public class OrdFormVo2 extends OrdFormVo {
     private String takeCode;
 
 
-    public String getUserId() {
+    @Override
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    @Override
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

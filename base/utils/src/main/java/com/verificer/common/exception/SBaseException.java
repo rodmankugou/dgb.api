@@ -1,10 +1,16 @@
 package com.verificer.common.exception;
 
-public class SBaseException extends Exception{
+public class SBaseException extends RuntimeException{
     private Object[] errParams;
     private String errCode;
 
     public SBaseException(String errCode, Object[] errParams) {
+        this.errCode = errCode;
+        this.errParams = errParams;
+    }
+
+    public SBaseException(String errCode, Object[] errParams,String errMsg) {
+        super(errMsg);
         this.errCode = errCode;
         this.errParams = errParams;
     }

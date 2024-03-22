@@ -44,6 +44,11 @@ public class BaseSupServiceImpl extends BaseDubboService implements BaseSupServi
     }
 
     @Override
+    public void updCfg(String code, String val) {
+        cfgService.updCfg(code,val);
+    }
+
+    @Override
     public String getAesEncryptCfg(String code) {
         return cfgService.getAesEncryptCfg(code);
     }

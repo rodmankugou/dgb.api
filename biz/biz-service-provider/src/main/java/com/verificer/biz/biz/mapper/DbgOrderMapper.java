@@ -62,10 +62,12 @@ public interface DbgOrderMapper {
 
     DbgOrder selectByRelIdAndTakeCodeAndStatus(@Param("relId") String relId,@Param("takeCode") String takeCode,@Param("status") Integer status);
 
-    List<DbgOrder> selectByUserIdAndStatus(@Param("userId") String userId,
+    List<DbgOrder> selectByUserIdAndStatus(@Param("userId") Long userId,
                                                 @Param("status") Integer status);
 
-    List<DbgOrder> selectTodayUserOrders(@Param("userId") String userId,@Param("sTime") Long sTime,@Param("eTime") Long eTime);
+    List<DbgOrder> selectTodayUserOrders(@Param("userId") Long userId,@Param("sTime") Long sTime,@Param("eTime") Long eTime);
 
     DbgOrder getAndLock(@Param("id") Long id);
+
+    DbgOrder selectByOrderNum(@Param("orderNum") String orderNum);
 }

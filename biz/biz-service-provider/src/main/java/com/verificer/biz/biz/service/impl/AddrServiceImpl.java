@@ -16,7 +16,7 @@ public class AddrServiceImpl implements AddrService {
     AddrMapper mapper;
 
     @Override
-    public Addr getById(Long addrId, String userId) {
+    public Addr getById(Long addrId, Long userId) {
 
         Addr addr = mapper.selectByPrimaryKey(addrId);
         if(addr == null)

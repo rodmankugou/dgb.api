@@ -1,5 +1,7 @@
 package com.verificer.exchange.admin.controller.shop;
 
+import com.verificer.beans.IdVo;
+import com.verificer.biz.beans.vo.ShopIdVo;
 import com.verificer.biz.beans.vo.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.service.BizService;
@@ -57,6 +59,25 @@ public class ShopController extends BaseController{
         List<ShopVo> list = bizService.shopPage(qryVo);
         int count = bizService.shopCount(qryVo);
         return Response.listSuccess(count,list);
+    }
+
+
+
+
+    @ApiOperation(
+            value = "详情",
+            response = ShopVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public Response detail(@RequestBody ShopIdVo reqVo) {
+        ShopVo vo = bizService.shopDetail(reqVo);
+        return Response.dataSuccess(vo);
     }
 
 

@@ -1,12 +1,15 @@
 package com.verificer.base.sup.pvd.service.impl;
 
 import com.amazonaws.partitions.PartitionRegionImpl;
+import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
 import com.verificer.base.sup.pvd.entity.Cfg;
 import com.verificer.base.sup.pvd.mapper.CfgMapper;
 import com.verificer.base.sup.pvd.service.CfgService;
+import com.verificer.common.exception.BaseException;
 import com.verificer.utils.AESUtils;
 import com.verificer.utils.ThreadUtils;
+import com.verificer.utils.check.SCheckUtil;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,5 +93,17 @@ public class CfgServiceImpl implements CfgService {
         } catch (Exception e) {
             throw new RuntimeException("解密失败："+e.getMessage(),e);
         }
+    }
+
+    @Override
+    public void updCfg(String code, String val) {
+        SCheckUtil.notEmpty(code,"Code");
+        Cfg cfg = mapper.selectByPrimaryKey(code);
+        if(cfg == null)
+            throw new BaseException(ErrCode.RECORD_NOT_EXIST);
+
+        cfg.setVal(val);
+        mapper.updateByPrimaryKeySelective(cfg);
+        refresh();
     }
 }

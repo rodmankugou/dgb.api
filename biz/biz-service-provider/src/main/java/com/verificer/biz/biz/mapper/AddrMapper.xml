@@ -8,7 +8,7 @@
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="detail_addr" jdbcType="VARCHAR" property="detailAddr" />
     <result column="longitude" jdbcType="DECIMAL" property="longitude" />
     <result column="latitude" jdbcType="DECIMAL" property="latitude" />
@@ -54,7 +54,7 @@
       longitude, latitude, tag, 
       mobile, rc_name, create_time
       )
-    values (#{addr,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{detailAddr,jdbcType=VARCHAR}, 
+    values (#{addr,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{detailAddr,jdbcType=VARCHAR}, 
       #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, #{tag,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{rcName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
       )
@@ -102,7 +102,7 @@
         #{addr,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="detailAddr != null">
         #{detailAddr,jdbcType=VARCHAR},
@@ -138,7 +138,7 @@
         addr = #{addr,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="detailAddr != null">
         detail_addr = #{detailAddr,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
     -->
     update addr
     set addr = #{addr,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
       detail_addr = #{detailAddr,jdbcType=VARCHAR},
       longitude = #{longitude,jdbcType=DECIMAL},
       latitude = #{latitude,jdbcType=DECIMAL},

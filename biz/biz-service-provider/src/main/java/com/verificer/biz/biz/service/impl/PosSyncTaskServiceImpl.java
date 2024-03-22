@@ -2,6 +2,7 @@ package com.verificer.biz.biz.service.impl;
 
 import com.verificer.GlobalConfig;
 import com.verificer.base.sup.itf.BaseSupService;
+import com.verificer.base.sup.itf.CfgCodes;
 import com.verificer.biz.beans.enums.*;
 import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.order.YbOrdItemVo;
@@ -10,11 +11,10 @@ import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.mapper.PosSyncTaskMapper;
 import com.verificer.biz.biz.pospay.YinBaoClient;
 import com.verificer.biz.biz.pospay.entity.*;
-import com.verificer.biz.biz.pospay.entity.req.AddGoodsReq;
-import com.verificer.biz.biz.pospay.entity.req.QryOrderReq;
-import com.verificer.biz.biz.pospay.entity.req.UpdGoodsReq;
+import com.verificer.biz.biz.pospay.entity.req.*;
 import com.verificer.biz.biz.service.*;
 import com.verificer.biz.biz.service.core.order.OrdCoreService;
+import com.verificer.biz.biz.service.core.user.UserCoreService;
 import com.verificer.utils.AESUtils;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SDateUtil;
@@ -45,7 +45,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
     PointerService pointerService;
 
     @Autowired
-    UserService userService;
+    UserCoreService userCoreService;
 
     @Autowired
     ShopGoodsService shopGoodsService;
@@ -55,6 +55,8 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
 
     @Autowired
     OrdCoreService ordCoreService;
+
+    @Autowired
 
 
 
@@ -100,6 +102,21 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
                 YbGoods goods = YinBaoClient.goodsAdd(shop.getPosBaseUrl(),shop.getPosAppId(),apiSecret,req);
                 shopGoodsService.bindPosGoodsId(shop.getId(),task.getRelId(),goods.getUid());
                 task.setStatus(PosSyncTaskStatus.SUC.getValue());
+            }else if(PosSyncTaskType.MEMBER_ADD.getValue() == task.getType()){
+                AddMemberReq req = FastJson.fromJson(task.getReqData(),AddMemberReq.class);
+                YbMember member = YinBaoClient.addMember(
+                        baseSupService.getCfg(CfgCodes.YB_BASE_RUL),
+                        baseSupService.getCfg(CfgCodes.YB_APP_ID),
+                        baseSupService.getAesEncryptCfg(CfgCodes.YB_APP_SECRET),
+                        req);
+                userCoreService.bindPosMemberId(task.getRelId(),member.getCustomerId());
+            }else if(PosSyncTaskType.MEMBER_UPD.getValue() == task.getType()){
+                UpdMemberReq req = FastJson.fromJson(task.getReqData(),UpdMemberReq.class);
+                YinBaoClient.updMember(
+                        baseSupService.getCfg(CfgCodes.YB_BASE_RUL),
+                        baseSupService.getCfg(CfgCodes.YB_APP_ID),
+                        baseSupService.getAesEncryptCfg(CfgCodes.YB_APP_SECRET),
+                        req);
             }
             mapper.updateByPrimaryKey(task);
             return 1;
@@ -138,7 +155,7 @@ public class PosSyncTaskServiceImpl implements PosSyncTaskService {
     private void synPosOrder(Shop shop, YbOrder order) {
 
         //TODO 添加订单排重逻辑，防止重复写入Pos订单
-        User user = userService.selectByPosMemberId(order.getCustomerUid());
+        User user = userCoreService.selectByPosMemberId(order.getCustomerUid());
 
 
         YbOrdFormVo of = new YbOrdFormVo();

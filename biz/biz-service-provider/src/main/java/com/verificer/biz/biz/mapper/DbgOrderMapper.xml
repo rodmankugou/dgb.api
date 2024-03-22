@@ -18,7 +18,7 @@
     <result column="real_amount" jdbcType="DECIMAL" property="realAmount" />
     <result column="pay_type" jdbcType="INTEGER" property="payType" />
     <result column="pay_id" jdbcType="BIGINT" property="payId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="transit_type" jdbcType="TINYINT" property="transitType" />
     <result column="transit_way_code" jdbcType="VARCHAR" property="transitWayCode" />
@@ -107,7 +107,7 @@
     values (#{status,jdbcType=TINYINT}, #{rootOrderId,jdbcType=BIGINT}, #{origOrderId,jdbcType=BIGINT}, 
       #{orderType,jdbcType=TINYINT}, #{relType,jdbcType=TINYINT}, #{relId,jdbcType=VARCHAR}, 
       #{refName,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{realAmount,jdbcType=DECIMAL}, 
-      #{payType,jdbcType=INTEGER}, #{payId,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=INTEGER}, #{payId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
       #{userName,jdbcType=VARCHAR}, #{transitType,jdbcType=TINYINT}, #{transitWayCode,jdbcType=VARCHAR}, 
       #{rcName,jdbcType=VARCHAR}, #{rcMobile,jdbcType=VARCHAR}, #{rcAddr,jdbcType=VARCHAR}, 
       #{rcAddrDetail,jdbcType=VARCHAR}, #{rcLongitude,jdbcType=DECIMAL}, #{rcLatitude,jdbcType=DECIMAL}, 
@@ -292,7 +292,7 @@
         #{payId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -427,7 +427,7 @@
         pay_id = #{payId,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -539,7 +539,7 @@
       real_amount = #{realAmount,jdbcType=DECIMAL},
       pay_type = #{payType,jdbcType=INTEGER},
       pay_id = #{payId,jdbcType=BIGINT},
-      user_id = #{userId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
       user_name = #{userName,jdbcType=VARCHAR},
       transit_type = #{transitType,jdbcType=TINYINT},
       transit_way_code = #{transitWayCode,jdbcType=VARCHAR},
@@ -648,5 +648,12 @@
     from dbg_order
     where id = #{id}
     for update
+  </select>
+
+  <select id="selectByOrderNum" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dbg_order
+    where order_num = #{orderNum}
   </select>
 </mapper>

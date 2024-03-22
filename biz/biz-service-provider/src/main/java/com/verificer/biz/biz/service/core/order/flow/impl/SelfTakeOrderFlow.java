@@ -5,8 +5,8 @@ import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.mapper.DbgOrderMapper;
 import com.verificer.biz.biz.service.common.OrdCommon;
+import com.verificer.biz.biz.service.common.UserCommon;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
-import com.verificer.biz.biz.service.core.order.notify.events.OrdReceivedEvent;
 import com.verificer.biz.beans.vo.order.EvaluateVo;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
 import com.verificer.biz.beans.vo.order.PayVo;
@@ -33,6 +33,9 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
     @Autowired
     PayService payService;
 
+    @Autowired
+    UserCommon userCommon;
+
 
     @Override
     public void beforeCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier){
@@ -42,7 +45,10 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
     @Override
     public void afterCreate(OrdVo ovo, OrdFormVo ofo, OrdNotifier notifier) {
         DbgOrder o = ovo.getOrd();
-        ordCommon.writeLog(o,OrdOpType.Create_Order.getValue(), OpEntry.App.getValue(), o.getUserId(),null,System.currentTimeMillis());
+        ordCommon.writeLog(o,OrdOpType.Create_Order.getValue(),
+                OpEntry.App.getValue(),
+                null,
+                userCommon.getNickName(o.getUserId()),System.currentTimeMillis());
         ordCommon.subtractStock(o, StockOpType.ORD_CREATE.getValue(),"自提单下单后减库存");
 
     }
@@ -56,7 +62,10 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
 
             PayVo form = (PayVo) formVo;
             afterPay(o,form);
-            ordCommon.writeLog( o, OrdOpType.Pay.getValue(), OpEntry.App.getValue(),o.getUserId(),null,System.currentTimeMillis());
+            ordCommon.writeLog( o, OrdOpType.Pay.getValue(), OpEntry.App.getValue(),
+                    userCommon.getUid(o.getUserId()),
+                    null,
+                    System.currentTimeMillis());
 
         }else if(OrdSta.WaitSelfTake.getValue() == o.getStatus()){
             if((formVo instanceof SelfTakeRefundVo)){
@@ -68,15 +77,19 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
                 vo.setRemark("退款类型：订单退款，订单号[ "+o.getOrderNum()+" ]");
                 vo.setAmount(o.getAmount());
                 payService.refund(vo);
-                ordCommon.writeLog( o, OrdOpType.Refund.getValue(), OpEntry.Merchant.getValue(),o.getRelId(),null,System.currentTimeMillis());
+                ordCommon.writeLog( o, OrdOpType.Refund.getValue(),
+                        OpEntry.Merchant.getValue(),o.getRelId(),
+                        null,
+                        System.currentTimeMillis());
                 ordCommon.increaseStock(o,StockOpType.ORD_REFUND.getValue(), "自提单申请退款后加库存");
 
             }else if(formVo instanceof SelfTakeTakeVo){
                 o.setStatus(OrdSta.Received.getValue());
                 o.setTakeFlag(true);
                 o.setTakeTime(System.currentTimeMillis());
-                ordCommon.writeLog( o, OrdOpType.Take.getValue(), OpEntry.App.getValue(),o.getUserId(),null,System.currentTimeMillis());
-                notifier.triggerAll(new OrdReceivedEvent(o.getId()));
+                ordCommon.writeLog( o, OrdOpType.Take.getValue(), OpEntry.App.getValue(),userCommon.getUid(o.getUserId()),null,System.currentTimeMillis());
+                notifier.triggerAll(ordCommon.genSucFinishEvent(o.getId()));
+                ordCommon.addUserIntegralIfNeed(o);
 
             }else {
                 throw new RuntimeException("OrdSta.WaitSelfTake下只接收SelfTakeRefundVo或者SelfTakeTakeVo类型参数");

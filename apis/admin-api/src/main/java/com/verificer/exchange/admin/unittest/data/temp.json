@@ -1,146 +1,20 @@
 {
-  "result": [
-    {
-      "serviceFee": 0.00,
-      "couponFee": 0.00,
-      "totalProfit": 0.00,
-      "payments": [
-        {
-          "amount": 11.00,
-          "code": "payCode_1"
-        }
-      ],
-      "discount": 100.00000,
-      "rounding": 0.00,
-      "ticketType": "SELL",
-      "remark": "",
-      "uid": 3587024339915816250,
-      "totalAmount": 11.00,
-      "customerUid": 0,
-      "datetime": "2024-03-10 21:52:00",
-      "ticketOnTable": {
-        "tableUid": 0,
-        "tableCardNo": "0001",
-        "tableAreaUid": 0
-      },
-      "cashier": {
-        "uid": 1133391464052506157,
-        "name": "LiuJinHua",
-        "jobNumber": "1002"
-      },
-      "cashierUid": 1133391464052506157,
-      "invalid": 0,
-      "sn": "202403102151507430001",
-      "items": [
-        {
-          "buyPrice": 11.00000000,
-          "ticketitemattributes": [],
-          "quantity": 1.000,
-          "totalProfit": 0E-8,
-          "discount": 100.00000,
-          "sellPrice": 11.00,
-          "customerPrice": 11.00,
-          "totalAmount": 11.00,
-          "customerDiscount": 100.00,
-          "isWeighing": 0,
-          "productBarcode": "c697e4af3e8d44b4adeb3c11d192fa27",
-          "discountDetails": [],
-          "name": "新的测试榴莲",
-          "id": 157893987,
-          "saleGuiderList": [],
-          "productUid": 575478989946992594,
-          "isCustomerDiscount": 1
-        }
-      ],
-      "sysUpdateTime": "2024-03-10 21:52:02"
+  "address": "CN|广东省|深圳市|None|None|100|100",
+  "content": {
+    "address_detail": {
+      "province": "广东省",
+      "city": "深圳市",
+      "district": "",
+      "street": "",
+      "street_number": "",
+      "city_code": 340,
+      "adcode": "440300"
     },
-    {
-      "serviceFee": 0.00,
-      "couponFee": 0.00,
-      "totalProfit": -2.00,
-      "payments": [
-        {
-          "amount": 20.00,
-          "code": "payCode_1"
-        }
-      ],
-      "discount": 100.00000,
-      "rounding": 0.00,
-      "ticketType": "SELL",
-      "remark": "",
-      "uid": 529867297051462240,
-      "totalAmount": 20.00,
-      "customerUid": 0,
-      "datetime": "2024-03-10 22:05:40",
-      "ticketOnTable": {
-        "tableUid": 0,
-        "tableCardNo": "0002",
-        "tableAreaUid": 0
-      },
-      "cashier": {
-        "uid": 1133391464052506157,
-        "name": "LiuJinHua",
-        "jobNumber": "1002"
-      },
-      "cashierUid": 1133391464052506157,
-      "invalid": 0,
-      "sn": "202403102205356200002",
-      "items": [
-        {
-          "buyPrice": 11.00000000,
-          "ticketitemattributes": [],
-          "quantity": 1.000,
-          "totalProfit": 0E-8,
-          "discount": 100.00000,
-          "sellPrice": 11.00,
-          "customerPrice": 11.00,
-          "totalAmount": 11.00,
-          "customerDiscount": 100.00,
-          "isWeighing": 0,
-          "productBarcode": "c697e4af3e8d44b4adeb3c11d192fa27",
-          "discountDetails": [],
-          "name": "新的测试榴莲",
-          "id": 157899518,
-          "saleGuiderList": [],
-          "productUid": 575478989946992594,
-          "isCustomerDiscount": 1
-        },
-        {
-          "buyPrice": 11.00000000,
-          "ticketitemattributes": [],
-          "quantity": 1.000,
-          "totalProfit": -2.00000000,
-          "discount": 81.81818,
-          "sellPrice": 11.00,
-          "customerPrice": 11.00,
-          "totalAmount": 9.00,
-          "customerDiscount": 100.00,
-          "isWeighing": 0,
-          "productBarcode": "c697e4af3e8d44b4adeb3c11d192fa27",
-          "discountDetails": [
-            {
-              "discountRate": 81.81818,
-              "datetime": "2024-03-10 22:05:40",
-              "discountTotalAmount": 2.00,
-              "discountAmount": 2.00000,
-              "discountType": 6,
-              "productUid": 575478989946992594,
-              "discountRuleUid": 0
-            }
-          ],
-          "name": "新的测试榴莲",
-          "id": 157899519,
-          "saleGuiderList": [],
-          "productUid": 575478989946992594,
-          "isCustomerDiscount": 1
-        }
-      ],
-      "sysUpdateTime": "2024-03-10 22:05:41"
+    "address": "广东省深圳市",
+    "point": {
+      "x": "12697745.99",
+      "y": "2560970.33"
     }
-  ],
-  "postBackParameter": {
-    "parameterType": "LAST_RESULT_MAX_ID",
-    "parameterValue": "69981473"
   },
-  "pageSize": 100
+  "status": 0
 }

@@ -3,6 +3,8 @@ package com.verificer.biz.biz.service.core.order;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
+import com.verificer.beans.num.NumGenerator;
+import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.enums.OrdSta;
 import com.verificer.biz.beans.enums.OrdType;
 import com.verificer.biz.beans.vo.OrdFlowFormVo;
@@ -31,6 +33,7 @@ import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
+import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +77,12 @@ public class OrdCoreServiceImpl implements OrdCoreService {
     @Autowired
     OrdCommon ordCommon;
 
+    private NumGenerator ordNumGenerator = new NumGenerator() {
+        @Override
+        public boolean isNumExist(String num) {
+            return mapper.selectByOrderNum(num) != null;
+        }
+    };
 
     @Override
     public void addListener(IOrdListener listener) {
@@ -93,6 +102,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
         o.setCreateTime(now);
         o.setWriteToDbTime(now);
         o.setAmount(ofo.getAmount());
+        o.setOrderNum(UuidUtils.newUuid());
         IOrderFlow flow = getOrdFlow(o);
 
         if (ofo.getUserId() == null && !flow.canUserIdNull())
@@ -180,7 +190,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
 
         //检查限购，不能提前放置该段代码
         if(flow.isCheckBuyCountLimit()){
-            if(!SStringUtils.isEmpty(o.getUserId())){
+            if(o.getUserId() != null){
                 Map<Long,BigDecimal> todayBuyCountMap = getTodayBuyTotal(o.getUserId(),flow.getOrdTime(o));
                 for(OrderDetail od : details)  {
                     Long goodsId = od.getGoodsId();
@@ -209,6 +219,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
             orderDetailMapper.insertSelective(od);
         }
 
+        o.setOrderNum(ordNumGenerator.genNum(BizConst.ORD_NUM_PREFIX,20,o.getId()));
         flow.afterCreate(ordVo, ofo,notifier);
         mapper.updateByPrimaryKeySelective(o);
         for (OrderDetail od : details) {
@@ -258,7 +269,7 @@ public class OrdCoreServiceImpl implements OrdCoreService {
         return map;
     }
 
-    private Map<Long,BigDecimal> getTodayBuyTotal(String userId,Long ordTime){
+    private Map<Long,BigDecimal> getTodayBuyTotal(Long userId,Long ordTime){
         if(userId != null)
             return new HashMap<>();
 

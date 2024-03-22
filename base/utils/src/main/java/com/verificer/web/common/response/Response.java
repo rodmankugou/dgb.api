@@ -24,6 +24,7 @@ public class Response {
     private static final int PERMISSION_DENIED = 8;
     private static final int NEED_ACTIVATION = 9;
     private static final int REG_MAIL_IS_EXISTING = 10;
+    private static final int NEED_BIND_MOBILE  = 11;
 
     static {
         errorCodeMap  = new Hashtable<>();
@@ -37,6 +38,7 @@ public class Response {
         errorCodeMap.put(ErrCode.INVALIDATE_SIGN,INVALIDATE_SIGN);
         errorCodeMap.put(ErrCode.NEED_ACTIVATION,NEED_ACTIVATION);
         errorCodeMap.put(ErrCode.REG_MAIL_IS_EXISTING,REG_MAIL_IS_EXISTING);
+        errorCodeMap.put(ErrCode.NEED_BIND_MOBILE,NEED_BIND_MOBILE);
     }
 
 

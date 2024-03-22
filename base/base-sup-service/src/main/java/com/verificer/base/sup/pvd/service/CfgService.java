@@ -15,4 +15,11 @@ public interface  CfgService {
      * @return 返回解密后的配置值
      */
     String getAesEncryptCfg(String code);
+
+    /**
+     * 修改配置
+     * @param code
+     * @param val
+     */
+    void updCfg(String code, String val);
 }

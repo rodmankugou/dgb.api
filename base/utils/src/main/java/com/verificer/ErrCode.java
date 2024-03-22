@@ -35,6 +35,7 @@ public class ErrCode {
     public static final String VERIFY_INFO_NOT_EXIST = "VERIFY_INFO_NOT_EXIST";
     public static final String CAN_NOT_REVIEW_REPEATEDLY = "CAN_NOT_REVIEW_REPEATEDLY";
     public static final String YOU_HAS_ACTIVATION = "YOU_HAS_ACTIVATION";
+    public static final String DEBUG_IS_NOT_SUPPORT = "DEBUG_IS_NOT_SUPPORT";
 
     public static final String VERIFIED_STATUS_CANNOT_REVIEW = "VERIFIED_STATUS_CANNOT_REVIEW";
 
@@ -57,6 +58,7 @@ public class ErrCode {
     public static final String USER_ACCOUNT_FROZEN = "USER_ACCOUNT_FROZEN";
     public static final String GOOGLE_CHECK_FAILED = "GOOGLE_CHECK_FAILED";
     public static final String REG_MAIL_IS_EXISTING = "REG_MAIL_IS_EXISTING";
+    public static final String NEED_BIND_MOBILE = "NEED_BIND_MOBILE";
     public static final String MAIL_IS_EXISTING = "MAIL_IS_EXISTING";
     public static final String MOBILE_FORMAT_ERROR = "MOBILE_FORMAT_ERROR"; //MOBILE_FORMAT_ERR
     public static final String EMAIL_FORMAT_ERROR = "EMAIL_FORMAT_ERROR"; //EMAIL_FORMAT_ERROR
@@ -266,4 +268,12 @@ public class ErrCode {
     public static final String RUBBISH_GOODS_CAN_NOT_ON_SALE = "RUBBISH_GOODS_CAN_NOT_ON_SALE";
     public static final String DEL_GOODS_CAN_NOT_ON_SALE = "DEL_GOODS_CAN_NOT_ON_SALE";
     public static final String ORD_AMOUNT_ERROR = "ORD_AMOUNT_ERROR";
+    public static final String MEMBER_TYPE_NOT_EXIST = "MEMBER_TYPE_NOT_EXIST";
+    public static final String MEMBER_REFERRER_QR_CODE_INVALID = "MEMBER_REFERRER_QR_CODE_INVALID";
+    public static final String USER_HAS_BIND_MOBILE = "USER_HAS_BIND_MOBILE";
+    public static final String CUR_USER_NOT_REFERRER = "CUR_USER_NOT_REFERRER";
+    public static final String ACC_BALANCE_NOT_ENOUGH = "ACC_BALANCE_NOT_ENOUGH";
+    public static final String REF_WITHDRAW_CAN_NOT_REVIEW = "REF_WITHDRAW_CAN_NOT_REVIEW";
+    public static final String REF_WITHDRAW_CAN_NOT_TRANSFER = "REF_WITHDRAW_CAN_NOT_TRANSFER";
+    public static final String CAN_NOT_REPEAT_SETTLE = "CAN_NOT_REPEAT_SETTLE";
 }

@@ -40,7 +40,7 @@ public class SBigDecimalUtils {
         if(value == null )
             return null;
 
-        BigDecimal val2 = value.divide(new BigDecimal(100)).setScale(precision);
+        BigDecimal val2 = value.multiply(new BigDecimal(100)).setScale(precision);
         if(val2.compareTo(BigDecimal.ZERO) == 0)
             return "0%";
         else

@@ -1,10 +1,32 @@
 package com.verificer.biz.biz.service;
 
+import com.verificer.beans.IdVo;
+import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.pay.PayReqVo;
+import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.member.MemberTypeVo;
+import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
-import com.verificer.biz.beans.vo.order.YbOrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
+import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
+import com.verificer.biz.beans.vo.settle.SettleItemVo;
+import com.verificer.biz.beans.vo.settle.SettleOrdVo;
+import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.user.RefereeVo;
+import com.verificer.biz.beans.vo.user.ReferrerStaVo;
+import com.verificer.biz.beans.vo.user.UserWithdrawVo;
+import com.verificer.biz.beans.vo.user.member.MemberPageVo;
+import com.verificer.biz.beans.vo.user.member.MemberRankVo;
+import com.verificer.biz.beans.vo.user.member.MemberStaVo;
+import com.verificer.biz.beans.vo.user.member.MemberVo;
+import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.UserVo;
+import com.verificer.biz.beans.vo.user.req.RefereeListReqVo;
+import com.verificer.biz.beans.vo.user.req.RefereeStaReqVo;
+import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
+import com.verificer.biz.beans.vo.user.withdraw.*;
 
 import java.util.List;
 
@@ -193,6 +215,14 @@ public interface BizService {
     List<ShopVo> shopPage(ShopPageVo qryVo);
 
     /**
+     * 店铺详情
+     * @param reqVo
+     * @return
+     */
+    ShopVo shopDetail(ShopIdVo reqVo);
+
+
+    /**
      * 统计符合条件的店铺数
      * @param qryVo
      * @return
@@ -306,5 +336,168 @@ public interface BizService {
     int handlePosOrderSyncTask(String shopId) throws Exception;
 
     Long orderCreate(OrdFormVo fvo);
+
+
+    List<UserVo> userPage(UserPageVo qryVo);
+
+    int userCount(UserPageVo qryVo);
+
+    /**
+     * 设置引荐人
+     * @param reqVo
+     */
+    void userSetReferrer(UserSetRefVo reqVo);
+
+    UserVo userDetail(IdVo idVo);
+
+    List<MemberTypeVo> memberTypeList();
+
+    /**
+     * 会员充值
+     * @param reqVo
+     * @return
+     */
+    PayReqVo memberCharge(MemberChargeVo reqVo);
+
+    Long wxLogin(WxLoginReqVo reqVo);
+
+    /**
+     * 绑定手机号码
+     * @param reqVo
+     */
+    void userBindMobile(BindMobileVo reqVo);
+
+    /**
+     * 会员支付成功回调
+     * @param paySucVo
+     */
+    void memberOnPaySuc(PaySucVo paySucVo);
+
+    /**
+     * 引荐人的下线列表
+     * @param reqVo
+     * @return
+     */
+    List<RefereeVo> userRefereeList(RefereeListReqVo reqVo);
+
+    /**
+     * 引荐人的下线人数
+     * @param reqVo
+     * @return
+     */
+    int userRefereeCount(RefereeListReqVo reqVo);
+
+    /**
+     * 引荐人统计
+     * @param reqVo
+     * @return
+     */
+    ReferrerStaVo userRefereeSta(RefereeStaReqVo reqVo);
+
+    /**
+     * 引荐人提现记录
+     * @param reqVo
+     * @return
+     */
+    List<UserWithdrawVo> userWithdrawPage(ReferrerWithdrawPageReqVo reqVo);
+
+    /**
+     * 引荐人提现记录数
+     * @param reqVo
+     * @return
+     */
+    int userWithdrawCount(ReferrerWithdrawPageReqVo reqVo);
+
+    /**
+     * 提现申请
+     * @param reqVo
+     */
+    long referrerWithdrawApply(ReferrerFormVo reqVo);
+
+    /**
+     * 引荐人提现审核
+     * @param reqVo
+     */
+    void referrerWithdrawReview(ReferrerReviewVo reqVo);
+
+    /**
+     * 引荐人提现确认转账
+     * @param reqVo
+     */
+    void referrerWithdrawTransfer(ReferrerTransferVo reqVo);
+
+    List<ReferrerWithdrawVo> referrerWithdrawPage(ReferrerWithdrawPageVo qryVo);
+
+    int referrerWithdrawCount(ReferrerWithdrawPageVo qryVo);
+
+    /**
+     * 会员概况
+     * @return
+     */
+    MemberStaVo memberSta();
+
+    /**
+     * 会员排行榜（按省份）
+     * @return
+     */
+    List<MemberRankVo> memberRank();
+
+    List<MemberVo> memberPage(MemberPageVo reqVo);
+
+    int memberCount(MemberPageVo reqVo);
+
+    /**
+     * 清理过期会员
+     * @return
+     */
+    int clearExpireMember();
+
+    /**
+     * 结算概况
+     * @return
+     */
+    MemberStaVo settleSta(SettleStaQryVo reqVo);
+
+    /**
+     * 平台收支日志列表（分页）
+     * @param reqVo
+     * @return
+     */
+    List<PlaIncomeLogVo> plaIncomeLogPage(PlaIncomeLogQryVo reqVo);
+
+    /**
+     * 平台收支日志数
+     * @param reqVo
+     * @return
+     */
+    int plaIncomeLogCount(PlaIncomeLogQryVo reqVo);
+
+    List<SettleOrdVo> settleOrdPage(SettleOrdQryVo reqVo);
+
+    int settleOrdCount(SettleOrdQryVo reqVo);
+
+    /**
+     * 结算转账
+     * @param reqVo
+     */
+    void settleOrdTransfer(SettleTransferVo reqVo);
+
+    List<SettleItemVo> settleItemPage(SettleItemQryVo reqVo);
+
+    int settleItemCount(SettleItemQryVo reqVo);
+
+    /**
+     * 判断是否需要结算
+     * @param
+     * @return 如果存在需要的结算项，则返回结算单ID，否则返回null
+     */
+    Long trySettle();
+
+    /**
+     * 结算
+     * @param ordId 结算单ID
+     * @return 如果存在结算项，则返回1，否则返回0，返回0时表示该结算单已结算完毕
+     */
+    int settle(Long ordId);
 }
 
