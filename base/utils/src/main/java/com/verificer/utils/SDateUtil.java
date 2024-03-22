@@ -6,10 +6,7 @@ import org.web3j.abi.datatypes.Int;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 public class SDateUtil {
     public static final long MS_PER_SEC = 1000;
@@ -66,18 +63,18 @@ public class SDateUtil {
         return cal.get(Calendar.YEAR);
     }
 
-    public static Integer getMonth(Long time){
-        return getMonth(new Date(time));
+    public static Integer getNatureMonth(Long time){
+        return getNatureMonth(new Date(time));
     }
 
     //获取月份
-    public static Integer getMonth(Date date) {
+    public static Integer getNatureMonth(Date date) {
         if (date == null) {
             return null;
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);// 设置起时间
-        return cal.get(Calendar.MONTH);
+        return cal.get(Calendar.MONTH)+1;
     }
 
     //一年的总天数
@@ -306,6 +303,20 @@ public class SDateUtil {
        return FastDateFormat.getInstance("EEE, dd MMM yyyy HH:mm:ss z", TimeZone.getTimeZone("GMT"), Locale.ENGLISH).format(time);
     }
 
+    public static Long setYear(Long time,Integer year){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.YEAR,year);
+        return calendar.getTime().getTime();
+    }
+
+    public static Long setNatureMonth(Long time,Integer month){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        calendar.set(Calendar.MONTH,month-1);
+        return calendar.getTime().getTime();
+    }
+
     public static void main(String arg[]){
 //        long dayRange = 24 * 60 * 60 *1000;
 //        Long cur = System.currentTimeMillis();
@@ -321,8 +332,13 @@ public class SDateUtil {
 
 //        System.out.println(SDateUtil.parse("2022-06-22 00:00:00","yyyy-MM-dd HH:mm:ss").getTime());
 
-        System.out.println(SDateUtil.format(getMonthSTime(System.currentTimeMillis())));
-        System.out.println(SDateUtil.format(getNextMonthSTime(System.currentTimeMillis())));
+//        System.out.println(SDateUtil.format(getMonthSTime(System.currentTimeMillis())));
+//        System.out.println(SDateUtil.format(getNextMonthSTime(System.currentTimeMillis())));
+        Long now = System.currentTimeMillis();
+        now = setYear(now,2023);
+        now = setNatureMonth(now,1);
+//        now = getMonthSTime(now);
+        System.out.println(format(now));
     }
 
 

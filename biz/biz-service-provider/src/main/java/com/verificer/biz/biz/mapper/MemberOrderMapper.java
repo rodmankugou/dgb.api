@@ -59,4 +59,6 @@ public interface MemberOrderMapper {
     MemberOrder selectByUserIdAndStatusLimit1(@Param("userId") Long userId, @Param("status")Integer value);
 
     MemberStaBaseVo memberSta(MemberStaQryVo allQryVo);
+
+    MemberOrder selectByOrdNum(@Param("ordNum") String ordNum);
 }

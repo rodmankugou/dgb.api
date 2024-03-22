@@ -5,9 +5,12 @@ import com.verificer.biz.beans.vo.settle.req.SettleItemQryVo;
 import com.verificer.biz.biz.entity.Settle;
 import com.verificer.biz.biz.entity.SettleItem;
 import com.verificer.biz.biz.entity.SettleOrder;
+import com.verificer.biz.biz.entity.Shop;
 import com.verificer.biz.biz.mapper.SettleItemMapper;
+import com.verificer.biz.biz.service.common.ShopCommon;
 import com.verificer.biz.biz.service.settle.SettleItemService;
 import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.SStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +26,19 @@ public class SettleItemServiceImpl implements SettleItemService {
     @Autowired
     SettleItemMapper mapper;
 
+    @Autowired
+    ShopCommon shopCommon;
+
     private SettleItemVo toVo(SettleItem e){
         if(e == null)
             return  null;
         SettleItemVo vo = new SettleItemVo();
         SBeanUtils.copyProperties2(e,vo);
+        if(!SStringUtils.isEmpty(e.getChildShopId())){
+            Shop shop = shopCommon.getById(e.getChildShopId());
+            if(shop != null)
+                vo.setChildShopName(shop.getName());
+        }
         return vo;
     }
 
@@ -60,6 +71,7 @@ public class SettleItemServiceImpl implements SettleItemService {
         item.setSettleId(settle.getId());
         item.setSettlePhase(settle.getCalPahse());
         item.setShopId(so.getShopId());
+        item.setChildShopId(settle.getChildShopId());
         item.setTitle("会员分期");
         item.setRemark(settle.getTitle()+item.getSettlePhase()+"/"+settle.getTotalPhase()+"期");
         item.setYear(so.getYear());
@@ -67,6 +79,7 @@ public class SettleItemServiceImpl implements SettleItemService {
         item.setSettleFlag(false);
         item.setAmount(settle.getPhaseAmount());
         item.setCommissionRate(settle.getCommissionRate());
+        item.setCreateTime(System.currentTimeMillis());
         mapper.insertSelective(item);
     }
 
@@ -77,7 +90,7 @@ public class SettleItemServiceImpl implements SettleItemService {
 
     @Override
     public void afterSettle(SettleOrder so) {
-        mapper.updSettleFlagByOrderId(so.getId());
 
+        mapper.updSettleFlagByOrderId(so.getId());
     }
 }

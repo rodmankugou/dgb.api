@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.SettleStaQryVo;
 import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.biz.entity.Settle;
@@ -56,11 +57,13 @@ public interface SettleMapper {
      */
     int updateByPrimaryKey(Settle record);
 
-    MemberStaVo sta(SettleStaQryVo reqVo);
+    SettleStaVo sta(SettleStaQryVo reqVo);
 
-    Settle getReadySettle(@Param("now") Long now,@Param("shopId") String shopId);
+    Settle getReadySettle(@Param("now") Long now);
 
     Settle getAndLock(@Param("id") Long id);
 
     void addSettlePhase(@Param("ids") List<Long> ids);
+
+    Settle getMatchSettle(@Param("shopId") String shopId,@Param("nextCalTime") Long nextCalTime);
 }

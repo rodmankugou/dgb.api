@@ -90,7 +90,8 @@ public class BoMemberController extends BaseController{
     @ApiOperation(
             value = "积分管理-获取积分汇率",
             response = Decimal.class,
-            httpMethod = "POST"
+            httpMethod = "POST",
+            notes = "返回值为浮点数类型"
     )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),

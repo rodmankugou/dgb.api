@@ -67,4 +67,6 @@ public interface SettleOrderMapper {
     SettleOrder selectByOrdNum(@Param("ordNum") String ordNum);
 
     SettleOrder getAndLock(@Param("id") Long id);
+
+    SettleOrdVo detail(@Param("id") Long id);
 }

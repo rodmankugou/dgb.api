@@ -4,6 +4,7 @@ import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
 import com.verificer.biz.beans.enums.MemberRefType;
 import com.verificer.biz.beans.enums.SettleType;
+import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.SettleStaQryVo;
 import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.biz.entity.*;
@@ -72,19 +73,20 @@ public class SettleServiceImpl implements SettleService {
                     throw new BaseException(ErrCode.RECORD_NOT_EXIST);
             }
 
-            createSettle(shop,mo,now);
+            createSettle(shop,mo,now,null);
             if(parentShop != null )
-                createSettle(parentShop,mo,now);
+                createSettle(parentShop,mo,now,shop.getId());
         }
     }
 
-    private void createSettle(Shop shop,MemberOrder mo,Long now){
+    private void createSettle(Shop shop,MemberOrder mo,Long now,String childShopId){
         if(shop == null)
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
         Settle s = new Settle();
         s.setType(SettleType.SHOP_MEMBER.getValue());
         s.setShopId(mo.getReferrerId());
+        s.setChildShopId(childShopId);
         s.setRelId(mo.getId());
         s.setCommissionRate(shop.getCommissionRate());
         s.setTotalPhase(12);
@@ -108,18 +110,29 @@ public class SettleServiceImpl implements SettleService {
     }
 
     @Override
-    public MemberStaVo settleSta(SettleStaQryVo reqVo) {
-        MemberStaVo sta = mapper.sta(reqVo);
+    public SettleStaVo settleSta(SettleStaQryVo reqVo) {
+        SettleStaVo sta = mapper.sta(reqVo);
         return sta;
 
     }
 
     @Override
-    public Settle getReadySettle(Long now ,String shopId) {
-        Settle settle = mapper.getReadySettle(now,shopId);
+    public Settle getReadySettle(Long now ) {
+        Settle settle = mapper.getReadySettle(now);
         if(settle == null)
             return settle;
         settle = mapper.getAndLock(settle.getId());
+        return settle;
+    }
+
+    @Override
+    public Settle getTargetSettle(String shopId, Integer year, Integer month) {
+        Long nextCalTime = System.currentTimeMillis();
+        nextCalTime = SDateUtil.setYear(nextCalTime,year);
+        nextCalTime = SDateUtil.setNatureMonth(nextCalTime,month);
+        nextCalTime = SDateUtil.getMonthSTime(nextCalTime);
+        Settle settle = mapper.getMatchSettle(shopId,nextCalTime);
+
         return settle;
     }
 

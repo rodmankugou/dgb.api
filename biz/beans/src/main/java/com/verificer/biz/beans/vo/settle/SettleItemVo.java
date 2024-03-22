@@ -36,6 +36,9 @@ public class SettleItemVo implements Serializable {
     @ApiModelProperty("佣金比例")
     private BigDecimal commissionRate;
 
+    @ApiModelProperty("下属门店")
+    private String childShopName;
+
     public Long getId() {
         return id;
     }
@@ -98,5 +101,13 @@ public class SettleItemVo implements Serializable {
 
     public void setCommissionRate(BigDecimal commissionRate) {
         this.commissionRate = commissionRate;
+    }
+
+    public String getChildShopName() {
+        return childShopName;
+    }
+
+    public void setChildShopName(String childShopName) {
+        this.childShopName = childShopName;
     }
 }

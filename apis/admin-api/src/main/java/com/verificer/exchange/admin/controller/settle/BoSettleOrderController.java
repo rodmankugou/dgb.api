@@ -2,6 +2,7 @@ package com.verificer.exchange.admin.controller.settle;
 
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.EmptyVo;
+import com.verificer.beans.IdVo;
 import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.SettleStaVo;
@@ -52,6 +53,22 @@ public class BoSettleOrderController extends BaseController{
         List<SettleOrdVo> list = bizService.settleOrdPage(reqVo);
         int count = bizService.settleOrdCount(reqVo);
         return Response.listSuccess(count,list);
+    }
+
+    @ApiOperation(
+            value = "详情",
+            response = SettleOrdVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public Response detail(@RequestBody IdVo reqVo) {
+        SettleOrdVo vo = bizService.settleOrdDetail(reqVo);
+        return Response.dataSuccess(vo);
     }
 
     @ApiOperation(

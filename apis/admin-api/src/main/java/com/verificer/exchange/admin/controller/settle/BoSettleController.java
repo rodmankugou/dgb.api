@@ -50,7 +50,7 @@ public class BoSettleController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/sta", method = RequestMethod.POST)
     public Response sta(@RequestBody EmptyVo reqVo) {
-        MemberStaVo vo = bizService.settleSta(new SettleStaQryVo());
+        SettleStaVo vo = bizService.settleSta(new SettleStaQryVo());
         return Response.dataSuccess(vo);
     }
 

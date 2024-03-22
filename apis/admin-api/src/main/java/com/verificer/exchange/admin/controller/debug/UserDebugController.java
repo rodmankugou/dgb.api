@@ -12,10 +12,14 @@ import com.verificer.biz.beans.vo.user.withdraw.ReferrerReviewVo;
 import com.verificer.biz.beans.vo.user.withdraw.ReferrerTransferVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
+import com.verificer.exchange.admin.controller.debug.vo.ShopMemberVo;
 import com.verificer.exchange.admin.security.annotation.DebugController;
+import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.UuidUtils;
+import com.verificer.utils.check.SCheckUtil;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * Created by 35336 on 2021/2/26.
@@ -83,6 +89,32 @@ public class UserDebugController extends BaseDebugController{
     @RequestMapping(value = "/createShopMember", method = RequestMethod.POST)
     public Response createShopMember(HttpServletRequest hReq) {
         createMember(hReq,MemberRefType.SHOP);
+
+        return Response.simpleSuccess();
+    }
+
+    @ApiOperation(
+            value = "新增门店会员用户,可以指定年份和月份",
+            response = Response.class,
+            httpMethod = "POST",
+            notes = "响应报文的data字段为订单ID"
+    )
+    @ApiImplicitParams({
+    })
+    @ResponseBody
+    @RequestMapping(value = "/createShopMember2", method = RequestMethod.POST)
+    public Response createShopMember2(HttpServletRequest hReq,@RequestBody ShopMemberVo reqVo) throws SQLException {
+        SCheckUtil.notEmpty(reqVo.getYear(),"Year");
+        SCheckUtil.notEmpty(reqVo.getMonth(),"Month");
+
+        createMember(hReq,MemberRefType.SHOP);
+        Long id = Tools.getTableMaxId("dbg","settle");
+        Long time = System.currentTimeMillis();
+        time = SDateUtil.setYear(time,reqVo.getYear());
+        time = SDateUtil.setNatureMonth(time,reqVo.getMonth()-1);
+        time = SDateUtil.getMonthSTime(time);
+        String sql = "update settle set next_cal_time = "+time+" where id = " +id;
+        Tools.executeUpdate("dbg",sql);
 
         return Response.simpleSuccess();
     }

@@ -50,7 +50,7 @@ public class BoSettleItemController extends BaseController{
     @RequestMapping(value = "/sta", method = RequestMethod.POST)
     public Response sta(@RequestBody SettleStaQryVo reqVo) {
         SCheckUtil.notEmpty(reqVo.getShopId(),"Shop Id");
-        MemberStaVo vo = bizService.settleSta(reqVo);
+        SettleStaVo vo = bizService.settleSta(reqVo);
         return Response.dataSuccess(vo);
     }
 
@@ -66,6 +66,7 @@ public class BoSettleItemController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public Response page(@RequestBody SettleItemQryVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getOrderId(),"OrderId");
         List<SettleItemVo> vo = bizService.settleItemPage(reqVo);
         int count = bizService.settleItemCount(reqVo);
         return Response.listSuccess(count,vo);

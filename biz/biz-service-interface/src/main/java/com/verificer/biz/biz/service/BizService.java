@@ -13,6 +13,7 @@ import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
 import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
+import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
 import com.verificer.biz.beans.vo.user.RefereeVo;
 import com.verificer.biz.beans.vo.user.ReferrerStaVo;
@@ -456,7 +457,7 @@ public interface BizService {
      * 结算概况
      * @return
      */
-    MemberStaVo settleSta(SettleStaQryVo reqVo);
+    SettleStaVo settleSta(SettleStaQryVo reqVo);
 
     /**
      * 平台收支日志列表（分页）
@@ -499,5 +500,7 @@ public interface BizService {
      * @return 如果存在结算项，则返回1，否则返回0，返回0时表示该结算单已结算完毕
      */
     int settle(Long ordId);
+
+    SettleOrdVo settleOrdDetail(IdVo idVo);
 }
 

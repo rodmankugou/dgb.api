@@ -303,6 +303,16 @@
     <include refid="pageCond"></include>
   </select>
 
+  <select id="detail" resultMap="VoRstMap">
+    select
+    so.*,
+    s.name as shop_name,
+    s.shop_level as shop_level
+    from settle_order so
+    join shop s on (so.shop_id = s.id)
+    where  so.id = #{id}
+  </select>
+
   <select id="selectUnCalFinishLimit1" resultMap="BaseResultMap">
     select * from
       settle_order

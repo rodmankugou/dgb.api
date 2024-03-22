@@ -31,6 +31,10 @@ public class FastJson {
         return (Map<K, V>) JSON.parseObject(json, new TypeReference<Map<K, V>>() {});
     }
 
+    public static Object parseObj(String json){
+        return  JSON.parseObject(json);
+    }
+
     public static String pretty(Object obj){
         String pretty = JSON.toJSONString(obj, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue);
         return pretty;

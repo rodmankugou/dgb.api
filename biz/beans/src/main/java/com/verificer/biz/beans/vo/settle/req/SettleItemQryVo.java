@@ -5,12 +5,15 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SettleItemQryVo extends PageQueryVo {
-    @ApiModelProperty("店铺ID")
+    @ApiModelProperty(value = "订单id",required = true)
+    private Long orderId;
+    @ApiModelProperty(value = "店铺ID",required = false)
     private String shopId;
-    @ApiModelProperty("是否结算 true-是 false-否")
+    @ApiModelProperty(value = "是否结算 true-是 false-否",required = false)
     private Boolean settleFlag;
-    @ApiModelProperty("结算明细")
+    @ApiModelProperty(value = "结算明细",required = false)
     private String remark;
+
 
     public String getShopId() {
         return shopId;
@@ -34,5 +37,13 @@ public class SettleItemQryVo extends PageQueryVo {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

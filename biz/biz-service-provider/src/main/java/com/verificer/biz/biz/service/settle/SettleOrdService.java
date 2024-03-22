@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.service.settle;
 
+import com.verificer.beans.IdVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.req.SettleOrdQryVo;
 import com.verificer.biz.beans.vo.settle.req.SettleTransferVo;
@@ -11,6 +12,9 @@ public interface SettleOrdService {
     List<SettleOrdVo> settleOrdPage(SettleOrdQryVo reqVo);
 
     int settleOrdCount(SettleOrdQryVo reqVo);
+
+    SettleOrdVo settleOrdDetail(IdVo idVo);
+
 
     /**
      * 结算转账

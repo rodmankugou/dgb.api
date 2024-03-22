@@ -29,6 +29,30 @@ public class Tools {
         return "9135ce68223041d8bac35fc095f0fbe8v21i7k6Yp6S9S89kN7fr3W4B93XamcrT-1711044045199";
     }
 
+    public static Long getStaffId(){
+        return 1L;
+    }
+
+    public static String getStaffName(){
+        return "Rodman";
+    }
+
+    public static String getStageId(){
+        return "6f22c403ffa94c9da21cce5b715c3cfe";
+    }
+
+    public static String getShopId(){
+        return "d000e3c443794213a92d61a9c6f6f6fe";
+    }
+
+    public static String getUserUid(){
+        return "1";
+    }
+
+    public static Long getUserId(){
+        return 1L;
+    }
+
     public static TResp callApi(String url,String json){
         Map<String,String> headerMap = new HashMap<>();
         headerMap.put("token",getToken());
@@ -127,5 +151,20 @@ public class Tools {
         }
     }
 
+    public static int executeUpdate(String dbName,String sql) throws SQLException {
+        Connection conn = C3p0Tools.getInstance(dbName).getConnection();
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = conn.prepareStatement(sql);
+
+            return stm.executeUpdate();
+
+        }finally {
+            DbUtil.closeConnection(conn,stm,rs);
+        }
+    }
 
 }

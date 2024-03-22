@@ -13,6 +13,7 @@ import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
 import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
+import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
 import com.verificer.biz.beans.vo.user.RefereeVo;
 import com.verificer.biz.beans.vo.user.ReferrerStaVo;
@@ -460,7 +461,7 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
-    public MemberStaVo settleSta(SettleStaQryVo reqVo) {
+    public SettleStaVo settleSta(SettleStaQryVo reqVo) {
         return settleService.settleSta(reqVo);
     }
 
@@ -507,5 +508,10 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public int settle(Long ordId) {
         return settleOrdService.settle(ordId);
+    }
+
+    @Override
+    public SettleOrdVo settleOrdDetail(IdVo idVo) {
+        return settleOrdService.settleOrdDetail(idVo);
     }
 }

@@ -16,5 +16,6 @@ public class BizConst {
     public static final String ORD_NUM_PREFIX = "DB";
     public static final String WITHDRAW_ORD_NUM_PREFIX = "DW";
     public static final String SETTLE_ORD_NUM_PREFIX = "DS";
+    public static final String MEMBER_ORD_NUM_PREFIX = "DM";
 
 }

@@ -1,9 +1,12 @@
 package com.verificer.biz.biz.service.core.user.impl;
 
+import com.mchange.v2.uid.UidUtils;
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
+import com.verificer.beans.num.NumGenerator;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
+import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.enums.MemberOrdSta;
 import com.verificer.biz.beans.enums.MemberRefType;
 import com.verificer.biz.beans.enums.MemberTypeTimeUnit;
@@ -24,6 +27,7 @@ import com.verificer.designpatterns.listener.ConcurrentNotifier;
 import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
+import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +52,13 @@ public class MemberOrderServiceImpl implements MemberOrderService {
     @Autowired
     UserCommon userCommon;
 
+    private NumGenerator ordNumGenerator = new NumGenerator() {
+        @Override
+        public boolean isNumExist(String num) {
+            return mapper.selectByOrdNum(num) != null;
+        }
+    };
+
     public void addListener(IMemberListener listener){
         this.notifier.addListener(listener);
     }
@@ -68,6 +79,7 @@ public class MemberOrderServiceImpl implements MemberOrderService {
             throw new BaseException(ErrCode.MEMBER_TYPE_NOT_EXIST);
         MemberOrder mo = new MemberOrder();
         mo.setUserId(reqVo.getUserId());
+        mo.setOrdNum(UuidUtils.newUuid());
         mo.setMemberTypeId(reqVo.getMemberTypeId());
         mo.setStatus(MemberOrdSta.WAI_PAY.getValue());
         mo.setsTime(now);
@@ -89,6 +101,9 @@ public class MemberOrderServiceImpl implements MemberOrderService {
         mo.setDelFlag(false);
 
         mapper.insertSelective(mo);
+
+        mo.setOrdNum(ordNumGenerator.genNum(BizConst.MEMBER_ORD_NUM_PREFIX,18,mo.getId()));
+        mapper.updateByPrimaryKeySelective(mo);
 
         PayReqVo payReqVo = new PayReqVo();
         payReqVo.setOrderId(mo.getId());
