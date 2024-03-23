@@ -36,7 +36,7 @@ public class CategoryController extends BaseController {
             httpMethod = "POST"
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "veri-ex-client", value = "app/web",paramType = "header",required = true),
+            
     })
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.POST)

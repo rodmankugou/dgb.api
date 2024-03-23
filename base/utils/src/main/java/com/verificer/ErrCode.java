@@ -42,6 +42,8 @@ public class ErrCode {
     public static final String STAFF_NOT_ENABLE = "STAFF_NOT_ENABLE";
     public static final String STAFF_USER_NAME_HAS_EXIST = "STAFF_USER_NAME_HAS_EXIST";
     public static final String STAFF_NEW_PWD_EQUALS_OLD_PWD = "STAFF_NEW_PWD_EQUALS_OLD_PWD";
+    public static final String NEED_MEMBER = "NEED_MEMBER";
+
 
 
     //图片验证码

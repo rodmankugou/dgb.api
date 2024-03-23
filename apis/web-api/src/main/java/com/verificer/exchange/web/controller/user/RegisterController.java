@@ -54,7 +54,7 @@ public class RegisterController extends BaseController {
 //            httpMethod = "POST"
 //    )
 //    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "veri-ex-client", value = "app/web",paramType = "header",required = true),
+//            
 //            @ApiImplicitParam(name = "account", value = "手机/邮箱",paramType = "form",required = true),
 //            @ApiImplicitParam(name = "password", value = "密码",paramType = "form",required = true),
 //            @ApiImplicitParam(name = "payPassword", value = "支付密码",paramType = "form",required = true),
