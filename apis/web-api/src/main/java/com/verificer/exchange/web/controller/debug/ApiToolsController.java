@@ -63,7 +63,6 @@ public class ApiToolsController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/page/list", method = RequestMethod.POST)
     public Response list() throws IOException {
-        System.out.println(pageIndex);
 
         InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
         String json = IOUtils.toString(io,"utf-8");
