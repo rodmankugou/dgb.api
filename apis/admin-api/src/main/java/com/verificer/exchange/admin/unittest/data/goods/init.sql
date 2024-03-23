@@ -1,28 +1,14 @@
-delete from addr;
-delete from user;
 
-delete from adjust;
+delete from adjust_order;
+delete from adjust_item;
 delete from brand;
 delete from category;
-delete from dbg_order;
-delete from dbg_order_log;
 delete from goods;
 delete from goods_sta;
-delete from member_order;
-delete from member_type;
-delete from order_detail;
-delete from pointer;
-delete from refund;
-delete from refund_log;
-delete from refund_reason;
-delete from s_cart;
 delete from shop;
 delete from shop_info;
-delete from spec;
 delete from stage;
 delete from stock;
-delete from transit_way;
-delete from user;
 delete from pos_sync_task;
 delete from mer_category;
 delete from shop_goods;
@@ -36,5 +22,3 @@ INSERT INTO `brand` VALUES ('4', '彭亨州', 'https://dbg.obs.cn-south-1.myhuaw
 INSERT INTO `category` VALUES ('3', '马来猫山王', '猫山王', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/4.png', '马来猫山王', '1709954253726', '0', null), ('4', '马来金枕头', '金枕头', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/4.png', '金枕头', '1709954253726', '0', null);
 INSERT INTO `mer_category` VALUES ('1', 'd000e3c443794213a92d61a9c6f6f6fe', '0', '3', '1709867459998183336', '1'), ('2', 'd000e3c443794213a92d61a9c6f6f6fe', '0', '4', '1710050416910217910', '1');
 
-INSERT INTO `user` VALUES ('1', '李东云', '1', null, null, null, null, null, null, '464130953646563552', null, null, null);
-insert into pointer (code,pointer,upd_time) VALUES ('POS_SHOP_ORDER_SYNC_d000e3c443794213a92d61a9c6f6f6fe',1710037373000,1);

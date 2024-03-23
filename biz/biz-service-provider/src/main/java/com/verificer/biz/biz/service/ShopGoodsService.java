@@ -10,7 +10,7 @@ public interface ShopGoodsService {
      * @param goodsId
      * @param specId
      */
-    void addGoods(String shopId,Long goodsId, Long specId);
+    void addGoodsIfNotExist(String shopId, Long goodsId, Long specId);
 
     /**
      * 根据specId查找

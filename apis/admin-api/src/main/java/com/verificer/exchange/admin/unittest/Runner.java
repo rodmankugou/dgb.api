@@ -203,7 +203,9 @@ public class Runner {
 
 //        runDir("banner",new String[] {"add","upd","page","del","page"},"dbg_sup");
 //        runDir("advert",new String[] {"add","upd","page","del","page"},"dbg_sup");
-        runDir("help",new String[] {"add","upd","page","del","page"},"dbg_sup");
+//        runDir("help",new String[] {"add","upd","page","del","page"},"dbg_sup");
+
+        Tools.callApi("goods/page","{}");
     }
 
 

@@ -6,4 +6,13 @@ import java.io.Serializable;
 
 public class CatListQryVo implements Serializable {
 
+    private String shopId;
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
 }

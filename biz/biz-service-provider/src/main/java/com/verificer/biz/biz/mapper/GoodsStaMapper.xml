@@ -190,4 +190,12 @@
   </select>
 
 
+
+  <select id="selectBySpecId"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from goods_sta
+    where spec_id = #{specId}
+  </select>
 </mapper>

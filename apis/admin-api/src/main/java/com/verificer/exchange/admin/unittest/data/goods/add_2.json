@@ -17,6 +17,7 @@
       "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg",
       "name": "预选佳品 2.1-2.5KG 一人尝鲜",
       "price": "478",
+      "oriPrice": "578",
       "wPrice": "",
       "stageIds": [
         "6f22c403ffa94c9da21cce5b715c3cfe"
@@ -27,6 +28,7 @@
       "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg",
       "name": "预选佳品 1.7-2.1KG 一人尝鲜",
       "price": "388",
+      "oriPrice": "478",
       "wPrice": "",
       "stageIds": [
         "6f22c403ffa94c9da21cce5b715c3cfe"
@@ -36,6 +38,7 @@
       "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg",
       "name": "预选佳品 1.3-1.7KG 一人尝鲜",
       "price": "298",
+      "oriPrice": "358",
       "wPrice": "",
       "stageIds": [
         "6f22c403ffa94c9da21cce5b715c3cfe"
@@ -45,6 +48,7 @@
       "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg",
       "name": "预选佳品 1.0-1.3KG 一人尝鲜",
       "price": "158",
+      "oriPrice": "238",
       "wPrice": "",
       "stageIds": [
         "6f22c403ffa94c9da21cce5b715c3cfe"
@@ -55,5 +59,8 @@
   "unit": "个",
   "volume": 0.01,
   "weight": 1.5,
-  "detail": "<H1><H1>"
+  "detail": "<H1><H1>",
+  "shopSaleFlag": true,
+  "appSaleFlag": true,
+  "nonMemberBuyFlag": true
 }

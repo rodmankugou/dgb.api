@@ -17,6 +17,7 @@
       "img": "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg",
       "name": "新的测试榴莲",
       "price": "11",
+      "oriPrice": "13",
       "wPrice": "",
       "stageIds": [
         "6f22c403ffa94c9da21cce5b715c3cfe"
@@ -27,5 +28,8 @@
   "unit": "个",
   "volume": 0.01,
   "weight": 1.5,
-  "detail": "<H1><H1>"
+  "detail": "<H1><H1>",
+  "shopSaleFlag": true,
+  "appSaleFlag": true,
+  "nonMemberBuyFlag": true
 }

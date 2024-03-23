@@ -30,6 +30,9 @@
     <result column="rubbish_time" jdbcType="BIGINT" property="rubbishTime" />
     <result column="sku_flag" jdbcType="BIT" property="skuFlag" />
     <result column="pos_by_weight_flag" jdbcType="BIT" property="posByWeightFlag" />
+    <result column="app_sale_flag" jdbcType="BIT" property="appSaleFlag" />
+    <result column="shop_sale_flag" jdbcType="TINYINT" property="shopSaleFlag" />
+    <result column="non_member_buy_flag" jdbcType="BIGINT" property="nonMemberBuyFlag" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -39,7 +42,7 @@
     id, category_id, brand_id, name, img_list, key_word, search_key, free_shipping_flag, 
     weight, volume, max_limit_count, min_limit_count, unit, sale_flag, sale_time_out_flag, 
     stop_sale_time, detail, create_time, del_flag, del_time, rubbish_flag, rubbish_time, 
-    sku_flag, pos_by_weight_flag
+    sku_flag, pos_by_weight_flag, app_sale_flag, shop_sale_flag, non_member_buy_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
@@ -74,7 +77,8 @@
       sale_flag, sale_time_out_flag, stop_sale_time, 
       detail, create_time, del_flag, 
       del_time, rubbish_flag, rubbish_time, 
-      sku_flag, pos_by_weight_flag)
+      sku_flag, pos_by_weight_flag, app_sale_flag, 
+      shop_sale_flag, non_member_buy_flag)
     values (#{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{imgList,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, 
       #{freeShippingFlag,jdbcType=BIT}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
@@ -82,7 +86,8 @@
       #{saleFlag,jdbcType=TINYINT}, #{saleTimeOutFlag,jdbcType=TINYINT}, #{stopSaleTime,jdbcType=BIGINT}, 
       #{detail,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{delFlag,jdbcType=BIT}, 
       #{delTime,jdbcType=BIGINT}, #{rubbishFlag,jdbcType=BIT}, #{rubbishTime,jdbcType=BIGINT}, 
-      #{skuFlag,jdbcType=BIT}, #{posByWeightFlag,jdbcType=BIT})
+      #{skuFlag,jdbcType=BIT}, #{posByWeightFlag,jdbcType=BIT}, #{appSaleFlag,jdbcType=BIT}, 
+      #{shopSaleFlag,jdbcType=TINYINT}, #{nonMemberBuyFlag,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.verificer.biz.biz.entity.Goods">
     <!--
@@ -163,6 +168,15 @@
       <if test="posByWeightFlag != null">
         pos_by_weight_flag,
       </if>
+      <if test="appSaleFlag != null">
+        app_sale_flag,
+      </if>
+      <if test="shopSaleFlag != null">
+        shop_sale_flag,
+      </if>
+      <if test="nonMemberBuyFlag != null">
+        non_member_buy_flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -233,6 +247,15 @@
       </if>
       <if test="posByWeightFlag != null">
         #{posByWeightFlag,jdbcType=BIT},
+      </if>
+      <if test="appSaleFlag != null">
+        #{appSaleFlag,jdbcType=BIT},
+      </if>
+      <if test="shopSaleFlag != null">
+        #{shopSaleFlag,jdbcType=TINYINT},
+      </if>
+      <if test="nonMemberBuyFlag != null">
+        #{nonMemberBuyFlag,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -312,6 +335,15 @@
       <if test="posByWeightFlag != null">
         pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT},
       </if>
+      <if test="appSaleFlag != null">
+        app_sale_flag = #{appSaleFlag,jdbcType=BIT},
+      </if>
+      <if test="shopSaleFlag != null">
+        shop_sale_flag = #{shopSaleFlag,jdbcType=TINYINT},
+      </if>
+      <if test="nonMemberBuyFlag != null">
+        non_member_buy_flag = #{nonMemberBuyFlag,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -343,7 +375,10 @@
       rubbish_flag = #{rubbishFlag,jdbcType=BIT},
       rubbish_time = #{rubbishTime,jdbcType=BIGINT},
       sku_flag = #{skuFlag,jdbcType=BIT},
-      pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT}
+      pos_by_weight_flag = #{posByWeightFlag,jdbcType=BIT},
+      app_sale_flag = #{appSaleFlag,jdbcType=BIT},
+      shop_sale_flag = #{shopSaleFlag,jdbcType=TINYINT},
+      non_member_buy_flag = #{nonMemberBuyFlag,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 <!--以上内容自动生成-->
@@ -393,7 +428,9 @@
     <result column="rubbish_flag" jdbcType="BIT" property="rubbishFlag" />
     <result column="rubbish_time" jdbcType="BIGINT" property="rubbishTime" />
     <result column="pos_by_weight_flag" jdbcType="BIT" property="posByWeightFlag" />
-
+    <result column="app_sale_flag" jdbcType="BIT" property="appSaleFlag" />
+    <result column="shop_sale_flag" jdbcType="TINYINT" property="shopSaleFlag" />
+    <result column="non_member_buy_flag" jdbcType="BIGINT" property="nonMemberBuyFlag" />
   </resultMap>
 
   <resultMap id="GoodsVoRstMap" extends="modelRstMap" type="com.verificer.biz.beans.vo.GoodsVo">
@@ -402,6 +439,8 @@
     <result column="shop_sale_count" jdbcType="INTEGER" property="shopSaleCount" />
     <result column="shop_stage_count" jdbcType="INTEGER" property="shopStageCount" />
     <result column="sum_sale_count" jdbcType="INTEGER" property="sumSaleCount" />
+    <result column="stage_count" jdbcType="INTEGER" property="stageCount" />
+
   </resultMap>
 
   <select id="page"  resultMap="GoodsVoRstMap">
@@ -411,7 +450,9 @@
            gs.pla_stage_count,
            gs.shop_sale_count,
            gs.shop_stage_count,
-           (gs.pla_sale_count + gs.shop_sale_count) as sum_sale_count
+           (gs.pla_sale_count + gs.shop_sale_count) as sum_sale_count,
+           (gs.pla_stage_count + gs.shop_stage_count) as stage_count
+
     from goods g join goods_sta gs on (g.id = gs.goods_id and gs.sum_sta_flag = 1)
     where g.del_flag = 0
     <include refid="qryCond"></include>

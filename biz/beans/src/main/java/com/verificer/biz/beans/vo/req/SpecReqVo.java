@@ -18,15 +18,19 @@ public class SpecReqVo implements Serializable {
     @ApiModelProperty("图片")
     private String img;
 
-
     @ApiModelProperty("价格")
     private BigDecimal price;
+
+    @ApiModelProperty("原价")
+    private BigDecimal oriPrice;
 
     @ApiModelProperty("按重量计价价格")
     private BigDecimal wPrice;
 
-    @ApiModelProperty("ID列表")
-    private List<String> stageIds;
+    @ApiModelProperty("按重量计价价格原价")
+    private BigDecimal wOriPrice;
+
+
 
     public Long getId() {
         return id;
@@ -52,13 +56,6 @@ public class SpecReqVo implements Serializable {
         this.img = img;
     }
 
-    public List<String> getStageIds() {
-        return stageIds;
-    }
-
-    public void setStageIds(List<String> stageIds) {
-        this.stageIds = stageIds;
-    }
 
     public BigDecimal getPrice() {
         return price;
@@ -74,5 +71,22 @@ public class SpecReqVo implements Serializable {
 
     public void setwPrice(BigDecimal wPrice) {
         this.wPrice = wPrice;
+    }
+
+
+    public BigDecimal getOriPrice() {
+        return oriPrice;
+    }
+
+    public void setOriPrice(BigDecimal oriPrice) {
+        this.oriPrice = oriPrice;
+    }
+
+    public BigDecimal getwOriPrice() {
+        return wOriPrice;
+    }
+
+    public void setwOriPrice(BigDecimal wOriPrice) {
+        this.wOriPrice = wOriPrice;
     }
 }

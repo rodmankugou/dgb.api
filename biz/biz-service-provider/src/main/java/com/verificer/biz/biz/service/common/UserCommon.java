@@ -67,4 +67,8 @@ public class UserCommon {
         }
 
     }
+
+    public void lockByUser(Long userId) {
+        userMapper.getAndLock(userId);
+    }
 }

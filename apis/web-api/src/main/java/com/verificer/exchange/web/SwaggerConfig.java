@@ -21,16 +21,44 @@ public class SwaggerConfig {
 
 
     @Bean
-    public Docket createCmsApi(){
+    public Docket createDebugApi(){
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.web.controller.cms"))
-                .build().groupName("cms");
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.web.controller.debug"))
+                .build().groupName("debug");
     }
 
+    @Bean
+    public Docket createGoodsApi(){
 
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                .enable(enable)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.web.controller.goods"))
+                .build().groupName("goods");
+    }
+
+    @Bean
+    public Docket createShopApi(){
+
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                .enable(enable)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.web.controller.shop"))
+                .build().groupName("shop");
+    }
+
+    @Bean
+    public Docket createUserApi(){
+
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                .enable(enable)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.verificer.exchange.web.controller.user"))
+                .build().groupName("user");
+    }
 
 
     private ApiInfo apiInfo(){

@@ -178,4 +178,9 @@ public class GoodsStaServiceImpl implements GoodsStaService {
         goodsStaMapper.insertSelective(gs);
 
     }
+
+    @Override
+    public GoodsSta getBySpecId(Long specId) {
+        return goodsStaMapper.selectBySpecId(specId);
+    }
 }

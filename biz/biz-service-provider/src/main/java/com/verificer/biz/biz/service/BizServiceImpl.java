@@ -5,6 +5,17 @@ import com.verificer.beans.WxLoginReqVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.adjust.AdjOrderVo;
+import com.verificer.biz.beans.vo.adjust.TreeAdjItemVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjItemTreeQryVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrderQryVo;
+import com.verificer.biz.beans.vo.cart.CartVo;
+import com.verificer.biz.beans.vo.cart.ShopCartVo;
+import com.verificer.biz.beans.vo.cart.req.CartAddVo;
+import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
+import com.verificer.biz.beans.vo.cart.req.CartQryVo;
 import com.verificer.biz.beans.vo.member.MemberTypeVo;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
@@ -28,6 +39,8 @@ import com.verificer.biz.beans.vo.user.req.RefereeListReqVo;
 import com.verificer.biz.beans.vo.user.req.RefereeStaReqVo;
 import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
 import com.verificer.biz.beans.vo.user.withdraw.*;
+import com.verificer.biz.biz.service.adj.AdjItemService;
+import com.verificer.biz.biz.service.adj.AdjOrderService;
 import com.verificer.biz.biz.service.core.order.OrdCoreService;
 import com.verificer.biz.biz.service.core.user.*;
 import com.verificer.biz.biz.service.settle.PlaIncomeLogService;
@@ -104,6 +117,16 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     SettleItemService settleItemService;
+
+    @Autowired
+    AdjOrderService adjOrderService;
+
+    @Autowired
+    AdjItemService adjItemService;
+
+    @Autowired
+    CartService cartService;
+
 
     @Override
     public List<BrandVo> brandPage(BrandPageQryVo qryVo) {
@@ -513,5 +536,50 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public SettleOrdVo settleOrdDetail(IdVo idVo) {
         return settleOrdService.settleOrdDetail(idVo);
+    }
+
+    @Override
+    public List<AdjOrderVo> adjOrdPage(AdjOrderQryVo qryVo) {
+        return adjOrderService.adjOrdPage(qryVo);
+    }
+
+    @Override
+    public int adjOrdCount(AdjOrderQryVo qryVo) {
+        return adjOrderService.adjOrdCount(qryVo);
+    }
+
+    @Override
+    public void adjOrdCreate(AdjOrdFormVo formVo) {
+        adjOrderService.adjOrdCreate(formVo);
+    }
+
+    @Override
+    public void adjOrdConfirm(AdjOrdConfirmVo formVo) {
+        adjOrderService.adjOrdConfirm(formVo);
+    }
+
+    @Override
+    public List<TreeAdjItemVo> adjItemTree(AdjItemTreeQryVo qryVo) {
+        return adjItemService.adjItemTree(qryVo);
+    }
+
+    @Override
+    public List<CartVo> cartPlaList(CartQryVo reqVo) {
+        return cartService.cartPlaList(reqVo);
+    }
+
+    @Override
+    public List<ShopCartVo> cartShopList(CartQryVo reqVo) {
+        return cartService.cartShopList(reqVo);
+    }
+
+    @Override
+    public void cartJoin(CartJoinVo reqVo) {
+        cartService.cartJoin(reqVo);
+    }
+
+    @Override
+    public void cartAdd(CartAddVo reqVo) {
+        cartService.cartAdd(reqVo);
     }
 }

@@ -55,4 +55,6 @@ public interface GoodsStaMapper {
     GoodsSta getAndLockByGoodsId(@Param("goodsId") Long goodsId);
 
     GoodsSta getAndLockBySpecId(@Param("specId") Long specId);
+
+    GoodsSta selectBySpecId(@Param("specId") Long specId);
 }

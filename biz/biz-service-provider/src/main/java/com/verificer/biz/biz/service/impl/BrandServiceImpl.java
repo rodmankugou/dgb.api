@@ -37,9 +37,7 @@ public class BrandServiceImpl implements BrandService {
 
         List<BrandVo> voList = new LinkedList<>();
         for(Brand e : list){
-            BrandVo vo = new BrandVo();
-            SBeanUtils.copyProperties2(e,vo);
-            voList.add(vo);
+            voList.add(toVo(e));
         }
         return voList;
     }

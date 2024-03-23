@@ -60,6 +60,15 @@ public class GoodsFormVo implements Serializable {
     @ApiModelProperty("门店是否按重量计价，true-是 false-否")
     private Boolean posByWeightFlag;
 
+    @ApiModelProperty("销售渠道-小程序销售")
+    private Boolean appSaleFlag;
+
+    @ApiModelProperty("销售渠道-线下门店销售")
+    private Boolean shopSaleFlag;
+
+    @ApiModelProperty("非会员是否能购买")
+    private Boolean nonMemberBuyFlag;
+
 
     @ApiModelProperty("规格列表")
     private List<SpecReqVo> specList;
@@ -207,5 +216,29 @@ public class GoodsFormVo implements Serializable {
 
     public void setPosByWeightFlag(Boolean posByWeightFlag) {
         this.posByWeightFlag = posByWeightFlag;
+    }
+
+    public Boolean getAppSaleFlag() {
+        return appSaleFlag;
+    }
+
+    public void setAppSaleFlag(Boolean appSaleFlag) {
+        this.appSaleFlag = appSaleFlag;
+    }
+
+    public Boolean getShopSaleFlag() {
+        return shopSaleFlag;
+    }
+
+    public void setShopSaleFlag(Boolean shopSaleFlag) {
+        this.shopSaleFlag = shopSaleFlag;
+    }
+
+    public Boolean getNonMemberBuyFlag() {
+        return nonMemberBuyFlag;
+    }
+
+    public void setNonMemberBuyFlag(Boolean nonMemberBuyFlag) {
+        this.nonMemberBuyFlag = nonMemberBuyFlag;
     }
 }

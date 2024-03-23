@@ -96,4 +96,11 @@ public class GoodsCommon {
     public boolean isGoodsOnSale(Goods goods) {
         return goodsService.isGoodsOnSale(goods);
     }
+
+    public Long getGoodsId(Long specId) {
+        Spec spec = specMapper.selectByPrimaryKey(specId);
+        if(spec == null)
+            throw new BaseException(ErrCode.RECORD_NOT_EXIST);
+        return  spec.getGoodsId();
+    }
 }

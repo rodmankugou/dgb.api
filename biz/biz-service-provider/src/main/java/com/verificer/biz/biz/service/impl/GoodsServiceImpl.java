@@ -92,6 +92,10 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getDelFlag(),"Del Flag");  //需
         SCheckUtil.notEmpty(e.getRubbishFlag(),"Rubbish Flag"); //需
         SCheckUtil.notEmpty(e.getPosByWeightFlag(),"Pos By Weight Flag"); //需
+        SCheckUtil.notEmpty(e.getAppSaleFlag(),"App Sale Flag");
+        SCheckUtil.notEmpty(e.getShopSaleFlag(),"Shop Sale Flag");
+        SCheckUtil.notEmpty(e.getNonMemberBuyFlag(),"Non Member Buy Flag");
+        SCheckUtil.notEmpty(e.getSkuFlag(),"Sku Flag");
     }
 
     private String genSearchKey(Goods goods){
@@ -108,12 +112,13 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setDelFlag(false);
         goods.setRubbishFlag(false);
         goods.setCreateTime(System.currentTimeMillis());
+        goods.setSkuFlag(!goods.getPosByWeightFlag());
 
         mCheck(goods);
         mapper.insertSelective(goods);
         goodsStaService.add(goods.getId());
 
-        specService.add(goods.getId(),formVo.getSpecList());
+        specService.add(goods,formVo.getSpecList());
     }
 
     @Override
@@ -135,10 +140,12 @@ public class GoodsServiceImpl implements GoodsService {
         e.setDelFlag(old.getDelFlag());
         e.setRubbishFlag(old.getRubbishFlag());
         e.setPosByWeightFlag(old.getPosByWeightFlag());
+        e.setSkuFlag(!e.getPosByWeightFlag());
+
 
         //TODO 目前没做新增和删除检测
         List<SpecReqVo> list = formVo.getSpecList();
-        specService.upd(formVo.getId(),list);
+        specService.upd(e,list);
 
 
         mCheck(e);

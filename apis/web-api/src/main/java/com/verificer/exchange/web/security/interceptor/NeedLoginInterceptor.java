@@ -83,12 +83,7 @@ public class NeedLoginInterceptor extends BaseInterceptor {
 
             LoginStat<UserIdentity> loginStat = loginMonitor.isLogin(ClientEnum.WEB.getName(),requestToken,new UserIdentity());
             if(loginStat.isLogin()){
-                UserIdentity userIdentity = loginStat.getUserInfo();
-                boolean allowUnActivation = mHandler.getMethodAnnotation(AllowUnActivation.class) == null ? false : true;
-                if(!allowUnActivation && !userIdentity.getHasActivation()){
-                    respAsJson(response,ErrCode.NEED_ACTIVATION);
-                    return false;
-                }
+
                 request.setAttribute(SecurityConf.USER_IDENTITY_KEY, loginStat.getUserInfo());
                 return true;
             }else {

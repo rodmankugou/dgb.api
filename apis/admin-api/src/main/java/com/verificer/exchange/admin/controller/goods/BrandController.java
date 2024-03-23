@@ -32,9 +32,6 @@ public class BrandController extends BaseController{
     @Autowired
     BizService bizService;
 
-
-
-
     @ApiOperation(
             value = "列表（分页）",
             response = BrandVo.class,
@@ -103,7 +100,6 @@ public class BrandController extends BaseController{
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public Response del(@RequestBody BrandDelVo delVo) {
         bizService.brandDel(delVo);
-
         return Response.simpleSuccess();
     }
 

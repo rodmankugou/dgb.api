@@ -6,6 +6,7 @@ import com.verificer.beans.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.security.login.ILoginMonitor;
+import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.web.SecurityUtil;
 import com.verificer.web.common.response.Response;
@@ -16,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,8 @@ public class AppLoginController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(AppLoginController.class);
 
 
-
+    @Value("#{configProperties['LOGIN_ALIVE_TIME']}")
+    private Integer LOGIN_ALIVE_TIME_MINUTE;
 
     @Autowired
     ILoginMonitor loginMonitor;
@@ -74,21 +77,20 @@ public class AppLoginController extends BaseController {
     )
     @ApiImplicitParams({
     })
-    @RequestMapping(value = "/loginByAddress", method = RequestMethod.POST)
+    @RequestMapping(value = "/wx/login", method = RequestMethod.POST)
     @ResponseBody
-    public Response loginByAddress(
+    public Response loginByWx(
             @RequestBody WxLoginReqVo reqVo) {
 
         Long userId = bizService.wxLogin(reqVo);
 
-//        String token = loginMonitor.login(getClient(),resp.getUserId().toString(),userIdentity,new UserIdentity());
 
-//        WxTokenVo vo = new WxTokenVo();
-//        vo.setToken(token);
-//        vo.setExpireTime();
-//        return Response.dataSuccess();
-        return null;
+        String token = loginMonitor.login(getClient(),userId.toString(),new UserIdentity(userId),new UserIdentity());
 
+        WxTokenVo vo = new WxTokenVo();
+        vo.setToken(token);
+        vo.setExpireTime(System.currentTimeMillis()+(LOGIN_ALIVE_TIME_MINUTE/2)* SDateUtil.MS_PER_MINUTE);
+        return Response.dataSuccess(vo);
     }
 
 

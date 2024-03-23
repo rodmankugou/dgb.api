@@ -5,6 +5,17 @@ import com.verificer.beans.WxLoginReqVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.adjust.AdjOrderVo;
+import com.verificer.biz.beans.vo.adjust.TreeAdjItemVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjItemTreeQryVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
+import com.verificer.biz.beans.vo.adjust.req.AdjOrderQryVo;
+import com.verificer.biz.beans.vo.cart.CartVo;
+import com.verificer.biz.beans.vo.cart.ShopCartVo;
+import com.verificer.biz.beans.vo.cart.req.CartAddVo;
+import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
+import com.verificer.biz.beans.vo.cart.req.CartQryVo;
 import com.verificer.biz.beans.vo.member.MemberTypeVo;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
@@ -502,5 +513,55 @@ public interface BizService {
     int settle(Long ordId);
 
     SettleOrdVo settleOrdDetail(IdVo idVo);
+
+
+    List<AdjOrderVo> adjOrdPage(AdjOrderQryVo qryVo);
+
+    int adjOrdCount(AdjOrderQryVo qryVo);
+
+    /**
+     * 创建配货单
+     * @param formVo
+     */
+    void adjOrdCreate(AdjOrdFormVo formVo);
+
+    /**
+     * 配货单确认收货
+     * @param formVo
+     */
+    void adjOrdConfirm(AdjOrdConfirmVo formVo);
+
+    /**
+     * 配货单明细树
+     * @param qryVo
+     * @return
+     */
+    List<TreeAdjItemVo> adjItemTree(AdjItemTreeQryVo qryVo);
+
+    /**
+     * 购物车-云上商城
+     * @return
+     */
+    List<CartVo> cartPlaList(CartQryVo reqVo);
+
+    /**
+     * 购物车-门店
+     * @return
+     */
+    List<ShopCartVo> cartShopList(CartQryVo reqVo);
+
+    /**
+     * 加入购物车
+     * @param reqVo
+     * @return
+     */
+    void cartJoin(CartJoinVo reqVo);
+
+    /**
+     * 购物车增减数量
+     * @param reqVo
+     * @return
+     */
+    void cartAdd(CartAddVo reqVo);
 }
 

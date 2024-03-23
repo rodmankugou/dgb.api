@@ -1,0 +1,112 @@
+[
+  {
+    "name": "A1",
+    "apis": [
+      {
+        "每日疯抢": "goods->商品->/goods/index/page",
+        "非会员专区": "goods->商品->/goods/index/page",
+        "新品推荐": "goods->商品->/goods/index/page",
+        "附近门店": "shop->店铺->/shop/nearest",
+        "人气爆品": "user->用户->/user/serReferrer"
+      }
+    ]
+  },
+  {
+    "name": "A5",
+    "apis": [
+      {
+        "左侧分类": "goods->分类->/category/list",
+        "上方图片": "左侧分类选中的category的logoImg",
+        "商品列表": "goods->商品->/goods/pla/cat/goods"
+      }
+    ]
+  },
+  {
+    "name": "A6",
+    "apis": [
+      {
+        "商品列表": "goods->商品->/goods/pla/rank/goods"
+      }
+    ]
+  },
+  {
+    "name": "A7",
+    "apis": [
+      {
+        "加入购物车": "goods->购物车->/cart/join"
+      }
+    ]
+  },
+  {
+    "name": "A9",
+    "apis": [
+      {
+        "列表（商品/分类）": "goods->商品->/goods/search",
+        "列表（店铺）": "shop->店铺->/shop/page"
+      }
+    ]
+  },
+  {
+    "name": "A10",
+    "apis": [
+      {
+        "列表（商品/分类）": "goods->商品->/goods/search",
+        "列表（店铺）": "shop->店铺->/shop/page"
+      }
+    ]
+  },
+  {
+    "name": "A11",
+    "apis": [
+      {
+        "列表（商品/分类）": "goods->商品->/goods/search",
+        "列表（店铺）": "shop->店铺->/shop/page"
+      }
+    ]
+  },
+  {
+    "name": "A12",
+    "apis": [
+      {
+        "列表（商品/分类）": "goods->商品->/goods/search",
+        "列表（店铺）": "shop->店铺->/shop/page"
+      }
+    ]
+  },
+  {
+    "name": "B1",
+    "apis": [
+      {
+        "列表（商品/分类）": "goods->商品->/goods/detail",
+      }
+    ]
+  },
+  {
+    "name": "B6",
+    "apis": [
+      {
+        "列表": "goods->cart->/cart/shop/list",
+        "加减数量": "goods->cart->/cart/add"
+      }
+    ]
+  },
+  {
+    "name": "B7",
+    "apis": [
+      {
+        "列表": "goods->cart->/cart/pla/list",
+        "加减数量": "goods->cart->/cart/add"
+      }
+    ]
+  },
+  {
+    "name": "C1",
+    "apis": [
+      {
+        "顶部门店信息": "shop->店铺->/shop/detail",
+        "左侧分类": "goods->分类->/category/list",
+        "商品列表": "goods->商品->/goods/shop/cat/goods"
+      }
+    ]
+  }
+]

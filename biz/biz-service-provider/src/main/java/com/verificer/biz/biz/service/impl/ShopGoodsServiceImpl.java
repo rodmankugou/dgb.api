@@ -1,15 +1,19 @@
 package com.verificer.biz.biz.service.impl;
 
+import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.biz.entity.Goods;
 import com.verificer.biz.biz.entity.ShopGoods;
 import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.ShopGoodsMapper;
-import com.verificer.biz.biz.mapper.ShopMapper;
 import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.core.goods.GoodsPublishService;
+import com.verificer.biz.biz.service.core.goods.notify.IGoodsPublishListener;
+import com.verificer.biz.biz.service.core.goods.notify.PublishGoodsEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -27,8 +31,22 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
     @Autowired
     SpecService specService;
 
+    @Autowired
+    GoodsPublishService goodsPublishService;
+
+    @PostConstruct
+    void init(){
+        goodsPublishService.addListener(new IGoodsPublishListener() {
+            @Override
+            public void onEvent(PublishGoodsEvent e) {
+                if(MerType.SHOP.equals(e.getMerType()))
+                    addGoodsIfNotExist(e.getMerId(),e.getGoodsId(),e.getSpecId());
+            }
+        });
+    }
+
     @Override
-    public void addGoods(String shopId,Long goodsId, Long specId) {
+    public void addGoodsIfNotExist(String shopId, Long goodsId, Long specId) {
         Goods goods = goodsService.getById(goodsId);
         Spec spec = specService.getById(specId);
         ShopGoods sg = new ShopGoods();

@@ -8,6 +8,7 @@ import com.verificer.biz.biz.mapper.StockLogMapper;
 import com.verificer.biz.biz.mapper.StockMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.biz.biz.service.common.GoodsCommon;
+import com.verificer.biz.biz.service.common.StockCommon;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.biz.biz.service.core.stock.entity.StockIdVo;
 import com.verificer.biz.biz.service.core.stock.notify.StockNotifier;
@@ -59,15 +60,8 @@ public class StockCoreServiceImpl implements StockCoreService {
     }
 
     @Override
-    public void addStageStockIfNotExist(Long goodsId, Long specId, List<String> stageIds) {
-        for(String stageId : stageIds){
-            Stage stage = stageService.getById(stageId);
-            if(stage == null)
-                throw new RuntimeException("Stage not exist!,id="+stageId);
-
-
-            addIfNotExist(goodsId,specId,true,stageId,BigDecimal.ZERO);
-        }
+    public void addStageStockIfNotExist(Long goodsId, Long specId,String stageId) {
+        addIfNotExist(goodsId,specId,true,stageId,BigDecimal.ZERO);
     }
 
     @Override
@@ -235,6 +229,11 @@ public class StockCoreServiceImpl implements StockCoreService {
     @Override
     public void lockStocks(List<StockIdVo> idVos){
         getAndLockStocks(idVos);
+    }
+
+    @Override
+    public Stock getStock(String relId, Long specId) {
+        return mapper.selectByRefIdAndSpecId(relId,specId);
     }
 
     @Override

@@ -17,8 +17,14 @@ public class SpecVo implements Serializable {
     @ApiModelProperty("价格")
     private BigDecimal price;
 
+    @ApiModelProperty("原价")
+    private BigDecimal oriPrice;
+
     @ApiModelProperty("按重量计价价格")
     private BigDecimal wPrice;
+
+    @ApiModelProperty("按重量计价价格原价")
+    private BigDecimal wOriPrice;
 
     @ApiModelProperty("名称")
     private String name;
@@ -128,4 +134,19 @@ public class SpecVo implements Serializable {
     }
 
 
+    public BigDecimal getOriPrice() {
+        return oriPrice;
+    }
+
+    public void setOriPrice(BigDecimal oriPrice) {
+        this.oriPrice = oriPrice;
+    }
+
+    public BigDecimal getwOriPrice() {
+        return wOriPrice;
+    }
+
+    public void setwOriPrice(BigDecimal wOriPrice) {
+        this.wOriPrice = wOriPrice;
+    }
 }

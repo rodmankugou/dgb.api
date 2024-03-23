@@ -26,13 +26,6 @@ public class UserIdentity implements UserInfoSerializer<UserIdentity> {
         this.id = id;
     }
 
-    public Boolean getHasActivation() {
-        return hasActivation;
-    }
-
-    public void setHasActivation(Boolean hasActivation) {
-        this.hasActivation = hasActivation;
-    }
 
     public Integer getRole() {
         return role;

@@ -3,6 +3,7 @@ package com.verificer.biz.biz.service.impl;
 import com.verificer.ErrCode;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.SpecReqVo;
+import com.verificer.biz.biz.entity.Goods;
 import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.SpecMapper;
 import com.verificer.biz.biz.service.GoodsStaService;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,21 +31,46 @@ public class SpecServiceImpl implements SpecService {
     @Autowired
     GoodsStaService goodsStaService;
 
-    private void mCheck(Spec e){
+    private void mCheck(Goods goods,Spec e){
         SCheckUtil.notEmpty(e.getGoodsId(),"Specification.GoodsId");
         SCheckUtil.notEmpty(e.getName(),"Specification.Name");//需
         SCheckUtil.notEmpty(e.getImg(),"Specification.Img");
         SCheckUtil.notEmpty(e.getDelFlag(),"Specification.DelFlag");  //需
         SCheckUtil.notEmpty(e.getPrice(),"Specification.Price");
 
+        if(goods.getAppSaleFlag())
+            checkSPrice(e);
+
+        if(goods.getPosByWeightFlag())
+            checkWPrice(e);
+
+        if(!goods.getPosByWeightFlag())
+            checkSPrice(e);
+
+
+    }
+
+    private void checkAllPrice(Spec e){
+        checkSPrice(e);
+        checkWPrice(e);
+    }
+
+    private void checkWPrice(Spec e){
+        SCheckUtil.lgThanAndNotNull(e.getwPrice(),false,BigDecimal.ZERO,"Spec.wPrice");
+        SCheckUtil.lgThanAndNotNull(e.getwOriPrice(),false,BigDecimal.ZERO,"Spec.wOriPrice");
+    }
+
+    private void checkSPrice(Spec e){
+        SCheckUtil.lgThanAndNotNull(e.getPrice(),false,BigDecimal.ZERO,"Spec.price");
+        SCheckUtil.lgThanAndNotNull(e.getOriPrice(),false,BigDecimal.ZERO,"Spec.oriPrice");
     }
 
     @Override
-    public void add(Long goodsId, List<SpecReqVo> specList) {
-        if(goodsId == null)
+    public void add(Goods goods, List<SpecReqVo> specList) {
+        if(goods.getId() == null)
             throw new RuntimeException("Goods Id can not be null");
         for(SpecReqVo spec : specList)
-            add(goodsId,spec);
+            add(goods,spec);
 
     }
 
@@ -80,40 +107,42 @@ public class SpecServiceImpl implements SpecService {
 
 
 
-    private void addOrUpdate(Long goodsId, SpecReqVo reqVo){
+    private void addOrUpdate(Goods goods, SpecReqVo reqVo){
         if(reqVo.getId() != null)
-            add(goodsId,reqVo);
+            add(goods,reqVo);
         else
-            upd(goodsId,reqVo);
+            upd(goods,reqVo);
     }
 
-    private void add(Long goodsId,SpecReqVo reqVo){
+    private void add(Goods goods, SpecReqVo reqVo){
         Spec spec = new Spec();
         SBeanUtils.copyProperties2(reqVo,spec);
-        spec.setGoodsId(goodsId);
+        spec.setGoodsId(goods.getId());
         spec.setCreateTime(System.currentTimeMillis());
         spec.setDelFlag(false);
         spec.setPrice(reqVo.getPrice());
         spec.setwPrice(reqVo.getwPrice());
 
-        mCheck(spec);
+        mCheck(goods,spec);
         mapper.insertSelective(spec);
-        goodsStaService.add(goodsId, spec.getId());
+        goodsStaService.add(goods.getId(), spec.getId());
 
 
-        stockCoreService.addStageStockIfNotExist(spec.getGoodsId(),spec.getId(),reqVo.getStageIds());
     }
 
     @Override
-    public void upd(Long id, List<SpecReqVo> list) {
+    public void upd(Goods goods, List<SpecReqVo> list) {
 
-        //TODO 未完全实现
+        //TODO 暂时不支持删除
         for(SpecReqVo spec : list){
-            if(spec.getId() == null)
+            if(spec.getId() == null){
+                add(goods,spec);
                 continue;
+            }
+
             Spec old = mapper.selectByPrimaryKey(spec.getId());
             if(old == null)
-                continue;
+                throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
             old.setPrice(spec.getPrice());
             old.setwPrice(spec.getwPrice());
@@ -123,7 +152,7 @@ public class SpecServiceImpl implements SpecService {
         }
     }
 
-    private void upd(Long goodsId,SpecReqVo reqVo){
+    private void upd(Goods goods,SpecReqVo reqVo){
         SCheckUtil.notEmpty(reqVo.getId(),"Specification.ID");
 
         Spec old = mapper.selectByPrimaryKey(reqVo.getId());
@@ -135,14 +164,14 @@ public class SpecServiceImpl implements SpecService {
 
         Spec e = new Spec();
         SBeanUtils.copyProperties2(reqVo,e);
+        e.setGoodsId(goods.getId());
         e.setCreateTime(old.getCreateTime());
         e.setDelFlag(old.getDelFlag());
         e.setGoodsId(old.getGoodsId());
 
-        mCheck(e);
+        mCheck(goods,e);
         mapper.updateByPrimaryKeySelective(e);
 
-        stockCoreService.addStageStockIfNotExist(old.getGoodsId(),old.getId(),reqVo.getStageIds());
 
     }
 }

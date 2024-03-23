@@ -276,4 +276,6 @@ public class ErrCode {
     public static final String REF_WITHDRAW_CAN_NOT_REVIEW = "REF_WITHDRAW_CAN_NOT_REVIEW";
     public static final String REF_WITHDRAW_CAN_NOT_TRANSFER = "REF_WITHDRAW_CAN_NOT_TRANSFER";
     public static final String CAN_NOT_REPEAT_SETTLE = "CAN_NOT_REPEAT_SETTLE";
+    public static final String ADJ_ORD_CONFIRM_LESS_ITEM = "ADJ_ORD_CONFIRM_LESS_ITEM";
+    public static final String ADJ_ORD_NOT_IN_WAIT_CONFIRM = "ADJ_ORD_NOT_IN_WAIT_CONFIRM";
 }

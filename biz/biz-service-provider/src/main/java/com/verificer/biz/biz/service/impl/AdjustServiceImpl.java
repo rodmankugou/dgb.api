@@ -90,7 +90,7 @@ public class AdjustServiceImpl implements AdjustService {
 
         for(AdjFormVo vo : list){
             if(!stockCoreService.isStockExist(vo.getToId(),vo.getGoodsId(),vo.getSpecId())){
-                shopGoodsService.addGoods(vo.getToId(),vo.getGoodsId(),vo.getSpecId());
+                shopGoodsService.addGoodsIfNotExist(vo.getToId(),vo.getGoodsId(),vo.getSpecId());
             }
             stockCoreService.addShopStockIfNotExist(vo.getToId(),vo.getGoodsId(),vo.getSpecId());
             adjust(vo);
