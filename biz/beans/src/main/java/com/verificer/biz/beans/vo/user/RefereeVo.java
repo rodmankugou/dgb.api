@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class RefereeVo implements Serializable {
     @ApiModelProperty("UID")
     private String uid;
     @ApiModelProperty("佣金")
+    @PriceDecimal
     private BigDecimal commission;
 
     public String getNickname() {

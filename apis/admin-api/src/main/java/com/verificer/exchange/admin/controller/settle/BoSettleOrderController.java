@@ -13,6 +13,7 @@ import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -52,7 +53,7 @@ public class BoSettleOrderController extends BaseController{
     public Response page(@RequestBody SettleOrdQryVo reqVo) {
         List<SettleOrdVo> list = bizService.settleOrdPage(reqVo);
         int count = bizService.settleOrdCount(reqVo);
-        return Response.listSuccess(count,list);
+        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
     }
 
     @ApiOperation(
@@ -68,7 +69,7 @@ public class BoSettleOrderController extends BaseController{
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Response detail(@RequestBody IdVo reqVo) {
         SettleOrdVo vo = bizService.settleOrdDetail(reqVo);
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
     @ApiOperation(

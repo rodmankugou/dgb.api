@@ -13,7 +13,7 @@ import com.verificer.biz.biz.mapper.DbgOrderMapper;
 import com.verificer.biz.biz.mapper.OrderDetailMapper;
 import com.verificer.biz.biz.service.*;
 import com.verificer.common.exception.BizErrMsgException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

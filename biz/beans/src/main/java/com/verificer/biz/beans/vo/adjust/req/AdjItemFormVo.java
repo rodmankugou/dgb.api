@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.adjust.req;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,6 +15,7 @@ public class AdjItemFormVo implements Serializable {
     private Long specId;
 
     @ApiModelProperty("数量")
+    @PrcLimit(2)
     private BigDecimal count;
 
     public Long getGoodsId() {

@@ -19,6 +19,7 @@ import com.verificer.common.exception.BaseException;
 import com.verificer.enums.CustomerVerifiedStatus;
 import com.verificer.enums.IdInfoStatus;
 import com.verificer.utils.*;
+import com.verificer.utils.reflect.SBeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nullable;
-import java.io.File;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by liujinhua on 2021/1/1.

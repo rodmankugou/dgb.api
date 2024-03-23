@@ -10,7 +10,7 @@ import com.verificer.biz.beans.vo.user.req.SetNicknameVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.FileUploadController;
 import com.verificer.exchange.web.security.annotation.NeedLogin;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;

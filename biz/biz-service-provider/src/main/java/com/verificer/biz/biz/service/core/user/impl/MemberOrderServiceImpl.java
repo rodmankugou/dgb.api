@@ -1,6 +1,5 @@
 package com.verificer.biz.biz.service.core.user.impl;
 
-import com.mchange.v2.uid.UidUtils;
 import com.verificer.ErrCode;
 import com.verificer.GlobalConfig;
 import com.verificer.beans.num.NumGenerator;
@@ -9,7 +8,6 @@ import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.enums.MemberOrdSta;
 import com.verificer.biz.beans.enums.MemberRefType;
-import com.verificer.biz.beans.enums.MemberTypeTimeUnit;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.biz.entity.MemberOrder;
 import com.verificer.biz.biz.entity.MemberType;
@@ -22,10 +20,8 @@ import com.verificer.biz.biz.service.core.user.notify.IMemberListener;
 import com.verificer.biz.biz.service.core.user.notify.event.MemberEvent;
 import com.verificer.biz.biz.service.core.user.notify.event.MemberOrdSucEvent;
 import com.verificer.common.exception.BaseException;
-import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.designpatterns.listener.ConcurrentNotifier;
-import com.verificer.utils.SBeanUtils;
-import com.verificer.utils.SDateUtil;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;

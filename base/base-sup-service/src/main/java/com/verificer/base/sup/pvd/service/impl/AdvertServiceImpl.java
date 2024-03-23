@@ -1,7 +1,6 @@
 package com.verificer.base.sup.pvd.service.impl;
 
 import com.verificer.ErrCode;
-import com.verificer.base.sup.pvd.entity.Banner;
 import com.verificer.beans.AdvertPageVo;
 import com.verificer.base.sup.pvd.entity.Advert;
 import com.verificer.base.sup.pvd.mapper.AdvertMapper;
@@ -10,7 +9,7 @@ import com.verificer.beans.AdvertFormVo;
 import com.verificer.beans.IdVo;
 import com.verificer.beans.suportVo.AdvertVo;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

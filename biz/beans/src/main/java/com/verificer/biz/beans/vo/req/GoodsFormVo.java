@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.req;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -31,15 +32,19 @@ public class GoodsFormVo implements Serializable {
     private Boolean freeShippingFlag;
 
     @ApiModelProperty("重量")
+    @PrcLimit(2)
     private BigDecimal weight;
 
     @ApiModelProperty("体积")
+    @PrcLimit(6)
     private BigDecimal volume;
 
     @ApiModelProperty("限购数")
+    @PrcLimit(2)
     private BigDecimal maxLimitCount;
 
     @ApiModelProperty("起购数")
+    @PrcLimit(2)
     private BigDecimal minLimitCount;
 
     @ApiModelProperty("单位")

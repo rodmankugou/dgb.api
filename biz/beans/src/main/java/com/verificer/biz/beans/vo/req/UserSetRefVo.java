@@ -1,6 +1,7 @@
 package com.verificer.biz.beans.vo.req;
 
 import com.verificer.beans.IdVo;
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class UserSetRefVo extends IdVo {
     private Boolean enableFlag;
 
     @ApiModelProperty("佣金金额")
+    @PriceDecimal
     private BigDecimal commission;
 
     public BigDecimal getCommission() {

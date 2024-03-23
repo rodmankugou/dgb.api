@@ -1,20 +1,17 @@
 package com.verificer.biz.biz.service.impl;
 
-import com.mchange.v2.uid.UidUtils;
 import com.verificer.ErrCode;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.constants.BizConst;
-import com.verificer.biz.beans.vo.BrandVo;
 import com.verificer.biz.beans.vo.StageVo;
 import com.verificer.biz.beans.vo.req.StageFormVo;
 import com.verificer.biz.beans.vo.req.StagePageVo;
-import com.verificer.biz.biz.entity.Brand;
 import com.verificer.biz.biz.entity.Stage;
 import com.verificer.biz.biz.mapper.StageMapper;
 import com.verificer.biz.biz.service.StageService;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;

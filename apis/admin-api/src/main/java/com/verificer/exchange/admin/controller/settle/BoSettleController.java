@@ -12,6 +12,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.utils.check.SCheckUtil;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -51,7 +52,7 @@ public class BoSettleController extends BaseController{
     @RequestMapping(value = "/sta", method = RequestMethod.POST)
     public Response sta(@RequestBody EmptyVo reqVo) {
         SettleStaVo vo = bizService.settleSta(new SettleStaQryVo());
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
     @ApiOperation(
@@ -68,7 +69,7 @@ public class BoSettleController extends BaseController{
     public Response plaIncomeLogPage(@RequestBody PlaIncomeLogQryVo reqVo) {
         List<PlaIncomeLogVo> vo = bizService.plaIncomeLogPage(reqVo);
         int count = bizService.plaIncomeLogCount(reqVo);
-        return Response.listSuccess(count,vo);
+        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(vo));
     }
 
 

@@ -1,6 +1,5 @@
 package com.verificer.exchange.admin.controller.debug;
 
-import com.verificer.beans.EmptyVo;
 import com.verificer.beans.WxLoginReqVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
@@ -11,11 +10,9 @@ import com.verificer.biz.beans.vo.user.withdraw.ReferrerFormVo;
 import com.verificer.biz.beans.vo.user.withdraw.ReferrerReviewVo;
 import com.verificer.biz.beans.vo.user.withdraw.ReferrerTransferVo;
 import com.verificer.biz.biz.service.BizService;
-import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.controller.debug.vo.ShopMemberVo;
 import com.verificer.exchange.admin.security.annotation.DebugController;
 import com.verificer.exchange.admin.unittest.Tools;
-import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.UuidUtils;
@@ -30,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * Created by 35336 on 2021/2/26.

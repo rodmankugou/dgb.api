@@ -1,6 +1,6 @@
 package com.verificer.biz.biz.service.core.order.flow;
 
-import com.verificer.biz.beans.vo.order.OrdFormVo;
+import com.verificer.biz.beans.vo.order.req.OrdFormVo;
 import com.verificer.biz.biz.entity.DbgOrder;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;

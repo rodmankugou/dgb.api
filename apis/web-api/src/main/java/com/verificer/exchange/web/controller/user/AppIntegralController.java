@@ -16,6 +16,7 @@ import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.web.controller.FileUploadController;
 import com.verificer.exchange.web.security.annotation.NeedLogin;
 import com.verificer.utils.check.SCheckUtil;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
@@ -52,7 +53,7 @@ public class AppIntegralController extends FileUploadController {
     public Response balance(HttpServletRequest hReq,@RequestBody EmptyVo reqVo){
         Long userId = UserIdentityUtils.getUserIdentity(hReq).getId();
         BigDecimal balance = bizService.integralBalance(new IdVo(userId));
-        balance.setScale(0,BigDecimal.ROUND_DOWN);
+        balance = balance.setScale(0,BigDecimal.ROUND_DOWN);
         return Response.dataSuccess(balance);
     }
 
@@ -71,7 +72,7 @@ public class AppIntegralController extends FileUploadController {
         Long userId = UserIdentityUtils.getUserIdentity(hReq).getId();
         reqVo.setUserId(userId);
         List<AppIntegralLogVo> list = bizService.integralList(reqVo);
-        return Response.dataSuccess(list);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 
 

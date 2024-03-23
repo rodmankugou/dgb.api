@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.CountDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,6 +44,7 @@ public class AdjustVo implements Serializable {
     private String specName;
 
     @ApiModelProperty("数量")
+    @CountDecimal
     private BigDecimal count;
 
     @ApiModelProperty("单位")

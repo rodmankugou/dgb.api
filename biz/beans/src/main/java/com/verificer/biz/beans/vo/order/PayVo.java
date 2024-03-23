@@ -1,5 +1,7 @@
 package com.verificer.biz.beans.vo.order;
 
+import com.verificer.utils.decimal.PriceDecimal;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,6 +17,7 @@ public class PayVo implements Serializable {
     /**
      * 支付金额
      */
+    @PriceDecimal
     private BigDecimal payAmount;
 
     public Integer getPayType() {

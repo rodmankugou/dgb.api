@@ -13,7 +13,7 @@ import com.verificer.beans.CustomerVo;
 import com.verificer.beans.customer.AdmWebUserVo;
 import com.verificer.beans.customer.req.CustomerPageVo;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.StaffVo;
 import com.verificer.utils.check.CheckUtil;

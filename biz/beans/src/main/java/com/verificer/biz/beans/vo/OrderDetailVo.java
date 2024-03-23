@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,15 +28,18 @@ public class OrderDetailVo implements Serializable {
     private String specImg;
 
     @ApiModelProperty("运输费用")
+    @PriceDecimal
     private BigDecimal transitFee;
 
     @ApiModelProperty("单价")
+    @PriceDecimal
     private BigDecimal price;
 
     @ApiModelProperty("数量")
     private BigDecimal count;
 
     @ApiModelProperty("金额")
+    @PriceDecimal
     private BigDecimal amount;
 
     @ApiModelProperty("1-未发货 2-运输中 3-已签收")

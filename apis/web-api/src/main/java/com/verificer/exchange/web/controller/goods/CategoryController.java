@@ -2,14 +2,12 @@ package com.verificer.exchange.web.controller.goods;
 
 import com.verificer.biz.beans.vo.CatVo;
 import com.verificer.biz.beans.vo.cat.ACatVo;
-import com.verificer.biz.beans.vo.req.CatFormVo;
 import com.verificer.biz.beans.vo.req.CatListQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.BaseController;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

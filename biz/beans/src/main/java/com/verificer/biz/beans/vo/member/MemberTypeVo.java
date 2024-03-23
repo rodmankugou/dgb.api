@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.member;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -20,9 +21,11 @@ public class MemberTypeVo implements Serializable {
 
 
     @ApiModelProperty("价格")
+    @PriceDecimal
     private BigDecimal price;
 
     @ApiModelProperty("多少元每天")
+    @PriceDecimal
     private BigDecimal pricePerDay;
 
     public Long getId() {

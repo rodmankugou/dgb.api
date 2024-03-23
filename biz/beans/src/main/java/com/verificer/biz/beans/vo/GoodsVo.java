@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.CountDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

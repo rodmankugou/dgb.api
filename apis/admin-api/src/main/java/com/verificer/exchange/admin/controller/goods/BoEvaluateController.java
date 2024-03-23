@@ -3,7 +3,6 @@ package com.verificer.exchange.admin.controller.goods;
 import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateReviewVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateVo;
-import com.verificer.biz.beans.vo.order.EvaluateFormVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;

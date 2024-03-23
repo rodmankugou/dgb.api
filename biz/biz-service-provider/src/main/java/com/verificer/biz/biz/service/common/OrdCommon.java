@@ -10,7 +10,7 @@ import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.enums.*;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.order.ConfirmReceiveVo;
-import com.verificer.biz.beans.vo.order.EvaluateFormVo;
+import com.verificer.biz.beans.vo.order.req.EvaluateFormVo;
 import com.verificer.biz.beans.vo.order.PayVo;
 import com.verificer.biz.beans.vo.order.TransitVo;
 import com.verificer.biz.beans.vo.req.StockUpdVo;

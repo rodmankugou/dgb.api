@@ -23,6 +23,7 @@ import com.verificer.utils.FastJson;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.check.SCheckUtil;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.utils.web.SecurityUtil;
 import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
@@ -60,7 +61,7 @@ public class AppMemberController extends FileUploadController {
     @RequestMapping(value = "/type/list", method = RequestMethod.POST)
     public Response memberTypeList(@RequestBody EmptyVo reqVo){
         List<MemberTypeVo> voList = bizService.memberTypeList();
-        return Response.dataSuccess(voList);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(voList));
     }
 
 
@@ -92,7 +93,7 @@ public class AppMemberController extends FileUploadController {
         psv.setPayId(1L);
         psv.setAmount(new BigDecimal("388"));
         bizService.memberOnPaySuc(psv);
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
 

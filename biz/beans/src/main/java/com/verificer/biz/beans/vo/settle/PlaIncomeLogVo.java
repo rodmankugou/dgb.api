@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.settle;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class PlaIncomeLogVo implements Serializable {
     private String ordNum;
 
     @ApiModelProperty("金额")
+    @PriceDecimal
     private BigDecimal amount;
 
     @ApiModelProperty("收支类型， true-收入 false-支出")

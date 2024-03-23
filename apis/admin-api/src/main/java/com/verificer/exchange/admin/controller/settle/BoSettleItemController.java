@@ -13,6 +13,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.utils.check.SCheckUtil;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -51,7 +52,7 @@ public class BoSettleItemController extends BaseController{
     public Response sta(@RequestBody SettleStaQryVo reqVo) {
         SCheckUtil.notEmpty(reqVo.getShopId(),"Shop Id");
         SettleStaVo vo = bizService.settleSta(reqVo);
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
     @ApiOperation(
@@ -69,7 +70,7 @@ public class BoSettleItemController extends BaseController{
         SCheckUtil.notEmpty(reqVo.getOrderId(),"OrderId");
         List<SettleItemVo> vo = bizService.settleItemPage(reqVo);
         int count = bizService.settleItemCount(reqVo);
-        return Response.listSuccess(count,vo);
+        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(vo));
     }
 
 

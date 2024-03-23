@@ -1,6 +1,7 @@
 package com.verificer.biz.beans.vo.revise.req;
 
 import com.verificer.biz.beans.vo.feature.FeatureSpecReq;
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -11,6 +12,7 @@ public class ReviseFromVo extends FeatureSpecReq {
     @ApiModelProperty("库存项ID")
     private Long id;
     @ApiModelProperty("数量")
+    @PrcLimit(2)
     private BigDecimal count;
 
     @ApiModelProperty("增/减")

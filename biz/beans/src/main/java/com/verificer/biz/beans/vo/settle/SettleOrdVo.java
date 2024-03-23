@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.settle;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,11 @@ public class SettleOrdVo implements Serializable {
     @ApiModelProperty("订单编号")
     private String ordNum;
 
-    @ApiModelProperty("分佣比例")
+    @ApiModelProperty("分佣比例,0.01代表1%")
     private BigDecimal commissionRate;
 
     @ApiModelProperty("金额")
+    @PriceDecimal
     private BigDecimal amount;
 
     @ApiModelProperty("结算份数")

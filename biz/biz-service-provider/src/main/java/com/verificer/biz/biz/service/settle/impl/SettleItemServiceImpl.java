@@ -9,7 +9,7 @@ import com.verificer.biz.biz.entity.Shop;
 import com.verificer.biz.biz.mapper.SettleItemMapper;
 import com.verificer.biz.biz.service.common.ShopCommon;
 import com.verificer.biz.biz.service.settle.SettleItemService;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

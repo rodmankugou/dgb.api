@@ -9,6 +9,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.entity.Staff;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,7 +49,7 @@ public class BoUserWithdrawController extends BaseController{
     public Response page(@RequestBody ReferrerWithdrawPageVo qryVo) {
         List<ReferrerWithdrawVo> list = bizService.referrerWithdrawPage(qryVo);
         int count = bizService.referrerWithdrawCount(qryVo);
-        return Response.listSuccess(count,list);
+        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
     }
 
 

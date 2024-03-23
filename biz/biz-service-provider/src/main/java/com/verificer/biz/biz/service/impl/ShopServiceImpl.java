@@ -17,9 +17,8 @@ import com.verificer.biz.biz.pospay.YinBaoClient;
 import com.verificer.biz.biz.service.ShopInfoService;
 import com.verificer.biz.biz.service.ShopService;
 import com.verificer.common.exception.BaseException;
-import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.AESUtils;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
 import com.verificer.utils.web.PasswordUtil;
@@ -27,9 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.security.GeneralSecurityException;
 import java.util.LinkedList;
 import java.util.List;
 

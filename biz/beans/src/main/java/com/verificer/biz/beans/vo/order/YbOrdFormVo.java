@@ -1,6 +1,6 @@
 package com.verificer.biz.beans.vo.order;
 
-import java.util.List;
+import com.verificer.biz.beans.vo.order.req.OrdFormVo;
 
 public class YbOrdFormVo extends OrdFormVo {
     private Long posOrdId;

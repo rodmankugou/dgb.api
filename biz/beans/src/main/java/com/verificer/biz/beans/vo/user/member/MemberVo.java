@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user.member;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -25,9 +26,11 @@ public class MemberVo implements Serializable {
     private Integer totalOrderCount;
 
     @ApiModelProperty("总订单金额，退款的不含在内")
+    @PriceDecimal
     private BigDecimal totalOrderAmount;
 
     @ApiModelProperty("总积分")
+    @PriceDecimal
     private BigDecimal totalIntegral;
 
     @ApiModelProperty("绑定门店")

@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -48,6 +49,7 @@ public class UserVo implements Serializable {
 
 
     @ApiModelProperty("引荐佣金")
+    @PriceDecimal
     private BigDecimal inviteCommission;
 
     @ApiModelProperty("引荐人数")
@@ -55,12 +57,14 @@ public class UserVo implements Serializable {
 
 
     @ApiModelProperty("总佣金")
+    @PriceDecimal
     private BigDecimal totalInviteCommission;
 
     @ApiModelProperty("总订单数，退款的不含在内")
     private Integer totalOrderCount;
 
     @ApiModelProperty("总订单金额，退款的不含在内")
+    @PriceDecimal
     private BigDecimal totalOrderAmount;
 
     public Long getId() {

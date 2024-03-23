@@ -1,6 +1,5 @@
 package com.verificer.biz.biz.service.adj.impl;
 
-import com.mchange.v2.uid.UidUtils;
 import com.verificer.ErrCode;
 import com.verificer.beans.num.NumGenerator;
 import com.verificer.biz.beans.constants.BizConst;
@@ -14,7 +13,6 @@ import com.verificer.biz.biz.entity.AdjustOrder;
 import com.verificer.biz.biz.entity.Shop;
 import com.verificer.biz.biz.entity.Stage;
 import com.verificer.biz.biz.mapper.AdjustOrderMapper;
-import com.verificer.biz.biz.service.StageService;
 import com.verificer.biz.biz.service.adj.AdjItemService;
 import com.verificer.biz.biz.service.adj.AdjOrderService;
 import com.verificer.biz.biz.service.adj.notify.IAdjustListener;
@@ -25,19 +23,16 @@ import com.verificer.biz.biz.service.core.stock.StockCoreService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.designpatterns.listener.ConcurrentNotifier;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.UuidUtils;
 import com.verificer.utils.check.SCheckUtil;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional(rollbackFor = Exception.class)

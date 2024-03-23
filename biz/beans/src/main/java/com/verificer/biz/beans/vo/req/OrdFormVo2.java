@@ -1,6 +1,6 @@
 package com.verificer.biz.beans.vo.req;
 
-import com.verificer.biz.beans.vo.order.OrdFormVo;
+import com.verificer.biz.beans.vo.order.req.OrdFormVo;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel

@@ -7,6 +7,7 @@ import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -58,7 +59,7 @@ public class ShopController extends BaseController{
     public Response page(@RequestBody ShopPageVo qryVo) {
         List<ShopVo> list = bizService.shopPage(qryVo);
         int count = bizService.shopCount(qryVo);
-        return Response.listSuccess(count,list);
+        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(list));
     }
 
 
@@ -77,7 +78,7 @@ public class ShopController extends BaseController{
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Response detail(@RequestBody ShopIdVo reqVo) {
         ShopVo vo = bizService.shopDetail(reqVo);
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
 

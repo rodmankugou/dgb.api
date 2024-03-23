@@ -8,7 +8,7 @@ import com.verificer.beans.NationalVo;
 import com.verificer.common.exception.BaseException;
 import com.verificer.dubbo.BaseDubboService;
 import com.verificer.enums.LanguageType;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

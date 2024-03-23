@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,6 +18,7 @@ public class MerStockVo implements Serializable {
     private String goodsName;
     @ApiModelProperty("价格")
     private String priceTxt;
+    @PriceDecimal
     private BigDecimal price;
     private String goodsImg;
     @ApiModelProperty("图片")

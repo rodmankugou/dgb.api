@@ -1,5 +1,7 @@
 package com.verificer.biz.beans.vo.req;
 
+import com.verificer.utils.decimal.CountDecimal;
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,8 +15,10 @@ public class OrdItemFormVo implements Serializable {
     @ApiModelProperty("规格ID")
     private Long specId;
     @ApiModelProperty("数量")
+    @CountDecimal
     private BigDecimal count;
     @ApiModelProperty("价格")
+    @PriceDecimal
     private BigDecimal price;
 
     public Long getGoodsId() {

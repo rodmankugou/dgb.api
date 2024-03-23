@@ -7,7 +7,7 @@ import com.verificer.biz.biz.entity.ShopInfo;
 import com.verificer.biz.biz.mapper.ShopInfoMapper;
 import com.verificer.biz.biz.service.ShopInfoService;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

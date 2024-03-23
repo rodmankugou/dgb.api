@@ -8,7 +8,7 @@ import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
 import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.RandomUtils;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.tools.db.*;
 
 import java.math.BigDecimal;

@@ -4,6 +4,7 @@ import com.verificer.biz.beans.vo.ShopBkVo;
 import com.verificer.biz.beans.vo.ShopComVo;
 import com.verificer.biz.beans.vo.ShopLpVo;
 import com.verificer.biz.beans.vo.ShopLsVo;
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -32,6 +33,7 @@ public class ShopFormVo implements Serializable {
     private String description;
 
     @ApiModelProperty("分佣比例")
+    @PrcLimit(4)
     private BigDecimal commissionRate;
 
     @ApiModelProperty("店铺等级，1-一级店铺 2-普通店铺")
@@ -59,9 +61,11 @@ public class ShopFormVo implements Serializable {
     private String cpMobile;
 
     @ApiModelProperty("经度")
+    @PrcLimit(6)
     private BigDecimal longitude;
 
     @ApiModelProperty("纬度")
+    @PrcLimit(6)
     private BigDecimal latitude;
 
     @ApiModelProperty("运营时间开始时间。毫秒时间戳，如早上8时，则为（8*60*60*1000）")

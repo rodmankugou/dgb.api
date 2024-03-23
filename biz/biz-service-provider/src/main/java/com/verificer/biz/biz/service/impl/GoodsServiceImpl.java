@@ -1,13 +1,10 @@
 package com.verificer.biz.biz.service.impl;
 
 import com.verificer.ErrCode;
-import com.verificer.GlobalConfig;
 import com.verificer.biz.beans.vo.GoodsVo;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.req.*;
-import com.verificer.biz.biz.entity.Brand;
 import com.verificer.biz.biz.entity.Goods;
-import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.GoodsMapper;
 import com.verificer.biz.biz.service.GoodsService;
 import com.verificer.biz.biz.service.GoodsStaService;
@@ -16,16 +13,14 @@ import com.verificer.biz.biz.service.SpecService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.PriceUtils;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.check.SCheckUtil;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service

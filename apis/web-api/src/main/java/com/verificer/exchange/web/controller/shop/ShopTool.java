@@ -2,7 +2,7 @@ package com.verificer.exchange.web.controller.shop;
 
 import com.verificer.biz.beans.vo.shop.AShopBaseVo;
 import com.verificer.biz.beans.vo.shop.AShopDtlVo;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 
 import java.math.BigDecimal;
 

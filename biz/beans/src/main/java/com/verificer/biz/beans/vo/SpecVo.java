@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,15 +16,19 @@ public class SpecVo implements Serializable {
     private Long goodsId;
 
     @ApiModelProperty("价格")
+    @PriceDecimal
     private BigDecimal price;
 
     @ApiModelProperty("原价")
+    @PriceDecimal
     private BigDecimal oriPrice;
 
     @ApiModelProperty("按重量计价价格")
+    @PriceDecimal
     private BigDecimal wPrice;
 
     @ApiModelProperty("按重量计价价格原价")
+    @PriceDecimal
     private BigDecimal wOriPrice;
 
     @ApiModelProperty("名称")

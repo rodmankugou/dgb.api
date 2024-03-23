@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.integral;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,6 +14,7 @@ public class AppIntegralLogVo implements Serializable {
     @ApiModelProperty("子标题")
     private String subTitle;
     @ApiModelProperty("金额")
+    @PriceDecimal
     private BigDecimal amount;
     @ApiModelProperty("创建时间")
     private Long createTime;

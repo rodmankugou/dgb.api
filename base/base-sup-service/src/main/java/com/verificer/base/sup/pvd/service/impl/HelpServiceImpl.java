@@ -2,7 +2,6 @@ package com.verificer.base.sup.pvd.service.impl;
 
 import com.verificer.ErrCode;
 import com.verificer.base.sup.pvd.entity.Help;
-import com.verificer.base.sup.pvd.entity.Help;
 import com.verificer.base.sup.pvd.mapper.HelpMapper;
 import com.verificer.base.sup.pvd.service.HelpService;
 import com.verificer.beans.HelpFormVo;
@@ -10,7 +9,7 @@ import com.verificer.beans.HelpPageVo;
 import com.verificer.beans.IdVo;
 import com.verificer.beans.suportVo.HelpVo;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
-package com.verificer.utils;
+package com.verificer.utils.reflect;
 
+import com.verificer.utils.SStringUtils;
 import org.springframework.cglib.core.ReflectUtils;
 
 import java.beans.PropertyDescriptor;
@@ -520,12 +521,63 @@ public class SBeanUtils {
 //        SBeanUtils.copyProperties2(b,a);
 //        System.out.println(a.getIsFlag());
 
-        A a2 = new A();
-        B b2 = new B();
-        Map map = new HashMap();
-        map.put("isFlag",new Boolean(true));
-        SBeanUtils.copyPropertiesFromMap2(map,a2);
-        SBeanUtils.copyPropertiesFromMap2(map,b2);
-        System.out.println("A2:"+a2.getIsFlag()+",B2:"+b2.getFlag());
+//        A a2 = new A();
+//        B b2 = new B();
+//        Map map = new HashMap();
+//        map.put("isFlag",new Boolean(true));
+//        SBeanUtils.copyPropertiesFromMap2(map,a2);
+//        SBeanUtils.copyPropertiesFromMap2(map,b2);
+//        System.out.println("A2:"+a2.getIsFlag()+",B2:"+b2.getFlag());
+
+        List<A> list = new LinkedList<>();
+        Set<A> set = new HashSet<>();
+        System.out.println(isCollections(set));
+
+        Map<A,String> map = new HashMap<A,String>();
+        System.out.println(isMap(map));
     }
+
+    /**
+     * 格式化精度
+     * @param orig
+     * @return
+     * @throws Exception
+     */
+    public static void prcFormat(Object orig,Integer forcePrecision)  throws Exception{
+
+    }
+
+
+    public static boolean isNonDecimalSimpleType(Object obj){
+        return obj.getClass().equals(int.class)
+                || obj.getClass().equals(Integer.class)
+                || obj.getClass().equals(long.class)
+                || obj.getClass().equals(Long.class)
+                || obj.getClass().equals(float.class)
+                || obj.getClass().equals(Float.class)
+                || obj.getClass().equals(double.class)
+                || obj.getClass().equals(Double.class)
+                || obj.getClass().equals(byte.class)
+                || obj.getClass().equals(Byte.class)
+                || obj.getClass().equals(boolean.class)
+                || obj.getClass().equals(Boolean.class)
+                || obj.getClass().equals(String.class);
+    }
+
+    public static boolean isCollections(Object obj){
+        if(obj == null)
+            return false;
+        return obj instanceof Collection<?>;
+    }
+
+    public static boolean isMap(Object obj){
+        if(obj == null)
+            return false;
+        return obj instanceof Map<?,?>;
+    }
+
+
+
+
+
 }

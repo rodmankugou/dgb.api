@@ -1,37 +1,21 @@
 package com.verificer.exchange.web.controller.shop;
 
-import com.verificer.ErrCode;
 import com.verificer.beans.EmptyVo;
 import com.verificer.beans.IdVo;
-import com.verificer.biz.beans.vo.BrandVo;
-import com.verificer.biz.beans.vo.cart.req.CartQryVo;
-import com.verificer.biz.beans.vo.goods.AGoodsDtlVo;
-import com.verificer.biz.beans.vo.goods.AGoodsVo;
-import com.verificer.biz.beans.vo.goods.ASpecStockVo;
-import com.verificer.biz.beans.vo.goods.ASpecVo;
-import com.verificer.biz.beans.vo.goods.req.AIndexGoodsQryVo;
 import com.verificer.biz.beans.vo.shop.AShopBaseVo;
 import com.verificer.biz.beans.vo.shop.AShopDtlVo;
 import com.verificer.biz.beans.vo.shop.ShopQueryVo;
 import com.verificer.biz.biz.service.BizService;
-import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.web.controller.BaseController;
-import com.verificer.utils.FastJson;
-import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SStringUtils;
-import com.verificer.utils.check.SCheckUtil;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 

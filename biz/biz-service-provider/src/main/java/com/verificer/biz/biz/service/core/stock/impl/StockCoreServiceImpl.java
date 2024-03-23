@@ -16,7 +16,7 @@ import com.verificer.biz.biz.service.core.stock.notify.events.IStockListener;
 import com.verificer.biz.biz.service.core.stock.notify.events.StockEvent;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
-import com.verificer.utils.SBigDecimalUtils;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.utils.check.SCheckUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

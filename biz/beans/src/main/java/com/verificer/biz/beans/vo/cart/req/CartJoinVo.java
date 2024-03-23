@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.cart.req;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;

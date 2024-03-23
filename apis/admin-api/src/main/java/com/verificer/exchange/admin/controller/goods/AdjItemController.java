@@ -9,6 +9,7 @@ import com.verificer.biz.beans.vo.adjust.req.AdjOrderQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -44,7 +45,7 @@ public class AdjItemController extends BaseController{
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Response list(@RequestBody AdjItemTreeQryVo qryVo) {
         List<TreeAdjItemVo> list = bizService.adjItemTree(qryVo);
-        return Response.dataSuccess(list);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 
 

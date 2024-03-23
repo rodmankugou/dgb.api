@@ -10,6 +10,7 @@ import com.verificer.biz.beans.vo.cart.req.CartQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.exchange.web.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
@@ -36,7 +37,7 @@ public class AppCartController extends BaseController {
 
     @ApiOperation(
             value = "购物车内容-云上商城",
-            response = BrandVo.class,
+            response = CartVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
@@ -49,7 +50,7 @@ public class AppCartController extends BaseController {
         CartQryVo reqVo = new CartQryVo();
         reqVo.setUserId(UserIdentityUtils.getUserIdentity(hReq).getId());
         List<CartVo> list = bizService.cartPlaList(reqVo);
-        return Response.dataSuccess(list);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 
 
@@ -69,7 +70,7 @@ public class AppCartController extends BaseController {
         CartQryVo reqVo = new CartQryVo();
         reqVo.setUserId(UserIdentityUtils.getUserIdentity(hReq).getId());
         List<ShopCartVo> list = bizService.cartShopList(reqVo);
-        return Response.dataSuccess(list);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 
 

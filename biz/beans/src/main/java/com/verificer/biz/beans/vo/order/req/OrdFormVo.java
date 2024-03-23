@@ -1,6 +1,7 @@
-package com.verificer.biz.beans.vo.order;
+package com.verificer.biz.beans.vo.order.req;
 
 import com.verificer.biz.beans.vo.req.OrdItemFormVo;
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,6 +30,7 @@ public class OrdFormVo implements Serializable {
     private Integer transitType;
 
     @ApiModelProperty("金额")
+    @PrcLimit(2)
     private BigDecimal amount;
 
     @ApiModelProperty("买家备注")

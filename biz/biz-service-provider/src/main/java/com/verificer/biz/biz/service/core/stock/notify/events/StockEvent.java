@@ -1,7 +1,6 @@
 package com.verificer.biz.biz.service.core.stock.notify.events;
 
 import com.verificer.biz.biz.entity.StockLog;
-import com.verificer.utils.SBeanUtils;
 
 public class StockEvent {
     private boolean isAdd;

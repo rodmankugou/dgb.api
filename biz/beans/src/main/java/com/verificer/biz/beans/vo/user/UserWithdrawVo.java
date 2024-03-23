@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,6 +15,7 @@ public class UserWithdrawVo implements Serializable {
     @ApiModelProperty("UID")
     private String uid;
     @ApiModelProperty("金额")
+    @PrcLimit(2)
     private String amount;
 
     public String getNickname() {

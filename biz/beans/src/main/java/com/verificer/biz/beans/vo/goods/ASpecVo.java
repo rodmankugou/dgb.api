@@ -1,5 +1,7 @@
 package com.verificer.biz.beans.vo.goods;
 
+import com.verificer.utils.decimal.CountDecimal;
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,9 +14,11 @@ public class ASpecVo {
     private Long id;
 
     @ApiModelProperty("价格")
+    @PriceDecimal
     private BigDecimal price;
 
     @ApiModelProperty("原价")
+    @PriceDecimal
     private BigDecimal oriPrice;
 
     @ApiModelProperty("名称")
@@ -27,8 +31,10 @@ public class ASpecVo {
     private List<ASpecStockVo> stocks;
 
     @ApiModelProperty(hidden = true)
+    @CountDecimal
     private BigDecimal plaStageCount;
     @ApiModelProperty(hidden = true)
+    @CountDecimal
     private BigDecimal shopStageCount;
 
 

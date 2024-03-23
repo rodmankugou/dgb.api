@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -206,6 +207,7 @@ public class Runner {
 //        runDir("help",new String[] {"add","upd","page","del","page"},"dbg_sup");
 
         Tools.callApi("goods/page","{}");
+
     }
 
 

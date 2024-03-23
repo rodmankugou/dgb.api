@@ -6,6 +6,7 @@ import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -40,7 +41,7 @@ public class StockController extends BaseController{
     @RequestMapping(value = "/mer/stock/list", method = RequestMethod.POST)
     public Response merStocklist( @RequestBody StockMerQryVo qryVo) {
         List<MerStockVo> list = bizService.merStockList(qryVo);
-        return Response.dataSuccess(list);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 
 

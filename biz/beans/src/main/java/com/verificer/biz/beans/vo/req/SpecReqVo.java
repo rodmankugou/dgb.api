@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.req;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,15 +20,19 @@ public class SpecReqVo implements Serializable {
     private String img;
 
     @ApiModelProperty("价格")
+    @PrcLimit(2)
     private BigDecimal price;
 
     @ApiModelProperty("原价")
+    @PrcLimit(2)
     private BigDecimal oriPrice;
 
     @ApiModelProperty("按重量计价价格")
+    @PrcLimit(2)
     private BigDecimal wPrice;
 
     @ApiModelProperty("按重量计价价格原价")
+    @PrcLimit(2)
     private BigDecimal wOriPrice;
 
 

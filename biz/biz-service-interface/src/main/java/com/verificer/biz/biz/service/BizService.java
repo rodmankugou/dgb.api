@@ -25,7 +25,7 @@ import com.verificer.biz.beans.vo.integral.IntegralListVo;
 import com.verificer.biz.beans.vo.member.AppMemberVo;
 import com.verificer.biz.beans.vo.member.MemberTypeVo;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
-import com.verificer.biz.beans.vo.order.OrdFormVo;
+import com.verificer.biz.beans.vo.order.req.OrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
 import com.verificer.biz.beans.vo.revise.req.ReviseFromVo;

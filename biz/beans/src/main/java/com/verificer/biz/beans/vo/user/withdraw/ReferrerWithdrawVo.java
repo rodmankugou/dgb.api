@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user.withdraw;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,7 +30,8 @@ public class ReferrerWithdrawVo implements Serializable {
     @ApiModelProperty("申请时间")
     private Long createTime;
 
-    @ApiModelProperty("提现时间")
+    @ApiModelProperty("提现金额")
+    @PriceDecimal
     private BigDecimal amount;
 
     @ApiModelProperty("状态 1-待审批 2-审批不通过 3-审批通过 4-已打款")

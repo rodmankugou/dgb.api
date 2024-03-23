@@ -1,8 +1,6 @@
 package com.verificer.exchange.admin.service.impl;
 
 import com.verificer.ErrCode;
-import com.verificer.base.auth.service.BaseAuthService;
-import com.verificer.beans.RoleVo;
 import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.admin.AdminApiConstants;
 import com.verificer.exchange.admin.entity.Staff;
@@ -12,7 +10,7 @@ import com.verificer.exchange.admin.vo.StaffVo;
 import com.verificer.message.utils.ActiveCodeUtil;
 import com.verificer.utils.ImageCodeUtils;
 import com.verificer.utils.RedisUtil;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.check.CheckUtil;
 import com.verificer.utils.googalauth.GoogleAuthenticator;

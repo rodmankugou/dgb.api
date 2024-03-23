@@ -8,6 +8,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
 import com.verificer.utils.check.SCheckUtil;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -50,7 +51,7 @@ public class BoMemberController extends BaseController{
     @RequestMapping(value = "/sta", method = RequestMethod.POST)
     public Response sta(@RequestBody EmptyVo reqVo) {
         MemberStaVo vo = bizService.memberSta();
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
     @ApiOperation(
@@ -66,7 +67,7 @@ public class BoMemberController extends BaseController{
     @RequestMapping(value = "/rank", method = RequestMethod.POST)
     public Response rank(@RequestBody EmptyVo reqVo) {
         List<MemberRankVo> vo = bizService.memberRank();
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
     @ApiOperation(
@@ -83,7 +84,7 @@ public class BoMemberController extends BaseController{
     public Response page(@RequestBody MemberPageVo reqVo) {
         List<MemberVo> list =bizService.memberPage(reqVo);
         int count = bizService.memberCount(reqVo);
-        return Response.listSuccess(count,list);
+        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(list));
     }
 
 

@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.settle;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,8 +14,10 @@ public class SettleStaVo implements Serializable {
     @ApiModelProperty("已结算期数")
     private Integer settledCount;
     @ApiModelProperty("剩余未结算金额")
+    @PriceDecimal
     private BigDecimal restAmount;
     @ApiModelProperty("已结算金额")
+    @PriceDecimal
     private BigDecimal settledAmount;
 
     public Integer getRestCount() {

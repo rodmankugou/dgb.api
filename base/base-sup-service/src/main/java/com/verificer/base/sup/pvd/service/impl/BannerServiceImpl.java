@@ -8,10 +8,8 @@ import com.verificer.beans.*;
 import com.verificer.beans.suportVo.BannerVo;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
-import com.verificer.utils.SBeanUtils;
-import com.verificer.utils.SStringUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.check.SCheckUtil;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

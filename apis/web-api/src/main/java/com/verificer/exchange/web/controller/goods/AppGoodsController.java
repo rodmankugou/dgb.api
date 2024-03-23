@@ -1,36 +1,25 @@
 package com.verificer.exchange.web.controller.goods;
 
 import com.verificer.ErrCode;
-import com.verificer.beans.EmptyVo;
 import com.verificer.beans.IdVo;
 import com.verificer.biz.beans.vo.BrandVo;
-import com.verificer.biz.beans.vo.GoodsVo;
-import com.verificer.biz.beans.vo.SpecVo;
-import com.verificer.biz.beans.vo.cart.CartVo;
-import com.verificer.biz.beans.vo.cart.ShopCartVo;
-import com.verificer.biz.beans.vo.cart.req.CartAddVo;
-import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
-import com.verificer.biz.beans.vo.cart.req.CartQryVo;
 import com.verificer.biz.beans.vo.goods.AGoodsDtlVo;
 import com.verificer.biz.beans.vo.goods.AGoodsVo;
 import com.verificer.biz.beans.vo.goods.ASpecStockVo;
 import com.verificer.biz.beans.vo.goods.ASpecVo;
 import com.verificer.biz.beans.vo.goods.req.*;
 import com.verificer.biz.beans.vo.shop.AShopBaseVo;
-import com.verificer.biz.beans.vo.shop.ShopQueryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.exchange.web.controller.shop.ShopTool;
-import com.verificer.exchange.web.security.annotation.NeedLogin;
 import com.verificer.utils.FastJson;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.decimal.SBigDecimalUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.check.SCheckUtil;
-import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
@@ -66,7 +55,7 @@ public class AppGoodsController extends BaseController {
     @RequestMapping(value = "/index/page", method = RequestMethod.POST)
     public Object plaList(HttpServletRequest hReq, @RequestBody AIndexGoodsQryVo qryVo) {
         List<AGoodsVo> goodsVos = loadGoods();
-        return Response.listSuccess(goodsVos.size(),goodsVos);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -80,7 +69,7 @@ public class AppGoodsController extends BaseController {
     @RequestMapping(value = "/pla/cat/goods", method = RequestMethod.POST)
     public Object plaCatGoods(HttpServletRequest hReq, @RequestBody APlaGoodsQryVo qryVo) {
         List<AGoodsVo> goodsVos = loadGoods();
-        return Response.listSuccess(goodsVos.size(),goodsVos);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -94,7 +83,7 @@ public class AppGoodsController extends BaseController {
     @RequestMapping(value = "/shop/cat/goods", method = RequestMethod.POST)
     public Object shopCatGoods(HttpServletRequest hReq, @RequestBody AShopGoodsQryVo qryVo) {
         List<AGoodsVo> goodsVos = loadGoods();
-        return Response.listSuccess(goodsVos.size(),goodsVos);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -108,7 +97,7 @@ public class AppGoodsController extends BaseController {
     @RequestMapping(value = "/pla/rank/goods", method = RequestMethod.POST)
     public Object rankGoods(HttpServletRequest hReq, @RequestBody ARankGoodsQryVo qryVo) {
         List<AGoodsVo> goodsVos = loadGoods();
-        return Response.listSuccess(goodsVos.size(),goodsVos);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -139,7 +128,7 @@ public class AppGoodsController extends BaseController {
 
         }
 
-        return Response.listSuccess(voList.size(),voList);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -154,7 +143,7 @@ public class AppGoodsController extends BaseController {
     public Object detail(HttpServletRequest hReq, @RequestBody IdVo idVo) {
         SCheckUtil.notEmpty(idVo.getId(),"id");
         AGoodsDtlVo vo = loadGoods(idVo.getId());
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
 

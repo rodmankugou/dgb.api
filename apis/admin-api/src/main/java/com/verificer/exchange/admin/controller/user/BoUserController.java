@@ -12,6 +12,7 @@ import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -102,7 +103,7 @@ public class BoUserController extends BaseController{
     public Response refereePage(@RequestBody RefereeListReqVo reqVo) {
         List<RefereeVo> voList = bizService.userRefereeList(reqVo);
         int count = bizService.userRefereeCount(reqVo);
-        return Response.listSuccess(count,voList);
+        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(voList));
     }
 
     @ApiOperation(
@@ -119,7 +120,7 @@ public class BoUserController extends BaseController{
     public Response referrerWithdrawPage(@RequestBody ReferrerWithdrawPageReqVo reqVo) {
         List<UserWithdrawVo> voList = bizService.userWithdrawPage(reqVo);
         int count = bizService.userWithdrawCount(reqVo);
-        return Response.listSuccess(count,voList);
+        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(voList));
     }
 
 
@@ -136,7 +137,7 @@ public class BoUserController extends BaseController{
     @RequestMapping(value = "/refereeSta", method = RequestMethod.POST)
     public Response refereeSta(@RequestBody RefereeStaReqVo reqVo) {
         ReferrerStaVo vo = bizService.userRefereeSta(reqVo);
-        return Response.dataSuccess(vo);
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
 }

@@ -7,7 +7,7 @@ import com.verificer.base.auth.service.MenuService;
 import com.verificer.beans.MenuVo;
 import com.verificer.beans.TreeNodeVo;
 import com.verificer.common.exception.BaseException;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.TreeUtils;
 import com.verificer.utils.web.PasswordUtil;

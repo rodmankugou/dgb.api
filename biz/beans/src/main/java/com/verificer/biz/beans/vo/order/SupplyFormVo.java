@@ -1,10 +1,12 @@
 package com.verificer.biz.beans.vo.order;
 
 
+import com.verificer.biz.beans.vo.order.req.OrdFormVo;
+
 /**
  * 补货单
  */
-public class SupplyFormVo extends OrdFormVo  {
+public class SupplyFormVo extends OrdFormVo {
     private Long rootOrderId;
     private Long origOrderId;
     private Long staffId;

@@ -6,15 +6,12 @@ import com.verificer.base_user.entity.CustomerBankcard;
 import com.verificer.base_user.mapper.CustomerBankcardMapper;
 import com.verificer.base_user.mapper.CustomerMapper;
 import com.verificer.base_user.service.BankCardService;
-import com.verificer.beans.CustomerVo;
 import com.verificer.beans.bankcard.BackCardAddReqVo;
 import com.verificer.beans.bankcard.BankcardVo;
 import com.verificer.common.exception.BaseException;
 import com.verificer.enums.IdInfoStatus;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
-import com.verificer.web.common.response.Response;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,10 @@
 package com.verificer.exchange.admin.unittest.data.member;
 
 import com.verificer.biz.beans.vo.req.UserSetRefVo;
-import com.verificer.biz.beans.vo.settle.req.SettleStaQryVo;
 import com.verificer.biz.beans.vo.settle.req.SettleTransferVo;
 import com.verificer.exchange.admin.controller.debug.vo.ShopMemberVo;
 import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.FastJson;
-import com.verificer.utils.SBeanUtils;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;

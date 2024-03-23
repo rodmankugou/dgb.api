@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.user.member;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ public class MemberStaVo implements Serializable {
     @ApiModelProperty("本月会员数")
     private Integer monthCount;
     @ApiModelProperty("会员费总收入")
+    @PriceDecimal
     private BigDecimal totalAmount;
     @ApiModelProperty("本月会员费收入")
+    @PriceDecimal
     private BigDecimal monthAmount;
 
     public Integer getTotalCount() {

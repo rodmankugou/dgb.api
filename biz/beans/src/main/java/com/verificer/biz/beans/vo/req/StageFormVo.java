@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.req;
 
+import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -31,9 +32,11 @@ public class StageFormVo implements Serializable {
     private String adrDetail;
 
     @ApiModelProperty("经度")
+    @PrcLimit(6)
     private BigDecimal longitude;
 
     @ApiModelProperty("纬度")
+    @PrcLimit(6)
     private BigDecimal latitude;
 
     public String getId() {

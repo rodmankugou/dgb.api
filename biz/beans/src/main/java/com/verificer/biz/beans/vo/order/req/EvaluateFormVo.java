@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo.order;
+package com.verificer.biz.beans.vo.order.req;
 
 import io.swagger.annotations.ApiModel;
 

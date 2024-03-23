@@ -5,7 +5,7 @@ import com.verificer.base.sup.pvd.mapper.AreaMapper;
 import com.verificer.base.sup.pvd.service.AreaService;
 import com.verificer.beans.AreaQryVo;
 import com.verificer.beans.AreaVo;
-import com.verificer.utils.SBeanUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

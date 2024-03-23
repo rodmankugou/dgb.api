@@ -1,6 +1,7 @@
 package com.verificer.biz.beans.vo.goods;
 
 import com.verificer.biz.beans.vo.SpecVo;
+import com.verificer.utils.decimal.CountDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,9 +30,11 @@ public class AGoodsVo implements Serializable {
     private Boolean freeShippingFlag;
 
     @ApiModelProperty("限购数")
+    @CountDecimal
     private BigDecimal maxLimitCount;
 
     @ApiModelProperty("起购数")
+    @CountDecimal
     private BigDecimal minLimitCount;
 
     @ApiModelProperty("非会员是否能购买")

@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.cart;
 
+import com.verificer.utils.decimal.CountDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -21,6 +22,7 @@ public class CartVo implements Serializable {
     @ApiModelProperty("数量")
     private Integer count;
     @ApiModelProperty("当前库存数量")
+    @CountDecimal
     private BigDecimal stock;
 
     public Long getGoodsId() {
