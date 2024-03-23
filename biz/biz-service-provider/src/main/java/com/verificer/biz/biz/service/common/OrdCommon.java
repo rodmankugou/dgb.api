@@ -295,7 +295,8 @@ public class OrdCommon {
                 AccOpType.INTEGRAL_ADD_BY_ORD_SUC.getValue(),
                 o.getId(),
                 integralPerAmount.multiply(o.getAmount()),
-                "订单完成后加用户积分"
+                "积分获取",
+                "订单号"+o.getOrderNum()
                 );
     }
 }

@@ -10,6 +10,13 @@ public class IdVo implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
 
+    public IdVo() {
+    }
+
+    public IdVo(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

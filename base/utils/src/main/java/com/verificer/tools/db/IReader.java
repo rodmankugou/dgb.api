@@ -1,4 +1,4 @@
-package com.verificer.exchange.admin.unittest.data.db;
+package com.verificer.tools.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,8 +1,11 @@
 package com.verificer.biz.biz.service.core.user;
 
 import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.account.AccountVo;
 import com.verificer.biz.beans.vo.req.UserSetRefVo;
 import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.req.SetAvatarVo;
+import com.verificer.biz.beans.vo.user.req.SetNicknameVo;
 import com.verificer.biz.biz.entity.User;
 
 public interface UserCoreService {
@@ -29,5 +32,12 @@ public interface UserCoreService {
      */
     void userBindMobile(BindMobileVo reqVo);
 
+    void userSetAvatar(SetAvatarVo reqVo);
+
+    void userSetNickname(SetNicknameVo reqVo);
+
     public int clearExpireMember() ;
+
+    AccountVo createAccountIfNeed(String customerId, String subName);
+
 }

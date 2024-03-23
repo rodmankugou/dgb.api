@@ -37,7 +37,7 @@ public class MemberType {
      *
      * @mbg.generated
      */
-    private Byte timeUnit;
+    private Integer timeUnit;
 
     /**
      *
@@ -155,7 +155,7 @@ public class MemberType {
      *
      * @mbg.generated
      */
-    public Byte getTimeUnit() {
+    public Integer getTimeUnit() {
         return timeUnit;
     }
 
@@ -167,7 +167,7 @@ public class MemberType {
      *
      * @mbg.generated
      */
-    public void setTimeUnit(Byte timeUnit) {
+    public void setTimeUnit(Integer timeUnit) {
         this.timeUnit = timeUnit;
     }
 

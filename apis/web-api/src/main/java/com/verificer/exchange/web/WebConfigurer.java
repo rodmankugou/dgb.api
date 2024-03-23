@@ -2,6 +2,7 @@ package com.verificer.exchange.web;
 
 import com.verificer.exchange.web.security.filter.XSSFilter;
 import com.verificer.exchange.web.security.interceptor.CheckRoleInterceptor;
+import com.verificer.exchange.web.security.interceptor.DebugInterceptor;
 import com.verificer.exchange.web.security.interceptor.NeedLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,6 +25,8 @@ public class WebConfigurer implements WebMvcConfigurer {
     @Autowired
     CheckRoleInterceptor checkRoleInterceptor;
 
+    @Autowired
+    DebugInterceptor debugInterceptor;
 
 
     @Override
@@ -39,6 +42,12 @@ public class WebConfigurer implements WebMvcConfigurer {
 
         registry.addInterceptor(checkRoleInterceptor).addPathPatterns("/**")
                 .excludePathPatterns("/login","/**.html",
+                        "/**/webjars/springfox-swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/webjars/springfox-swagger-ui/**");
+
+        registry.addInterceptor(debugInterceptor).addPathPatterns("/**")
+                .excludePathPatterns("/**.html",
                         "/**/webjars/springfox-swagger-ui/**",
                         "/swagger-resources/**",
                         "/webjars/springfox-swagger-ui/**");
@@ -79,5 +88,6 @@ public class WebConfigurer implements WebMvcConfigurer {
         return  reFilter;
 
     }
+
 
 }

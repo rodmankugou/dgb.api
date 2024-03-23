@@ -2,6 +2,7 @@ package com.verificer.biz.biz.service;
 
 import com.verificer.beans.IdVo;
 import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.account.AccountVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
@@ -16,6 +17,9 @@ import com.verificer.biz.beans.vo.cart.ShopCartVo;
 import com.verificer.biz.beans.vo.cart.req.CartAddVo;
 import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
 import com.verificer.biz.beans.vo.cart.req.CartQryVo;
+import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
+import com.verificer.biz.beans.vo.integral.IntegralListVo;
+import com.verificer.biz.beans.vo.member.AppMemberVo;
 import com.verificer.biz.beans.vo.member.MemberTypeVo;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
@@ -33,11 +37,8 @@ import com.verificer.biz.beans.vo.user.member.MemberPageVo;
 import com.verificer.biz.beans.vo.user.member.MemberRankVo;
 import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.beans.vo.user.member.MemberVo;
-import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.req.*;
 import com.verificer.biz.beans.vo.user.UserVo;
-import com.verificer.biz.beans.vo.user.req.RefereeListReqVo;
-import com.verificer.biz.beans.vo.user.req.RefereeStaReqVo;
-import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
 import com.verificer.biz.beans.vo.user.withdraw.*;
 import com.verificer.biz.biz.service.adj.AdjItemService;
 import com.verificer.biz.biz.service.adj.AdjOrderService;
@@ -51,6 +52,7 @@ import com.verificer.dubbo.BaseDubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service("bizService")
@@ -126,6 +128,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     CartService cartService;
+
+    @Autowired
+    IntegralService integralService;
 
 
     @Override
@@ -581,5 +586,35 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public void cartAdd(CartAddVo reqVo) {
         cartService.cartAdd(reqVo);
+    }
+
+    @Override
+    public AppMemberVo memberInfo(IdVo idVo) {
+        return memberService.memberInfo(idVo);
+    }
+
+    @Override
+    public BigDecimal integralBalance(IdVo idVo) {
+        return integralService.integralBalance(idVo);
+    }
+
+    @Override
+    public List<AppIntegralLogVo> integralList(IntegralListVo reqVo) {
+        return integralService.integralList(reqVo);
+    }
+
+    @Override
+    public void userSetAvatar(SetAvatarVo reqVo) {
+        userCoreService.userSetAvatar(reqVo);
+    }
+
+    @Override
+    public void userSetNickname(SetNicknameVo reqVo) {
+        userCoreService.userSetNickname(reqVo);
+    }
+
+    @Override
+    public AccountVo createAccountIfNeed(String customerId, String subName) {
+        return userCoreService.createAccountIfNeed(customerId,subName);
     }
 }

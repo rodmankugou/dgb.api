@@ -3,9 +3,13 @@ package com.verificer.exchange.web.controller.user;
 import com.verificer.ErrCode;
 import com.verificer.base_user.service.BaseCustomerService;
 import com.verificer.beans.*;
+import com.verificer.biz.beans.vo.user.AppLoginResp;
+import com.verificer.biz.beans.vo.user.AppUserInfo;
+import com.verificer.biz.beans.vo.user.UserVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.security.login.ILoginMonitor;
+import com.verificer.utils.SBeanUtils;
 import com.verificer.utils.SDateUtil;
 import com.verificer.utils.SStringUtils;
 import com.verificer.utils.web.SecurityUtil;
@@ -14,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.zookeeper.data.Id;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +77,7 @@ public class AppLoginController extends BaseController {
      */
     @ApiOperation(
             value = "小程序登录",
-            response = LoginRespVo.class,
+            response = AppLoginResp.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
@@ -85,12 +90,20 @@ public class AppLoginController extends BaseController {
         Long userId = bizService.wxLogin(reqVo);
 
 
+        UserVo userVo = bizService.userDetail(new IdVo(userId));
+        AppUserInfo ui = new AppUserInfo();
+        SBeanUtils.copyProperties2(userVo,ui);
+
         String token = loginMonitor.login(getClient(),userId.toString(),new UserIdentity(userId),new UserIdentity());
 
-        WxTokenVo vo = new WxTokenVo();
-        vo.setToken(token);
-        vo.setExpireTime(System.currentTimeMillis()+(LOGIN_ALIVE_TIME_MINUTE/2)* SDateUtil.MS_PER_MINUTE);
-        return Response.dataSuccess(vo);
+        WxTokenVo tvo = new WxTokenVo();
+        tvo.setToken(token);
+        tvo.setExpireTime(System.currentTimeMillis()+(LOGIN_ALIVE_TIME_MINUTE/2)* SDateUtil.MS_PER_MINUTE);
+
+        AppLoginResp resp = new AppLoginResp();
+        resp.setUserInfo(ui);
+        resp.setToken(tvo);
+        return Response.dataSuccess(resp);
     }
 
 

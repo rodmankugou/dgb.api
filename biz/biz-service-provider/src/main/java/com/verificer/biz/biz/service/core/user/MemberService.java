@@ -1,5 +1,7 @@
 package com.verificer.biz.biz.service.core.user;
 
+import com.verificer.beans.IdVo;
+import com.verificer.biz.beans.vo.member.AppMemberVo;
 import com.verificer.biz.beans.vo.user.member.MemberPageVo;
 import com.verificer.biz.beans.vo.user.member.MemberRankVo;
 import com.verificer.biz.beans.vo.user.member.MemberStaVo;
@@ -27,4 +29,10 @@ public interface MemberService {
 
     int shopMemberCount(String shopId);
 
+    /**
+     * 获取会员信息
+     * @param idVo
+     * @return
+     */
+    AppMemberVo memberInfo(IdVo idVo);
 }

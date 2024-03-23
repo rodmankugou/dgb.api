@@ -1,16 +1,18 @@
-package com.verificer.biz.beans.vo.user.req;
+package com.verificer.biz.beans.vo.integral;
 
+import com.verificer.beans.PageQueryVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
 @ApiModel
-public class BindMobileVo implements Serializable {
+public class IntegralListVo extends PageQueryVo {
     @ApiModelProperty(hidden = true)
     private Long userId;
-    @ApiModelProperty("手机号码")
-    private String mobile;
+
+    @ApiModelProperty(hidden = true)
+    private Long accountId;
 
     public Long getUserId() {
         return userId;
@@ -20,11 +22,11 @@ public class BindMobileVo implements Serializable {
         this.userId = userId;
     }
 
-    public String getMobile() {
-        return mobile;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

@@ -9,4 +9,6 @@ public interface MemberTypeService {
     List<MemberTypeVo> memberTypeList();
 
     MemberType getById(Long memberTypeId);
+
+    Long getEndTime(Long now, MemberType type);
 }

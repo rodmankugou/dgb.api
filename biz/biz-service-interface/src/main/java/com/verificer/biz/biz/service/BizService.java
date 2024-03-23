@@ -2,6 +2,7 @@ package com.verificer.biz.biz.service;
 
 import com.verificer.beans.IdVo;
 import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.account.AccountVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
@@ -16,6 +17,9 @@ import com.verificer.biz.beans.vo.cart.ShopCartVo;
 import com.verificer.biz.beans.vo.cart.req.CartAddVo;
 import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
 import com.verificer.biz.beans.vo.cart.req.CartQryVo;
+import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
+import com.verificer.biz.beans.vo.integral.IntegralListVo;
+import com.verificer.biz.beans.vo.member.AppMemberVo;
 import com.verificer.biz.beans.vo.member.MemberTypeVo;
 import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
@@ -33,13 +37,11 @@ import com.verificer.biz.beans.vo.user.member.MemberPageVo;
 import com.verificer.biz.beans.vo.user.member.MemberRankVo;
 import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.beans.vo.user.member.MemberVo;
-import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.req.*;
 import com.verificer.biz.beans.vo.user.UserVo;
-import com.verificer.biz.beans.vo.user.req.RefereeListReqVo;
-import com.verificer.biz.beans.vo.user.req.RefereeStaReqVo;
-import com.verificer.biz.beans.vo.user.req.ReferrerWithdrawPageReqVo;
 import com.verificer.biz.beans.vo.user.withdraw.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -563,5 +565,22 @@ public interface BizService {
      * @return
      */
     void cartAdd(CartAddVo reqVo);
+
+    /**
+     * 获取会员信息
+     * @param idVo
+     * @return
+     */
+    AppMemberVo memberInfo(IdVo idVo);
+
+    BigDecimal integralBalance(IdVo idVo);
+
+    List<AppIntegralLogVo> integralList(IntegralListVo reqVo);
+
+    void userSetAvatar(SetAvatarVo reqVo);
+
+    void userSetNickname(SetNicknameVo reqVo);
+
+    AccountVo createAccountIfNeed(String customerId, String subName);
 }
 

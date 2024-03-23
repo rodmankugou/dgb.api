@@ -15,6 +15,8 @@ import com.verificer.biz.beans.enums.MemberRefType;
 import com.verificer.biz.beans.enums.PosSyncTaskType;
 import com.verificer.biz.beans.vo.req.UserSetRefVo;
 import com.verificer.biz.beans.vo.user.req.BindMobileVo;
+import com.verificer.biz.beans.vo.user.req.SetAvatarVo;
+import com.verificer.biz.beans.vo.user.req.SetNicknameVo;
 import com.verificer.biz.biz.entity.MemberOrder;
 import com.verificer.biz.biz.entity.User;
 import com.verificer.biz.biz.mapper.UserMapper;
@@ -108,6 +110,7 @@ public class UserCoreServiceImpl implements UserCoreService {
             member.setMemberIp(mo.getIp());
             member.setMemberRefType(mo.getReferrerType());
             member.setMemberRefId(mo.getReferrerId());
+            member.setMemberNickname(member.getNickname());
 //            member.setMemberShopName();
             String memberProvinceCode = null;
             try {
@@ -289,6 +292,33 @@ public class UserCoreServiceImpl implements UserCoreService {
     }
 
     @Override
+    public void userSetAvatar(SetAvatarVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getUserId(),"User Id");
+        SCheckUtil.notEmpty(reqVo.getAvatar(),"avatar");
+
+        User user = userMapper.getAndLock(reqVo.getUserId());
+        if(user == null)
+            throw new BaseException(ErrCode.RECORD_NOT_EXIST);
+
+        user.setAvatar(reqVo.getAvatar());
+        userMapper.updateByPrimaryKeySelective(user);
+
+    }
+
+    @Override
+    public void userSetNickname(SetNicknameVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getUserId(),"User Id");
+        SCheckUtil.notEmpty(reqVo.getNickname(),"nickname");
+
+        User user = userMapper.getAndLock(reqVo.getUserId());
+        if(user == null)
+            throw new BaseException(ErrCode.RECORD_NOT_EXIST);
+
+        user.setNickname(reqVo.getNickname());
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
     public int clearExpireMember() {
         Long now = System.currentTimeMillis();
         User user = userMapper.getExpireMemberLimit1(now);
@@ -298,5 +328,10 @@ public class UserCoreServiceImpl implements UserCoreService {
         user.setMemberFlag(false);
         userMapper.updateByPrimaryKeySelective(user);
         return 1;
+    }
+
+    @Override
+    public AccountVo createAccountIfNeed(String customerId, String subName) {
+        return baseAccountService.createAccountIfNeed(customerId,subName,false);
     }
 }

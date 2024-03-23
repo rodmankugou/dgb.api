@@ -1,5 +1,7 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
+import com.verificer.biz.beans.vo.integral.IntegralListVo;
 import com.verificer.biz.beans.vo.user.RefereeVo;
 import com.verificer.biz.beans.vo.user.ReferrerStaVo;
 import com.verificer.biz.beans.vo.user.UserWithdrawVo;
@@ -22,4 +24,6 @@ public interface BizAccLogMapper {
     List<UserWithdrawVo> pageReferrerWithdraw(ReferrerWithdrawPageReqVo reqVo);
 
     int countReferrerWithdraw(ReferrerWithdrawPageReqVo reqVo);
+
+    List<AppIntegralLogVo> integralList(IntegralListVo reqVo);
 }

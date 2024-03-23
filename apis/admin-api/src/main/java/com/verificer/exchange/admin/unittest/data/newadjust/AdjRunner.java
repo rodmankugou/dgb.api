@@ -1,19 +1,15 @@
 package com.verificer.exchange.admin.unittest.data.newadjust;
 
 import com.verificer.biz.beans.enums.MerType;
-import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjItemFormVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmItemVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
-import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
-import com.verificer.exchange.admin.unittest.Runner;
 import com.verificer.exchange.admin.unittest.Tools;
-import com.verificer.exchange.admin.unittest.data.db.DbTools;
-import com.verificer.exchange.admin.unittest.data.db.IReader;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.RandomUtils;
 import com.verificer.utils.SBeanUtils;
+import com.verificer.tools.db.*;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;

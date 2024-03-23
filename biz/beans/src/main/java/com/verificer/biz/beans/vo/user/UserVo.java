@@ -25,6 +25,9 @@ public class UserVo implements Serializable {
     @ApiModelProperty("会员有效时间-开始时间")
     private Long memberSTime;
 
+    @ApiModelProperty("会员昵称")
+    private String memberNickname;
+
     @ApiModelProperty("会员有效时间-结束时间")
     private Long memberETime;
 
@@ -59,7 +62,6 @@ public class UserVo implements Serializable {
 
     @ApiModelProperty("总订单金额，退款的不含在内")
     private BigDecimal totalOrderAmount;
-
 
     public Long getId() {
         return id;
@@ -99,6 +101,14 @@ public class UserVo implements Serializable {
 
     public void setMemberSTime(Long memberSTime) {
         this.memberSTime = memberSTime;
+    }
+
+    public String getMemberNickname() {
+        return memberNickname;
+    }
+
+    public void setMemberNickname(String memberNickname) {
+        this.memberNickname = memberNickname;
     }
 
     public Long getMemberETime() {
@@ -141,6 +151,14 @@ public class UserVo implements Serializable {
         this.referrerFlag = referrerFlag;
     }
 
+    public Boolean getReferrerEnableFlag() {
+        return referrerEnableFlag;
+    }
+
+    public void setReferrerEnableFlag(Boolean referrerEnableFlag) {
+        this.referrerEnableFlag = referrerEnableFlag;
+    }
+
     public BigDecimal getInviteCommission() {
         return inviteCommission;
     }
@@ -179,13 +197,5 @@ public class UserVo implements Serializable {
 
     public void setTotalOrderAmount(BigDecimal totalOrderAmount) {
         this.totalOrderAmount = totalOrderAmount;
-    }
-
-    public Boolean getReferrerEnableFlag() {
-        return referrerEnableFlag;
-    }
-
-    public void setReferrerEnableFlag(Boolean referrerEnableFlag) {
-        this.referrerEnableFlag = referrerEnableFlag;
     }
 }

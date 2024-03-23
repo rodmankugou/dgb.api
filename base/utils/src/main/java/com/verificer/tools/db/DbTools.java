@@ -1,12 +1,9 @@
-package com.verificer.exchange.admin.unittest.data.db;
+package com.verificer.tools.db;
 
 import com.verificer.utils.C3p0Tools;
 import com.verificer.utils.DbUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +25,22 @@ public class DbTools {
                 list.add(m);
             }
             return list;
+        }finally {
+            DbUtil.closeConnection(conn,stm,rs);
+        }
+    }
+
+    public static int executeUpdate(String dbName,String sql) throws SQLException {
+        Connection conn = C3p0Tools.getInstance(dbName).getConnection();
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = conn.prepareStatement(sql);
+
+            return stm.executeUpdate();
+
         }finally {
             DbUtil.closeConnection(conn,stm,rs);
         }

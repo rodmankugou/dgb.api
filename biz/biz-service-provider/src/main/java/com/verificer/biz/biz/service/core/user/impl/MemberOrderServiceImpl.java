@@ -83,7 +83,7 @@ public class MemberOrderServiceImpl implements MemberOrderService {
         mo.setMemberTypeId(reqVo.getMemberTypeId());
         mo.setStatus(MemberOrdSta.WAI_PAY.getValue());
         mo.setsTime(now);
-        mo.seteTime(getEndType(now, type));
+        mo.seteTime(memberTypeService.getEndTime(now, type));
         mo.setReferrerId(reqVo.getReferrerId());
         mo.setReferrerType(reqVo.getReferrerType());
         mo.setPrice(type.getPrice());
@@ -146,22 +146,5 @@ public class MemberOrderServiceImpl implements MemberOrderService {
         return mapper.selectByPrimaryKey(memberOrdId);
     }
 
-    private Long getEndType(Long startTime, MemberType type) {
-        int dayOffset = 0;
-        int monthOffset = 0;
-        int yearOffset = 0;
-        if (MemberTypeTimeUnit.YEAR.getValue() == type.getTimeUnit()) {
-            yearOffset = type.getTimeCount();
-        } else if (MemberTypeTimeUnit.MONTH.getValue() == type.getTimeUnit()) {
-            monthOffset = type.getTimeCount();
-        } else if (MemberTypeTimeUnit.DAY.getValue() == type.getTimeUnit()) {
-            dayOffset = type.getTimeCount();
-        } else {
-            throw new BizErrMsgException("Illegal Member type time unit");
-        }
-        Long eTime = SDateUtil.offsetDate(startTime, dayOffset, monthOffset, yearOffset);
-        eTime = SDateUtil.getDayEndTime(eTime);
 
-        return eTime;
-    }
 }

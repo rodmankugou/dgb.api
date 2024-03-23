@@ -114,4 +114,23 @@
     <include refid="referrerWithdrawCond"></include>
   </select>
 
+  <resultMap id="AppIntegralVoRst" type="com.verificer.biz.beans.vo.integral.AppIntegralLogVo">
+
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="integralList" resultMap="AppIntegralVoRst">
+    select
+        (after_available - before_available) as amount,
+        create_time,
+        remark
+    from account_log
+    where  account_id = #{accountId}
+    order by create_time desc
+    limit #{from},#{limit}
+
+  </select>
+
 </mapper>

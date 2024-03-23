@@ -2,6 +2,7 @@ package com.verificer.exchange.web.controller.debug;
 
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.web.controller.BaseController;
+import com.verificer.exchange.web.security.annotation.DebugController;
 import com.verificer.utils.FastJson;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
@@ -24,6 +25,7 @@ import java.util.Map;
 @Api(tags = "API 索引")
 @RequestMapping("/debug/api")
 @RestController
+@DebugController
 public class ApiToolsController extends BaseController {
 
     @Autowired

@@ -280,4 +280,5 @@ public class ErrCode {
     public static final String CAN_NOT_REPEAT_SETTLE = "CAN_NOT_REPEAT_SETTLE";
     public static final String ADJ_ORD_CONFIRM_LESS_ITEM = "ADJ_ORD_CONFIRM_LESS_ITEM";
     public static final String ADJ_ORD_NOT_IN_WAIT_CONFIRM = "ADJ_ORD_NOT_IN_WAIT_CONFIRM";
+    public static final String ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW = "ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW";
 }

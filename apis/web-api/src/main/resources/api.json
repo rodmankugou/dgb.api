@@ -109,4 +109,62 @@
       }
     ]
   }
+  , {
+    "name": "E1",
+    "apis": [
+      {
+        "顶部": "user->会员->/member/type/list",
+        "注册会员": "user->会员->/member/charge ｜备注，需要扫店铺二维码注册，二维码我随后私发给你",
+        "【备注】": "目前只需要考虑只有一种会员套餐，只取数组的第一个值。上方的0.8元每天中的价格，也需要取接口的返回值"
+      }
+    ]
+  }
+  , {
+    "name": "E2",
+    "apis": [
+      {
+        "顶部": "user->会员->/member/info",
+      }
+    ]
+  },
+  {
+    "name": "E5",
+    "apis": [
+      {
+        "顶部": "user->积分->/integral/balance",
+      }
+    ]
+  },
+  {
+    "name": "E6",
+    "apis": [
+      {
+        "顶部": "user->积分->/integral/list |备注，需要到接口文档swagger里的debug->积分->/debug/integral/create工具中创建记录",
+      }
+    ]
+  },
+  {
+    "name": "J1",
+    "apis": [
+      {
+        "顶部": "user->用户->/user/cur/userInfo",
+      }
+    ]
+  },
+  {
+    "name": "J2",
+    "apis": [
+      {
+        "顶部": "user->用户->/user/setAvatar",
+      }
+    ]
+  },
+  {
+    "name": "J3",
+    "apis": [
+      {
+        "顶部": "user->用户->/user/bindMobile",
+      }
+    ]
+  }
 ]

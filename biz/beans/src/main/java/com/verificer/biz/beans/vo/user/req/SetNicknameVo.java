@@ -6,11 +6,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 @ApiModel
-public class BindMobileVo implements Serializable {
+public class SetNicknameVo implements Serializable {
     @ApiModelProperty(hidden = true)
     private Long userId;
-    @ApiModelProperty("手机号码")
-    private String mobile;
+    @ApiModelProperty("昵称")
+    private String nickname;
 
     public Long getUserId() {
         return userId;
@@ -20,11 +20,11 @@ public class BindMobileVo implements Serializable {
         this.userId = userId;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

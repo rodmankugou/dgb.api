@@ -22,6 +22,9 @@ public class MemberTypeVo implements Serializable {
     @ApiModelProperty("价格")
     private BigDecimal price;
 
+    @ApiModelProperty("多少元每天")
+    private BigDecimal pricePerDay;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +55,13 @@ public class MemberTypeVo implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(BigDecimal pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 }
