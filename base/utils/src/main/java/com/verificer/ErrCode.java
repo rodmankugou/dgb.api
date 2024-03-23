@@ -281,4 +281,5 @@ public class ErrCode {
     public static final String ADJ_ORD_CONFIRM_LESS_ITEM = "ADJ_ORD_CONFIRM_LESS_ITEM";
     public static final String ADJ_ORD_NOT_IN_WAIT_CONFIRM = "ADJ_ORD_NOT_IN_WAIT_CONFIRM";
     public static final String ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW = "ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW";
+    public static final String EVALUATE_NOT_ON_WAIT_REVIEW = "EVALUATE_NOT_ON_WAIT_REVIEW" ;
 }

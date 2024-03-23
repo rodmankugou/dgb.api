@@ -3,7 +3,7 @@ package com.verificer.biz.beans.vo.order;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel
-public class EvaluateVo {
+public class EvaluateFormVo {
     /**
      * 是否用户评价
      */

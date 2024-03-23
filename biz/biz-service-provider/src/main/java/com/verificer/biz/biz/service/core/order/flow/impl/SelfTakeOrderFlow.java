@@ -7,7 +7,7 @@ import com.verificer.biz.biz.mapper.DbgOrderMapper;
 import com.verificer.biz.biz.service.common.OrdCommon;
 import com.verificer.biz.biz.service.common.UserCommon;
 import com.verificer.biz.biz.service.core.order.notify.OrdNotifier;
-import com.verificer.biz.beans.vo.order.EvaluateVo;
+import com.verificer.biz.beans.vo.order.EvaluateFormVo;
 import com.verificer.biz.biz.service.core.order.vo.OrdVo;
 import com.verificer.biz.beans.vo.order.PayVo;
 import com.verificer.biz.biz.service.core.order.vo.selftake.SelfTakeRefundVo;
@@ -95,8 +95,8 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
                 throw new RuntimeException("OrdSta.WaitSelfTake下只接收SelfTakeRefundVo或者SelfTakeTakeVo类型参数");
             }
         }else if(OrdSta.Received.getValue() == o.getStatus()){
-            if(formVo instanceof EvaluateVo){
-                EvaluateVo evaluateVo = (EvaluateVo) formVo;
+            if(formVo instanceof EvaluateFormVo){
+                EvaluateFormVo evaluateVo = (EvaluateFormVo) formVo;
                 ordCommon.evaluate(o,evaluateVo);
 
             }else {

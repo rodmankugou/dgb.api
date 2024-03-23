@@ -6,12 +6,11 @@ import com.verificer.account.itf.AccOpType;
 import com.verificer.account.itf.BaseAccountService;
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.base.sup.itf.CfgCodes;
-import com.verificer.beans.account.AccountVo;
 import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.enums.*;
 import com.verificer.biz.beans.exceptions.StockInsufficientException;
 import com.verificer.biz.beans.vo.order.ConfirmReceiveVo;
-import com.verificer.biz.beans.vo.order.EvaluateVo;
+import com.verificer.biz.beans.vo.order.EvaluateFormVo;
 import com.verificer.biz.beans.vo.order.PayVo;
 import com.verificer.biz.beans.vo.order.TransitVo;
 import com.verificer.biz.beans.vo.req.StockUpdVo;
@@ -183,7 +182,7 @@ public class OrdCommon {
      * @param o
      * @param evaluateVo
      */
-    public void evaluate(DbgOrder o, EvaluateVo evaluateVo) {
+    public void evaluate(DbgOrder o, EvaluateFormVo evaluateVo) {
         //TODO 待完成
         o.setStatus(OrdSta.Finish.getValue());
         writeLog( o,

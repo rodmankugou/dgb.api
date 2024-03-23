@@ -237,6 +237,11 @@ public class StockCoreServiceImpl implements StockCoreService {
     }
 
     @Override
+    public Stock getById(Long id) {
+        return mapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public boolean isStockExist(String relId, Long goodsId, Long specId) {
         return mapper.selectByRefIdAndSpecId(relId,specId) != null;
     }

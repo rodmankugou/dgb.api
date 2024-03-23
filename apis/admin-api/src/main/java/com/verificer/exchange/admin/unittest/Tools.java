@@ -145,7 +145,7 @@ public class Tools {
             if (rs.next()){
                 return rs.getLong("mid");
             }
-            throw new RuntimeException(dbName+"."+tableName+"没有自增ID");
+            throw new RuntimeException(dbName+"."+tableName+"没有数据");
         }finally {
             DbUtil.closeConnection(conn,stm,rs);
         }

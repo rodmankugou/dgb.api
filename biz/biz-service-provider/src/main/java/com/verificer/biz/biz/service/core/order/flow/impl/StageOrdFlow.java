@@ -75,8 +75,8 @@ public class StageOrdFlow extends BaseOrdFlow {
             ordCommon.addUserIntegralIfNeed(o);
 
         }else if(OrdSta.Received.getValue() == o.getStatus()){
-            if(formVo instanceof EvaluateVo){
-                EvaluateVo evaluateVo = (EvaluateVo) formVo;
+            if(formVo instanceof EvaluateFormVo){
+                EvaluateFormVo evaluateVo = (EvaluateFormVo) formVo;
                 ordCommon.evaluate(o,evaluateVo);
 
             }else {

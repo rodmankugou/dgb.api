@@ -17,6 +17,9 @@ import com.verificer.biz.beans.vo.cart.ShopCartVo;
 import com.verificer.biz.beans.vo.cart.req.CartAddVo;
 import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
 import com.verificer.biz.beans.vo.cart.req.CartQryVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateReviewVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateVo;
 import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
 import com.verificer.biz.beans.vo.integral.IntegralListVo;
 import com.verificer.biz.beans.vo.member.AppMemberVo;
@@ -25,6 +28,7 @@ import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
+import com.verificer.biz.beans.vo.revise.req.ReviseFromVo;
 import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
 import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
@@ -582,5 +586,21 @@ public interface BizService {
     void userSetNickname(SetNicknameVo reqVo);
 
     AccountVo createAccountIfNeed(String customerId, String subName);
+
+    /**
+     * 增/减库存
+     * @param reqVo
+     */
+    void reviseCreate(ReviseFromVo reqVo);
+
+    List<EvaluateVo> evaluatePage(EvaluateQryVo reqVo);
+
+    int evaluateCount(EvaluateQryVo reqVo);
+
+    /**
+     * 审核商品评论
+     * @param reqVo
+     */
+    void evaluateReview(EvaluateReviewVo reqVo);
 }
 

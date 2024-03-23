@@ -23,4 +23,6 @@ public interface StockCoreService {
     void lockStocks(List<StockIdVo> idVos);
 
     Stock getStock(String relId, Long specId);
+
+    Stock getById(Long id);
 }

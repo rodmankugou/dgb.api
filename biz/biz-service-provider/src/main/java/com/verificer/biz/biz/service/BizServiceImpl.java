@@ -17,6 +17,9 @@ import com.verificer.biz.beans.vo.cart.ShopCartVo;
 import com.verificer.biz.beans.vo.cart.req.CartAddVo;
 import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
 import com.verificer.biz.beans.vo.cart.req.CartQryVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateReviewVo;
+import com.verificer.biz.beans.vo.evaluate.EvaluateVo;
 import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
 import com.verificer.biz.beans.vo.integral.IntegralListVo;
 import com.verificer.biz.beans.vo.member.AppMemberVo;
@@ -25,6 +28,7 @@ import com.verificer.biz.beans.vo.member.req.MemberChargeVo;
 import com.verificer.biz.beans.vo.order.OrdFormVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.beans.vo.req.adjust.AdjFormVo;
+import com.verificer.biz.beans.vo.revise.req.ReviseFromVo;
 import com.verificer.biz.beans.vo.settle.PlaIncomeLogVo;
 import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
@@ -43,6 +47,7 @@ import com.verificer.biz.beans.vo.user.withdraw.*;
 import com.verificer.biz.biz.service.adj.AdjItemService;
 import com.verificer.biz.biz.service.adj.AdjOrderService;
 import com.verificer.biz.biz.service.core.order.OrdCoreService;
+import com.verificer.biz.biz.service.core.stock.ReviseService;
 import com.verificer.biz.biz.service.core.user.*;
 import com.verificer.biz.biz.service.settle.PlaIncomeLogService;
 import com.verificer.biz.biz.service.settle.SettleItemService;
@@ -131,6 +136,12 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     IntegralService integralService;
+
+    @Autowired
+    ReviseService reviseService;
+
+    @Autowired
+    EvaluateService evaluateService;
 
 
     @Override
@@ -616,5 +627,25 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public AccountVo createAccountIfNeed(String customerId, String subName) {
         return userCoreService.createAccountIfNeed(customerId,subName);
+    }
+
+    @Override
+    public void reviseCreate(ReviseFromVo reqVo) {
+        reviseService.reviseCreate(reqVo);
+    }
+
+    @Override
+    public List<EvaluateVo> evaluatePage(EvaluateQryVo reqVo) {
+        return evaluateService.evaluatePage(reqVo);
+    }
+
+    @Override
+    public int evaluateCount(EvaluateQryVo reqVo) {
+        return evaluateService.evaluateCount(reqVo);
+    }
+
+    @Override
+    public void evaluateReview(EvaluateReviewVo reqVo) {
+        evaluateService.evaluateReview(reqVo);
     }
 }

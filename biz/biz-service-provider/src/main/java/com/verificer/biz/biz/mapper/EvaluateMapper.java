@@ -1,6 +1,9 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
 import com.verificer.biz.biz.entity.Evaluate;
+
+import java.util.List;
 
 public interface EvaluateMapper {
     /**
@@ -50,4 +53,8 @@ public interface EvaluateMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Evaluate record);
+
+    List<Evaluate> page(EvaluateQryVo reqVo);
+
+    int count(EvaluateQryVo reqVo);
 }
