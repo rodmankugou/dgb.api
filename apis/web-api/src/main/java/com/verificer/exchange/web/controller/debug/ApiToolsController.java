@@ -58,7 +58,6 @@ public class ApiToolsController extends BaseController {
             httpMethod = "POST"
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageIndex", value = "页面索引，如BO-F4",paramType = "form",required = true),
     })
     @ResponseBody
     @RequestMapping(value = "/page/list", method = RequestMethod.POST)
