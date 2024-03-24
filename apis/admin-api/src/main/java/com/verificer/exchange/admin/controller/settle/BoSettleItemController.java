@@ -70,7 +70,7 @@ public class BoSettleItemController extends BaseController{
         SCheckUtil.notEmpty(reqVo.getOrderId(),"OrderId");
         List<SettleItemVo> vo = bizService.settleItemPage(reqVo);
         int count = bizService.settleItemCount(reqVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(vo));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(vo));
     }
 
 

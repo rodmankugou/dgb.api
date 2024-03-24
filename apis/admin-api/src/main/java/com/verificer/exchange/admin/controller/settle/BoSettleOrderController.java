@@ -53,7 +53,7 @@ public class BoSettleOrderController extends BaseController{
     public Response page(@RequestBody SettleOrdQryVo reqVo) {
         List<SettleOrdVo> list = bizService.settleOrdPage(reqVo);
         int count = bizService.settleOrdCount(reqVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }
 
     @ApiOperation(

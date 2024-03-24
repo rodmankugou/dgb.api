@@ -34,6 +34,9 @@ import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.stock.MerStockStaVo;
+import com.verificer.biz.beans.vo.stock.MerStockVo;
+import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
 import com.verificer.biz.beans.vo.user.RefereeVo;
 import com.verificer.biz.beans.vo.user.ReferrerStaVo;
 import com.verificer.biz.beans.vo.user.UserWithdrawVo;
@@ -205,6 +208,11 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
+    public List<GoodsVo> goodsAll() {
+        return goodsService.goodsAll();
+    }
+
+    @Override
     public List<GoodsVo> goodsPage(GoodsQryVo qryVo) {
         return goodsService.goodsPage(qryVo);
     }
@@ -349,6 +357,16 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public List<MerStockVo> merStockList(StockMerQryVo qryVo) {
         return stockService.merStockList(qryVo);
+    }
+
+    @Override
+    public List<MerStockVo> merStockPage(StockMerQryVo qryVo) {
+        return stockService.merStockPage(qryVo);
+    }
+
+    @Override
+    public int merStockCount(StockMerQryVo qryVo) {
+        return stockService.merStockCount(qryVo);
     }
 
     @Override
@@ -647,5 +665,15 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public void evaluateReview(EvaluateReviewVo reqVo) {
         evaluateService.evaluateReview(reqVo);
+    }
+
+    @Override
+    public List<MerStockStaVo> merStockStaPage(StockMerQryVo qryVo) {
+        return stockService.merStockStaPage(qryVo);
+    }
+
+    @Override
+    public int merStockStaCount(StockMerQryVo qryVo) {
+        return stockService.merStockStaCount(qryVo);
     }
 }

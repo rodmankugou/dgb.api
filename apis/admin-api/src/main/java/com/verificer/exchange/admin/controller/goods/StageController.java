@@ -44,7 +44,7 @@ public class StageController extends BaseController{
     public Response page(@RequestBody StagePageVo qryVo) {
         List<StageVo> list = bizService.stagePage(qryVo);
         int count = bizService.stageCount(qryVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }
 
     @ApiOperation(

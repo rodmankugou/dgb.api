@@ -1,20 +1,25 @@
 package com.verificer.biz.biz.service.impl;
 
-import com.verificer.biz.beans.vo.CatVo;
-import com.verificer.biz.beans.vo.MerStockVo;
-import com.verificer.biz.beans.vo.SpecVo;
-import com.verificer.biz.beans.vo.req.StockMerQryVo;
+import com.verificer.GlobalConfig;
+import com.verificer.biz.beans.vo.stock.MerStockStaVo;
+import com.verificer.biz.beans.vo.stock.MerStockVo;
+import com.verificer.biz.beans.vo.stock.StaMaxMinVo;
+import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
+import com.verificer.biz.biz.entity.Shop;
+import com.verificer.biz.biz.entity.Stage;
 import com.verificer.biz.biz.mapper.StockMapper;
 import com.verificer.biz.biz.service.StockService;
+import com.verificer.biz.biz.service.common.GoodsCommon;
+import com.verificer.biz.biz.service.common.ShopCommon;
+import com.verificer.biz.biz.service.common.StageCommon;
 import com.verificer.utils.PriceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
+import java.math.RoundingMode;
+import java.util.*;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -23,12 +28,57 @@ public class StockServiceImpl implements StockService {
     @Autowired
     StockMapper mapper;
 
+    @Autowired
+    StageCommon stageCommon;
+
+    @Autowired
+    ShopCommon shopCommon;
+
+    @Autowired
+    GoodsCommon goodsCommon;
+
+
+    @Override
+    public List<MerStockStaVo> merStockStaPage(StockMerQryVo qryVo) {
+        List<MerStockStaVo> list = mapper.stockStaPage(qryVo);
+        List<StaMaxMinVo> mmList = mapper.staMaxMin(qryVo);
+        Map<String,StaMaxMinVo> mmMap = new HashMap<>();
+        for (StaMaxMinVo mm : mmList)
+            mmMap.put(mm.getRelId(),mm);
+
+        for(MerStockStaVo vo : list){
+            if(vo.getStageFlag()){
+                Stage stage = stageCommon.getById(vo.getRelId());
+                vo.setName(stage.getName());
+                vo.setCpName(stage.getCpName());
+            }else {
+                Shop shop = shopCommon.getById(vo.getRelId());
+                vo.setName(shop.getName());
+                vo.setCpName(shop.getCpName());
+                StaMaxMinVo mm = mmMap.get(vo.getRelId());
+                if(mm != null){
+                    vo.setMaxSkuCount(mm.getMax());
+                    vo.setMinSkuCount(mm.getMin());
+                }else {
+                    vo.setMaxSkuCount(BigDecimal.ZERO);
+                    vo.setMinSkuCount(BigDecimal.ZERO);
+                }
+
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public int merStockStaCount(StockMerQryVo qryVo) {
+        return mapper.stockStaCount(qryVo);
+    }
 
     @Override
     public List<MerStockVo> merStockList(StockMerQryVo qryVo){
 
         TreeMap<Long,List<MerStockVo>> goodsStockMap = new TreeMap<>();
-        List<MerStockVo> specStockList = mapper.selectByRelId(qryVo.relId);
+        List<MerStockVo> specStockList = mapper.selectByRelId(qryVo.getRelId());
         for(MerStockVo ssv : specStockList){
             if(!goodsStockMap.containsKey(ssv.getGoodsId())){
                 goodsStockMap.put(ssv.getGoodsId(),new LinkedList<>());
@@ -48,20 +98,13 @@ public class StockServiceImpl implements StockService {
             gsv.setImg(specList.get(0).getImg());
             gsv.setCount(sumCount(specList));
 
-            String price = "";
-            if(specList.size() == 1){
-                price = PriceUtils.format(specList.get(0).getPrice());
-            }else {
-                BigDecimal min = null;
-                BigDecimal max = null;
-                for(MerStockVo spec : specList){
-                    if(min == null || spec.getPrice().compareTo(min) < 0)
-                        min = spec.getPrice();
-                    if(max == null || spec.getPrice().compareTo(min) > 0)
-                        max = spec.getPrice();
+            String price = goodsCommon.formatGoodsPriceBySpecPrices(specList, new GoodsCommon.ISpecPriceGetter<MerStockVo>() {
+                @Override
+                public BigDecimal getPrice(MerStockVo spec) {
+                    return spec.getPrice();
                 }
-                price = PriceUtils.format(min) + "-" + PriceUtils.format(max);
-            }
+            });
+
             gsv.setPriceTxt(price);
             gsv.setSpecList(specList);
             list.add(gsv);
@@ -70,6 +113,8 @@ public class StockServiceImpl implements StockService {
         return list;
     }
 
+
+
     private BigDecimal sumCount(List<MerStockVo> specStockList){
         BigDecimal count = BigDecimal.ZERO;
 
@@ -77,5 +122,32 @@ public class StockServiceImpl implements StockService {
             count = count.add(specStock.getCount());
 
         return count;
+    }
+
+    @Override
+    public List<MerStockVo> merStockPage(StockMerQryVo qryVo) {
+        List<MerStockVo> list = mapper.page(qryVo);
+
+        for(MerStockVo vo : list){
+            List<MerStockVo> specList = mapper.selectByRefIdAndGoodsId(vo.getRelId(),vo.getGoodsId());
+            vo.setSpecList(specList);
+            for(MerStockVo spec : specList)
+                spec.setPriceTxt(spec.getPrice().setScale(GlobalConfig.PREC, RoundingMode.HALF_UP).toPlainString());
+            String price = goodsCommon.formatGoodsPriceBySpecPrices(list, new GoodsCommon.ISpecPriceGetter<MerStockVo>() {
+
+                @Override
+                public BigDecimal getPrice(MerStockVo spec) {
+                    return spec.getPrice();
+                }
+            });
+            vo.setPriceTxt(price);
+            vo.setCount(sumCount(specList));
+        }
+        return list;
+    }
+
+    @Override
+    public int merStockCount(StockMerQryVo qryVo) {
+        return mapper.count(qryVo);
     }
 }

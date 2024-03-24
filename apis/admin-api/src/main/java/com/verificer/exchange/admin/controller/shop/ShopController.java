@@ -59,7 +59,7 @@ public class ShopController extends BaseController{
     public Response page(@RequestBody ShopPageVo qryVo) {
         List<ShopVo> list = bizService.shopPage(qryVo);
         int count = bizService.shopCount(qryVo);
-        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(list));
     }
 
 

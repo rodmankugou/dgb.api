@@ -7,6 +7,9 @@ import com.verificer.biz.biz.entity.Goods;
 import java.util.List;
 
 public interface GoodsService {
+
+    List<GoodsVo> goodsAll();
+
     /**
      * 分页查询商品
      * @param qryVo

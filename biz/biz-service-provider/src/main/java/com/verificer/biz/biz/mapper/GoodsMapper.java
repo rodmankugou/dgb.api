@@ -66,4 +66,6 @@ public interface GoodsMapper {
     List<GoodsVo> page(GoodsQryVo qryVo);
 
     int count(GoodsQryVo qryVo);
+
+    List<GoodsVo> allUnDel();
 }

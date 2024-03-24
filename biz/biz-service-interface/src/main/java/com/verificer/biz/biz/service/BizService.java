@@ -34,6 +34,9 @@ import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.stock.MerStockStaVo;
+import com.verificer.biz.beans.vo.stock.MerStockVo;
+import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
 import com.verificer.biz.beans.vo.user.RefereeVo;
 import com.verificer.biz.beans.vo.user.ReferrerStaVo;
 import com.verificer.biz.beans.vo.user.UserWithdrawVo;
@@ -134,6 +137,8 @@ public interface BizService {
      * @param delVo
      */
     void catDel(CatDelVo delVo);
+
+    List<GoodsVo> goodsAll();
 
     /**
      * 分页查询商品
@@ -323,11 +328,25 @@ public interface BizService {
 
 
     /**
-     * 获取某个仓库/店铺所有的商品库存
+     * 某个仓库/店铺的所有商品库存
      * @param qryVo
      * @return
      */
     List<MerStockVo> merStockList(StockMerQryVo qryVo);
+
+    /**
+     * 查询某个仓库/店铺的商品库存-分页
+     * @param qryVo
+     * @return
+     */
+    List<MerStockVo>  merStockPage(StockMerQryVo qryVo);
+
+    /**
+     * 某个仓库/店铺的商品库存-条目数
+     * @param qryVo
+     * @return
+     */
+    int merStockCount(StockMerQryVo qryVo);
 
     /**
      * 调货
@@ -602,5 +621,20 @@ public interface BizService {
      * @param reqVo
      */
     void evaluateReview(EvaluateReviewVo reqVo);
+
+    /**
+     * 库存概况
+     * @param qryVo
+     * @return
+     */
+    List<MerStockStaVo> merStockStaPage(StockMerQryVo qryVo);
+
+    /**
+     * 库存概况-count
+     * @param qryVo
+     * @return
+     */
+    int merStockStaCount(StockMerQryVo qryVo);
+
 }
 

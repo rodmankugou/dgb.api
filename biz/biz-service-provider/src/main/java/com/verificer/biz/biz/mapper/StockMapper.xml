@@ -166,6 +166,14 @@
     where rel_id = #{relId} and spec_id = #{specId}
   </select>
 
+  <select id="selectByRefIdAndGoodsId"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from stock
+    where rel_id = #{relId} and goods_id = #{goodsId}
+  </select>
+
   <select id="selectByIdForUpd"  resultMap="BaseResultMap">
 
     select
@@ -174,7 +182,7 @@
     where id = #{id} for update
   </select>
 
-  <resultMap id="merStockRstMap" type="com.verificer.biz.beans.vo.MerStockVo">
+  <resultMap id="merStockRstMap" type="com.verificer.biz.beans.vo.stock.MerStockVo">
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -202,4 +210,137 @@
     where stock.rel_id = #{relId}
   </select>
 
+  <resultMap id="msRsm" type="com.verificer.biz.beans.vo.stock.MerStockVo">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="rel_id" jdbcType="VARCHAR" property="relId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+
+  </resultMap>
+
+  <sql id="pageCond">
+    <if test="brandId != null">
+      and g.brand_id = #{brandId}
+    </if>
+    <if test="categoryId != null">
+      and g.category_d = #{categoryId}
+    </if>
+    <if test="stageFlag != null">
+      and s.stage_flag = #{stageFlag}
+    </if>
+    <if test="relId != null and relId != ''">
+      and s.rel_id = #{relId}
+    </if>
+    <if test="goodsName != null and goodsName!=''">
+      and g.name = #{goodsName}
+    </if>
+  </sql>
+
+  <select id="page" resultMap="msRsm">
+
+    select
+     distinct
+     g.id,
+     g.name,
+     s.goods_id,
+     s.rel_id,
+     null as price,
+     null as img,
+     null as count
+    from
+    stock s join goods g on (s.goods_id = g.id)
+    where 1=1
+    <include refid="staPageCond"></include>
+
+  </select>
+
+  <select id="count" resultType="int">
+
+    select
+     count(distinct s.goods_id)
+    from
+    stock s join goods g on (s.goods_id = g.id)
+    where 1=1
+    <include refid="staPageCond"></include>
+
+  </select>
+
+
+  <resultMap id="staRsm" type="com.verificer.biz.beans.vo.stock.MerStockStaVo">
+    <result column="rel_id" jdbcType="VARCHAR" property="relId" />
+    <result column="stage_flag" jdbcType="BIT" property="stageFlag" />
+    <result column="total_count" jdbcType="DECIMAL" property="totalCount" />
+    <result column="sku_type_count" jdbcType="DECIMAL" property="skuTypeCount" />
+
+  </resultMap>
+
+  <sql id="staPageCond">
+    <if test="brandId != null">
+      and g.brand_id = #{brandId}
+    </if>
+    <if test="categoryId != null">
+      and g.category_d = #{categoryId}
+    </if>
+    <if test="stageFlag != null">
+      and s.stage_flag = #{stageFlag}
+    </if>
+    <if test="relId != null and relId != ''">
+      and s.rel_id = #{relId}
+    </if>
+    <if test="goodsName != null and goodsName!=''">
+      and g.name = #{goodsName}
+    </if>
+  </sql>
+  <select id="stockStaPage" resultMap="staRsm">
+
+    select
+      rel_id,
+      stage_flag,
+      sum(s.count) as total_count,
+      count(DISTINCT s.spec_id) as sku_type_count
+    from
+      stock s join goods g on (s.goods_id = g.id)
+    where 1=1
+    <include refid="staPageCond"></include>
+    group by stage_flag,rel_id
+    order by total_count asc
+
+
+  </select>
+
+  <select id="stockStaCount" resultType="int">
+
+    select
+        count(distinct  rel_id)
+    from
+    stock s join goods g on (s.goods_id = g.id)
+    where 1=1
+    <include refid="staPageCond"></include>
+
+
+  </select>
+
+
+  <resultMap id="mmRsm" type="com.verificer.biz.beans.vo.stock.StaMaxMinVo">
+    <result column="rel_id" jdbcType="VARCHAR" property="relId" />
+    <result column="max" jdbcType="DECIMAL" property="max" />
+    <result column="min" jdbcType="DECIMAL" property="min" />
+
+  </resultMap>
+
+  <select id="staMaxMin" resultMap="mmRsm">
+
+    select
+        s.rel_id as rel_id,
+        max(s.count) as max,
+        min(s.count) as min
+    from
+    stock s join goods g on (s.goods_id = g.id)
+    where s.sku_flag = 1
+    <include refid="staPageCond"></include>
+    group by rel_id
+  </select>
 </mapper>

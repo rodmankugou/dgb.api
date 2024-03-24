@@ -103,7 +103,7 @@ public class BoUserController extends BaseController{
     public Response refereePage(@RequestBody RefereeListReqVo reqVo) {
         List<RefereeVo> voList = bizService.userRefereeList(reqVo);
         int count = bizService.userRefereeCount(reqVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(voList));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(voList));
     }
 
     @ApiOperation(
@@ -120,7 +120,7 @@ public class BoUserController extends BaseController{
     public Response referrerWithdrawPage(@RequestBody ReferrerWithdrawPageReqVo reqVo) {
         List<UserWithdrawVo> voList = bizService.userWithdrawPage(reqVo);
         int count = bizService.userWithdrawCount(reqVo);
-        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(voList));
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(voList));
     }
 
 

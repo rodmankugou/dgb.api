@@ -33,7 +33,7 @@ public class AdjItemController extends BaseController{
 
 
     @ApiOperation(
-            value = "列表（分页）",
+            value = "列表（不分页）",
             response = TreeAdjItemVo.class,
             httpMethod = "POST"
     )

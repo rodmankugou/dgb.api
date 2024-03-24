@@ -1,24 +1,24 @@
 package com.verificer.exchange.admin.controller.goods;
 
-import com.verificer.biz.beans.enums.AdjShortType;
-import com.verificer.biz.beans.vo.AdjustVo;
+import com.verificer.beans.DropListVo;
+import com.verificer.biz.beans.constants.BizConst;
+import com.verificer.biz.beans.enums.MerType;
+import com.verificer.biz.beans.vo.ShopVo;
+import com.verificer.biz.beans.vo.StageVo;
 import com.verificer.biz.beans.vo.adjust.AdjOrderVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrderQryVo;
-import com.verificer.biz.beans.vo.req.AdjustPageVo;
-import com.verificer.biz.beans.vo.req.adjust.*;
+import com.verificer.biz.beans.vo.adjust.req.BoAdjDLToReqVo;
+import com.verificer.biz.beans.vo.req.ShopListVo;
 import com.verificer.biz.biz.service.BizService;
-import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.utils.SDropListUtils;
+import com.verificer.utils.check.SCheckUtil;
 import com.verificer.utils.decimal.SBigDecimalUtils;
-import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.web.common.response.Response;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +31,58 @@ import java.util.List;
 @Api(tags = "调货单")
 @RequestMapping("/adjust/order")
 @RestController
-public class AdjustOrderController extends BaseController{
+public class AdjOrdController extends BaseController{
 
     @Autowired
     BizService bizService;
+
+    @ApiOperation(
+            value = "发货方下拉列表-不分页",
+            response = DropListVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/dropList/from", method = RequestMethod.POST)
+    public Response adjDropListFrom(@RequestBody BoAdjDLToReqVo reqVo) {
+
+        List<StageVo> voList = bizService.stageList();
+        List<DropListVo> list = SDropListUtils.toDropList(voList,"id","name");
+        list.add(0,new DropListVo(BizConst.ADJ_OTHER_ID,BizConst.ADJ_OTHER_NAME));
+        return Response.dataSuccess(list);
+    }
+
+
+    @ApiOperation(
+            value = "收货方下拉列表-不分页",
+            response = DropListVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/dropList/to", method = RequestMethod.POST)
+    public Response adjDropListTo(@RequestBody BoAdjDLToReqVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getToType(),"To Type");
+
+        List list = null;
+        if(MerType.STAGE.getValue() == reqVo.getToType() ){
+            List<StageVo> voList = bizService.stageList();
+            list = SDropListUtils.toDropList(voList,"id","name");
+        }else if(MerType.SHOP.getValue() == reqVo.getToType() ){
+            List<ShopVo> voList = bizService.shopList(new ShopListVo());
+            list = SDropListUtils.toDropList(voList,"id","name");
+        }else{
+            list = new LinkedList<>();
+        }
+        return Response.dataSuccess(list);
+    }
+
 
 
     @ApiOperation(
@@ -51,7 +99,7 @@ public class AdjustOrderController extends BaseController{
     public Response page(@RequestBody AdjOrderQryVo qryVo) {
         List<AdjOrderVo> list = bizService.adjOrdPage(qryVo);
         int count = bizService.adjOrdCount(qryVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }
 
 

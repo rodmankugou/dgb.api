@@ -40,6 +40,19 @@ public class GoodsServiceImpl implements GoodsService {
     PosGoodsSyncService posGoodsSyncService;
 
     @Override
+    public List<GoodsVo> goodsAll() {
+        List<GoodsVo> voList = mapper.allUnDel();
+
+        for(GoodsVo vo : voList){
+            List<SpecVo> specList = specService.getGoodsSpecVoList(vo.getId());
+            vo.setSpecList(specList);
+            vo.setPrice(calPriceRange(specList));
+        }
+
+        return voList;
+    }
+
+    @Override
     public List<GoodsVo> goodsPage(GoodsQryVo qryVo) {
         List<GoodsVo> voList = mapper.page(qryVo);
 
@@ -91,6 +104,7 @@ public class GoodsServiceImpl implements GoodsService {
         SCheckUtil.notEmpty(e.getShopSaleFlag(),"Shop Sale Flag");
         SCheckUtil.notEmpty(e.getNonMemberBuyFlag(),"Non Member Buy Flag");
         SCheckUtil.notEmpty(e.getSkuFlag(),"Sku Flag");
+        SCheckUtil.notEmpty(e.getSubTitle(),"Sub Title");
     }
 
     private String genSearchKey(Goods goods){

@@ -1,6 +1,5 @@
 package com.verificer.utils.decimal;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import com.verificer.GlobalConfig;
 import com.verificer.utils.reflect.ClassCache;
 import com.verificer.utils.reflect.SBeanUtils;
@@ -9,7 +8,6 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class SBigDecimalUtils {
     private static final ClassCache cache = new ClassCache();
@@ -60,8 +58,15 @@ public class SBigDecimalUtils {
     }
 
 
+    public static List lprcFormat2(List<?> obj){
+        try {
+            return (List)prcFormat(obj);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e.getMessage(),e);
+        }
+    }
 
-    public static <T> T prcFormat2(T obj){
+    public static Object prcFormat2(Object obj){
         try {
             return prcFormat(obj);
         } catch (IllegalAccessException e) {
@@ -69,26 +74,31 @@ public class SBigDecimalUtils {
         }
     }
 
-    public static <T> T prcFormat(T obj) throws IllegalAccessException {
+    public static Object prcFormat(Object obj) throws IllegalAccessException {
 
 
         if(obj == null)
             return obj;
 
         if(isMapOrCollection(obj))
-            prcFormats(obj);
+            return prcFormats(obj);
 
         //不处理集合元素为BigDecimal类型的集合
-        if(SBeanUtils.isNonDecimalSimpleType(obj) || obj instanceof BigDecimal)
+        if(SBeanUtils.isNonDecimalSimpleType(obj) )
             return obj;
 
+        //collection OR map的元素为BigDecimal
+        if(obj instanceof BigDecimal){
+            return ((BigDecimal)obj).stripTrailingZeros().toPlainString();
+        }
 
+
+        Map<String,Object> map = new LinkedHashMap<>();
         Field[] fields = cache.getFields(obj);
         for(Field field : fields){
             field.setAccessible(true);
             Object val = field.get(obj);
-            if(val == null)
-                continue;
+            Object nVal = val;
 
             if(val instanceof BigDecimal){
                 BigDecimal bVal = (BigDecimal) val;
@@ -100,28 +110,27 @@ public class SBigDecimalUtils {
                 }
 
                 if(isHit){
-                    BigDecimal nVal = bVal.setScale(prec, RoundingMode.HALF_UP);
+                    nVal = bVal.setScale(prec, RoundingMode.HALF_UP).toPlainString();
 //                    BigDecimal intVal = nVal.setScale(0,RoundingMode.UP);
 //                    if(nVal.compareTo(intVal) == 0)
 //                        nVal = intVal;
-                    field.set(obj,nVal);
                 }else {
-                    field.set(obj,bVal.stripTrailingZeros());
+                    nVal = bVal.stripTrailingZeros().toPlainString();
                 }
 
             }else {
-                if(SBeanUtils.isNonDecimalSimpleType(val))
-                    continue;
+
 
                 if(isMapOrCollection(val)){
-                    prcFormats(val);
+                    nVal = prcFormats(val);
                 }
 
             }
+            map.put(field.getName(),nVal);
         }
 
 
-        return obj;
+        return map;
     }
 
     private static boolean isSku(Object obj,Field[] fields) throws IllegalAccessException {
@@ -148,17 +157,33 @@ public class SBigDecimalUtils {
         return SBeanUtils.isCollections(obj) || SBeanUtils.isMap(obj);
     }
 
-    private static void prcFormats(Object obj) throws IllegalAccessException {
-        if(SBeanUtils.isCollections(obj)){
+    private static Object prcFormats(Object obj) throws IllegalAccessException {
+        if(SBeanUtils.isList(obj)){
             Collection<?> collection = (Collection<?>) obj;
+            List<Object> rst = new LinkedList<>();
             Iterator<?> iterator = collection.iterator();
             while (iterator.hasNext()){
-                prcFormat(iterator.next());
+                rst.add(prcFormat(iterator.next()));
             }
+            return rst;
+        }else if(SBeanUtils.isSet(obj)){
+            Collection<?> collection = (Collection<?>) obj;
+            Set<Object> rst = new HashSet<>();
+            Iterator<?> iterator = collection.iterator();
+            while (iterator.hasNext()){
+                rst.add(prcFormat(iterator.next()));
+            }
+            return rst;
         }else if(SBeanUtils.isMap(obj)){
-            Map<?,?> map = new HashMap<>();
-            for(Map.Entry entry : map.entrySet())
-                prcFormat(entry.getValue());
+            Map<?,?> map = (Map<?, ?>) obj;
+            Map<Object,Object> nMap = new HashMap<>();
+            for(Map.Entry entry : map.entrySet()){
+                nMap.put(entry.getKey(),prcFormat(entry.getValue()));
+            }
+
+             return nMap;
+        }else {
+            throw new RuntimeException("unknow collection");
         }
     }
 
@@ -208,7 +233,6 @@ public class SBigDecimalUtils {
     public static void main(String args[]) throws IllegalAccessException {
         Order order = new Order();
         System.out.println(order);
-        prcFormat(order);
-        System.out.println(order);
+        System.out.println(prcFormat(order));
     }
 }

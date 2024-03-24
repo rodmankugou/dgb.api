@@ -5,6 +5,7 @@ import com.verificer.biz.beans.vo.adjust.req.AdjItemFormVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmItemVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdConfirmVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjOrdFormVo;
+import com.verificer.exchange.admin.unittest.Runner;
 import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.RandomUtils;
@@ -119,12 +120,12 @@ public class AdjRunner {
 
     public static void run() throws SQLException {
 //        Tools.init("dbg", "newadjust/init.sql");
-//        Runner.run("goods/add_1");
+        Runner.run("goods/add_1");
 //        Runner.run("goods/add_2");
 //        adj();
 
 //        Tools.callApi("adjust/order/page","{}");
-        Tools.callApi("adjust/item/list","{\"orderId\":"+getId()+"}");
+//        Tools.callApi("adjust/item/list","{\"orderId\":"+getId()+"}");
 
 
 //        List<Spec> specList = loadAllSpec();

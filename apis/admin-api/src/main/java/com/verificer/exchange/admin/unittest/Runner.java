@@ -206,7 +206,9 @@ public class Runner {
 //        runDir("advert",new String[] {"add","upd","page","del","page"},"dbg_sup");
 //        runDir("help",new String[] {"add","upd","page","del","page"},"dbg_sup");
 
-        Tools.callApi("goods/page","{}");
+//        Tools.callApi("adjust/order/dropList/from","{}");
+        Tools.callApi("adjust/order/dropList/to","{\"toType\":2}");
+//        Tools.callApi("goods/page","{}");
 
     }
 

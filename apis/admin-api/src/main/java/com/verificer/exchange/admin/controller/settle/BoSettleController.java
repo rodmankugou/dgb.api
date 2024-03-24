@@ -69,7 +69,7 @@ public class BoSettleController extends BaseController{
     public Response plaIncomeLogPage(@RequestBody PlaIncomeLogQryVo reqVo) {
         List<PlaIncomeLogVo> vo = bizService.plaIncomeLogPage(reqVo);
         int count = bizService.plaIncomeLogCount(reqVo);
-        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(vo));
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(vo));
     }
 
 

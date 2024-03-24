@@ -84,7 +84,7 @@ public class BoMemberController extends BaseController{
     public Response page(@RequestBody MemberPageVo reqVo) {
         List<MemberVo> list =bizService.memberPage(reqVo);
         int count = bizService.memberCount(reqVo);
-        return Response.listSuccess(count,SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(list));
     }
 
 

@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo;
+package com.verificer.biz.beans.vo.stock;
 
 import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
@@ -12,14 +12,20 @@ import java.util.List;
 public class MerStockVo implements Serializable {
     @ApiModelProperty("商品或者规格ID")
     private Long id;
+    @ApiModelProperty(hidden = true)
+    private String relId;
+    @ApiModelProperty(hidden = true)
     private Long goodsId;
     @ApiModelProperty("商品或者规格ID")
     private String name;
+    @ApiModelProperty(hidden = true)
     private String goodsName;
     @ApiModelProperty("价格")
     private String priceTxt;
     @PriceDecimal
+    @ApiModelProperty(hidden = true)
     private BigDecimal price;
+    @ApiModelProperty(hidden = true)
     private String goodsImg;
     @ApiModelProperty("图片")
     private String img;
@@ -105,5 +111,13 @@ public class MerStockVo implements Serializable {
 
     public void setPriceTxt(String priceTxt) {
         this.priceTxt = priceTxt;
+    }
+
+    public String getRelId() {
+        return relId;
+    }
+
+    public void setRelId(String relId) {
+        this.relId = relId;
     }
 }

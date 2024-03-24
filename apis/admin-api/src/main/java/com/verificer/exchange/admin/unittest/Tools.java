@@ -26,7 +26,7 @@ public class Tools {
     }
 
     public static String getToken(){
-        return "700ba2891b9549dbb16b8fbc986c83223L7mhw9YuhX54F1Ae1K2Z0t398D2o453-1711165781930";
+        return "4b55ed76703b4ad88b758bec2fa9d9bbQbIvl81k5z0mP280Ace113gjS61sSulK-1711260711984";
     }
 
     public static Long getStaffId(){

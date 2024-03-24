@@ -49,7 +49,7 @@ public class BoUserWithdrawController extends BaseController{
     public Response page(@RequestBody ReferrerWithdrawPageVo qryVo) {
         List<ReferrerWithdrawVo> list = bizService.referrerWithdrawPage(qryVo);
         int count = bizService.referrerWithdrawCount(qryVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }
 
 

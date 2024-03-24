@@ -22,6 +22,9 @@ public class GoodsVo implements Serializable {
     @ApiModelProperty("名称")
     private String name;
 
+    @ApiModelProperty("推荐词")
+    private String subTitle;
+
     @ApiModelProperty("图片url列表，多个url以符号”@“隔开")
     private String imgList;
 
@@ -349,5 +352,13 @@ public class GoodsVo implements Serializable {
 
     public void setNonMemberBuyFlag(Boolean nonMemberBuyFlag) {
         this.nonMemberBuyFlag = nonMemberBuyFlag;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 }

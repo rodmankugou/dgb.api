@@ -22,4 +22,5 @@ public class BizConst {
 
     public static final String ADJ_OTHER_ID = "ADJ_OTHER";
     public static final String ADJ_OTHER_NAME = "其它";
+    public static final String ADJ_OTHER_COUNT = "无限制";
 }

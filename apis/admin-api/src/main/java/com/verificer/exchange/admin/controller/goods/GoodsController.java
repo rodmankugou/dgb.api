@@ -57,7 +57,7 @@ public class GoodsController extends BaseController{
     public Response page(@RequestBody GoodsQryVo qryVo) {
         List<GoodsVo> list = bizService.goodsPage(qryVo);
         int count = bizService.goodsCount(qryVo);
-        return Response.listSuccess(count, SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }
 
 

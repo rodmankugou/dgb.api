@@ -197,7 +197,7 @@ public class UserCoreServiceImpl implements UserCoreService {
     public Long wxLogin(WxLoginReqVo reqVo) {
 
         //TODO 登录 ,在此实现真正的校验逻辑
-        String openId = UuidUtils.newUuid();
+        String openId = reqVo.getCode();
 
         User user = userMapper.selectByWxOpenId(openId);
         if(user == null)

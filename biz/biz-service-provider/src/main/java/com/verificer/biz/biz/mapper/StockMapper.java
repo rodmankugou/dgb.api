@@ -1,6 +1,9 @@
 package com.verificer.biz.biz.mapper;
 
-import com.verificer.biz.beans.vo.MerStockVo;
+import com.verificer.biz.beans.vo.stock.MerStockStaVo;
+import com.verificer.biz.beans.vo.stock.MerStockVo;
+import com.verificer.biz.beans.vo.stock.StaMaxMinVo;
+import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
 import com.verificer.biz.biz.entity.Stock;
 import org.apache.ibatis.annotations.Param;
 
@@ -60,4 +63,16 @@ public interface StockMapper {
     Stock selectByIdForUpd(@Param("id") Long id);
 
     List<MerStockVo> selectByRelId(@Param("relId") String relId);
+
+    List<MerStockStaVo> stockStaPage(StockMerQryVo qryVo);
+
+    List<StaMaxMinVo> staMaxMin(StockMerQryVo qryVo);
+
+    int stockStaCount(StockMerQryVo qryVo);
+
+    List<MerStockVo> page(StockMerQryVo qryVo);
+
+    int count(StockMerQryVo qryVo);
+
+    List<MerStockVo> selectByRefIdAndGoodsId(@Param("relId") String relId,@Param("goodsId") Long goodsId);
 }

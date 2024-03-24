@@ -570,6 +570,18 @@ public class SBeanUtils {
         return obj instanceof Collection<?>;
     }
 
+    public static boolean isList(Object obj){
+        if(obj == null)
+            return false;
+        return obj instanceof List<?>;
+    }
+
+    public static boolean isSet(Object obj){
+        if(obj == null)
+            return false;
+        return obj instanceof Set<?>;
+    }
+
     public static boolean isMap(Object obj){
         if(obj == null)
             return false;
