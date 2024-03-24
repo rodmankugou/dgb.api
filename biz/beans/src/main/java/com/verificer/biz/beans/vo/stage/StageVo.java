@@ -1,13 +1,15 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.biz.beans.vo.stage;
 
-import com.verificer.utils.decimal.PrcLimit;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.repository.query.Param;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class StageFormVo implements Serializable {
-    @ApiModelProperty("ID,新增时不需要该参数")
+@ApiModel
+public class StageVo implements Serializable {
+    @ApiModelProperty("ID")
     private String id;
 
     @ApiModelProperty("名称")
@@ -22,22 +24,36 @@ public class StageFormVo implements Serializable {
     @ApiModelProperty("省编码")
     private String adrArea1;
 
+    @ApiModelProperty("省名")
+    private String adrArea1Name;
+
     @ApiModelProperty("市编码")
     private String adrArea2;
+
+    @ApiModelProperty("市名")
+    private String adrArea2Name;
 
     @ApiModelProperty("区/县编码")
     private String adrArea3;
 
+    @ApiModelProperty("区/县名")
+    private String adrArea3Name;
+
     @ApiModelProperty("地址详情")
     private String adrDetail;
 
+    @ApiModelProperty("全地址")
+    private String fullAddr;
+
     @ApiModelProperty("经度")
-    @PrcLimit(6)
     private BigDecimal longitude;
 
     @ApiModelProperty("纬度")
-    @PrcLimit(6)
     private BigDecimal latitude;
+
+    @ApiModelProperty("创建时间")
+    private Long createTime;
+
 
     public String getId() {
         return id;
@@ -79,12 +95,28 @@ public class StageFormVo implements Serializable {
         this.adrArea1 = adrArea1;
     }
 
+    public String getAdrArea1Name() {
+        return adrArea1Name;
+    }
+
+    public void setAdrArea1Name(String adrArea1Name) {
+        this.adrArea1Name = adrArea1Name;
+    }
+
     public String getAdrArea2() {
         return adrArea2;
     }
 
     public void setAdrArea2(String adrArea2) {
         this.adrArea2 = adrArea2;
+    }
+
+    public String getAdrArea2Name() {
+        return adrArea2Name;
+    }
+
+    public void setAdrArea2Name(String adrArea2Name) {
+        this.adrArea2Name = adrArea2Name;
     }
 
     public String getAdrArea3() {
@@ -95,12 +127,28 @@ public class StageFormVo implements Serializable {
         this.adrArea3 = adrArea3;
     }
 
+    public String getAdrArea3Name() {
+        return adrArea3Name;
+    }
+
+    public void setAdrArea3Name(String adrArea3Name) {
+        this.adrArea3Name = adrArea3Name;
+    }
+
     public String getAdrDetail() {
         return adrDetail;
     }
 
     public void setAdrDetail(String adrDetail) {
         this.adrDetail = adrDetail;
+    }
+
+    public String getFullAddr() {
+        return fullAddr;
+    }
+
+    public void setFullAddr(String fullAddr) {
+        this.fullAddr = fullAddr;
     }
 
     public BigDecimal getLongitude() {
@@ -117,5 +165,13 @@ public class StageFormVo implements Serializable {
 
     public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 }

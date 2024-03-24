@@ -166,13 +166,7 @@
     where rel_id = #{relId} and spec_id = #{specId}
   </select>
 
-  <select id="selectByRefIdAndGoodsId"  resultMap="BaseResultMap">
 
-    select
-    <include refid="Base_Column_List" />
-    from stock
-    where rel_id = #{relId} and goods_id = #{goodsId}
-  </select>
 
   <select id="selectByIdForUpd"  resultMap="BaseResultMap">
 
@@ -208,6 +202,23 @@
       left join goods on stock.goods_id = goods.id
       left join spec on stock.spec_id = spec.id
     where stock.rel_id = #{relId}
+  </select>
+
+  <select id="selectByRefIdAndGoodsId"  resultMap="merStockRstMap">
+    select
+      spec.id as id,
+      spec.goods_id as goods_id,
+      spec.name as name,
+      goods.name as goods_name,
+      spec.price as price,
+      spec.img as goods_img,
+      spec.img as img,
+      stock.rel_id as rel_id,
+      stock.count as count
+    from stock
+      left join goods on stock.goods_id = goods.id
+      left join spec on stock.spec_id = spec.id
+    where stock.rel_id = #{relId} and stock.goods_id = #{goodsId}
   </select>
 
   <resultMap id="msRsm" type="com.verificer.biz.beans.vo.stock.MerStockVo">
@@ -254,6 +265,7 @@
     stock s join goods g on (s.goods_id = g.id)
     where 1=1
     <include refid="staPageCond"></include>
+    limit #{from},#{limit}
 
   </select>
 
@@ -307,6 +319,8 @@
     <include refid="staPageCond"></include>
     group by stage_flag,rel_id
     order by total_count asc
+    limit #{from},#{limit}
+
 
 
   </select>
@@ -324,23 +338,5 @@
   </select>
 
 
-  <resultMap id="mmRsm" type="com.verificer.biz.beans.vo.stock.StaMaxMinVo">
-    <result column="rel_id" jdbcType="VARCHAR" property="relId" />
-    <result column="max" jdbcType="DECIMAL" property="max" />
-    <result column="min" jdbcType="DECIMAL" property="min" />
 
-  </resultMap>
-
-  <select id="staMaxMin" resultMap="mmRsm">
-
-    select
-        s.rel_id as rel_id,
-        max(s.count) as max,
-        min(s.count) as min
-    from
-    stock s join goods g on (s.goods_id = g.id)
-    where s.sku_flag = 1
-    <include refid="staPageCond"></include>
-    group by rel_id
-  </select>
 </mapper>

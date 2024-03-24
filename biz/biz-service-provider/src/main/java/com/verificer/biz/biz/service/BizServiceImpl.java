@@ -34,6 +34,15 @@ import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.shop.ShopStockVo;
+import com.verificer.biz.beans.vo.shop.ShopVo;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
+import com.verificer.biz.beans.vo.shop.req.ShopStockQryVo;
+import com.verificer.biz.beans.vo.stage.StageStockVo;
+import com.verificer.biz.beans.vo.stage.req.StageFormVo;
+import com.verificer.biz.beans.vo.stage.req.StagePageVo;
+import com.verificer.biz.beans.vo.stage.StageVo;
+import com.verificer.biz.beans.vo.stage.req.StageStockQryVo;
 import com.verificer.biz.beans.vo.stock.MerStockStaVo;
 import com.verificer.biz.beans.vo.stock.MerStockVo;
 import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
@@ -675,5 +684,25 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public int merStockStaCount(StockMerQryVo qryVo) {
         return stockService.merStockStaCount(qryVo);
+    }
+
+    @Override
+    public List<ShopStockVo> shopStockPage(ShopStockQryVo qryVo) {
+        return stockService.shopStockPage(qryVo);
+    }
+
+    @Override
+    public int shopStockCount(ShopStockQryVo qryVo) {
+        return stockService.shopStockCount(qryVo);
+    }
+
+    @Override
+    public List<StageStockVo> stageStockPage(StageStockQryVo qryVo) {
+        return stockService.stageStockPage(qryVo);
+    }
+
+    @Override
+    public int stageStockCount(StageStockQryVo qryVo) {
+        return stockService.stageStockCount(qryVo);
     }
 }

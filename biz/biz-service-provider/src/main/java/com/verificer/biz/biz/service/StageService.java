@@ -1,8 +1,8 @@
 package com.verificer.biz.biz.service;
 
-import com.verificer.biz.beans.vo.StageVo;
-import com.verificer.biz.beans.vo.req.StageFormVo;
-import com.verificer.biz.beans.vo.req.StagePageVo;
+import com.verificer.biz.beans.vo.stage.StageVo;
+import com.verificer.biz.beans.vo.stage.req.StageFormVo;
+import com.verificer.biz.beans.vo.stage.req.StagePageVo;
 import com.verificer.biz.biz.entity.Stage;
 
 import java.util.List;

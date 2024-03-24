@@ -1,7 +1,6 @@
 package com.verificer.biz.biz.mapper;
 
-import com.verificer.biz.beans.vo.req.StagePageVo;
-import com.verificer.biz.biz.entity.Brand;
+import com.verificer.biz.beans.vo.stage.req.StagePageVo;
 import com.verificer.biz.biz.entity.Stage;
 import org.apache.ibatis.annotations.Param;
 

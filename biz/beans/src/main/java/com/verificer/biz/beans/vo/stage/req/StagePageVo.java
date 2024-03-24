@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.biz.beans.vo.stage.req;
 
 import com.verificer.beans.PageQueryVo;
 

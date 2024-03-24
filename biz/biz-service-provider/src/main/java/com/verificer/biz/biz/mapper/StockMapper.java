@@ -1,5 +1,6 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.shop.req.ShopStockQryVo;
 import com.verificer.biz.beans.vo.stock.MerStockStaVo;
 import com.verificer.biz.beans.vo.stock.MerStockVo;
 import com.verificer.biz.beans.vo.stock.StaMaxMinVo;
@@ -66,7 +67,6 @@ public interface StockMapper {
 
     List<MerStockStaVo> stockStaPage(StockMerQryVo qryVo);
 
-    List<StaMaxMinVo> staMaxMin(StockMerQryVo qryVo);
 
     int stockStaCount(StockMerQryVo qryVo);
 

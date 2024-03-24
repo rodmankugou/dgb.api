@@ -6,8 +6,9 @@ import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.beans.AreaVo;
 import com.verificer.biz.beans.constants.BizConst;
 import com.verificer.biz.beans.vo.*;
-import com.verificer.biz.beans.vo.ShopVo;
+import com.verificer.biz.beans.vo.shop.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
 import com.verificer.biz.biz.entity.*;
 import com.verificer.biz.biz.entity.Shop;
 

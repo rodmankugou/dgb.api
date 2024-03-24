@@ -1,9 +1,11 @@
 package com.verificer.exchange.admin.controller.shop;
 
-import com.verificer.beans.IdVo;
 import com.verificer.biz.beans.vo.ShopIdVo;
-import com.verificer.biz.beans.vo.ShopVo;
+import com.verificer.biz.beans.vo.shop.ShopStockVo;
+import com.verificer.biz.beans.vo.shop.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
+import com.verificer.biz.beans.vo.shop.req.ShopStockQryVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
@@ -59,6 +61,23 @@ public class ShopController extends BaseController{
     public Response page(@RequestBody ShopPageVo qryVo) {
         List<ShopVo> list = bizService.shopPage(qryVo);
         int count = bizService.shopCount(qryVo);
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(list));
+    }
+
+    @ApiOperation(
+            value = "店铺库页列表（分页）",
+            response = ShopStockVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "登录凭证",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/stock/page", method = RequestMethod.POST)
+    public Response stockPage(@RequestBody ShopStockQryVo qryVo) {
+        List<ShopStockVo> list = bizService.shopStockPage(qryVo);
+        int count = bizService.shopStockCount(qryVo);
         return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(list));
     }
 

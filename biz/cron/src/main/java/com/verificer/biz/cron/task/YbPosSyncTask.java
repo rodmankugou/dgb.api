@@ -1,18 +1,13 @@
 package com.verificer.biz.cron.task;
 
-import com.verificer.biz.beans.vo.ShopVo;
-import com.verificer.biz.beans.vo.req.ShopListVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.biz.cron.config.CronConfig;
-import com.verificer.utils.SDateUtil;
-import com.verificer.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 @Component
 public class YbPosSyncTask {

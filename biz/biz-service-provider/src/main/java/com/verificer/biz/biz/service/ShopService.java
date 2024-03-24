@@ -1,10 +1,10 @@
 package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.ShopIdVo;
-import com.verificer.biz.beans.vo.ShopVo;
+import com.verificer.biz.beans.vo.shop.ShopVo;
 import com.verificer.biz.beans.vo.req.*;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
 import com.verificer.biz.biz.entity.Shop;
-import com.verificer.biz.biz.entity.ShopGoods;
 
 import java.util.List;
 

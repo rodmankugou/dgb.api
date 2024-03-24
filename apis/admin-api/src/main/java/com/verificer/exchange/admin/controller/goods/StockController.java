@@ -98,7 +98,7 @@ public class StockController extends BaseController{
     public Response merStockPage( @RequestBody StockMerQryVo qryVo) {
         List<MerStockVo> list = bizService.merStockPage(qryVo);
         int count = bizService.merStockCount(qryVo);
-        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
+        return Response.listSuccess(count,SBigDecimalUtils.lprcFormat2(list));
     }
 
     @ApiOperation(

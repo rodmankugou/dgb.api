@@ -1,4 +1,4 @@
-package com.verificer.biz.beans.vo.req;
+package com.verificer.biz.beans.vo.shop.req;
 
 import com.verificer.beans.PageQueryVo;
 import io.swagger.annotations.ApiModel;

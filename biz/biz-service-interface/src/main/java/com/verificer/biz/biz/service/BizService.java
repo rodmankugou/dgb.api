@@ -34,6 +34,15 @@ import com.verificer.biz.beans.vo.settle.SettleItemVo;
 import com.verificer.biz.beans.vo.settle.SettleOrdVo;
 import com.verificer.biz.beans.vo.settle.SettleStaVo;
 import com.verificer.biz.beans.vo.settle.req.*;
+import com.verificer.biz.beans.vo.shop.ShopStockVo;
+import com.verificer.biz.beans.vo.shop.ShopVo;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
+import com.verificer.biz.beans.vo.shop.req.ShopStockQryVo;
+import com.verificer.biz.beans.vo.stage.StageStockVo;
+import com.verificer.biz.beans.vo.stage.req.StageFormVo;
+import com.verificer.biz.beans.vo.stage.req.StagePageVo;
+import com.verificer.biz.beans.vo.stage.StageVo;
+import com.verificer.biz.beans.vo.stage.req.StageStockQryVo;
 import com.verificer.biz.beans.vo.stock.MerStockStaVo;
 import com.verificer.biz.beans.vo.stock.MerStockVo;
 import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
@@ -636,5 +645,32 @@ public interface BizService {
      */
     int merStockStaCount(StockMerQryVo qryVo);
 
+    /**
+     * 店铺库页列表
+     * @param qryVo
+     * @return
+     */
+    List<ShopStockVo> shopStockPage(ShopStockQryVo qryVo);
+
+    /**
+     * 店铺库页列表-数据条目
+     * @param qryVo
+     * @return
+     */
+    int shopStockCount(ShopStockQryVo qryVo);
+
+    /**
+     * 仓库雷表-分页
+     * @param qryVo
+     * @return
+     */
+    List<StageStockVo> stageStockPage(StageStockQryVo qryVo);
+
+    /**
+     * 符合统计条件的仓库数
+     * @param qryVo
+     * @return
+     */
+    int stageStockCount(StageStockQryVo qryVo);
 }
 

@@ -8,9 +8,9 @@ import java.util.List;
 
 @ApiModel
 public class GoodsRubbishVo implements Serializable {
-    @ApiModelProperty("ID")
+    @ApiModelProperty("ID,单个删除时使用该参数")
     private Long id;
-    @ApiModelProperty("ID列表")
+    @ApiModelProperty("ID列表，批量删除时使用该参数")
     private List<Long> ids;
 
     public Long getId() {

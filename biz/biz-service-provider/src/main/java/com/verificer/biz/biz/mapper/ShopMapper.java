@@ -1,7 +1,7 @@
 package com.verificer.biz.biz.mapper;
 
 import com.verificer.biz.beans.vo.req.ShopListVo;
-import com.verificer.biz.beans.vo.req.ShopPageVo;
+import com.verificer.biz.beans.vo.shop.req.ShopPageVo;
 import com.verificer.biz.biz.entity.Shop;
 import org.apache.ibatis.annotations.Param;
 

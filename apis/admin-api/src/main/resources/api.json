@@ -1,5 +1,147 @@
 [
   {
+    "name": "BO-B1",
+    "apis": [
+      {
+        "列表": "goods->商品->/goods/page",
+        "删除/批量删除": "goods->商品->/goods/rubbish",
+        "上/下架": "goods->商品->/goods/updSaleFlag"
+      }
+    ]
+  },
+  {
+    "name": "BO-B2",
+    "apis": [
+      {
+        "新增/修改": "goods->商品->/goods/submit"
+      }
+    ]
+  },
+  {
+    "name": "BO-B3",
+    "apis": [
+      {
+        "列表": "goods->调货单->/adjust/order/page"
+
+      }
+    ]
+  },
+  {
+    "name": "BO-B4",
+    "apis": [
+      {
+        "添加配货订单": "goods->调货单->/adjust/order/create",
+        "发货方下拉列表": "goods->调货单->/adjust/order/dropList/from",
+        "收货方下拉列表": "goods->调货单->/adjust/order/dropList/to",
+        "添加配货订单-表单内列表": "goods->库存->/stock/from/stock/list"
+      }
+    ]
+  },
+  {
+    "name": "BO-B5",
+    "apis": [
+      {
+        "查看配货订单-表单内列表": "goods->调货明细->/adjust/item/list",
+        "状态": {
+          "待确认": "下方有确认按钮，表单列表内让用户填实际收货数量",
+          "已确认": "下方无确认按钮，表单列表内多显示一列实际收货数量"
+        }
+      }
+    ]
+  },
+  {
+    "name": "BO-B6",
+    "apis": [
+      {
+        "查看配货订单-表单内列表": "goods->商品->/goods/page ｜ 请求参数加上 rubbishFlag=true",
+        "删除/批量删除": "goods->商品->/goods/del",
+        "恢复/批量恢复": "goods->商品->/goods/recover"
+      }
+    ]
+  },
+  {
+    "name": "BO-B7",
+    "apis": [
+      {
+        "备注": "所有接口在 goods->品牌 中定义"
+      }
+    ]
+  },
+  {
+    "name": "BO-B8",
+    "apis": [
+      {
+        "备注": "所有接口在 goods->分类 中定义"
+      }
+    ]
+  },
+  {
+    "name": "BO-B9",
+    "apis": [
+      {
+        "备注": "所有接口在 goods->商品评论 中定义"
+      }
+    ]
+  },
+  {
+    "name": "BO-B10",
+    "apis": [
+      {
+        "列表": "goods->库存->/stock/shop/stock/sta"
+      }
+    ]
+  },
+  {
+    "name": "BO-B11",
+    "apis": [
+      {
+        "列表": "shop->店铺->/shop/stock/list",
+        "补/减货": "goods->补/减货->/revise/create",
+      }
+    ]
+  },
+  {
+    "name": "BO-B12",
+    "apis": [
+      {
+        "补/减货": "goods->补/减货->/revise/create",
+      }
+    ]
+  },
+  {
+    "name": "BO-B13",
+    "apis": [
+      {
+        "列表": "goods -> 仓库 -> /stage/page",
+        "添加/编辑仓库": "所有接口在 goods->仓库 中定义",
+      }
+    ]
+  },
+  {
+    "name": "BO-B14",
+    "apis": [
+      {
+        "添加配货订单": "goods->调货单->/adjust/order/create",
+        "发货方下拉列表": "goods->调货单->/adjust/order/dropList/from",
+        "收货方下拉列表": "goods->调货单->/adjust/order/dropList/to",
+        "添加配货订单-表单内列表": "goods->库存->/stock/from/stock/list",
+        "查看配货订单-表单内列表": "goods->调货明细->/adjust/item/list",
+        "状态": {
+          "已确认": "下方无确认按钮，表单列表内多显示一列实际收货数量"
+        }
+      }
+    ]
+  },
+  {
+    "name": "BO-B15",
+    "apis": [
+      {
+        "列表": "goods->库存->/stock/mer/stock/list",
+        "补/减货": "goods->补/减货->/revise/create",
+      }
+    ]
+  },
+  {
     "name": "BO-G1",
     "apis": [
       {

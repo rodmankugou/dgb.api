@@ -1,5 +1,9 @@
-package com.verificer.biz.beans.vo;
+package com.verificer.biz.beans.vo.shop;
 
+import com.verificer.biz.beans.vo.ShopBkVo;
+import com.verificer.biz.beans.vo.ShopComVo;
+import com.verificer.biz.beans.vo.ShopLpVo;
+import com.verificer.biz.beans.vo.ShopLsVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

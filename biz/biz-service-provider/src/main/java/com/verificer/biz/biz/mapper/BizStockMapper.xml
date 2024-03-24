@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.verificer.biz.biz.mapper.BizStockMapper">
+
+    <resultMap id="mmRsm" type="com.verificer.biz.beans.vo.stock.StaMaxMinVo">
+        <result column="rel_id" jdbcType="VARCHAR" property="relId" />
+        <result column="max" jdbcType="DECIMAL" property="max" />
+        <result column="min" jdbcType="DECIMAL" property="min" />
+
+    </resultMap>
+
+    <select id="staMaxMin" resultMap="mmRsm">
+
+        select
+            s.rel_id as rel_id,
+            max(s.count) as max,
+            min(s.count) as min
+        from shop
+            join stock s on (shop.id = s.rel_id)
+            join goods g on (s.goods_id = g.id)
+        where s.sku_flag = 1
+        <include refid="shopPageCond"></include>
+        group by rel_id
+    </select>
+
+    <resultMap id="shopRsm" type="com.verificer.biz.beans.vo.shop.ShopStockVo">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="cp_name" jdbcType="VARCHAR" property="cpName" />
+        <result column="total_count" jdbcType="DECIMAL" property="totalCount" />
+    </resultMap>
+
+    <sql id="shopPageCond">
+        <if test="brandId != null">
+            and g.brand_id = #{brandId}
+        </if>
+        <if test="categoryId != null">
+            and g.category_d = #{categoryId}
+        </if>
+
+        <if test="id != null and id != ''">
+            and shop.id = #{id}
+        </if>
+        <if test="goodsName != null and goodsName!=''">
+            and g.name = #{goodsName}
+        </if>
+    </sql>
+
+    <select id="shopPage" resultMap="shopRsm">
+        select m.*,tmp.total_count from
+        (
+            select
+                s.rel_id,
+                sum(s.count) as total_count
+            from shop
+                join stock s on (shop.id = s.rel_id)
+                join goods g on (s.goods_id = g.id)
+            where 1=1
+            <include refid="shopPageCond"></include>
+            group by s.rel_id
+            order by total_count desc
+            limit #{from},#{limit}
+        ) as tmp join shop m on (tmp.rel_id = m.id)
+    </select>
+
+    <select id="shopCount" resultType="int">
+        select
+            count(distinct s.rel_id)
+        from shop
+            join stock s on (shop.id = s.rel_id)
+            join goods g on (s.goods_id = g.id)
+        where 1=1
+        <include refid="shopPageCond"></include>
+    </select>
+
+
+    <resultMap id="stageRsm" type="com.verificer.biz.beans.vo.stage.StageStockVo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="cp_name" jdbcType="VARCHAR" property="cpName" />
+        <result column="cp_mobile" jdbcType="VARCHAR" property="cpMobile" />
+        <result column="adr_area1" jdbcType="VARCHAR" property="adrArea1" />
+        <result column="adr_area1_name" jdbcType="VARCHAR" property="adrArea1Name" />
+        <result column="adr_area2" jdbcType="VARCHAR" property="adrArea2" />
+        <result column="adr_area2_name" jdbcType="VARCHAR" property="adrArea2Name" />
+        <result column="adr_area3" jdbcType="VARCHAR" property="adrArea3" />
+        <result column="adr_area3_name" jdbcType="VARCHAR" property="adrArea3Name" />
+        <result column="adr_detail" jdbcType="VARCHAR" property="adrDetail" />
+        <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+        <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+        <result column="create_time" jdbcType="BIGINT" property="createTime" />
+        <result column="total_count" jdbcType="DECIMAL" property="totalCount" />
+        <result column="sku_type_count" jdbcType="DECIMAL" property="skuTypeCount" />
+    </resultMap>
+
+    <sql id="stagePageCond">
+        <if test="brandId != null">
+            and g.brand_id = #{brandId}
+        </if>
+        <if test="categoryId != null">
+            and g.category_d = #{categoryId}
+        </if>
+
+        <if test="id != null and id != ''">
+            and stage.id = #{id}
+        </if>
+        <if test="goodsName != null and goodsName!=''">
+            and g.name = #{goodsName}
+        </if>
+    </sql>
+
+    <select id="stagePage" resultMap="stageRsm">
+        select m.*, tmp.total_count,tmp.sku_type_count from
+        (
+            select
+                s.rel_id ,
+                sum(s.count) as total_count,
+                count(s.spec_id) as sku_type_count
+            from stage
+                join stock s on (stage.id = s.rel_id)
+                join goods g on (s.goods_id = g.id)
+            where 1=1
+            <include refid="stagePageCond"></include>group by s.rel_id
+            order by total_count desc
+            limit #{from},#{limit}
+        )as tmp join stage m on (tmp.rel_id = m.id)
+
+    </select>
+
+    <select id="stageCount" resultType="int">
+        select
+            count(distinct s.rel_id)
+        from stage
+            join stock s on (stage.id = s.rel_id)
+            join goods g on (s.goods_id = g.id)
+        where 1=1
+        <include refid="stagePageCond"></include>
+    </select>
+</mapper>
