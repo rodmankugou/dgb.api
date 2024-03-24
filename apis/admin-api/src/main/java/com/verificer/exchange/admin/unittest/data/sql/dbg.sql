@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/23/2024 22:50:01 PM
+ Date: 03/24/2024 07:58:05 AM
 */
 
 SET NAMES utf8;
@@ -353,13 +353,13 @@ CREATE TABLE `dbg_order_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `evaluate`;
 CREATE TABLE `evaluate` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `status` tinyint(1) DEFAULT NULL COMMENT '1-待审核 2-已通过 3-未通过',
   `user_id` bigint DEFAULT NULL,
   `user_name` varchar(255) DEFAULT NULL,
   `order_id` bigint DEFAULT NULL,
   `order_detail_id` bigint DEFAULT NULL,
-  `socre` int DEFAULT NULL,
+  `score` int DEFAULT NULL,
   `goods_id` bigint DEFAULT NULL,
   `goods_name` varchar(255) DEFAULT NULL,
   `spec_id` bigint DEFAULT NULL,
@@ -372,8 +372,16 @@ CREATE TABLE `evaluate` (
   PRIMARY KEY (`id`),
   KEY `idx_goodsId` (`goods_id`) USING BTREE,
   KEY `idx_userId_createTime` (`user_id`,`create_time`) USING BTREE,
-  KEY `idx_status_create_time` (`status`,`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `idx_status_create_time` (`status`,`create_time`),
+  KEY `idx_orderDetailId` (`order_detail_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `evaluate`
+-- ----------------------------
+BEGIN;
+INSERT INTO `evaluate` VALUES ('1', '1', '1', 'Jordan', '3', null, '1', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不行，给1分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225688573', null), ('2', '1', '1', 'Jordan', '2', '3', '5', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不错的，给5分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757239', null), ('3', '1', '1', 'Jordan', '2', '3', '3', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不行，给3分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757469', null), ('4', '1', '1', 'Jordan', '2', '3', '1', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不行，给1分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757528', null), ('5', '1', '1', 'Jordan', '2', '3', '5', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不错的，给5分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757577', null), ('6', '1', '1', 'Jordan', '2', '3', '4', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不错的，给4分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757629', null), ('7', '2', '1', 'Jordan', '2', '3', '1', '4', '新的测试榴莲', '5', '一人享用', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '不行，给1分', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png', '1711225757684', null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `goods`
@@ -733,6 +741,33 @@ CREATE TABLE `refund_reason` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `revise`
+-- ----------------------------
+DROP TABLE IF EXISTS `revise`;
+CREATE TABLE `revise` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `stage_flag` tinyint(1) DEFAULT NULL COMMENT '是否仓库',
+  `rel_id` varchar(255) DEFAULT NULL COMMENT '仓库/门店ID',
+  `rel_name` varchar(255) DEFAULT NULL COMMENT '商铺/仓库ID',
+  `goods_id` bigint DEFAULT NULL,
+  `goods_name` varchar(255) DEFAULT NULL,
+  `spec_id` bigint DEFAULT NULL,
+  `spec_name` varchar(255) DEFAULT NULL,
+  `spec_img` varchar(255) DEFAULT NULL,
+  `add_flag` tinyint(1) DEFAULT NULL COMMENT '是否增加',
+  `count` decimal(38,18) DEFAULT NULL COMMENT '数量',
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='库存修正表（对应BO的补货/减货）';
+
+-- ----------------------------
+--  Records of `revise`
+-- ----------------------------
+BEGIN;
+INSERT INTO `revise` VALUES ('1', '0', 'd000e3c443794213a92d61a9c6f6f6fe', '后海科兴总店', '31', '马来西亚猫山王进口D197液氮冷冻新鲜带壳当季水果', '55', '预选佳品 1.0-1.3KG 一人尝鲜', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/goods/1.jpg', '1', '2.000000000000000000', '1711221703143');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `settle`
