@@ -1,0 +1,120 @@
+[
+
+  {
+    "name": "BO-G1",
+    "apis": [
+      {
+        "列表": "user->用户->/user/page",
+        "操作-查看": "user->用户->/user/detail",
+        "操作-设置": "user->用户->/user/serReferrer"
+      }
+    ]
+  },
+  {
+    "name": "BO-G2",
+    "apis": [
+      {
+        "上方第一行-个人信息": "user->用户->/user/detail",
+        "上方第二行-统计信息": "user->用户->/user/refereeSta",
+        "列表-下线": "user->用户->/user/refereePage",
+        "列表-提现记录": "user->用户->/user/referee/withdrawPage"
+      }
+    ]
+  },
+  {
+    "name": "BO-G3",
+    "apis": [
+      {
+        "上方第一行-个人信息": "user->用户->/user/detail",
+        "上方第二行-统计信息": "user->用户->/user/refereeSta",
+        "列表-下线": "user->用户->/user/refereePage",
+        "列表-提现记录": "user->用户->/user/referee/withdrawPage"
+      }
+    ]
+  },
+  {
+    "name": "BO-G4",
+    "apis": [
+      {
+        "列表": "user->提现->/user/refereePage",
+        "操作-审核": "user->用户->/referrer/withdraw/review"
+      }
+    ]
+  },
+  {
+    "name": "BO-E1",
+    "apis": [
+      {
+        "上方-概况": "user->会员->/member/sta",
+        "图表": "user->会员->/member/rank"
+      }
+    ]
+  },
+  {
+    "name": "BO-E2",
+    "apis": [
+      {
+        "上方-概况": "user->会员->/member/sta",
+        "图表": "user->会员->/member/rank"
+      }
+    ]
+  },
+  {
+    "name": "BO-E3",
+    "apis": [
+      {
+        "列表": "user->会员->/member/page"
+      }
+    ]
+  },
+  {
+    "name": "BO-E5",
+    "apis": [
+      {
+        "获取值": "user->会员->/member/integral/getRate",
+        "更新值": "user->会员->/member/integral/setRate"
+      }
+    ]
+  },
+  {
+    "name": "BO-F1",
+    "apis": [
+      {
+        "上方概况": "settle->结算概况->/settle/sta",
+        "列表": "user->结算概况->/settle/plaIncomeLog/page"
+      }
+    ]
+  },
+  {
+    "name": "BO-F2",
+    "apis": [
+      {
+        "上方概况": "settle->结算概况->/settle/sta",
+        "列表": "settle->结算单->/settle/order/page",
+        "操作-查看凭证": "certificateImg字段",
+        "操作-查看详情": "settle->结算单->/settle/order/detail",
+        "操作-结算": "settle->结算单->/settle/order/transfer"
+      }
+    ]
+  },
+  {
+    "name": "BO-F3",
+    "apis": [
+      {
+        "上-左-门店信息": "shop->店铺->/shop/detail",
+        "上-右-统计信息": "settle->结算明细->/settle/item/sta",
+        "列表": "settle->结算明细->/settle/item/page"
+      }
+    ]
+  },
+  {
+    "name": "BO-F4",
+    "apis": [
+      {
+        "上-左-门店信息": "shop->店铺->/shop/detail",
+        "上-右-统计信息": "settle->结算明细->/settle/item/sta",
+        "列表": "settle->结算明细->/settle/item/page"
+      }
+    ]
+  }
+]

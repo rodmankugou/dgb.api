@@ -15,12 +15,15 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +63,29 @@ public class ApiToolsController extends BaseController {
     }
 
     @ApiOperation(
+            value = "查询所有页面",
+            response = Response.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+    })
+    @ResponseBody
+    @RequestMapping(value = "/page/list", method = RequestMethod.POST)
+    public Response list() throws IOException {
+
+        InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
+        String json = IOUtils.toString(io,"utf-8");
+
+        List<Page> pages = FastJson.parseArray(json,Page.class);
+
+        List<String> names = new LinkedList<>();
+        for(Page page : pages)
+            names.add(page.getName());
+        return Response.dataSuccess(names);
+    }
+
+
+    @ApiOperation(
             value = "同步银豹数据",
             response = Response.class,
             httpMethod = "POST"
@@ -68,14 +94,15 @@ public class ApiToolsController extends BaseController {
             @ApiImplicitParam(name = "pageIndex", value = "页面索引，如BO-F4",paramType = "form",required = true),
     })
     @ResponseBody
-    @RequestMapping(value = "/sync", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Response sync(@RequestParam(required = true) String pageIndex) throws IOException {
-        System.out.println(pageIndex);
+//        System.out.println(pageIndex);
+//
+//        InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
+//        String json = IOUtils.toString(io,"utf-8");
 
-        InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
-        String json = IOUtils.toString(io,"utf-8");
-
-        List<Page> pages = FastJson.parseArray(json,Page.class);
+//        List<Page> pages = FastJson.parseArray(json,Page.class);
+        List<Page> pages = load();
         Page target = null;
         for(Page page : pages){
             if(page.getName().equalsIgnoreCase(pageIndex)){
@@ -86,6 +113,22 @@ public class ApiToolsController extends BaseController {
         return Response.dataSuccess(target);
     }
 
+    public List<Page> load() throws IOException {
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath:api/*.json");
+
+        List<Page> rst = new LinkedList<>();
+
+        for (Resource resource : resources) {
+            String json = IOUtils.toString(resource.getInputStream(),"utf-8");
+            List<Page> pages = FastJson.parseArray(json,Page.class);
+            rst.addAll(pages);
+        }
+
+        return rst;
+    }
 
 
 }
+
+
