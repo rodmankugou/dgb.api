@@ -1,9 +1,7 @@
 package com.verificer.exchange.admin.controller.sta;
 
 import com.verificer.beans.TimeRangeVo;
-import com.verificer.biz.beans.vo.sta.common.ChartTools;
-import com.verificer.biz.beans.vo.sta.common.OneLatChart;
-import com.verificer.biz.beans.vo.sta.common.Rank;
+import com.verificer.biz.beans.vo.sta.common.*;
 import com.verificer.biz.beans.vo.sta.sta.GoodsOverviewStaVo;
 import com.verificer.biz.beans.vo.sta.sta.MerAndTimeVo;
 import com.verificer.biz.beans.vo.sta.sta.RealTimeSta;
@@ -75,7 +73,7 @@ public class GoodsStaController extends BaseController{
 
     @ApiOperation(
             value = "销售额",
-            response = OneLatChart.class,
+            response = KvStaVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
@@ -86,7 +84,7 @@ public class GoodsStaController extends BaseController{
     @RequestMapping(value = "/sales/sta", method = RequestMethod.POST)
     public Response salesSta(@RequestBody MerAndTimeVo qryVo) {
 
-        return Response.dataSuccess(ChartTools.genOneLat(1000000,10000000));
+        return Response.dataSuccess(KvStaTool.genGoodsSta(12));
     }
 
 
