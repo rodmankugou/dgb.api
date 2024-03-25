@@ -737,4 +737,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     public void addrDel(AppIdVo reqVo) {
         addrService.addrDel(reqVo);
     }
+
+    @Override
+    public void cartDel(CartAddVo reqVo) {
+        cartService.cartDel(reqVo);
+    }
 }
