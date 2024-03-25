@@ -141,14 +141,53 @@ public class CartServiceImpl implements CartService {
     public void cartAdd(CartAddVo reqVo) {
         SCheckUtil.notEmpty(reqVo.getUserId(),"userId");
         SCheckUtil.notEmpty(reqVo.getId(),"id");
+
+        userCommon.lockByUser(reqVo.getUserId());
         Cart cart = mapper.selectByPrimaryKey(reqVo.getId());
         if(!cart.getUserId().equals(reqVo.getUserId()))
             throw new BaseException(ErrCode.PERMISSION_DENIED);
         if(cart == null)
             throw new BaseException(ErrCode.RECORD_NOT_EXIST);
 
-        cart.setCount(cart.getCount() + reqVo.getCount());
+        if(cart.getCount() == 1)
+            throw new BaseException(ErrCode.CART_CAN_NOT_SUB);
+
+        int count = cart.getCount() + reqVo.getCount();
+        cart.setCount(count <= 1 ? 1 : count);
         update(cart);
+    }
+
+    @Override
+    public void cartDel(CartAddVo reqVo) {
+        SCheckUtil.notEmpty(reqVo.getUserId(),"userId");
+        SCheckUtil.notEmpty(reqVo.getId(),"id");
+
+        userCommon.lockByUser(reqVo.getUserId());
+        Cart cart = mapper.selectByPrimaryKey(reqVo.getId());
+        if(cart == null || !cart.getUserId().equals(reqVo.getUserId()))
+            return;
+        mapper.deleteByPrimaryKey(cart.getId());
+    }
+
+    /**
+     * 删除购物车内项目，创建订单时调用
+     * @param userId
+     * @param ids
+     */
+    public void carDel(Long userId,List<Long> ids){
+        SCheckUtil.notEmpty(userId,"userId");
+
+        userCommon.lockByUser(userId);
+        for(Long id  : ids){
+            Cart cart = mapper.selectByPrimaryKey(id);
+            if(cart == null )
+                return;
+            if(!cart.getUserId().equals(userId))
+                throw new BaseException(ErrCode.PERMISSION_DENIED);
+
+            mapper.deleteByPrimaryKey(id);
+        }
+
     }
 
     private void update(Cart cart){

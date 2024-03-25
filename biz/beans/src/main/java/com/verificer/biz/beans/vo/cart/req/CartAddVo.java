@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.cart.req;
 
+import com.verificer.biz.beans.vo.AppIdVo;
 import com.verificer.utils.decimal.PrcLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,10 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 @ApiModel
-public class CartAddVo implements Serializable {
-    @ApiModelProperty(hidden = true)
-    private Long userId;
-
+public class CartAddVo extends AppIdVo {
     @ApiModelProperty(value = "ID",required = true)
     private Long id;
     @ApiModelProperty(value = "增减数量，可以为负数",required = true)
@@ -32,11 +30,5 @@ public class CartAddVo implements Serializable {
         this.count = count;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

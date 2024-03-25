@@ -110,4 +110,22 @@ public class AppCartController extends BaseController {
     }
 
 
+    @ApiOperation(
+            value = "删除购物车条目",
+            response = Response.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token",paramType = "header",required = true),
+    })
+    @ResponseBody
+    @NeedLogin
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    public Object del(HttpServletRequest hReq, @RequestBody CartAddVo reqVo) {
+        fillUserId(hReq,reqVo);
+        bizService.cartDel(reqVo);
+        return Response.simpleSuccess();
+    }
+
+
 }

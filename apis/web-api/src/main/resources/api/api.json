@@ -86,7 +86,8 @@
     "apis": [
       {
         "列表": "goods->cart->/cart/shop/list",
-        "加减数量": "goods->cart->/cart/add"
+        "加减数量": "goods->cart->/cart/add",
+        "删除item": "goods->cart->/cart/del"
       }
     ]
   },

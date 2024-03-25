@@ -282,4 +282,6 @@ public class ErrCode {
     public static final String ADJ_ORD_NOT_IN_WAIT_CONFIRM = "ADJ_ORD_NOT_IN_WAIT_CONFIRM";
     public static final String ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW = "ONLY_CAN_CHARGE_MEMBER_BY_SHOP_NOW";
     public static final String EVALUATE_NOT_ON_WAIT_REVIEW = "EVALUATE_NOT_ON_WAIT_REVIEW" ;
+    public static final String CART_CAN_NOT_SUB = "CART_CAN_NOT_SUB";
+    public static final String CART_CAN_NOT_ADD = "CART_CAN_NOT_ADD";
 }

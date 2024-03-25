@@ -21,6 +21,9 @@ public class OrdItemFormVo implements Serializable {
     @PriceDecimal
     private BigDecimal price;
 
+    @ApiModelProperty("购物车item的ID")
+    private Long cartId;
+
     public Long getGoodsId() {
         return goodsId;
     }
@@ -51,5 +54,13 @@ public class OrdItemFormVo implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 }

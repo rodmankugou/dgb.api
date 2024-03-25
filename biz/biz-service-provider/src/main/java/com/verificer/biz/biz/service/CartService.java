@@ -35,4 +35,18 @@ public interface CartService {
      * @return
      */
     void cartAdd(CartAddVo reqVo);
+
+    /**
+     * 删除购物车条目
+     * @param reqVo
+     */
+    void cartDel(CartAddVo reqVo);
+
+
+    /**
+     * 删除购物车内项目，创建订单时调用
+     * @param userId
+     * @param ids
+     */
+    void carDel(Long userId,List<Long> ids);
 }

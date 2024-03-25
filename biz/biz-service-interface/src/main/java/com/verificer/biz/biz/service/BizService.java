@@ -712,5 +712,11 @@ public interface BizService {
      * @return
      */
     void addrDel(AppIdVo reqVo);
+
+    /**
+     * 删除购物车条目
+     * @param reqVo
+     */
+    void cartDel(CartAddVo reqVo);
 }
 

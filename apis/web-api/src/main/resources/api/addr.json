@@ -1,0 +1,44 @@
+[
+  {
+    "name": "B14",
+    "apis": [
+      {
+        "列表": "user->收货地址->/addr/page"
+      }
+    ]
+  },
+  {
+    "name": "B15",
+    "apis": [
+      {
+        "列表": "user->收货地址->/addr/page"
+      }
+    ]
+  },
+  {
+    "name": "B16",
+    "apis": [
+      {
+        "添加地址": "user->收货地址->/addr/add"
+      }
+    ]
+  },
+  {
+    "name": "B17",
+    "apis": [
+      {
+        "添加地址": "user->收货地址->/addr/add"
+      }
+    ]
+  },
+  {
+    "name": "J8",
+    "apis": [
+      {
+        "列表": "user->收货地址->/addr/page",
+        "删除": "user->收货地址->/addr/del",
+        "修改": "user->收货地址->/addr/upd"
+      }
+    ]
+  }
+]

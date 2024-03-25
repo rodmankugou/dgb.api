@@ -23,9 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 35336 on 2021/2/26.
@@ -73,10 +71,8 @@ public class ApiToolsController extends BaseController {
     @RequestMapping(value = "/page/list", method = RequestMethod.POST)
     public Response list() throws IOException {
 
-        InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("api.json");
-        String json = IOUtils.toString(io,"utf-8");
 
-        List<Page> pages = FastJson.parseArray(json,Page.class);
+        List<Page> pages = load();
 
         List<String> names = new LinkedList<>();
         for(Page page : pages)
@@ -124,6 +120,13 @@ public class ApiToolsController extends BaseController {
             List<Page> pages = FastJson.parseArray(json,Page.class);
             rst.addAll(pages);
         }
+
+        Collections.sort(rst, new Comparator<Page>() {
+            @Override
+            public int compare(Page o1, Page o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
 
         return rst;
     }
