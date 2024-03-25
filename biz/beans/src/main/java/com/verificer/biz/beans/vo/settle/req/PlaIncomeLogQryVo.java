@@ -16,6 +16,9 @@ public class PlaIncomeLogQryVo extends PageQueryVo {
     @ApiModelProperty("店铺名称")
     private String shopName;
 
+    @ApiModelProperty("true-收入 false-支出")
+    private Boolean incomeFlag;
+
     @ApiModelProperty("查询时间-开始")
     private Long sTime;
     @ApiModelProperty("查询时间-结束")
@@ -68,4 +71,14 @@ public class PlaIncomeLogQryVo extends PageQueryVo {
     public void seteTime(Long eTime) {
         this.eTime = eTime;
     }
+
+    public Boolean getIncomeFlag() {
+        return incomeFlag;
+    }
+
+    public void setIncomeFlag(Boolean incomeFlag) {
+        this.incomeFlag = incomeFlag;
+    }
+
+
 }

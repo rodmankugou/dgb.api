@@ -1,10 +1,12 @@
 package com.verificer.exchange.admin.unittest.data.member;
 
 import com.verificer.biz.beans.vo.req.UserSetRefVo;
+import com.verificer.biz.beans.vo.settle.req.PlaIncomeLogQryVo;
 import com.verificer.biz.beans.vo.settle.req.SettleTransferVo;
 import com.verificer.exchange.admin.controller.debug.vo.ShopMemberVo;
 import com.verificer.exchange.admin.unittest.Tools;
 import com.verificer.utils.FastJson;
+import com.verificer.utils.SDateUtil;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -12,14 +14,14 @@ import java.sql.SQLException;
 public class MemberRunner {
 
     public static void run() throws SQLException {
-        Tools.init("dbg","member/init.sql");
-        Tools.callApi("/debug/user/creatFinishWithdraw","{}");
+//        Tools.init("dbg", "member/init.sql");
+//        Tools.callApi("/debug/user/creatFinishWithdraw", "{}");
 
 
-        ShopMemberVo vo = new ShopMemberVo();
-        vo.setYear(2022);
-        vo.setMonth(10);
-        Tools.callApi("/debug/user/createShopMember2",FastJson.toJson(vo));
+//        ShopMemberVo vo = new ShopMemberVo();
+//        vo.setYear(2022);
+//        vo.setMonth(10);
+//        Tools.callApi("/debug/user/createShopMember2", FastJson.toJson(vo));
 
 //          settleTransfer();
 
@@ -49,15 +51,17 @@ public class MemberRunner {
 
 //        Tools.callApi("/settle/order/detail","{\"id\":\""+Tools.getTableMaxId("dbg","settle_order")+"\"}");
 
-
+        PlaIncomeLogQryVo  qryVo = new PlaIncomeLogQryVo();
+//        qryVo.setsTime(SDateUtil.getMonthSTime(System.currentTimeMillis()));
+//        qryVo.seteTime(System.currentTimeMillis());
+        Tools.callApi("/settle/plaIncomeLog/page", FastJson.toJson(qryVo));
 
     }
 
 
-
     private static void settleTransfer() throws SQLException {
         SettleTransferVo vo = new SettleTransferVo();
-        vo.setId(Tools.getTableMaxId("dbg","settle_order"));
+        vo.setId(Tools.getTableMaxId("dbg", "settle_order"));
         vo.setCertificateImg(Tools.getRandomImg());
         vo.setStaffId(Tools.getStaffId());
         vo.setStaffName(Tools.getStaffName());

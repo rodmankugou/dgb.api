@@ -202,6 +202,9 @@
     <if test="eTime != null">
       and #{eTime} > pil.create_time
     </if>
+    <if test="incomeFlag != null">
+      and income_flag = #{incomeFlag}
+    </if>
 
   </sql>
 

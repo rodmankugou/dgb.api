@@ -10,7 +10,6 @@ import com.verificer.biz.biz.mapper.PlaIncomeLogMapper;
 import com.verificer.biz.biz.service.common.ShopCommon;
 import com.verificer.biz.biz.service.common.UserCommon;
 import com.verificer.biz.biz.service.core.user.MemberOrderService;
-import com.verificer.biz.biz.service.core.user.MemberService;
 import com.verificer.biz.biz.service.core.user.notify.IMemberListener;
 import com.verificer.biz.biz.service.core.user.notify.event.MemberEvent;
 import com.verificer.biz.biz.service.core.user.notify.event.MemberOrdSucEvent;
@@ -124,6 +123,7 @@ public class PlaIncomeLogServiceImpl implements PlaIncomeLogService {
         log.setAmount(amount);
         log.setIncomeFlag(incomeFlag);
         log.setRemark(remark);
+        log.setCreateTime(System.currentTimeMillis());
         mapper.insertSelective(log);
     }
 }

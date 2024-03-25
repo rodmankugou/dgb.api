@@ -13,7 +13,9 @@ import com.verificer.biz.beans.vo.user.member.MemberStaVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.exchange.admin.controller.BaseController;
 import com.verificer.exchange.admin.security.annotation.NeedLogin;
+import com.verificer.exchange.admin.service.StaffService;
 import com.verificer.utils.decimal.SBigDecimalUtils;
+import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -38,6 +40,9 @@ public class BoSettleOrderController extends BaseController{
 
     @Autowired
     BaseSupService baseSupService;
+
+    @Autowired
+    StaffService staffService;
 
     @ApiOperation(
             value = "列表(分页)",
@@ -84,7 +89,11 @@ public class BoSettleOrderController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public Response settleOrdTransfer(HttpServletRequest hReq, @RequestBody SettleTransferVo reqVo) {
-       bizService.settleOrdTransfer(reqVo);
+        Long  staffId = UserIdentityUtils.getUserIdentity(hReq).getId();
+        String staffName = staffService.getRealName(staffId);
+        reqVo.setStaffId(staffId);
+        reqVo.setStaffName(staffName);
+        bizService.settleOrdTransfer(reqVo);
         return Response.simpleSuccess();
     }
 
