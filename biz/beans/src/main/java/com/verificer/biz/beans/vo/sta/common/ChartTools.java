@@ -27,8 +27,9 @@ public class ChartTools {
 
 
 
-        return new OneLatChart(total,rise,genLastNTime(Calendar.MONTH,12),data);
-
+        OneLatChart chart = new OneLatChart(total,rise,genLastNTime(Calendar.MONTH,12),data);
+        chart.setAvg(mAvg);
+        return chart;
     }
 
     /**

@@ -110,8 +110,8 @@ public class DbgOrderServiceImpl implements DbgOrderService {
             if(addr == null)
                 throw new BizErrMsgException("Address not exist");
 
-            order.setRcAddr(addr.getAddr());
-            order.setRcAddrDetail(addr.getDetailAddr());
+            order.setRcAddr(addr.getAdr());
+            order.setRcAddrDetail(addr.getAdrDetail());
             order.setRcLatitude(addr.getLatitude());
             order.setRcLongitude(addr.getLongitude());
             order.setRcMobile(addr.getMobile());

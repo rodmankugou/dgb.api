@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.verificer.ErrCode;
 import com.verificer.beans.UserIdentity;
 import com.verificer.biz.beans.constants.BizConst;
+import com.verificer.beans.AppReqVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
@@ -17,6 +18,7 @@ import com.verificer.utils.*;
 import com.verificer.utils.aws.s3.S3Client;
 import com.verificer.utils.aws.s3.S3Utils;
 import com.verificer.utils.web.SecurityUtil;
+import com.verificer.utils.web.UserIdentityUtils;
 import com.verificer.web.common.response.Response;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -362,6 +364,10 @@ public class BaseController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void fillUserId(HttpServletRequest req, AppReqVo reqVo){
+        reqVo.setUserId(UserIdentityUtils.getUserIdentity(req).getId());
     }
 
 

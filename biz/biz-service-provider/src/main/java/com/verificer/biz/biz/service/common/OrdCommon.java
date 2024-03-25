@@ -115,8 +115,8 @@ public class OrdCommon {
     }
 
     public void fillOrdAddr(DbgOrder o,Addr addr){
-        o.setRcAddr(addr.getAddr());
-        o.setRcAddrDetail(addr.getDetailAddr());
+        o.setRcAddr(addr.getAdr());
+        o.setRcAddrDetail(addr.getAdrDetail());
         o.setRcName(addr.getRcName());
         o.setRcMobile(addr.getMobile());
         o.setRcLongitude(addr.getLongitude());

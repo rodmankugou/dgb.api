@@ -69,7 +69,8 @@ public class AppGoodsController extends BaseController {
     @RequestMapping(value = "/pla/cat/goods", method = RequestMethod.POST)
     public Object plaCatGoods(HttpServletRequest hReq, @RequestBody APlaGoodsQryVo qryVo) {
         List<AGoodsVo> goodsVos = loadGoods();
-        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
+        Object obj = SBigDecimalUtils.prcFormat2(goodsVos);
+        return Response.dataSuccess(obj);
     }
 
     @ApiOperation(
@@ -197,8 +198,8 @@ public class AppGoodsController extends BaseController {
         goods.setBrandName("彭亨州1");
         goods.setImg0(goods.getImgList().split("@")[0]);
         goods.setDistance("1.3公里");
-        goods.setPrice(goods.getSpecList().get(0).getPrice().toPlainString());
-        goods.setOriPrice(goods.getSpecList().get(0).getOriPrice().toPlainString());
+        goods.setPrice(goods.getSpecList().get(0).getPrice());
+        goods.setOriPrice(goods.getSpecList().get(0).getOriPrice());
         List<ASpecVo> specVos = goods.getSpecList();
         for(ASpecVo spec : specVos){
             ASpecStockVo plaStock = new ASpecStockVo();

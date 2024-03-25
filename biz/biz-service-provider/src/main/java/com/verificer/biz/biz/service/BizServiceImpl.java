@@ -1,11 +1,15 @@
 package com.verificer.biz.biz.service;
 
+import com.verificer.beans.AppReqVo;
 import com.verificer.beans.IdVo;
 import com.verificer.beans.WxLoginReqVo;
 import com.verificer.beans.account.AccountVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.addr.AddrVo;
+import com.verificer.biz.beans.vo.addr.req.AddrFormVo;
+import com.verificer.biz.beans.vo.addr.req.AddrQryVo;
 import com.verificer.biz.beans.vo.adjust.AdjOrderVo;
 import com.verificer.biz.beans.vo.adjust.TreeAdjItemVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjItemTreeQryVo;
@@ -154,6 +158,9 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
 
     @Autowired
     EvaluateService evaluateService;
+
+    @Autowired
+    AddrService addrService;
 
 
     @Override
@@ -704,5 +711,30 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     @Override
     public int stageStockCount(StageStockQryVo qryVo) {
         return stockService.stageStockCount(qryVo);
+    }
+
+    @Override
+    public List<AddrVo> addrPage(AddrQryVo reqVo) {
+        return addrService.addrPage(reqVo);
+    }
+
+    @Override
+    public AddrVo addrDefault(AppReqVo reqVo) {
+        return addrService.addrDefault(reqVo);
+    }
+
+    @Override
+    public void addrAdd(AddrFormVo reqVo) {
+        addrService.addrAdd(reqVo);
+    }
+
+    @Override
+    public void addrUpd(AddrFormVo reqVo) {
+        addrService.addrUpd(reqVo);
+    }
+
+    @Override
+    public void addrDel(AppIdVo reqVo) {
+        addrService.addrDel(reqVo);
     }
 }

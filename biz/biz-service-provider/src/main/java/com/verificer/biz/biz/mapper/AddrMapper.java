@@ -1,6 +1,9 @@
 package com.verificer.biz.biz.mapper;
 
+import com.verificer.biz.beans.vo.addr.req.AddrQryVo;
 import com.verificer.biz.biz.entity.Addr;
+
+import java.util.List;
 
 public interface AddrMapper {
     /**
@@ -50,4 +53,8 @@ public interface AddrMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Addr record);
+
+    List<Addr> page(AddrQryVo reqVo);
+
+    Addr selectByUserIdSortRutDesc(Long userId);
 }

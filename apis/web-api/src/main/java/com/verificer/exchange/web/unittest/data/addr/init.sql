@@ -1,0 +1,3 @@
+
+delete from addr;
+insert into `dbg`.`addr` ( `full_addr`, `rc_name`, `adr_area1`, `adr_area3`, `adr_detail`, `user_id`, `recent_use_time`, `create_time`, `latitude`, `adr`, `tag`, `adr_area3_name`, `id`, `del_time`, `adr_area2_name`, `adr_area2`, `longitude`, `mobile`, `adr_area1_name`, `del_flag`, `del_type`) values ( '3908', '李东云', '44', '440305', '1号', '1', '1', null, '22.330000000000000000', '广东省深圳市南山区通泰街万达A座', '公司', '南山区', '1', null, '深圳市', '4403', '180.200000000000000000', '18169408966', '广东省', '0', null);

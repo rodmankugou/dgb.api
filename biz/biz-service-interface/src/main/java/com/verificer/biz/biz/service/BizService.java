@@ -1,11 +1,15 @@
 package com.verificer.biz.biz.service;
 
+import com.verificer.beans.AppReqVo;
 import com.verificer.beans.IdVo;
 import com.verificer.beans.WxLoginReqVo;
 import com.verificer.beans.account.AccountVo;
 import com.verificer.beans.pay.PayReqVo;
 import com.verificer.beans.pay.PaySucVo;
 import com.verificer.biz.beans.vo.*;
+import com.verificer.biz.beans.vo.addr.AddrVo;
+import com.verificer.biz.beans.vo.addr.req.AddrFormVo;
+import com.verificer.biz.beans.vo.addr.req.AddrQryVo;
 import com.verificer.biz.beans.vo.adjust.AdjOrderVo;
 import com.verificer.biz.beans.vo.adjust.TreeAdjItemVo;
 import com.verificer.biz.beans.vo.adjust.req.AdjItemTreeQryVo;
@@ -672,5 +676,41 @@ public interface BizService {
      * @return
      */
     int stageStockCount(StageStockQryVo qryVo);
+
+
+    /**
+     * 用户地址列表-分页
+     * @param reqVo
+     * @return
+     */
+    List<AddrVo> addrPage(AddrQryVo reqVo);
+
+    /**
+     * 获取用户默认地址
+     * @param reqVo
+     * @return
+     */
+    AddrVo addrDefault(AppReqVo reqVo);
+
+    /**
+     * 新增用户地址
+     * @param reqVo
+     * @return
+     */
+    void addrAdd(AddrFormVo reqVo);
+
+    /**
+     * 修改用户地址
+     * @param reqVo
+     * @return
+     */
+    void addrUpd(AddrFormVo reqVo);
+
+    /**
+     * 删除
+     * @param reqVo
+     * @return
+     */
+    void addrDel(AppIdVo reqVo);
 }
 

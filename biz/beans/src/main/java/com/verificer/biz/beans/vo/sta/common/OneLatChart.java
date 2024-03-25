@@ -17,6 +17,9 @@ public class OneLatChart implements Serializable {
     @ApiModelProperty("环比，可能不需要用到")
     private BigDecimal rise;
 
+    @ApiModelProperty("平均值")
+    private BigDecimal avg;
+
     @ApiModelProperty(value = "标题列表，如月份",required = true)
     private List<String> tips;
 
@@ -25,6 +28,16 @@ public class OneLatChart implements Serializable {
 
     public OneLatChart() {
     }
+
+    public static OneLatChart createAvgChart(BigDecimal total, List<String> tips, List<BigDecimal> data,BigDecimal avg){
+        OneLatChart chart = new OneLatChart();
+        chart.total = total;
+        chart.avg = avg;
+        chart.tips = tips;
+        chart.data = data;
+        return chart;
+    }
+
 
 
 
@@ -60,12 +73,28 @@ public class OneLatChart implements Serializable {
         this.data = data;
     }
 
+    public BigDecimal getRise() {
+        return rise;
+    }
+
+    public void setRise(BigDecimal rise) {
+        this.rise = rise;
+    }
+
+    public BigDecimal getAvg() {
+        return avg;
+    }
+
+    public void setAvg(BigDecimal avg) {
+        this.avg = avg;
+    }
 
     @Override
     public String toString() {
         return "OneLatChart{" +
                 "total=" + total +
                 ", rise=" + rise +
+                ", avg=" + avg +
                 ", tips=" + tips +
                 ", data=" + data +
                 '}';

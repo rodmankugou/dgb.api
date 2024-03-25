@@ -47,10 +47,10 @@ public class AGoodsVo implements Serializable {
     private Integer stageCount;
 
     @ApiModelProperty("价格")
-    private String price;
+    private BigDecimal price;
 
     @ApiModelProperty("原价")
-    private String  oriPrice;
+    private BigDecimal  oriPrice;
 
     @ApiModelProperty("距离")
     private String distance;
@@ -146,19 +146,19 @@ public class AGoodsVo implements Serializable {
         this.stageCount = stageCount;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getOriPrice() {
+    public BigDecimal getOriPrice() {
         return oriPrice;
     }
 
-    public void setOriPrice(String oriPrice) {
+    public void setOriPrice(BigDecimal oriPrice) {
         this.oriPrice = oriPrice;
     }
 
