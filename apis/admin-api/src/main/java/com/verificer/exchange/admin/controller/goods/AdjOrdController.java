@@ -2,6 +2,7 @@ package com.verificer.exchange.admin.controller.goods;
 
 import com.verificer.beans.DropListVo;
 import com.verificer.biz.beans.constants.BizConst;
+import com.verificer.biz.beans.enums.AdjOrdType;
 import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.beans.vo.shop.ShopVo;
 import com.verificer.biz.beans.vo.stage.StageVo;
@@ -22,6 +23,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -97,7 +99,16 @@ public class AdjOrdController extends BaseController{
     @NeedLogin
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     public Response page(@RequestBody AdjOrderQryVo qryVo) {
+        qryVo.setTypes(Arrays.asList(
+                new Integer[]{
+                        AdjOrdType.SHOP_2_SHOP.getValue(),
+                        AdjOrdType.STAGE_2_SHOP.getValue(),
+                        AdjOrdType.OTHER_2_SHOP.getValue(),
+                        AdjOrdType.SHOP_2_STAGE.getValue()
+                }));
         List<AdjOrderVo> list = bizService.adjOrdPage(qryVo);
+
+
         int count = bizService.adjOrdCount(qryVo);
         return Response.listSuccess(count, SBigDecimalUtils.lprcFormat2(list));
     }

@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface AdjItemService {
 
+    List<AdjustItem> getByOrdId(Long ordId);
+
+
     /**
      * 配货单明细树
      * @param qryVo

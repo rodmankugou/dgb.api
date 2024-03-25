@@ -25,8 +25,28 @@ public class Tools {
         return "https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/"+random+".png";
     }
 
+    private static String token = null;
+
     public static String getToken(){
-        return "4b55ed76703b4ad88b758bec2fa9d9bbQbIvl81k5z0mP280Ace113gjS61sSulK-1711260711984";
+        if(SStringUtils.isEmpty(token)) {
+            token =  login();
+            return token;
+        }else {
+            return token;
+        }
+
+    }
+
+    private static String login(){
+        TResp resp = callApi("/login/login","{\n" +
+                "    \"username\":\"rodman\",\n" +
+                "    \"password\":\"Ji$6241111\"\n" +
+                "}");
+        if(resp.getCode() != 0 || resp.getData() == null){
+            throw new RuntimeException("登录失败,接口返回信息：\n"+FastJson.toJson(resp));
+        }
+
+        return (String) resp.getData();
     }
 
     public static Long getStaffId(){
@@ -65,6 +85,7 @@ public class Tools {
         }
         if(resp.getCode() == null)
             throw new RuntimeException("调用接口失败，返回内容:\n"+s);
+
         System.out.println("调用成功，接口返回内容：\n"+FastJson.pretty(s));
         return resp;
     }

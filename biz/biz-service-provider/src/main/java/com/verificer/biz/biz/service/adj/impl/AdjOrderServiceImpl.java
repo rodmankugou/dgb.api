@@ -167,6 +167,22 @@ public class AdjOrderServiceImpl implements AdjOrderService {
 
 
         adjItemService.create(o,reqVo.getItems());
+
+
+        //其他发至仓库 / 仓库发仓库，默认收货
+        if(AdjOrdType.OTHER_2_STAGE.equals(o.getType()) || AdjOrdType.STAGE_2_STAGE.equals(o.getType())){
+            AdjOrdConfirmVo vo = new AdjOrdConfirmVo();
+            vo.setId(o.getId());
+            List<AdjustItem> itemList = adjItemService.getByOrdId(o.getId());
+            List<AdjOrdConfirmItemVo> ciList = new LinkedList<>();
+            vo.setItems(ciList);
+            for(AdjustItem item : itemList){
+                AdjOrdConfirmItemVo ci = new AdjOrdConfirmItemVo();
+                ci.setId(item.getId());
+                ci.setRealCount(item.getCount());
+            }
+            adjOrdConfirm(vo);
+        }
     }
 
 

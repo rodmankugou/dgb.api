@@ -1,6 +1,7 @@
 package com.verificer.exchange.admin.controller.sta;
 
 import com.verificer.beans.EmptyVo;
+import com.verificer.beans.TimeRangeVo;
 import com.verificer.biz.beans.vo.sta.common.ChartTools;
 import com.verificer.biz.beans.vo.sta.common.OneLatChart;
 import com.verificer.biz.beans.vo.sta.common.Percent;
@@ -101,7 +102,7 @@ public class HomeController extends BaseController{
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/online/conversion", method = RequestMethod.POST)
-    public Response conversion(@RequestBody EmptyVo qryVo) {
+    public Response conversion(@RequestBody TimeRangeVo qryVo) {
         HomeConversionVo vo = new HomeConversionVo();
         vo.setAvg(new BigDecimal("0.663"));
         vo.setDayRise(new BigDecimal("0.392"));
@@ -121,7 +122,7 @@ public class HomeController extends BaseController{
     @ResponseBody
     @NeedLogin
     @RequestMapping(value = "/sales/conversion", method = RequestMethod.POST)
-    public Response salesAndVisit(@RequestBody EmptyVo qryVo) {
+    public Response salesAndVisit(@RequestBody TimeRangeVo qryVo) {
         HomeSaleAndVisitVo vo = new HomeSaleAndVisitVo();
         vo.setSales(ChartTools.genOneLat(1000000,10000000));
         vo.setVisit(ChartTools.genOneLat(1000000,10000000));

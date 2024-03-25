@@ -32,6 +32,11 @@ public class AdjItemServiceImpl implements AdjItemService {
 
 
     @Override
+    public List<AdjustItem> getByOrdId(Long ordId) {
+        return mapper.selectByOrdId(ordId);
+    }
+
+    @Override
     public List<TreeAdjItemVo> adjItemTree(AdjItemTreeQryVo qryVo) {
         List<AdjustItem> items = mapper.selectByOrdId(qryVo.getOrderId());
 
