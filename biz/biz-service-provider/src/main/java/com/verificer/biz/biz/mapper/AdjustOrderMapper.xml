@@ -224,6 +224,7 @@
         and (from_id = #{merId} or to_id = #{merId})
     </if>
     <if test="types != null and types.size() > 0">
+      and type in
       <foreach collection="types" item="type" index="index" open="(" close=")" separator=",">
         #{type}
       </foreach>

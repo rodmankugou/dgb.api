@@ -1,6 +1,7 @@
 package com.verificer.exchange.admin.unittest;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.verificer.exchange.admin.vo.LoginVo;
 import com.verificer.utils.*;
 import com.verificer.web.common.response.Response;
 import org.apache.commons.io.FileUtils;
@@ -38,13 +39,21 @@ public class Tools {
     }
 
     private static String login(){
-        TResp resp = callApi("/login/login","{\n" +
-                "    \"username\":\"rodman\",\n" +
-                "    \"password\":\"Ji$6241111\"\n" +
-                "}");
-        if(resp.getCode() != 0 || resp.getData() == null){
-            throw new RuntimeException("登录失败,接口返回信息：\n"+FastJson.toJson(resp));
+        Map<String,String> headerMap = new HashMap<>();
+        LoginVo vo = new LoginVo();
+        vo.setUsername("rodman");
+        vo.setPassword("Ji$6241111");
+        String s = HttpClientUtils.sendHttpPostJson(baseUrl+"/login/login",headerMap,FastJson.toJson(vo));
+        TResp resp = null;
+        try {
+            resp = FastJson.fromJson(s, TResp.class);
+        } catch (Exception e) {
+            throw new RuntimeException("调用接口失败，返回内容:\n"+s);
         }
+        if(resp.getCode() != 1)
+            throw new RuntimeException("登录失败，返回内容:\n"+s);
+
+        System.out.println("登录成功.....");
 
         return (String) resp.getData();
     }
