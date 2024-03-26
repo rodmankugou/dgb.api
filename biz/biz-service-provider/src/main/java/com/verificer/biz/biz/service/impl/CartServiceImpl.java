@@ -124,6 +124,7 @@ public class CartServiceImpl implements CartService {
         if(cart != null){
             cart.setCount(cart.getCount()+ reqVo.getCount());
             update(cart);
+            return;
         }
 
         cart = new Cart();

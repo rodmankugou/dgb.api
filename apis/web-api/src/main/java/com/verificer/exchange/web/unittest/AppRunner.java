@@ -149,7 +149,10 @@ public class AppRunner {
 //          runDir("addr",new String[] {"add","upd","add2","del","add3","page","defaultAddr"},"dbg");
 
 
-        AppTools.callApi("goods/index/page","{}");
+//        AppTools.callApi("goods/index/page","{}");
+
+        AppTools.setWxCode("2ef9035dad624958969550478fdf4de9");
+//        AppTools.callApi("cart/list")
     }
 
 

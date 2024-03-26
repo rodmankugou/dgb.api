@@ -1,5 +1,8 @@
 package com.verificer.exchange.web.unittest;
 
+import com.verificer.beans.WxLoginReqVo;
+import com.verificer.beans.WxTokenVo;
+import com.verificer.biz.beans.vo.user.AppLoginResp;
 import com.verificer.utils.*;
 import org.apache.commons.io.FileUtils;
 
@@ -15,6 +18,36 @@ public class AppTools {
 //    private static String baseUrl = "http://121.37.22.89/admin_api/";
     public static String TEST_DATA_PATH = "/Users/liujinhua/dev/workspace/dgb.api/apis/web-api/src/main/java/com/verificer/exchange/web/unittest/data/";
 
+    private static String WX_CODE= null;
+
+    private static String WX_TOKEN = null;
+
+
+    public static void setWxCode(String code){
+        WX_CODE = code;
+    }
+
+    private static String login(){
+        Map<String,String> headerMap = new HashMap<>();
+
+        WxLoginReqVo req = new WxLoginReqVo();
+        req.setCode(WX_CODE);
+        String s = HttpClientUtils.sendHttpPostJson(baseUrl+"/login/wx/login",headerMap,FastJson.toJson(req));
+        AppTResp resp = null;
+        try {
+            resp = FastJson.fromJson(s, AppTResp.class);
+        } catch (Exception e) {
+            throw new RuntimeException("调用接口失败，返回内容:\n"+s);
+        }
+        if(resp.getCode() != 1)
+            throw new RuntimeException("登录失败，返回内容:\n"+s);
+
+        System.out.println("登录成功.....");
+
+        AppLoginResp tvo = FastJson.fromJson(FastJson.toJson(resp.getData()),AppLoginResp.class);
+        return tvo.getToken().getToken();
+    }
+
     /**
      * https://dbg.obs.cn-south-1.myhuaweicloud.com/temp/3.png
      */
@@ -24,6 +57,13 @@ public class AppTools {
     }
 
     public static String getToken(){
+        if(!SStringUtils.isEmpty(WX_CODE)){
+            if(!SStringUtils.isEmpty(WX_TOKEN))
+                return WX_TOKEN;
+
+            WX_TOKEN = login();
+            return WX_TOKEN;
+        }
         return "a3331a125efb4a50b9af294428b4fa66SkdExq7WE4RakKhD5jk53kuBc45cSZ1c-1711357899008";
     }
 

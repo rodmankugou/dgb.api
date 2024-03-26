@@ -13,7 +13,7 @@ public class KvStaTool {
 
     static String[] NAMES = {"金枕头","猫山王","青尼"};
 
-    public static List<KvStaVo> genGoodsSta(int size){
+    public static KvChartVo genGoodsSta(int size){
         List<KvStaVo> list = new LinkedList<>();
         for(int i=0; i<size; i++){
             KvStaVo vo = new KvStaVo();
@@ -22,7 +22,14 @@ public class KvStaTool {
             list.add(vo);
         }
 
-        return list;
+        BigDecimal total = BigDecimal.ZERO;
+        for(KvStaVo sta : list){
+            if(sta.getValue() != null)
+                total = total.add(sta.getValue());
+        }
+
+
+        return new KvChartVo(total,list);
 
     }
 }

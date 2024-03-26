@@ -73,7 +73,7 @@ public class GoodsStaController extends BaseController{
 
     @ApiOperation(
             value = "销售额",
-            response = KvStaVo.class,
+            response = KvChartVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
