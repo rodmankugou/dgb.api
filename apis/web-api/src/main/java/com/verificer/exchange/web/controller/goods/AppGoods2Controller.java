@@ -229,21 +229,36 @@ public class AppGoods2Controller extends BaseController {
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
-//    @ApiOperation(
-//            value = "商品详情",
-//            response = BrandVo.class,
-//            httpMethod = "POST"
-//    )
-//    @ApiImplicitParams({
-//    })
-//    @ResponseBody
-//    @ProcessToken
-//    @RequestMapping(value = "/detail", method = RequestMethod.POST)
-//    public Object detail(HttpServletRequest hReq, @RequestBody IdVo idVo) {
-//        SCheckUtil.notEmpty(idVo.getId(),"id");
-//        AGoodsDtlVo vo = loadGoods(idVo.getId());
-//        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
-//    }
+    @ApiOperation(
+            value = "商品详情",
+            response = AGoodsDtlVo.class,
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+    })
+    @ResponseBody
+    @ProcessToken
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public Object detail(HttpServletRequest hReq, @RequestBody AGoodsDtlReqVo idVo) {
+        SCheckUtil.notEmpty(idVo.getId(),"id");
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(1);
+        vo.setPageSize(1);
+        vo.setGoodsId(idVo.getId());
+        vo.setSortType(GoodsSortType.PRICE.getValue());
+        vo.setLongitude(idVo.getLongitude());
+        vo.setLatitude(idVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+        vo.setExcludeSaleOutFlag(false);
+
+        List<AGoodsVo> list = bizService.appGoodList(vo);
+        AGoodsDtlVo dtlVo = null;
+        if(list.size() > 0){
+            dtlVo = new AGoodsDtlVo();
+            SBeanUtils.copyProperties2(list.get(0),dtlVo);
+        }
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(dtlVo));
+    }
 
 
 

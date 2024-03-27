@@ -17,6 +17,7 @@ import com.verificer.biz.biz.service.adj.AdjItemService;
 import com.verificer.biz.biz.service.adj.AdjOrderService;
 import com.verificer.biz.biz.service.adj.notify.IAdjustListener;
 import com.verificer.biz.biz.service.adj.notify.events.AdjEvent;
+import com.verificer.biz.biz.service.adj.notify.events.AdjSucEvent;
 import com.verificer.biz.biz.service.common.ShopCommon;
 import com.verificer.biz.biz.service.common.StageCommon;
 import com.verificer.biz.biz.service.core.stock.StockCoreService;
@@ -170,7 +171,7 @@ public class AdjOrderServiceImpl implements AdjOrderService {
 
 
         //其他发至仓库 / 仓库发仓库，默认收货
-        if(AdjOrdType.OTHER_2_STAGE.equals(o.getType()) || AdjOrdType.STAGE_2_STAGE.equals(o.getType())){
+        if(AdjOrdType.OTHER_2_STAGE.getValue() == o.getType() || AdjOrdType.STAGE_2_STAGE.getValue() == o.getType()){
             AdjOrdConfirmVo vo = new AdjOrdConfirmVo();
             vo.setId(o.getId());
             List<AdjustItem> itemList = adjItemService.getByOrdId(o.getId());
@@ -180,6 +181,7 @@ public class AdjOrderServiceImpl implements AdjOrderService {
                 AdjOrdConfirmItemVo ci = new AdjOrdConfirmItemVo();
                 ci.setId(item.getId());
                 ci.setRealCount(item.getCount());
+                ciList.add(ci);
             }
             adjOrdConfirm(vo);
         }
@@ -326,6 +328,6 @@ public class AdjOrderServiceImpl implements AdjOrderService {
 
         adjItemService.onConfirm(o,reqVo.getItems());
 
-
+        notifier.triggerAll(new AdjSucEvent(o,adjItemService.getByOrdId(o.getId())));
     }
 }

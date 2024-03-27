@@ -100,10 +100,10 @@ public class AdjRunner {
 
         Tools.callApi("/adjust/order/create", FastJson.toJson(afStage));
 
-        AdjOrdConfirmVo ccv = new AdjOrdConfirmVo();
-        ccv.setId(getId());
-        ccv.setItems(loadItems(ccv.getId()));
-        Tools.callApi("/adjust/order/confirm", FastJson.toJson(ccv));
+//        AdjOrdConfirmVo ccv = new AdjOrdConfirmVo();
+//        ccv.setId(getId());
+//        ccv.setItems(loadItems(ccv.getId()));
+//        Tools.callApi("/adjust/order/confirm", FastJson.toJson(ccv));
 
 
         Tools.callApi("/adjust/order/create", FastJson.toJson(afShop));
@@ -119,10 +119,10 @@ public class AdjRunner {
     }
 
     public static void run() throws SQLException {
-//        Tools.init("dbg", "newadjust/init.sql");
-//        Runner.run("goods/add_1");
-//        Runner.run("goods/add_2");
-//        adj();
+        Tools.init("dbg", "newadjust/init.sql");
+        Runner.run("goods/add_1");
+        Runner.run("goods/add_2");
+        adj();
 
         Tools.callApi("adjust/order/page","{}");
 //        Tools.callApi("adjust/item/list","{\"orderId\":"+getId()+"}");

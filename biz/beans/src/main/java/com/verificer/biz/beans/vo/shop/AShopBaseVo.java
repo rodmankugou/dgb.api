@@ -17,7 +17,7 @@ public class AShopBaseVo implements Serializable {
     @ApiModelProperty("距离")
     private String distance;
 
-    @ApiModelProperty
+    @ApiModelProperty("营业时间")
     private String opTime;
 
     public String getId() {

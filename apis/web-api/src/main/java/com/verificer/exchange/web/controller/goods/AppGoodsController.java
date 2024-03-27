@@ -136,14 +136,14 @@ public class AppGoodsController extends BaseController {
 
     @ApiOperation(
             value = "商品详情",
-            response = BrandVo.class,
+            response = AGoodsDtlVo.class,
             httpMethod = "POST"
     )
     @ApiImplicitParams({
     })
     @ResponseBody
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public Object detail(HttpServletRequest hReq, @RequestBody IdVo idVo) {
+    public Object detail(HttpServletRequest hReq, @RequestBody AGoodsDtlReqVo idVo) {
         SCheckUtil.notEmpty(idVo.getId(),"id");
         AGoodsDtlVo vo = loadGoods(idVo.getId());
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));

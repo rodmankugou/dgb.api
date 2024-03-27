@@ -498,10 +498,20 @@
     <include refid="qryCond"></include>
   </select>
 
+  <sql id="column_exclude_big">
+    <!--
+      不查detail字段
+    -->
+    id, category_id, brand_id, name, sub_title, img_list, key_word, search_key, free_shipping_flag,
+    weight, volume, max_limit_count, min_limit_count, unit, sale_flag, sale_time_out_flag,
+    stop_sale_time, create_time, del_flag, del_time, rubbish_flag, rubbish_time,
+    sku_flag, pos_by_weight_flag, app_sale_flag, shop_sale_flag, non_member_buy_flag
+  </sql>
+
   <select id="selectEffGoods" parameterType="java.lang.Long" resultMap="BaseResultMap">
 
     select
-    <include refid="Base_Column_List" />
+        <include refid="column_exclude_big" />
     from goods
     where sale_flag = 1
   </select>

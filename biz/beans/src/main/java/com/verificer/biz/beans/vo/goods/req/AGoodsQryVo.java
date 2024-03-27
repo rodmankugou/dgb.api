@@ -23,6 +23,11 @@ public class AGoodsQryVo extends PageQueryVo {
     private String shopId;
 
     /**
+     * 商品ID
+     */
+    private Long goodsId;
+
+    /**
      * 分类ID
      */
     private Long catId;
@@ -129,5 +134,13 @@ public class AGoodsQryVo extends PageQueryVo {
 
     public void setExcludeSaleOutFlag(Boolean excludeSaleOutFlag) {
         this.excludeSaleOutFlag = excludeSaleOutFlag;
+    }
+
+    public Long getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
 }
