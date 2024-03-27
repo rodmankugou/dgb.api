@@ -1,6 +1,8 @@
 package com.verificer.biz.biz.service;
 
 import com.verificer.biz.beans.vo.GoodsVo;
+import com.verificer.biz.beans.vo.goods.AGoodsVo;
+import com.verificer.biz.beans.vo.goods.req.AGoodsQryVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Goods;
 
@@ -71,4 +73,6 @@ public interface GoodsService {
      * @return
      */
     List<Goods> getAllEffGoods();
+
+    List<AGoodsVo> appGoodsList(AGoodsQryVo qryVo);
 }

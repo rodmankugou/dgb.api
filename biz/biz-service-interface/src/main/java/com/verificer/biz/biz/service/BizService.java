@@ -25,6 +25,7 @@ import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateReviewVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateVo;
 import com.verificer.biz.beans.vo.goods.AGoodsVo;
+import com.verificer.biz.beans.vo.goods.req.AGoodsQryVo;
 import com.verificer.biz.beans.vo.goods.req.AIndexGoodsQryVo;
 import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
 import com.verificer.biz.beans.vo.integral.IntegralListVo;
@@ -721,6 +722,8 @@ public interface BizService {
      */
     void cartDel(CartAddVo reqVo);
 
-    List<AGoodsVo> appGoodList(AIndexGoodsQryVo qryVo);
+    List<AGoodsVo> appGoodList(AGoodsQryVo qryVo);
+
+    boolean userIsMember(Long userId);
 }
 

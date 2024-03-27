@@ -38,7 +38,7 @@ public class GoodsPublishService {
         adjOrderService.addListener(new IAdjustListener() {
             @Override
             public void onEvent(AdjEvent event) {
-
+                handleAdjEvent(event);
             }
         });
     }

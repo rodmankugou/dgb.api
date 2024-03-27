@@ -2,9 +2,11 @@ package com.verificer.biz.biz.service.cache.gache;
 
 import com.verificer.GlobalConfig;
 import com.verificer.beans.PageQueryVo;
+import com.verificer.biz.beans.vo.goods.AGoodsVo;
 import com.verificer.biz.beans.vo.goods.ASpecStockVo;
 import com.verificer.biz.beans.vo.goods.ASpecVo;
 import com.verificer.biz.biz.ThreadPools;
+import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.service.GoodsService;
 import com.verificer.biz.biz.service.cache.exception.CacheInitFailedException;
 import com.verificer.biz.biz.service.cache.gache.filter.IGFilter;
@@ -16,6 +18,7 @@ import com.verificer.biz.biz.service.cache.gache.sort.ISort;
 import com.verificer.biz.biz.service.cache.vo.*;
 import com.verificer.utils.page.PageIndex;
 import com.verificer.utils.page.PageUtils;
+import com.verificer.utils.reflect.SBeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +103,7 @@ public class GCache  {
         }
     }
 
-    public List<SortableGoods> select(boolean isMemberUser,MerMatchReqVo merMatchReqVo, IGFilter filter, ISort sort, PageQueryVo page){
+    public List<AGoodsVo> select(boolean isMemberUser, MerMatchReqVo merMatchReqVo, IGFilter filter, ISort sort, PageQueryVo page){
         RLock.lock();
         try {
             List<CacGoods> goodsList = gStore.select(filter);
@@ -121,7 +124,13 @@ public class GCache  {
                 //设置距离,一定要放置在 设置库存后
                 fillDistance(ag);
 
+                //设置商品在被匹配到的仓库/门店的总库存数,一定要放置在 设置库存后
+                fillMatchStock(ag);
+
             }
+
+            //后置过滤
+            agList = filterGoods(agList,filter);
 
             //sort
             sort.sort(agList);
@@ -129,10 +138,39 @@ public class GCache  {
 
             //page
             agList = page(agList,page);
-            return agList;
+
+            List<AGoodsVo> rst = new LinkedList<>();
+            for(SortableGoods ag : agList ){
+                AGoodsVo g = new AGoodsVo();
+                SBeanUtils.copyProperties2(ag,g);
+                rst.add(g);
+            }
+            return rst;
         } finally {
             RLock.unlock();
         }
+
+    }
+
+    private List<SortableGoods> filterGoods(List<SortableGoods> agList, IGFilter filter) {
+        List<SortableGoods> rst = new ArrayList<>();
+        for(SortableGoods g : agList){
+            if(filter.isMatch(g))
+                rst.add(g);
+        }
+        return rst;
+    }
+
+    private void fillMatchStock(SortableGoods ag) {
+        List<ASpecVo> sList = ag.getSpecList();
+        BigDecimal matchedStock = BigDecimal.ZERO;
+        for(ASpecVo spec : sList){
+            for(ASpecStockVo ass : spec.getStocks()){
+                matchedStock = matchedStock.add(ass.getStock());
+            }
+        }
+        ag.setMatchedStock(matchedStock);
+        ag.setStageCount(matchedStock.intValue());
 
     }
 
@@ -170,8 +208,9 @@ public class GCache  {
         ag.setMaxLimitCount(g.getMaxLimitCount());
         ag.setMinLimitCount(g.getMinLimitCount());
         ag.setNonMemberBuyFlag(g.getNonMemberBuyFlag());
+        ag.setUserMemberFlag(isUserMember);
         ag.setSumSaleCount(g.getSumSaleCount());
-        ag.setStageCount(g.getStageCount());
+//        ag.setStageCount(g.getStageCount());
         ag.setPrice(g.getPrice());
         ag.setOriPrice(g.getOriPrice());
         ag.setSaleCount(new Long(g.getSumSaleCount()));
@@ -183,11 +222,13 @@ public class GCache  {
         ag.setSpecList(specList);
         for(CacSpec spec : g.getOriSpecList()){
             ASpecVo vo = new ASpecVo();
+            specList.add(vo);
             vo.setId(spec.getId());
             vo.setPrice(spec.getPrice());
             vo.setOriPrice(spec.getOriPrice());
             vo.setName(spec.getName());
             vo.setImg(spec.getImg());
+
         }
         return ag;
     }
@@ -207,6 +248,7 @@ public class GCache  {
             stock.setShopFlag(false);
             stock.setStock(cs.getStock());
             stock.setDistance(cs.getDistance());
+            list.add(stock);
         }
 
         //店铺
@@ -217,6 +259,7 @@ public class GCache  {
             stock.setShopId(ss.getMerId());
             stock.setStock(cs.getStock());
             stock.setDistance(cs.getDistance());
+            list.add(stock);
         }
 
         spec.setStocks(list);

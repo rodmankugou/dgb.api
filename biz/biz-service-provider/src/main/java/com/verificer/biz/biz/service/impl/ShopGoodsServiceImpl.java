@@ -84,5 +84,10 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
     public ShopGoods getByShopIdAndSpecId(String shopId, Long specId) {
         return mapper.selectByShopIdAndSpecId(shopId,specId);
     }
+
+    @Override
+    public List<Long> getEffGoodsIsByShopId(String shopId) {
+        return mapper.selectEffGoodsIsByShopId( shopId);
+    }
 }
 

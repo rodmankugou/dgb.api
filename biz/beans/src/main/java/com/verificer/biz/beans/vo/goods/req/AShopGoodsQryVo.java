@@ -16,4 +16,13 @@ public class AShopGoodsQryVo extends ABaseGoodQryVo{
     public void setCatId(Long catId) {
         this.catId = catId;
     }
+
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
 }

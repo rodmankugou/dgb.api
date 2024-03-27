@@ -334,4 +334,10 @@ public class UserCoreServiceImpl implements UserCoreService {
     public AccountVo createAccountIfNeed(String customerId, String subName) {
         return baseAccountService.createAccountIfNeed(customerId,subName,false);
     }
+
+    @Override
+    public boolean userIsMember(Long userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        return user.getMemberFlag();
+    }
 }

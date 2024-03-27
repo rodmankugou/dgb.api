@@ -57,7 +57,7 @@ public class CacheLoader implements ICacheLoader {
             cs.setId(shop.getId());
             cs.setName(shop.getName());
             cs.setLongitude(shop.getLongitude());
-            cs.setLongitude(shop.getLongitude());
+            cs.setLatitude(shop.getLatitude());
             List<CacStock> stList = stockMap.get(cs.getId());
             cs.setStockList(stList != null ? stList : new LinkedList<>());
 
@@ -70,7 +70,7 @@ public class CacheLoader implements ICacheLoader {
             cs.setId(stage.getId());
             cs.setName(stage.getName());
             cs.setLongitude(stage.getLongitude());
-            cs.setLongitude(stage.getLongitude());
+            cs.setLatitude(stage.getLatitude());
             List<CacStock> stList = stockMap.get(cs.getId());
             cs.setStockList(stList != null ? stList : new LinkedList<>());
         }
@@ -109,7 +109,11 @@ public class CacheLoader implements ICacheLoader {
 
         for(Goods g : gList){
             CacGoods cg = new CacGoods();
+            cgList.add(cg);
+
             cg.setId(g.getId());
+            cg.setCatId(g.getCategoryId());
+            cg.setsKey(g.getSearchKey());
             cg.setBrandId(g.getBrandId());
             cg.setName(g.getName());
             cg.setImg0(g.getImgList().split("@")[0]);
@@ -141,8 +145,9 @@ public class CacheLoader implements ICacheLoader {
                     minOrigPrice = spec.getOriPrice();
             }
 
-            cg.setMinPrice(minPrice);
-            cg.setMinOrigPrice(minOrigPrice);
+            cg.setPrice(minPrice);
+            cg.setOriPrice(minOrigPrice);
+
         }
     }
 

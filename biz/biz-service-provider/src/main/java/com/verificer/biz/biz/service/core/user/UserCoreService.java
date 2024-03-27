@@ -40,4 +40,5 @@ public interface UserCoreService {
 
     AccountVo createAccountIfNeed(String customerId, String subName);
 
+    boolean userIsMember(Long userId);
 }

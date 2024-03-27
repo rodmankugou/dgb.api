@@ -172,4 +172,12 @@
     where  del_flag = 0 and spec_id = #{specId} and shop_id = #{shopId}
   </select>
 
+  <select id="selectEffGoodsIsByShopId"  resultType="long">
+
+    select
+     goods_id
+    from shop_goods
+    where  del_flag = 0  and shop_id = #{shopId}
+  </select>
+
 </mapper>

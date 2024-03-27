@@ -24,6 +24,11 @@ public class SortableGoods extends AGoodsVo {
     private BigDecimal minOrigPrice;
     private Long marketTime;
 
+    /**
+     * 商品在被匹配到的仓库/门店的总库存数
+     */
+    private BigDecimal matchedStock;
+
 
 
 
@@ -90,5 +95,13 @@ public class SortableGoods extends AGoodsVo {
 
     public void setMarketTime(Long marketTime) {
         this.marketTime = marketTime;
+    }
+
+    public BigDecimal getMatchedStock() {
+        return matchedStock;
+    }
+
+    public void setMatchedStock(BigDecimal matchedStock) {
+        this.matchedStock = matchedStock;
     }
 }

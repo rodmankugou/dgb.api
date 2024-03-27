@@ -3,10 +3,11 @@ package com.verificer.biz.beans.vo.goods;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @ApiModel
-public class ASpecStockVo {
+public class ASpecStockVo implements Serializable {
     @ApiModelProperty("是否店铺，如果不是店铺，则表示平台的库存量")
     private Boolean shopFlag;
     @ApiModelProperty("店铺ID")

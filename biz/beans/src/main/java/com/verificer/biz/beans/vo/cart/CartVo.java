@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 
 @ApiModel
 public class CartVo implements Serializable {
+    @ApiModelProperty("ID")
+    private Long id;
     @ApiModelProperty("商品ID")
     private Long goodsId;
     @ApiModelProperty("规格ID")
@@ -24,6 +26,14 @@ public class CartVo implements Serializable {
     @ApiModelProperty("当前库存数量")
     @CountDecimal
     private BigDecimal stock;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getGoodsId() {
         return goodsId;

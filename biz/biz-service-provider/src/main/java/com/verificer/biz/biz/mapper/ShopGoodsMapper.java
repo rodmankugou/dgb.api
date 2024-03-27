@@ -60,4 +60,6 @@ public interface ShopGoodsMapper {
     ShopGoods selectByPosGoodsId(@Param("posGoodsId") Long posGoodsId);
 
     ShopGoods selectByShopIdAndSpecId(@Param("shopId") String shopId,@Param(("specId")) Long specId);
+
+    List<Long> selectEffGoodsIsByShopId(@Param("shopId") String shopId);
 }

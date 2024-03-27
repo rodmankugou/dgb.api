@@ -41,6 +41,9 @@ public class AGoodsVo implements Serializable {
     @ApiModelProperty("非会员是否能购买")
     private Boolean nonMemberBuyFlag;
 
+    @ApiModelProperty("当前用户是否会员")
+    private Boolean userMemberFlag;
+
     @ApiModelProperty("销售总量")
     private Integer sumSaleCount;
 
@@ -172,6 +175,11 @@ public class AGoodsVo implements Serializable {
         this.specList = specList;
     }
 
+    public Boolean getUserMemberFlag() {
+        return userMemberFlag;
+    }
 
-
+    public void setUserMemberFlag(Boolean userMemberFlag) {
+        this.userMemberFlag = userMemberFlag;
+    }
 }

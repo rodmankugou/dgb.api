@@ -1,15 +1,24 @@
 package com.verificer.biz.biz.service.impl;
 
 import com.verificer.ErrCode;
+import com.verificer.base.sup.itf.BaseSupService;
+import com.verificer.base.sup.itf.CfgCodes;
 import com.verificer.biz.beans.vo.GoodsVo;
 import com.verificer.biz.beans.vo.SpecVo;
+import com.verificer.biz.beans.vo.goods.AGoodsVo;
+import com.verificer.biz.beans.vo.goods.enums.GoodsSearchType;
+import com.verificer.biz.beans.vo.goods.enums.GoodsSortType;
+import com.verificer.biz.beans.vo.goods.req.AGoodsQryVo;
 import com.verificer.biz.beans.vo.req.*;
 import com.verificer.biz.biz.entity.Goods;
 import com.verificer.biz.biz.mapper.GoodsMapper;
-import com.verificer.biz.biz.service.GoodsService;
-import com.verificer.biz.biz.service.GoodsStaService;
-import com.verificer.biz.biz.service.PosGoodsSyncService;
-import com.verificer.biz.biz.service.SpecService;
+import com.verificer.biz.biz.service.*;
+import com.verificer.biz.biz.service.cache.gache.GCache;
+import com.verificer.biz.biz.service.cache.gache.filter.IGFilters;
+import com.verificer.biz.biz.service.cache.gache.filter.impl.*;
+import com.verificer.biz.biz.service.cache.gache.mer.MerMatchReqVo;
+import com.verificer.biz.biz.service.cache.gache.sort.ISort;
+import com.verificer.biz.biz.service.cache.gache.sort.SortBuilder;
 import com.verificer.common.exception.BaseException;
 import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.utils.PriceUtils;
@@ -38,6 +47,19 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     PosGoodsSyncService posGoodsSyncService;
+
+    @Autowired
+    SortBuilder sortBuilder;
+
+    @Autowired
+    GCache gCache;
+
+    @Autowired
+    BaseSupService baseSupService;
+
+    @Autowired
+    ShopGoodsService shopGoodsService;
+
 
     @Override
     public List<GoodsVo> goodsAll() {
@@ -287,6 +309,61 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Goods> getAllEffGoods() {
         return mapper.selectEffGoods();
+    }
+
+    @Override
+    public List< AGoodsVo> appGoodsList(AGoodsQryVo qryVo) {
+        SCheckUtil.notEmpty(qryVo.getSortType(),"sortType");
+        SCheckUtil.notEmpty(qryVo.getSortType(),"userMemberFlag");
+
+        //排序方式
+        ISort sort = null;
+        Integer sortType = qryVo.getSortType();
+        if(GoodsSortType.MUL.getValue() == sortType){
+            sort = sortBuilder.mulSort(qryVo.getUserMemberFlag());
+        }else if(GoodsSortType.PRICE.getValue() == sortType){
+            sort = sortBuilder.priceSort(qryVo.getUserMemberFlag());
+        }else if(GoodsSortType.SALES.getValue() == sortType){
+            sort = sortBuilder.salesSort();
+        }else if(GoodsSortType.MARKET_TIME.getValue() == sortType){
+            sort = sortBuilder.marketTimeSort();
+        }else {
+            throw new BizErrMsgException("非法的参数值sortType="+sortType);
+        }
+
+
+        MerMatchReqVo merMatchReqVo = new MerMatchReqVo(
+                SStringUtils.isEmpty(qryVo.getShopId()) ? null : qryVo.getShopId(),
+                qryVo.getLongitude(),
+                qryVo.getLatitude(),
+                BigDecimal.ONE,
+                Long.parseLong(baseSupService.getCfg(CfgCodes.SHOP_SRV_DISTANCE)));
+
+        IGFilters filter = new IGFilters();
+        if(qryVo.getNonMemberFlag() != null && qryVo.getNonMemberFlag())
+            filter.add(new NonMemberFilter());
+        if(!SStringUtils.isEmpty(qryVo.getShopId())){
+            List<Long> ids = shopGoodsService.getEffGoodsIsByShopId(qryVo.getShopId());
+            filter.add(new IdsFilter(ids));
+        }
+        if(qryVo.getCatId() != null)
+            filter.add(new CatIdFilter(qryVo.getCatId()));
+        if(qryVo.getSearchType() != null && !SStringUtils.isEmpty(qryVo.getsKey())){
+            if(GoodsSearchType.GOODS.getValue() == qryVo.getSearchType()){
+                filter.add(new GoodsKeyFilter(qryVo.getsKey()));
+            }else if(GoodsSearchType.CAT.getValue() == qryVo.getSearchType()){
+                filter.add(new CatKeyFilter(qryVo.getsKey()));
+            }else {
+                throw new BizErrMsgException("非法的参数值searchType="+sortType);
+
+            }
+        }
+        if(qryVo.getExcludeSaleOutFlag())
+            filter.add(new ExcludeSaleOutFilter());
+
+
+        return gCache.select(qryVo.getUserMemberFlag(),merMatchReqVo,filter,sort,qryVo);
+
     }
 
 

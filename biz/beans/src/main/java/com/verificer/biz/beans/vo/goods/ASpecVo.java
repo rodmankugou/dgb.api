@@ -5,11 +5,12 @@ import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel
-public class    ASpecVo {
+public class    ASpecVo implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
 

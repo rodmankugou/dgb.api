@@ -25,6 +25,7 @@ import com.verificer.biz.beans.vo.evaluate.EvaluateQryVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateReviewVo;
 import com.verificer.biz.beans.vo.evaluate.EvaluateVo;
 import com.verificer.biz.beans.vo.goods.AGoodsVo;
+import com.verificer.biz.beans.vo.goods.req.AGoodsQryVo;
 import com.verificer.biz.beans.vo.goods.req.AIndexGoodsQryVo;
 import com.verificer.biz.beans.vo.integral.AppIntegralLogVo;
 import com.verificer.biz.beans.vo.integral.IntegralListVo;
@@ -746,7 +747,14 @@ public class BizServiceImpl extends BaseDubboService implements BizService {
     }
 
     @Override
-    public List<AGoodsVo> appGoodList(AIndexGoodsQryVo qryVo) {
-        return null;
+    public List<AGoodsVo> appGoodList(AGoodsQryVo qryVo) {
+        return goodsService.appGoodsList(qryVo);
     }
+
+    @Override
+    public boolean userIsMember(Long userId) {
+        return userCoreService.userIsMember(userId);
+    }
+
+   
 }

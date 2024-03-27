@@ -1,10 +1,8 @@
 package com.verificer.biz.biz.service.cache.gache.mer;
 
-import com.verificer.biz.biz.service.cache.vo.CacStock;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class MerMatchReqVo {
     @ApiModelProperty("经度")
@@ -12,13 +10,25 @@ public class MerMatchReqVo {
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty("最小库存要求")
-    private BigDecimal minStock;
+    @ApiModelProperty("库存阈值，值大于等于该阈值的仓库/门店的匹配优先级更高")
+    private BigDecimal priorityThresholdCount;
 
     @ApiModelProperty("最大距离要求，单位米")
     private Long distanceLimit;
 
+    @ApiModelProperty("如果值存在，表示查指定店铺的库存")
+    private String shopId;
 
+    public MerMatchReqVo() {
+    }
+
+    public MerMatchReqVo(String shopId,BigDecimal longitude, BigDecimal latitude, BigDecimal priorityThresholdCount, Long distanceLimit) {
+        this.shopId = shopId;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.priorityThresholdCount = priorityThresholdCount;
+        this.distanceLimit = distanceLimit;
+    }
 
     public BigDecimal getLatitude() {
         return latitude;
@@ -30,12 +40,12 @@ public class MerMatchReqVo {
 
 
 
-    public BigDecimal getMinStock() {
-        return minStock;
+    public BigDecimal getPriorityThresholdCount() {
+        return priorityThresholdCount;
     }
 
-    public void setMinStock(BigDecimal minStock) {
-        this.minStock = minStock;
+    public void setPriorityThresholdCount(BigDecimal priorityThresholdCount) {
+        this.priorityThresholdCount = priorityThresholdCount;
     }
 
     public Long getDistanceLimit() {
@@ -52,5 +62,13 @@ public class MerMatchReqVo {
 
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

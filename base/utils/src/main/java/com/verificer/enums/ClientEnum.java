@@ -4,7 +4,7 @@ package com.verificer.enums;
  * Created by 35336 on 2020/12/30.
  */
 public enum ClientEnum {
-    WEB("web"),APP("app");
+    WEB("web"),APP("app"),MP("mp");
 
     private String name;
     ClientEnum(String name) {

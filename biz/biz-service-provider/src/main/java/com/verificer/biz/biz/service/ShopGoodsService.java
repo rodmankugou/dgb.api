@@ -35,4 +35,6 @@ public interface ShopGoodsService {
 
 
     ShopGoods getByShopIdAndSpecId(String shopId, Long specId);
+
+    List<Long> getEffGoodsIsByShopId(String shopId);
 }

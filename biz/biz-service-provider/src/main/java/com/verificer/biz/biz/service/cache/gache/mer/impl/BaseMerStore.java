@@ -1,10 +1,10 @@
 package com.verificer.biz.biz.service.cache.gache.mer.impl;
 
+import com.verificer.biz.beans.enums.MerType;
 import com.verificer.biz.biz.service.cache.gache.mer.IMerStore;
 import com.verificer.biz.biz.service.cache.gache.mer.MerMatchReqVo;
 import com.verificer.biz.biz.service.cache.vo.CacMer;
 import com.verificer.biz.biz.service.cache.vo.CacStock;
-import com.verificer.biz.biz.service.cache.vo.SortableGoods;
 import com.verificer.biz.biz.service.cache.vo.SpecStock;
 import com.verificer.utils.map.baidu.BaiduMapHelper;
 
@@ -20,9 +20,16 @@ public abstract class BaseMerStore implements IMerStore {
         }
     };
 
-    private List<? extends CacMer> merList;
+    protected List<? extends CacMer> merList;
 
     abstract boolean isShop();
+
+    /**
+     * 过滤
+     * @param reqVo
+     * @return
+     */
+    abstract List<? extends CacMer> filter(MerMatchReqVo reqVo,List<? extends CacMer> merList);
 
 
     @Override
@@ -40,6 +47,7 @@ public abstract class BaseMerStore implements IMerStore {
         }
     }
 
+
     @Override
     public SpecStockMap getStockMap(MerMatchReqVo reqVo){
         List<SortMer> smList = getMatchMer(reqVo);
@@ -50,9 +58,16 @@ public abstract class BaseMerStore implements IMerStore {
         for(SortMer sm : smList){
             CacMer mer = sm.mer;
             for(CacStock stock : mer.getStockList()){
-                if(map.containsKey(stock.getSpecId()))
-                    continue;
-                if(stock.getStock().compareTo(reqVo.getMinStock()) > 0){
+
+                if(map.containsKey(stock.getSpecId())){
+                    SpecStock ss = map.get(stock.getSpecId());
+                    if(ss.getStock().compareTo(reqVo.getPriorityThresholdCount() ) >= 0
+                            || stock.getStock().compareTo(reqVo.getPriorityThresholdCount() ) < 0)
+                        continue;
+
+                    map.put(stock.getSpecId(),new SpecStock(isShop(),mer.getId(),stock.getStock(),sm.distance));
+
+                }else {
                     map.put(stock.getSpecId(),new SpecStock(isShop(),mer.getId(),stock.getStock(),sm.distance));
                 }
 
@@ -68,7 +83,8 @@ public abstract class BaseMerStore implements IMerStore {
      */
     private List<SortMer> getMatchMer(MerMatchReqVo reqVo){
         List<SortMer> targetList = new ArrayList<>();
-        for(CacMer mer : merList){
+        List<? extends CacMer> mList = filter(reqVo,merList);
+        for(CacMer mer : mList){
             Long distance = BaiduMapHelper.getDistance(reqVo.getLongitude(), reqVo.getLatitude(),mer.getLongitude(),mer.getLatitude());
             //无定位用户看不到店铺商品
             if(distance == null){

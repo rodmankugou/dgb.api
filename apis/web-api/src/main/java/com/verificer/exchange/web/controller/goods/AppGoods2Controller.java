@@ -7,10 +7,13 @@ import com.verificer.biz.beans.vo.goods.AGoodsDtlVo;
 import com.verificer.biz.beans.vo.goods.AGoodsVo;
 import com.verificer.biz.beans.vo.goods.ASpecStockVo;
 import com.verificer.biz.beans.vo.goods.ASpecVo;
+import com.verificer.biz.beans.vo.goods.enums.GoodsSearchType;
+import com.verificer.biz.beans.vo.goods.enums.GoodsSortType;
 import com.verificer.biz.beans.vo.goods.req.*;
 import com.verificer.biz.beans.vo.shop.AShopBaseVo;
 import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BaseException;
+import com.verificer.common.exception.BizErrMsgException;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.exchange.web.controller.shop.ShopTool;
 import com.verificer.exchange.web.security.annotation.ProcessToken;
@@ -34,11 +37,12 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by 35336 on 2021/2/26.
  */
-@Api(tags = "商品")
+@Api(tags = "商品2")
 @RequestMapping("/goods2")
 @RestController
 public class AppGoods2Controller extends BaseController {
@@ -60,7 +64,29 @@ public class AppGoods2Controller extends BaseController {
     @ProcessToken
     public Object plaList(HttpServletRequest hReq, @RequestBody AIndexGoodsQryVo qryVo) {
 
-        List<AGoodsVo> goodsVos = bizService.appGoodList(qryVo);
+        SCheckUtil.notEmpty(qryVo.getType(),"type");
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(qryVo.getPage());
+        vo.setPageSize(qryVo.getPageSize());
+        vo.setLongitude(qryVo.getLongitude());
+        vo.setLatitude(qryVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+
+        Integer type = qryVo.getType();
+        if(type == 1){
+            vo.setSortType(GoodsSortType.MUL.getValue());
+        }else if(type == 2){
+            vo.setSortType(GoodsSortType.SALES.getValue());
+        }else if(type == 3){
+            vo.setSortType(GoodsSortType.MUL.getValue());
+            vo.setNonMemberFlag(true);
+        }else if(type == 4){
+            vo.setSortType(GoodsSortType.MARKET_TIME.getValue());
+        }else {
+            throw new BizErrMsgException("非法的参数值type="+type);
+        }
+        vo.setExcludeSaleOutFlag(true);
+        List<AGoodsVo> goodsVos = bizService.appGoodList(vo);
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -75,9 +101,25 @@ public class AppGoods2Controller extends BaseController {
     @ProcessToken
     @RequestMapping(value = "/pla/cat/goods", method = RequestMethod.POST)
     public Object plaCatGoods(HttpServletRequest hReq, @RequestBody APlaGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
-        Object obj = SBigDecimalUtils.prcFormat2(goodsVos);
-        return Response.dataSuccess(obj);
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(qryVo.getPage());
+        vo.setPageSize(qryVo.getPageSize());
+        vo.setLongitude(qryVo.getLongitude());
+        vo.setLatitude(qryVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+
+        vo.setSortType(GoodsSortType.MUL.getValue());
+
+        if(qryVo.getNonMemberFlag() != null && qryVo.getNonMemberFlag() ){
+            vo.setNonMemberFlag(true);
+        }
+        vo.setCatId(qryVo.getCatId());
+        vo.setExcludeSaleOutFlag(false);
+
+
+        List<AGoodsVo> goodsVos = bizService.appGoodList(vo);
+
+        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
     @ApiOperation(
@@ -91,7 +133,24 @@ public class AppGoods2Controller extends BaseController {
     @ProcessToken
     @RequestMapping(value = "/shop/cat/goods", method = RequestMethod.POST)
     public Object shopCatGoods(HttpServletRequest hReq, @RequestBody AShopGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        SCheckUtil.notEmpty(qryVo.getCatId(),"catId");
+        SCheckUtil.notEmpty(qryVo.getShopId(),"shopId");
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(qryVo.getPage());
+        vo.setPageSize(qryVo.getPageSize());
+        vo.setLongitude(qryVo.getLongitude());
+        vo.setLatitude(qryVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+
+        vo.setSortType(GoodsSortType.MUL.getValue());
+        vo.setShopId(qryVo.getShopId());
+        vo.setCatId(qryVo.getCatId());
+        vo.setExcludeSaleOutFlag(false);
+
+
+
+        List<AGoodsVo> goodsVos = bizService.appGoodList(vo);
+
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -106,7 +165,29 @@ public class AppGoods2Controller extends BaseController {
     @ProcessToken
     @RequestMapping(value = "/pla/rank/goods", method = RequestMethod.POST)
     public Object rankGoods(HttpServletRequest hReq, @RequestBody ARankGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        SCheckUtil.notEmpty(qryVo.getType(),"type");
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(qryVo.getPage());
+        vo.setPageSize(qryVo.getPageSize());
+        vo.setLongitude(qryVo.getLongitude());
+        vo.setLatitude(qryVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+        vo.setExcludeSaleOutFlag(false);
+
+        Integer type = qryVo.getType();
+        if(type == 1){
+            vo.setSortType(GoodsSortType.MUL.getValue());
+        }else if(type == 2){
+            vo.setSortType(GoodsSortType.SALES.getValue());
+        }else if(type == 3){
+            vo.setSortType(GoodsSortType.PRICE.getValue());
+            vo.setNonMemberFlag(true);
+        }else  {
+            throw new BaseException("非法的参数值type="+type);
+        }
+
+        List<AGoodsVo> goodsVos = bizService.appGoodList(vo);
+
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -121,42 +202,48 @@ public class AppGoods2Controller extends BaseController {
     @ProcessToken
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Object search(HttpServletRequest hReq, @RequestBody AGoodsSearchVo qryVo) {
-        SCheckUtil.notEmpty(qryVo.getType(),"Type");
-        List<AGoodsVo> goodsVos = loadGoods();
-        List<AGoodsVo> voList = new LinkedList<>();
-        for(AGoodsVo vo : goodsVos){
-            if(SStringUtils.isEmpty(qryVo.getsKey()))
-                voList.add(vo);
-            else {
-                if(qryVo.getType() == 1){
-                    if(vo.getName().contains(qryVo.getsKey()))
-                        voList.add(vo);
-                }else {
-                    if("猫山王".contains(qryVo.getsKey()))
-                        voList.add(vo);
-                }
-            }
+        SCheckUtil.notEmpty(qryVo.getType(),"type");
+        SCheckUtil.notEmpty(qryVo.getsKey(),"sKey");
+        AGoodsQryVo vo = new AGoodsQryVo();
+        vo.setPage(qryVo.getPage());
+        vo.setPageSize(qryVo.getPageSize());
+        vo.setLongitude(qryVo.getLongitude());
+        vo.setLatitude(qryVo.getLatitude());
+        vo.setUserMemberFlag(isMember(hReq));
+        vo.setExcludeSaleOutFlag(false);
 
+
+        Integer type = qryVo.getType();
+        if(type == 1){
+            vo.setSearchType(GoodsSearchType.GOODS.getValue());
+        }else if(type == 2){
+            vo.setSearchType(GoodsSearchType.CAT.getValue());
+        }else  {
+            throw new BaseException("非法的参数值type="+type);
         }
+        vo.setsKey(qryVo.getsKey());
+        vo.setSortType(GoodsSortType.MUL.getValue());
+
+        List<AGoodsVo> goodsVos = bizService.appGoodList(vo);
 
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
-    @ApiOperation(
-            value = "商品详情",
-            response = BrandVo.class,
-            httpMethod = "POST"
-    )
-    @ApiImplicitParams({
-    })
-    @ResponseBody
-    @ProcessToken
-    @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public Object detail(HttpServletRequest hReq, @RequestBody IdVo idVo) {
-        SCheckUtil.notEmpty(idVo.getId(),"id");
-        AGoodsDtlVo vo = loadGoods(idVo.getId());
-        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
-    }
+//    @ApiOperation(
+//            value = "商品详情",
+//            response = BrandVo.class,
+//            httpMethod = "POST"
+//    )
+//    @ApiImplicitParams({
+//    })
+//    @ResponseBody
+//    @ProcessToken
+//    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+//    public Object detail(HttpServletRequest hReq, @RequestBody IdVo idVo) {
+//        SCheckUtil.notEmpty(idVo.getId(),"id");
+//        AGoodsDtlVo vo = loadGoods(idVo.getId());
+//        return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
+//    }
 
 
 
@@ -164,71 +251,6 @@ public class AppGoods2Controller extends BaseController {
 
 
 
-    public List<AGoodsVo> loadGoods()  {
-        try {
-            InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("goods.json");
-            String json = IOUtils.toString(io,"utf-8");
-            List<AGoodsDtlVo> list =  FastJson.parseArray(json,AGoodsDtlVo.class);
-            for (AGoodsDtlVo goods : list)
-                fillGoods(goods);
-
-            List<AGoodsVo> voList = new LinkedList<>();
-            for(AGoodsDtlVo vo : list){
-                AGoodsVo a = new AGoodsVo();
-                SBeanUtils.copyProperties2(vo,a);
-                voList.add(a);
-            }
-            return voList;
-        } catch (IOException e) {
-            throw new BaseException(ErrCode.SERVER_ERROR);
-        }
-    }
-
-    public AGoodsDtlVo loadGoods(Long id)  {
-        try {
-            SCheckUtil.notEmpty(id,"id");
-            InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("goods.json");
-            String json = IOUtils.toString(io,"utf-8");
-            List<AGoodsDtlVo> list =  FastJson.parseArray(json,AGoodsDtlVo.class);
-            for(AGoodsDtlVo goods : list){
-                if(goods.getId().equals(id)){
-                    fillGoods(goods);
-                    return goods;
-
-                }
-            }
-            return null;
-        } catch (IOException e) {
-            throw new BaseException(ErrCode.SERVER_ERROR);
-        }
-    }
-
-    private void fillGoods(AGoodsDtlVo goods){
-        goods.setSubTitle("马来进口，口感一绝");
-        goods.setStageCount(1005);
-        goods.setBrandName("彭亨州1");
-        goods.setImg0(goods.getImgList().split("@")[0]);
-        goods.setPrice(goods.getSpecList().get(0).getPrice());
-        goods.setOriPrice(goods.getSpecList().get(0).getOriPrice());
-        List<ASpecVo> specVos = goods.getSpecList();
-        for(ASpecVo spec : specVos){
-            ASpecStockVo plaStock = new ASpecStockVo();
-            plaStock.setStock(new BigDecimal(RandomUtils.getInt(1,100)));
-            plaStock.setShopFlag(false);
-
-            AShopBaseVo shop = ShopTool.getShop();
-            ASpecStockVo shopStock = new ASpecStockVo();
-            shopStock.setStock(new BigDecimal(RandomUtils.getInt(1,100)));
-            shopStock.setShopFlag(true);
-            shopStock.setShopId(shop.getId());
-            List<ASpecStockVo> stockVos = new LinkedList<>();
-            stockVos.add(plaStock);
-            stockVos.add(shopStock);
-            spec.setStocks(stockVos);
-        }
-
-        goods.setNearestShop(ShopTool.getShop());
-    }
 
 
 }

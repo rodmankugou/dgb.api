@@ -41,6 +41,7 @@ public class NeedLoginInterceptor extends BaseInterceptor {
         this.redisUtil = redisUtil;
     }
 
+    private static final String SYSTEM_UPDATE_KEY = "system_is_update";
 
     /*
      * (non-Javadoc)
@@ -67,9 +68,9 @@ public class NeedLoginInterceptor extends BaseInterceptor {
 
 
         // 勿删，插入校验是否处于更新状态
-        if(redisUtil.exists(UtilConstants.SYSTEM_UPDATE_KEY)){
+        if(redisUtil.exists(SYSTEM_UPDATE_KEY)){
             System.out.println(request.getRemoteHost() + request.getRequestURI() + "系统维护中");
-            respAsJson(response,ErrCode.SYSTEM_UPDATING,(String)redisUtil.get(UtilConstants.SYSTEM_UPDATE_KEY));
+            respAsJson(response,ErrCode.SYSTEM_UPDATING);
             return false;
         }
 
@@ -77,11 +78,7 @@ public class NeedLoginInterceptor extends BaseInterceptor {
 
         if (loginRequired || (processToken != null)) {
             String requestToken = SecurityUtil.getToken();
-            String client = SecurityUtil.getClient();
-            if(SStringUtils.isAnyEmpty(client)){
-                respAsJson(response,ErrCode.HTTP_HEAD_ERROR);
-                return false;
-            }
+
             if(SStringUtils.isAnyEmpty(requestToken)){
                 if(loginRequired){
                     respAsJson(response,ErrCode.NEED_LOGIN);
@@ -93,13 +90,13 @@ public class NeedLoginInterceptor extends BaseInterceptor {
             }
 
 
-            LoginStat<UserIdentity> loginStat = loginMonitor.isLogin(client,requestToken,new UserIdentity());
+            LoginStat<UserIdentity> loginStat = loginMonitor.isLogin(ClientEnum.MP.getName(),requestToken,new UserIdentity());
             if(loginStat.isLogin()){
                 request.setAttribute(SecurityConf.USER_IDENTITY_KEY, loginStat.getUserInfo());
                 return true;
             }else {
                 if(!loginStat.isLogin()){
-                    if(LogoutType.OTHER_LOGIN.equals(loginStat.getLogoutType())){
+                    if(LogoutType.OTHER_LOGIN == loginStat.getLogoutType()){
                         if(loginRequired){
                             respAsJson(response,ErrCode.OTHER_LOGIN);
                             return false;

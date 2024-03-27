@@ -35,8 +35,6 @@ public class CacGoods {
     private String sKey;
     private String catSKey;
     private Long catId;
-    private BigDecimal minPrice;
-    private BigDecimal minOrigPrice;
     private Long saleCount;
 
 
@@ -176,21 +174,7 @@ public class CacGoods {
         this.catId = catId;
     }
 
-    public BigDecimal getMinPrice() {
-        return minPrice;
-    }
 
-    public void setMinPrice(BigDecimal minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    public BigDecimal getMinOrigPrice() {
-        return minOrigPrice;
-    }
-
-    public void setMinOrigPrice(BigDecimal minOrigPrice) {
-        this.minOrigPrice = minOrigPrice;
-    }
 
     public Long getSaleCount() {
         return saleCount;

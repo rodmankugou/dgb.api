@@ -2,10 +2,7 @@ package com.verificer.biz.biz.service.cache.gache.sort;
 
 import com.verificer.base.sup.itf.BaseSupService;
 import com.verificer.base.sup.itf.CfgCodes;
-import com.verificer.biz.biz.service.cache.gache.sort.impl.DistanceSort;
-import com.verificer.biz.biz.service.cache.gache.sort.impl.NonMemberPriceSort;
-import com.verificer.biz.biz.service.cache.gache.sort.impl.PriceSort;
-import com.verificer.biz.biz.service.cache.gache.sort.impl.SalesSort;
+import com.verificer.biz.biz.service.cache.gache.sort.impl.*;
 import com.verificer.biz.biz.service.cache.gache.sort.impl.mult.MulSort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +26,10 @@ public class SortBuilder {
 
     public SalesSort salesSort(){
         return  new SalesSort();
+    }
+
+    public MarketTimeSort marketTimeSort(){
+        return  new MarketTimeSort();
     }
 
     public DistanceSort distanceSort(){

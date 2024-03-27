@@ -55,6 +55,7 @@ public class BaseController {
     ILoginMonitor myLoginMonitor;
 
 
+
     @Autowired
     private BizService myBizService;
 
@@ -370,5 +371,12 @@ public class BaseController {
         reqVo.setUserId(UserIdentityUtils.getUserIdentity(req).getId());
     }
 
+    public boolean isMember(HttpServletRequest hReq){
+        UserIdentity userIdentity = UserIdentityUtils.getUserIdentity(hReq);
+        if(userIdentity == null || userIdentity.getId() == null)
+            return false;
+
+        return myBizService.userIsMember(userIdentity.getId());
+    }
 
 }

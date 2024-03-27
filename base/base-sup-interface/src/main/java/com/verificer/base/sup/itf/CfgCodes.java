@@ -20,5 +20,9 @@ public class CfgCodes {
     public static String G_SORT_DISTANCE_WEIGHT ="G_SORT_DISTANCE_WEIGHT";
     public static String G_SORT_SHOP_WEIGHT ="G_SORT_SHOP_WEIGHT";
 
+    public static String SHOP_SRV_DISTANCE ="SHOP_SRV_DISTANCE";
+    public static String STAGE_SRV_DISTANCE ="STAGE_SRV_DISTANCE";
+
+
 }
 
