@@ -547,4 +547,8 @@
     select * from shop where del_flag = 0;
   </select>
 
+  <select id="selectAllEff" resultMap="BaseResultMap">
+    select * from shop where del_flag = 0 and frozen_flag = 0;
+  </select>
+
 </mapper>

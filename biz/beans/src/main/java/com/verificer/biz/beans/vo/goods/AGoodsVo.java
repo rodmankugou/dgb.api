@@ -1,5 +1,6 @@
 package com.verificer.biz.beans.vo.goods;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.verificer.biz.beans.vo.SpecVo;
 import com.verificer.utils.decimal.CountDecimal;
 import io.swagger.annotations.ApiModel;
@@ -52,11 +53,11 @@ public class AGoodsVo implements Serializable {
     @ApiModelProperty("原价")
     private BigDecimal  oriPrice;
 
-    @ApiModelProperty("距离")
-    private String distance;
-
     @ApiModelProperty("规格列表")
     private List<ASpecVo> specList;
+
+
+
 
     public Long getId() {
         return id;
@@ -162,13 +163,6 @@ public class AGoodsVo implements Serializable {
         this.oriPrice = oriPrice;
     }
 
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
 
     public List<ASpecVo> getSpecList() {
         return specList;
@@ -177,4 +171,7 @@ public class AGoodsVo implements Serializable {
     public void setSpecList(List<ASpecVo> specList) {
         this.specList = specList;
     }
+
+
+
 }

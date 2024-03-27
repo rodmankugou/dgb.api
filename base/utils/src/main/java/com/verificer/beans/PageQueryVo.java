@@ -17,6 +17,14 @@ public class PageQueryVo implements Serializable{
     @ApiModelProperty(hidden = true)
     private Integer limit;
 
+    public PageQueryVo() {
+    }
+
+    public PageQueryVo(Integer page, Integer pageSize) {
+        this.page = page;
+        this.pageSize = pageSize;
+    }
+
     public Integer getPage() {
         return page;
     }

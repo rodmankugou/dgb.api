@@ -75,4 +75,6 @@ public interface StockMapper {
     int count(StockMerQryVo qryVo);
 
     List<MerStockVo> selectByRefIdAndGoodsId(@Param("relId") String relId,@Param("goodsId") Long goodsId);
+
+    List<Stock> selectAll();
 }

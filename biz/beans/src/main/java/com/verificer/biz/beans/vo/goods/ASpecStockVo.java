@@ -14,6 +14,9 @@ public class ASpecStockVo {
     @ApiModelProperty("库存")
     private BigDecimal stock;
 
+    @ApiModelProperty(hidden = true)
+    private Long distance;
+
     public Boolean getShopFlag() {
         return shopFlag;
     }
@@ -36,5 +39,13 @@ public class ASpecStockVo {
 
     public void setStock(BigDecimal stock) {
         this.stock = stock;
+    }
+
+    public Long getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Long distance) {
+        this.distance = distance;
     }
 }

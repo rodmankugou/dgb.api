@@ -5,6 +5,7 @@ import com.verificer.biz.beans.vo.req.CatDelVo;
 import com.verificer.biz.beans.vo.req.CatFormVo;
 import com.verificer.biz.beans.vo.req.CatListQryVo;
 import com.verificer.biz.beans.vo.req.CatPageQryVo;
+import com.verificer.biz.biz.entity.Category;
 
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface CatService {
      * @param delVo
      */
     void catDel(CatDelVo delVo);
+
+    List<Category> getAll();
 }

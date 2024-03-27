@@ -67,4 +67,6 @@ public interface CategoryMapper {
     Category selectByNameLimit1(@Param("name") String name);
 
     void del(@Param("id") Long id);
+
+    List<Category> selectAll();
 }

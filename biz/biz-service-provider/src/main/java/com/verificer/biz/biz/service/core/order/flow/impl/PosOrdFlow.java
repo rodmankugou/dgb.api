@@ -37,7 +37,6 @@ public class PosOrdFlow  extends BaseOrdFlow  {
         o.setPosMemberUid(ybo.getPosMemberId());
         o.setUserId(ybo.getUserId());
         o.setStatus(OrdSta.Finish.getValue());
-        o.setTakeFlag(true);
 
         for(OrderDetail od : ovo.getItems()){
             for(OrdItemFormVo ivo : ofo.getDetails()){

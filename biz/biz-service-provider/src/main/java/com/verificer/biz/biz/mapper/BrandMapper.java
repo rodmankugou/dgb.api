@@ -65,4 +65,6 @@ public interface BrandMapper {
     Brand selectByNameLimit1(@Param("name") String name);
 
     void del(@Param("id") Long id);
+
+    List<Brand> selectAll();
 }

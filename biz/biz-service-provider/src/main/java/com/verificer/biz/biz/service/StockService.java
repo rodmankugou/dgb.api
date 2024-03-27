@@ -7,6 +7,7 @@ import com.verificer.biz.beans.vo.stage.req.StageStockQryVo;
 import com.verificer.biz.beans.vo.stock.MerStockStaVo;
 import com.verificer.biz.beans.vo.stock.MerStockVo;
 import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
+import com.verificer.biz.biz.entity.Stock;
 
 import java.util.List;
 
@@ -75,4 +76,9 @@ public interface StockService {
      */
     int stageStockCount(StageStockQryVo qryVo);
 
+    /**
+     * 获取所有库存
+     * @return
+     */
+    List<Stock> getAllStock();
 }

@@ -71,4 +71,6 @@ public interface ShopMapper {
     Shop selectByPosAppIdLimit1(@Param("posAppId") String posAppId);
 
     List<Shop> selectAll();
+
+    List<Shop> selectAllEff();
 }

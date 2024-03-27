@@ -1,9 +1,11 @@
 package com.verificer.biz.beans.vo;
 
+import com.verificer.utils.decimal.PriceDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel
@@ -12,10 +14,10 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("id")
     private Long id;
 
-    @ApiModelProperty("状态 1-待支付 2-备货中 3-待发货 4-运输中 5-已收货（完成）6-已评价 7-已关闭 21-线下订单 22-线下自提 101-超时被取消 102-用户取消")
+    @ApiModelProperty("状态 1-待支付 2-备货中 3-待发货 4-运输中 5-已收货（完成）6-已评价 7-已关闭  22-待自提 101-超时被取消 102-用户取消")
     private Integer status;
 
-    @ApiModelProperty("订单类型，1-线下订单 2-自提订单 3-平台配送订单")
+    @ApiModelProperty("订单类型，1-线下订单 2-自提订单 3-平台配送订单 4-补货单 5-免单")
     private Integer orderType;
 
     @ApiModelProperty("售方类型，1-仓库 2-店铺")
@@ -27,11 +29,26 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("店铺/仓库名称")
     private String refName;
 
+    @ApiModelProperty("会员折扣金额")
+    @PriceDecimal
+    private BigDecimal memberDiscountAmount;
+
+    @ApiModelProperty("运费")
+    @PriceDecimal
+    private BigDecimal transitFee;
+
+    @ApiModelProperty("订单金额")
+    @PriceDecimal
+    private BigDecimal amount;
+
     @ApiModelProperty("支付方式  1-微信支付 2-线下pos支付 3-现金支付")
     private Integer payType;
 
     @ApiModelProperty("支付记录id")
     private Long payId;
+
+    @ApiModelProperty("是否会员的订单")
+    private Boolean memberFlag;
 
     @ApiModelProperty("用户ID")
     private String userId;
@@ -39,7 +56,7 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("用户名")
     private String userName;
 
-    @ApiModelProperty("快的类型 快递类型 1-同城急送 2-普通快递")
+    @ApiModelProperty("快的类型 快递类型 1-同城急送 2-普通快递 10-自提 ")
     private Integer transitType;
 
     @ApiModelProperty("收货人姓名")
@@ -49,12 +66,7 @@ public class DbgOrderVo implements Serializable {
     private String rcMobile;
 
     @ApiModelProperty("收获地址")
-    private String rcAddr;
-
-    @ApiModelProperty("收获地址详细地址")
-    private String rcAddrDetail;
-
-
+    private String rcFullAddr;
 
     @ApiModelProperty("活动ID")
     private Long activityId;
@@ -80,12 +92,14 @@ public class DbgOrderVo implements Serializable {
     @ApiModelProperty("物流单号")
     private String transitOrderNum;
 
-
     @ApiModelProperty("是否已提取。true-是；false-否")
     private Boolean takeFlag;
 
     @ApiModelProperty("提货时间")
     private Long takeTime;
+
+    @ApiModelProperty("")
+    private Long transitRcTime;
 
     @ApiModelProperty("订单明细")
     private List<OrderDetailVo> orderItems;
@@ -283,20 +297,52 @@ public class DbgOrderVo implements Serializable {
         this.rcMobile = rcMobile;
     }
 
-    public String getRcAddr() {
-        return rcAddr;
+    public BigDecimal getMemberDiscountAmount() {
+        return memberDiscountAmount;
     }
 
-    public void setRcAddr(String rcAddr) {
-        this.rcAddr = rcAddr;
+    public void setMemberDiscountAmount(BigDecimal memberDiscountAmount) {
+        this.memberDiscountAmount = memberDiscountAmount;
     }
 
-    public String getRcAddrDetail() {
-        return rcAddrDetail;
+    public BigDecimal getTransitFee() {
+        return transitFee;
     }
 
-    public void setRcAddrDetail(String rcAddrDetail) {
-        this.rcAddrDetail = rcAddrDetail;
+    public void setTransitFee(BigDecimal transitFee) {
+        this.transitFee = transitFee;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public String getRcFullAddr() {
+        return rcFullAddr;
+    }
+
+    public void setRcFullAddr(String rcFullAddr) {
+        this.rcFullAddr = rcFullAddr;
+    }
+
+    public Long getTransitRcTime() {
+        return transitRcTime;
+    }
+
+    public void setTransitRcTime(Long transitRcTime) {
+        this.transitRcTime = transitRcTime;
+    }
+
+    public Boolean getMemberFlag() {
+        return memberFlag;
+    }
+
+    public void setMemberFlag(Boolean memberFlag) {
+        this.memberFlag = memberFlag;
     }
 }
 

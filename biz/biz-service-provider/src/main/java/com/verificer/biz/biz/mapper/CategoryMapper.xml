@@ -176,6 +176,12 @@
     order by id desc
   </select>
 
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from category
+  </select>
+
   <select id="page"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

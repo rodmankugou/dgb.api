@@ -152,6 +152,7 @@ public class SpecServiceImpl implements SpecService {
         }
     }
 
+
     private void upd(Goods goods,SpecReqVo reqVo){
         SCheckUtil.notEmpty(reqVo.getId(),"Specification.ID");
 
@@ -173,5 +174,11 @@ public class SpecServiceImpl implements SpecService {
         mapper.updateByPrimaryKeySelective(e);
 
 
+    }
+
+
+    @Override
+    public List<Spec> getAll() {
+        return mapper.selectAll();
     }
 }

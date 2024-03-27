@@ -153,4 +153,9 @@ public class StageServiceImpl implements StageService {
         uniqueCheck(e);
         mapper.updateByPrimaryKeySelective(e);
     }
+
+    @Override
+    public List<Stage> getAllEffStage() {
+        return mapper.selectEffAll();
+    }
 }

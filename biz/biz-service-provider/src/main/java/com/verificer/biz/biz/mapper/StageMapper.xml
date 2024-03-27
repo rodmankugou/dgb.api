@@ -258,6 +258,12 @@
     order by id desc
   </select>
 
+  <select id="selectEffAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stage
+  </select>
+
   <select id="page"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

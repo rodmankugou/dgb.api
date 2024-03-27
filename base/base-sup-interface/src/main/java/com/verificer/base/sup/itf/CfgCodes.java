@@ -15,5 +15,10 @@ public class CfgCodes {
     public static String BAIDU_MAP_AK = "BAIDU_MAP_AK";
     public static String BAIDU_MAP_SK = "BAIDU_MAP_SK";
 
+    public static String G_SORT_PRICE_WEIGHT ="G_SORT_PRICE_WEIGHT";
+    public static String G_SORT_SALES_WEIGHT ="G_SORT_SALES_WEIGHT";
+    public static String G_SORT_DISTANCE_WEIGHT ="G_SORT_DISTANCE_WEIGHT";
+    public static String G_SORT_SHOP_WEIGHT ="G_SORT_SHOP_WEIGHT";
+
 }
 

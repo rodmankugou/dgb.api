@@ -65,4 +65,10 @@ public interface GoodsService {
 
 
     boolean isGoodsOnSale(Goods goods);
+
+    /**
+     * 获取在售商品
+     * @return
+     */
+    List<Goods> getAllEffGoods();
 }

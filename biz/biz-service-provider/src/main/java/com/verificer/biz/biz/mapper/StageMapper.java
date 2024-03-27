@@ -62,4 +62,6 @@ public interface StageMapper {
     Stage selectByNameLimit1(@Param("name") String name);
 
     List<Stage> list();
+
+    List<Stage> selectEffAll();
 }

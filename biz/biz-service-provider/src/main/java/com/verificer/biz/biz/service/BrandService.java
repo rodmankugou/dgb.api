@@ -6,6 +6,7 @@ import com.verificer.biz.beans.vo.req.BrandDelVo;
 import com.verificer.biz.beans.vo.req.BrandFormVo;
 import com.verificer.biz.beans.vo.req.BrandListQryVo;
 import com.verificer.biz.beans.vo.req.BrandPageQryVo;
+import com.verificer.biz.biz.entity.Brand;
 
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface BrandService {
      * @param delVo
      */
     void brandDel(BrandDelVo delVo);
+
+    List<Brand> getAll();
 }

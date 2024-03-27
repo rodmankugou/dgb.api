@@ -8,4 +8,6 @@ public class ThreadPools {
     public static final ScheduledExecutorService OrderChainExecutor = Executors.newScheduledThreadPool(10);
     public static final ScheduledExecutorService LoadMetaExecutor = Executors.newScheduledThreadPool(10);
 
+    public static final ScheduledExecutorService G_CACHE_EXECUTOR = Executors.newScheduledThreadPool(1);
+
 }

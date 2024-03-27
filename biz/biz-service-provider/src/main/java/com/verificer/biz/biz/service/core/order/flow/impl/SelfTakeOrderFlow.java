@@ -85,7 +85,6 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
 
             }else if(formVo instanceof SelfTakeTakeVo){
                 o.setStatus(OrdSta.Received.getValue());
-                o.setTakeFlag(true);
                 o.setTakeTime(System.currentTimeMillis());
                 ordCommon.writeLog( o, OrdOpType.Take.getValue(), OpEntry.App.getValue(),userCommon.getUid(o.getUserId()),null,System.currentTimeMillis());
                 notifier.triggerAll(ordCommon.genSucFinishEvent(o.getId()));
@@ -125,7 +124,6 @@ public class SelfTakeOrderFlow extends BaseOrdFlow {
                 break;
         }
         o.setTakeCode(takeCode);
-        o.setTakeFlag(false);
 
     }
 

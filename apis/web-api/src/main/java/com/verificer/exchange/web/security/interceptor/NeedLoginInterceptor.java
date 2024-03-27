@@ -2,10 +2,12 @@ package com.verificer.exchange.web.security.interceptor;
 
 
 import com.verificer.ErrCode;
+import com.verificer.UtilConstants;
 import com.verificer.beans.UserIdentity;
 import com.verificer.enums.ClientEnum;
 import com.verificer.exchange.web.security.annotation.AllowUnActivation;
 import com.verificer.exchange.web.security.annotation.NeedLogin;
+import com.verificer.exchange.web.security.annotation.ProcessToken;
 import com.verificer.security.login.ILoginMonitor;
 import com.verificer.security.login.LoginStat;
 import com.verificer.security.login.LogoutType;
@@ -39,7 +41,6 @@ public class NeedLoginInterceptor extends BaseInterceptor {
         this.redisUtil = redisUtil;
     }
 
-    private static final String SYSTEM_UPDATE_KEY = "system_is_update";
 
     /*
      * (non-Javadoc)
@@ -62,41 +63,57 @@ public class NeedLoginInterceptor extends BaseInterceptor {
         HandlerMethod mHandler = (HandlerMethod) handler;
 
         NeedLogin needLogin = mHandler.getMethodAnnotation(NeedLogin.class);
+        ProcessToken processToken = mHandler.getMethodAnnotation(ProcessToken.class);
+
 
         // 勿删，插入校验是否处于更新状态
-        if(redisUtil.exists(SYSTEM_UPDATE_KEY)){
+        if(redisUtil.exists(UtilConstants.SYSTEM_UPDATE_KEY)){
             System.out.println(request.getRemoteHost() + request.getRequestURI() + "系统维护中");
-            respAsJson(response,ErrCode.SYSTEM_UPDATING);
+            respAsJson(response,ErrCode.SYSTEM_UPDATING,(String)redisUtil.get(UtilConstants.SYSTEM_UPDATE_KEY));
             return false;
         }
 
         boolean loginRequired = null != needLogin;
 
-        if (loginRequired) {
+        if (loginRequired || (processToken != null)) {
             String requestToken = SecurityUtil.getToken();
-
-            if(SStringUtils.isAnyEmpty(requestToken)){
-                respAsJson(response,ErrCode.NEED_LOGIN);
+            String client = SecurityUtil.getClient();
+            if(SStringUtils.isAnyEmpty(client)){
+                respAsJson(response,ErrCode.HTTP_HEAD_ERROR);
                 return false;
+            }
+            if(SStringUtils.isAnyEmpty(requestToken)){
+                if(loginRequired){
+                    respAsJson(response,ErrCode.NEED_LOGIN);
+                    return false;
+                }else {
+                    return true;
+                }
+
             }
 
 
-            LoginStat<UserIdentity> loginStat = loginMonitor.isLogin(ClientEnum.WEB.getName(),requestToken,new UserIdentity());
+            LoginStat<UserIdentity> loginStat = loginMonitor.isLogin(client,requestToken,new UserIdentity());
             if(loginStat.isLogin()){
-
                 request.setAttribute(SecurityConf.USER_IDENTITY_KEY, loginStat.getUserInfo());
                 return true;
             }else {
                 if(!loginStat.isLogin()){
-                    if(LogoutType.OTHER_LOGIN == loginStat.getLogoutType()){
-                        respAsJson(response,ErrCode.OTHER_LOGIN);
-                        return false;
-                    }else if(LogoutType.ACCOUNT_FROZEN == loginStat.getLogoutType()) {
-                        respAsJson(response, ErrCode.FORCE_LOGOUT_AFTER_FROZEN);
-                        return false;
+                    if(LogoutType.OTHER_LOGIN.equals(loginStat.getLogoutType())){
+                        if(loginRequired){
+                            respAsJson(response,ErrCode.OTHER_LOGIN);
+                            return false;
+                        }else {
+                            return true;
+                        }
+
                     }else {
-                        respAsJson(response,ErrCode.NEED_LOGIN);
-                        return false;
+                        if(loginRequired){
+                            respAsJson(response,ErrCode.NEED_LOGIN);
+                            return false;
+                        }else {
+                            return true;
+                        }
                     }
                 }
             }

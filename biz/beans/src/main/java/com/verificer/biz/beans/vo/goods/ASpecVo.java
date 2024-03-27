@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @ApiModel
-public class ASpecVo {
+public class    ASpecVo {
     @ApiModelProperty("ID")
     private Long id;
 
@@ -30,12 +30,7 @@ public class ASpecVo {
     @ApiModelProperty("库存量，目前会返回两个库存量，一个是平台仓库的库存量（云上商城），一个是最近店铺的库存量（门店）。如果商品没有在任何门店上架，则只会返回平台的库存量")
     private List<ASpecStockVo> stocks;
 
-    @ApiModelProperty(hidden = true)
-    @CountDecimal
-    private BigDecimal plaStageCount;
-    @ApiModelProperty(hidden = true)
-    @CountDecimal
-    private BigDecimal shopStageCount;
+
 
 
     public Long getId() {
@@ -86,21 +81,7 @@ public class ASpecVo {
         this.stocks = stocks;
     }
 
-    public BigDecimal getPlaStageCount() {
-        return plaStageCount;
-    }
 
-    public void setPlaStageCount(BigDecimal plaStageCount) {
-        this.plaStageCount = plaStageCount;
-    }
-
-    public BigDecimal getShopStageCount() {
-        return shopStageCount;
-    }
-
-    public void setShopStageCount(BigDecimal shopStageCount) {
-        this.shopStageCount = shopStageCount;
-    }
 
 
 }

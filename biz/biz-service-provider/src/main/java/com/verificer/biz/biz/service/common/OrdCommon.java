@@ -115,12 +115,10 @@ public class OrdCommon {
     }
 
     public void fillOrdAddr(DbgOrder o,Addr addr){
-        o.setRcAddr(addr.getAdr());
-        o.setRcAddrDetail(addr.getAdrDetail());
+        o.setRcFullAddr(addr.getAdr());
+        o.setRcAddrId(addr.getId());
         o.setRcName(addr.getRcName());
         o.setRcMobile(addr.getMobile());
-        o.setRcLongitude(addr.getLongitude());
-        o.setRcLatitude(addr.getLatitude());
         o.setStatus(OrdSta.WaitTransit.getValue());
 
     }
@@ -128,14 +126,11 @@ public class OrdCommon {
     public void sendTransit(DbgOrder o, TransitVo transitVo) {
         o.setTransitTime(System.currentTimeMillis());
         o.setTransitType(transitVo.getType());
-        o.setTransitWayCode(transitVo.getWayCode());
         o.setTransitOrderNum(transitVo.getOrderNum());
 
         //这里是我们内部的ID，后续可能要与物流端做对账
         o.setTransitOrderId(null);
         o.setStatus(OrdSta.InTransit.getValue());
-        o.setTransitStaffId(transitVo.getStaffId());
-        o.setTransitStaffName(transitVo.getStaffName());
         writeLog( o, OrdOpType.Transit.getValue(), OpEntry.Bo.getValue(),transitVo.getStaffId().toString(),transitVo.getStaffName(),System.currentTimeMillis());
 
     }

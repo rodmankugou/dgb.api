@@ -175,6 +175,12 @@
     order by priority asc
   </select>
 
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from brand
+  </select>
+
   <select id="page"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

@@ -26,6 +26,8 @@ public class GlobalConfig {
 
     public static final int PERCENT_PREC= Integer.parseInt(JavaPropertiesUtil.getValue("global.properties", "percent_precision"));
 
+    public static final long G_CACHE_REFRESH_PERIOD_MS= Long.parseLong(JavaPropertiesUtil.getValue("global.properties", "g_cache_refresh_period_ms"));
+
     public static String AES_SEED = null;
 
 

@@ -130,4 +130,9 @@ public class CatServiceImpl implements CatService {
         old.setDelTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(old);
     }
+
+    @Override
+    public List<Category> getAll() {
+        return mapper.selectAll();
+    }
 }

@@ -198,4 +198,12 @@
     from goods_sta
     where spec_id = #{specId}
   </select>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from goods_sta
+    where sum_sta_flag = #{sumStaFlag}
+  </select>
 </mapper>

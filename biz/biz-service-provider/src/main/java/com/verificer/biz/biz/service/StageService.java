@@ -41,4 +41,10 @@ public interface StageService {
      * @param formVo
      */
     void stageUpd(StageFormVo formVo);
+
+    /**
+     * 获取所有运营中的仓库
+     * @return
+     */
+    List<Stage> getAllEffStage();
 }

@@ -124,4 +124,9 @@ public class BrandServiceImpl implements BrandService {
         old.setDelTime(System.currentTimeMillis());
         mapper.updateByPrimaryKeySelective(old);
     }
+
+    @Override
+    public List<Brand> getAll() {
+        return mapper.selectAll();
+    }
 }

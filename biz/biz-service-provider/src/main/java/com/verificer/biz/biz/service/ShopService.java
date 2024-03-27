@@ -67,4 +67,9 @@ public interface ShopService {
      */
     List<Shop> shopList();
 
+    /**
+     * 获取所有未结业的店铺
+     * @return
+     */
+    List<Shop> getAllEffShop();
 }

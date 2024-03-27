@@ -2,6 +2,8 @@ package com.verificer.biz.biz.service;
 
 import com.verificer.biz.biz.entity.GoodsSta;
 
+import java.util.List;
+
 public interface GoodsStaService {
 
     void add(Long goodsId);
@@ -10,4 +12,6 @@ public interface GoodsStaService {
 
 
     GoodsSta getBySpecId(Long specId);
+
+    List<GoodsSta> getAll(Boolean sumStaFlag);
 }

@@ -183,4 +183,10 @@ public class GoodsStaServiceImpl implements GoodsStaService {
     public GoodsSta getBySpecId(Long specId) {
         return goodsStaMapper.selectBySpecId(specId);
     }
+
+    @Override
+    public List<GoodsSta> getAll(Boolean sumStaFlag) {
+
+        return goodsStaMapper.selectAll(sumStaFlag);
+    }
 }

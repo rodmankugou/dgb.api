@@ -14,6 +14,7 @@ import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.exchange.web.controller.shop.ShopTool;
 import com.verificer.utils.FastJson;
+import com.verificer.utils.RandomUtils;
 import com.verificer.utils.decimal.SBigDecimalUtils;
 import com.verificer.utils.reflect.SBeanUtils;
 import com.verificer.utils.SStringUtils;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -197,18 +199,17 @@ public class AppGoodsController extends BaseController {
         goods.setStageCount(1005);
         goods.setBrandName("彭亨州1");
         goods.setImg0(goods.getImgList().split("@")[0]);
-        goods.setDistance("1.3公里");
         goods.setPrice(goods.getSpecList().get(0).getPrice());
         goods.setOriPrice(goods.getSpecList().get(0).getOriPrice());
         List<ASpecVo> specVos = goods.getSpecList();
         for(ASpecVo spec : specVos){
             ASpecStockVo plaStock = new ASpecStockVo();
-            plaStock.setStock(spec.getPlaStageCount());
+            plaStock.setStock(new BigDecimal(RandomUtils.getInt(1,100)));
             plaStock.setShopFlag(false);
 
             AShopBaseVo shop = ShopTool.getShop();
             ASpecStockVo shopStock = new ASpecStockVo();
-            shopStock.setStock(spec.getShopStageCount());
+            shopStock.setStock(new BigDecimal(RandomUtils.getInt(1,100)));
             shopStock.setShopFlag(true);
             shopStock.setShopId(shop.getId());
             List<ASpecStockVo> stockVos = new LinkedList<>();

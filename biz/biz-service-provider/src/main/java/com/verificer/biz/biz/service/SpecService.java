@@ -24,4 +24,6 @@ public interface SpecService {
     List<Spec> getGoodsSpecList(Long id);
 
     void upd(Goods goods, List<SpecReqVo> list);
+
+    List<Spec> getAll();
 }

@@ -299,4 +299,9 @@ public class ShopServiceImpl implements ShopService {
     public List<Shop> shopList() {
         return mapper.selectAll();
     }
+
+    @Override
+    public List<Shop> getAllEffShop() {
+        return mapper.selectAllEff();
+    }
 }

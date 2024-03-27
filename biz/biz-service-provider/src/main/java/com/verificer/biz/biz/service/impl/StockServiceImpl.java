@@ -11,6 +11,7 @@ import com.verificer.biz.beans.vo.stock.StaMaxMinVo;
 import com.verificer.biz.beans.vo.stock.req.StockMerQryVo;
 import com.verificer.biz.biz.entity.Shop;
 import com.verificer.biz.biz.entity.Stage;
+import com.verificer.biz.biz.entity.Stock;
 import com.verificer.biz.biz.mapper.BizStockMapper;
 import com.verificer.biz.biz.mapper.StockMapper;
 import com.verificer.biz.biz.service.StockService;
@@ -195,5 +196,10 @@ public class StockServiceImpl implements StockService {
     @Override
     public int stageStockCount(StageStockQryVo qryVo) {
         return bizStockMapper.stageCount(qryVo);
+    }
+
+    @Override
+    public List<Stock> getAllStock() {
+        return mapper.selectAll();
     }
 }

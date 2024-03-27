@@ -59,4 +59,6 @@ public interface SpecMapper {
     List<Spec> selectByGoodsId(@Param("goodsId") Long goodsId);
 
     List<SpecVo> selectVoByGoodsId(@Param("goodsId") Long goodsId);
+
+    List<Spec> selectAll();
 }
