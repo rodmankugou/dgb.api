@@ -27,6 +27,16 @@ public class CartVo implements Serializable {
     @CountDecimal
     private BigDecimal stock;
 
+    @ApiModelProperty("价格")
+    private BigDecimal price;
+
+    @ApiModelProperty("原价")
+    private BigDecimal origPrice;
+
+    @ApiModelProperty("当前用户是否会员")
+    private Boolean userMemberFlag;
+
+
     public Long getId() {
         return id;
     }
@@ -89,5 +99,29 @@ public class CartVo implements Serializable {
 
     public void setStock(BigDecimal stock) {
         this.stock = stock;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getOrigPrice() {
+        return origPrice;
+    }
+
+    public void setOrigPrice(BigDecimal origPrice) {
+        this.origPrice = origPrice;
+    }
+
+    public Boolean getUserMemberFlag() {
+        return userMemberFlag;
+    }
+
+    public void setUserMemberFlag(Boolean userMemberFlag) {
+        this.userMemberFlag = userMemberFlag;
     }
 }

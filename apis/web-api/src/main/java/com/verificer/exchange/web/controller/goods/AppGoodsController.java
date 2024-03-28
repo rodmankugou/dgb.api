@@ -13,6 +13,7 @@ import com.verificer.biz.biz.service.BizService;
 import com.verificer.common.exception.BaseException;
 import com.verificer.exchange.web.controller.BaseController;
 import com.verificer.exchange.web.controller.shop.ShopTool;
+import com.verificer.exchange.web.security.annotation.ProcessToken;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.RandomUtils;
 import com.verificer.utils.decimal.SBigDecimalUtils;
@@ -54,9 +55,10 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/index/page", method = RequestMethod.POST)
     public Object plaList(HttpServletRequest hReq, @RequestBody AIndexGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        List<AGoodsVo> goodsVos = loadGoods(isMember(hReq));
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -68,9 +70,10 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/pla/cat/goods", method = RequestMethod.POST)
     public Object plaCatGoods(HttpServletRequest hReq, @RequestBody APlaGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        List<AGoodsVo> goodsVos = loadGoods(isMember(hReq));
         Object obj = SBigDecimalUtils.prcFormat2(goodsVos);
         return Response.dataSuccess(obj);
     }
@@ -83,9 +86,10 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/shop/cat/goods", method = RequestMethod.POST)
     public Object shopCatGoods(HttpServletRequest hReq, @RequestBody AShopGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        List<AGoodsVo> goodsVos = loadGoods(isMember(hReq));
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -97,9 +101,10 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/pla/rank/goods", method = RequestMethod.POST)
     public Object rankGoods(HttpServletRequest hReq, @RequestBody ARankGoodsQryVo qryVo) {
-        List<AGoodsVo> goodsVos = loadGoods();
+        List<AGoodsVo> goodsVos = loadGoods(isMember(hReq));
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(goodsVos));
     }
 
@@ -111,10 +116,11 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Object search(HttpServletRequest hReq, @RequestBody AGoodsSearchVo qryVo) {
         SCheckUtil.notEmpty(qryVo.getType(),"Type");
-        List<AGoodsVo> goodsVos = loadGoods();
+        List<AGoodsVo> goodsVos = loadGoods(isMember(hReq));
         List<AGoodsVo> voList = new LinkedList<>();
         for(AGoodsVo vo : goodsVos){
             if(SStringUtils.isEmpty(qryVo.getsKey()))
@@ -142,10 +148,11 @@ public class AppGoodsController extends BaseController {
     @ApiImplicitParams({
     })
     @ResponseBody
+    @ProcessToken
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
     public Object detail(HttpServletRequest hReq, @RequestBody AGoodsDtlReqVo idVo) {
         SCheckUtil.notEmpty(idVo.getId(),"id");
-        AGoodsDtlVo vo = loadGoods(idVo.getId());
+        AGoodsDtlVo vo = loadGoods(idVo.getId(),isMember(hReq));
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(vo));
     }
 
@@ -155,13 +162,13 @@ public class AppGoodsController extends BaseController {
 
 
 
-    public List<AGoodsVo> loadGoods()  {
+    public List<AGoodsVo> loadGoods(boolean umFlag)  {
         try {
             InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("goods.json");
             String json = IOUtils.toString(io,"utf-8");
             List<AGoodsDtlVo> list =  FastJson.parseArray(json,AGoodsDtlVo.class);
             for (AGoodsDtlVo goods : list)
-                fillGoods(goods);
+                fillGoods(goods,umFlag);
 
             List<AGoodsVo> voList = new LinkedList<>();
             for(AGoodsDtlVo vo : list){
@@ -175,7 +182,7 @@ public class AppGoodsController extends BaseController {
         }
     }
 
-    public AGoodsDtlVo loadGoods(Long id)  {
+    public AGoodsDtlVo loadGoods(Long id,boolean umFlag)  {
         try {
             SCheckUtil.notEmpty(id,"id");
             InputStream io = Thread.currentThread().getContextClassLoader().getResourceAsStream("goods.json");
@@ -183,7 +190,7 @@ public class AppGoodsController extends BaseController {
             List<AGoodsDtlVo> list =  FastJson.parseArray(json,AGoodsDtlVo.class);
             for(AGoodsDtlVo goods : list){
                 if(goods.getId().equals(id)){
-                    fillGoods(goods);
+                    fillGoods(goods,umFlag);
                     return goods;
 
                 }
@@ -194,7 +201,7 @@ public class AppGoodsController extends BaseController {
         }
     }
 
-    private void fillGoods(AGoodsDtlVo goods){
+    private void fillGoods(AGoodsDtlVo goods,Boolean umFlag){
         goods.setSubTitle("马来进口，口感一绝");
         goods.setStageCount(1005);
         goods.setBrandName("彭亨州1");
@@ -217,6 +224,7 @@ public class AppGoodsController extends BaseController {
             stockVos.add(shopStock);
             spec.setStocks(stockVos);
         }
+        goods.setUserMemberFlag(umFlag);
 
         goods.setNearestShop(ShopTool.getShop());
     }

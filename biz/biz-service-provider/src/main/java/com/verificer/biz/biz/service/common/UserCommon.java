@@ -6,6 +6,8 @@ import com.verificer.account.itf.IntegralTools;
 import com.verificer.beans.account.AccountVo;
 import com.verificer.biz.biz.entity.User;
 import com.verificer.biz.biz.mapper.UserMapper;
+import com.verificer.biz.biz.service.core.user.UserCoreService;
+import com.verificer.biz.biz.service.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class UserCommon {
 
     @Autowired
     BaseAccountService baseAccountService;
+
+    @Autowired
+    UserCoreService userCoreService;
 
     public String getNickName(Long userId){
         User user = userMapper.selectByPrimaryKey(userId);
@@ -73,5 +78,9 @@ public class UserCommon {
 
     public void lockByUser(Long userId) {
         userMapper.getAndLock(userId);
+    }
+
+    public boolean isMemberUser(Long userId) {
+        return userCoreService.userIsMember(userId);
     }
 }

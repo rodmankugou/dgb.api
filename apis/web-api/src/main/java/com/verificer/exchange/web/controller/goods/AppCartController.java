@@ -50,6 +50,7 @@ public class AppCartController extends BaseController {
         CartQryVo reqVo = new CartQryVo();
         reqVo.setUserId(UserIdentityUtils.getUserIdentity(hReq).getId());
         List<CartVo> list = bizService.cartPlaList(reqVo);
+
         return Response.dataSuccess(SBigDecimalUtils.prcFormat2(list));
     }
 

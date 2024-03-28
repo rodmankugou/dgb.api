@@ -7,6 +7,7 @@ import com.verificer.biz.beans.vo.cart.req.CartAddVo;
 import com.verificer.biz.beans.vo.cart.req.CartJoinVo;
 import com.verificer.biz.beans.vo.cart.req.CartQryVo;
 import com.verificer.biz.biz.entity.Cart;
+import com.verificer.biz.biz.entity.Spec;
 import com.verificer.biz.biz.mapper.CartMapper;
 import com.verificer.biz.biz.service.CartService;
 import com.verificer.biz.biz.service.common.GoodsCommon;
@@ -44,14 +45,18 @@ public class CartServiceImpl implements CartService {
     @Autowired
     UserCommon userCommon;
 
-    private CartVo toVo(Cart e){
+    private CartVo toVo(Cart e,boolean umFlag){
         if(e == null)
             return  null;
         CartVo vo = new CartVo();
         SBeanUtils.copyProperties2(e,vo);
         vo.setGoodsName(goodsCommon.getGoodsName(vo.getGoodsId()));
-        vo.setSpecName(goodsCommon.getSpecName(vo.getSpecId()));
-        vo.setImg(goodsCommon.getSpecImg(vo.getSpecId()));
+        Spec spec = goodsCommon.getSpecIgnoreDel(vo.getSpecId());
+        vo.setImg(spec.getImg());
+        vo.setSpecName(spec.getName());
+        vo.setPrice(spec.getPrice());
+        vo.setOrigPrice(spec.getOriPrice());
+        vo.setUserMemberFlag(umFlag);
         if(e.getShopFlag())
             vo.setStock(stockCommon.getShopStockCount(e.getShopId(),e.getSpecId()));
         else
@@ -59,11 +64,11 @@ public class CartServiceImpl implements CartService {
         return vo;
     }
 
-    private List<CartVo> toVoList(List<Cart> list){
+    private List<CartVo> toVoList(List<Cart> list,boolean umFlag){
 
         List<CartVo> voList = new LinkedList<>();
         for(Cart e : list){
-            voList.add(toVo(e));
+            voList.add(toVo(e,umFlag));
         }
         return voList;
     }
@@ -72,7 +77,7 @@ public class CartServiceImpl implements CartService {
     public List<CartVo> cartPlaList(CartQryVo reqVo) {
         reqVo.setShopFlag(false);
         List<Cart> list = mapper.list(reqVo);
-        return toVoList(list);
+        return toVoList(list,userCommon.isMemberUser(reqVo.getUserId()));
     }
 
     @Override
@@ -80,12 +85,12 @@ public class CartServiceImpl implements CartService {
         reqVo.setShopFlag(true);
         List<Cart> list = mapper.list(reqVo);
 
-        return buildTree(list);
+        return buildTree(list,userCommon.isMemberUser(reqVo.getUserId()));
     }
 
 
 
-    private List<ShopCartVo> buildTree(List<Cart> list){
+    private List<ShopCartVo> buildTree(List<Cart> list,boolean umFlag){
         Map<String,ShopCartVo> map = new LinkedHashMap<>();
 
         for(Cart cart : list){
@@ -97,7 +102,7 @@ public class CartServiceImpl implements CartService {
 
                 map.put(cart.getShopId(),shop);
             }
-            CartVo cartVo = toVo(cart);
+            CartVo cartVo = toVo(cart,umFlag);
             map.get(cart.getShopId()).getItems().add(cartVo);
         }
 

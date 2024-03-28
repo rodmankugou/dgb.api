@@ -1,17 +1,15 @@
 package com.verificer.tools.db;
 
+import com.verificer.tools.db.entity.IPrivateKey;
 import com.verificer.utils.C3p0Tools;
 import com.verificer.utils.DbUtil;
 import com.verificer.utils.FastJson;
 import com.verificer.utils.SStringUtils;
-import org.springframework.context.annotation.Bean;
 
-import javax.swing.text.html.parser.Entity;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 public class DbTools {
 
@@ -72,6 +70,39 @@ public class DbTools {
 
         sql = sql.replaceAll("@columns",SStringUtils.merge(columns,","));
         sql = sql.replaceAll("@values",SStringUtils.merge(values,","));
+
+        System.out.println(sql);
+        executeUpdate(dbName,sql);
+    }
+
+    public static void updateSelectiveByPrivateKey(String dbName,String table,IPrivateKey bean) throws SQLException {
+        if(bean == null)
+            throw new RuntimeException("bean can not be null");
+
+        if(SStringUtils.isEmpty(bean.loadPrivateKey()))
+            throw new RuntimeException("Private key can not be null");
+        String json = FastJson.toJson(bean);
+        Map<String,Object> map = FastJson.parseMap(json,String.class,Object.class);
+
+        String sql = "update  " + table +   " set @filedSets where "+bean.loadPkFieldName()+" = " + bean.loadPrivateKey();
+        List<String> filedSets  = new LinkedList<>();
+
+        if(map.size() == 0)
+            return;
+        for(String key : map.keySet()){
+            if(map.get(key) == null)
+                continue;
+            Object value = map.get(key);
+            if(value instanceof Boolean){
+
+                Boolean bVal = (Boolean) value;
+                value = bVal ? 1:0;
+            }
+            filedSets.add("`"+SStringUtils.camelToUnderLine(key)+"` = '"+value.toString()+"'");
+
+        }
+
+        sql = sql.replaceAll("@filedSets",SStringUtils.merge(filedSets,","));
 
         System.out.println(sql);
         executeUpdate(dbName,sql);
