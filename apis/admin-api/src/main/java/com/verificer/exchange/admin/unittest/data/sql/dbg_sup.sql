@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : utf-8
 
- Date: 03/23/2024 21:10:12 PM
+ Date: 03/28/2024 12:24:20 PM
 */
 
 SET NAMES utf8;
@@ -86,7 +86,7 @@ CREATE TABLE `cfg` (
 --  Records of `cfg`
 -- ----------------------------
 BEGIN;
-INSERT INTO `cfg` VALUES ('AFTER_SALE_EXPIRE_DAYS', '7'), ('BAIDU_MAP_AK', 'PBxE0YMGel5p191KTdogE3xt0wzxK0xW'), ('BAIDU_MAP_SK', '2c2SlHhdYPSmx5PVZ5Z3Stu2ZyNVAPIc'), ('DEFAULT_USER_AVATAR', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png'), ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('INTEGRAL_PER_ORD_AMOUNT', '1'), ('SETTLE_S_MONTH', '1'), ('SETTLE_S_YEAR', '2022'), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS'), ('YB_BASE_RUL', 'https://area53-win.pospal.cn:443/');
+INSERT INTO `cfg` VALUES ('AFTER_SALE_EXPIRE_DAYS', '7'), ('BAIDU_MAP_AK', 'PBxE0YMGel5p191KTdogE3xt0wzxK0xW'), ('BAIDU_MAP_SK', '2c2SlHhdYPSmx5PVZ5Z3Stu2ZyNVAPIc'), ('DEFAULT_USER_AVATAR', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/avatar.png'), ('G_SORT_DISTANCE_WEIGHT', '1'), ('G_SORT_PRICE_WEIGHT', '1'), ('G_SORT_SALES_WEIGHT', '1'), ('G_SORT_SHOP_WEIGHT', '1'), ('HW_OBS_ACCESS_KEY', '9R1SGUTMVFNUZIGZWPUV'), ('HW_OBS_BUCKET_NAME', 'dbg'), ('HW_OBS_CROSS_DOMAIN', 'https://dbg.obs.cn-south-1.myhuaweicloud.com/'), ('HW_OBS_END_POINT', 'https://obs.cn-south-1.myhuaweicloud.com'), ('HW_OBS_SECRET_KEY', '6e+ALb6OuCmqxHG15ddis5ElZVfnzQigUlZx15OCLTp80e9qepd83f2WzxWosXyNHpYUGYuftCNKJxeINt8dRw=='), ('INTEGRAL_PER_ORD_AMOUNT', '1'), ('SETTLE_S_MONTH', '1'), ('SETTLE_S_YEAR', '2022'), ('SHOP_SRV_DISTANCE', '10000000'), ('STAGE_SRV_DISTANCE', '100000000'), ('YB_APP_ID', 'FE39EEFF17DE79E337AD71D0511385D4'), ('YB_APP_SECRET', 'mnGizdpxMFmjE3bOxVVqfriLCaM4HVo6McFk5puRqrkh+Ppw8nlqU7KplXgKAAwS'), ('YB_BASE_RUL', 'https://area53-win.pospal.cn:443/');
 COMMIT;
 
 -- ----------------------------
